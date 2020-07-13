@@ -9,9 +9,9 @@
                 <div class="col-lg-12 col-md-12">
                     <h1>Liên hệ</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#">Page</a></li>
-                        <li class="active">Contact</li>
+                        <li><a href="#"><i class="fas fa-home"></i></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="active">Liên hệ</li>
                     </ul>
                 </div>
             </div>
@@ -32,8 +32,8 @@
                                 <i class="flaticon-call"></i>
                             </div>
                             <div class="info">
-                                <h4>Call Us</h4>
-                                <span>+324 119 2343</span>
+                                <h4>Điện thoại</h4>
+                                <span><a href="tel:+0123456789">0123456789</a></span>
                             </div>
                         </div>
                     </div>
@@ -43,8 +43,8 @@
                                 <i class="flaticon-location"></i>
                             </div>
                             <div class="info">
-                                <h4>Address</h4>
-                                <span>California, TX 70240</span>
+                                <h4>Địa chỉ</h4>
+                                <span><a href="https://goo.gl/maps/UtQpyQHm3Y7eNSHC8" target="_blank">Trường Cao Đẳng Kỹ Thuật Cao Thắng</a></span>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                 <i class="flaticon-email"></i>
                             </div>
                             <div class="info">
-                                <h4>Email Us</h4>
+                                <h4>Email</h4>
                                 <span>info@yourdomain.com</span>
                             </div>
                         </div>
@@ -67,20 +67,20 @@
                 <!-- Start Maps & Contact Form -->
                 <div class="maps-form">
                     <div class="col-md-6 maps">
-                        <h4>Our Location</h4>
+                        <h4>Định vị bản đồ</h4>
                         <div class="google-maps">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14767.262289338461!2d70.79414485000001!3d22.284975!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1424308883981"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.517758056715!2d106.69916291462093!3d10.771600262228636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40a3b49e59%3A0xa1bd14e483a602db!2sCao%20Thang%20Technical%20College!5e0!3m2!1sen!2s!4v1594263614326!5m2!1sen!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     </div>
                     <div class="col-md-6 form">
                         <div class="heading">
-                            <h4>Contact Us</h4>
+                            <h4>Liên hệ chúng tôi</h4>
                         </div>
                         <form action="assets/mail/contact.php" method="POST" class="contact-form">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" id="name" name="name" placeholder="Name" type="text">
+                                        <input class="form-control" id="name" name="name" placeholder="Tên" type="text">
                                         <span class="alert-error"></span>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" id="phone" name="phone" placeholder="Phone" type="text">
+                                        <input class="form-control" id="phone" name="phone" placeholder="Số điện thoại" type="text">
                                         <span class="alert-error"></span>
                                     </div>
                                 </div>
@@ -104,14 +104,14 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group comments">
-                                        <textarea class="form-control" id="comments" name="comments" placeholder="Tell Me About Courses *"></textarea>
+                                        <textarea class="form-control" id="comments" name="comments" placeholder="Nội dung *"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <button type="submit" name="submit" id="submit">
-                                        Send Message <i class="fa fa-paper-plane"></i>
+                                        Gửi liên hệ <i class="fa fa-paper-plane"></i>
                                     </button>
                                 </div>
                             </div>
@@ -128,39 +128,4 @@
         </div>
     </div>
     <!-- End Contact Info -->
-
-    <!-- Start Newsletter
-    ============================================= -->
-    <div class="newsletter-area fixed">
-        <div class="container">
-            <div class="subscribe-items shadow theme-hard default-padding bg-cover" style="background-image: url(assets/img/banner/11.jpg);">
-                <div class="row">
-                    <div class="col-md-7 left-info">
-                        <div class="info-box">
-                            <div class="icon">
-                                <i class="flaticon-email"></i>
-                            </div>
-                            <div class="info">
-                                <h3>Subscribe to our newsletter</h3>
-                                <p>
-                                    Prospect humoured mistress to by proposal marianne attended. Simplicity the far admiration preference everything.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <form action="#">
-                            <div class="input-group">
-                                <input type="email" placeholder="Enter your e-mail here" class="form-control" name="email">
-                                <button type="submit">
-                                    Subscribe <i class="fa fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Newsletter -->
 @endsection

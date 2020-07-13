@@ -31,7 +31,7 @@ Route::get('/thong-tin-giang-vien', function () {
     return view('thong-tin-giang-vien');
 });
 
-Route::get('/login-2', function () {
+Route::get('dang-nhap', function () {
     return view('login-2');
 });
 
@@ -97,6 +97,26 @@ Route::get('/tao-mo-ta-khoa-hoc', function () {
 
 Route::get('/tao-chuong-cho-khoa-hoc', function () {
     return view('tao-chuong-cho-khoa-hoc');
+});
+
+Route::get('/tao-bai-trac-nghiem', function () {
+    return view('tao-bai-trac-nghiem');
+});
+
+Route::get('/sua-mo-ta-khoa-hoc', function () {
+    return view('sua-mo-ta-khoa-hoc');
+});
+
+Route::get('/sua-chuong-khoa-hoc', function () {
+    return view('sua-chuong-khoa-hoc');
+});
+
+Route::get('/sua-bai-giang-khoa-hoc', function () {
+    return view('sua-bai-giang-khoa-hoc');
+});
+
+Route::get('gioi-thieu', function () {
+    return view('gioi-thieu');
 });
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');

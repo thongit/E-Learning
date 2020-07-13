@@ -58,13 +58,13 @@
                         <div class="info">
                             <ul>
                                 <li>
-                                    <i class="fas fa-copy"></i> Total courses: <strong>23400</strong>
+                                    <i class="fas fa-copy"></i> Tổng khóa học: <strong>23400</strong>
                                 </li>
                                 <li>
-                                    <i class="fas fa-user-shield"></i> Instructor: <strong>655</strong>
+                                    <i class="fas fa-user-shield"></i> Giáo viên <strong>655</strong>
                                 </li>
                                 <li>
-                                    <i class="fas fa-phone"></i> Help Line: <strong>+123 456 7890</strong>
+                                    <i class="fas fa-phone"></i> Liên hệ <a >0123456789</a>
                                 </li>
                             </ul>
                         </div>
@@ -72,10 +72,10 @@
                      <div class="col-md-4 link text-right">
                         <ul>
                             <li>
-                                @include('login')
+                                <a href="dang-nhap">Đăng nhập</a>
                             </li>
                             <li>
-                                <a id="myBtn" href="#">Login</a>
+                                <a id="myBtn" href="dang-ky">Đăng ký</a>
                             </li>
                         </ul>
                     </div>
@@ -97,75 +97,16 @@
                         <!-- Single item -->
                         <div class="col-md-4 col-sm-6 item equal-height">
                             <div class="f-item about">
-                                <h4>About</h4>
+                                <h4>Giới thiệu</h4>
                                 <p>
-                                    Excellence decisively nay man yet impression for contrasted remarkably. There spoke happy for you are out. Fertile how old address.
+                                    Xin chào
                                 </p>
                                 <ul>
                                     <li>
-                                        <p>Email <span><a href="mailto:info@example.com">info@example.com</a></span></p>
+                                        <p>Email <span><a href="mailto:info@example.com">teamqttt@example.com</a></span></p>
                                     </li>
                                     <li>
-                                        <p>Office <span>144, Jalkheri Street, Seattle, WA 98104-2648.</span></p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Single item -->
-
-                        <!-- Single item -->
-                        <div class="col-md-2 col-sm-6 item equal-height">
-                            <div class="f-item link">
-                                <h4>Categories</h4>
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> All Courses</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Event</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Digital Marketing</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Design & Branding</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Storytelling</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Education</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Geography</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Single item -->
-
-                        <!-- Single item -->
-                        <div class="col-md-2 col-sm-6 item equal-height">
-                            <div class="f-item link">
-                                <h4>Support</h4>
-                                <ul>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Documentation</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Forums</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Language Packs</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Release Status</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> LearnPress</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ti-angle-right"></i> Feedback</a>
+                                        <p>Office <span>Trường cao đẳng kỹ thuật Cao Thắng</span></p>
                                     </li>
                                 </ul>
                             </div>
@@ -174,8 +115,25 @@
 
                         <!-- Single item -->
                         <div class="col-md-4 col-sm-6 item equal-height">
+                            <div class="f-item link">
+                                <h4>Khóa học</h4>
+                                <ul>
+                                    <li><a href="">Ngoại ngữ</a></li>
+                                    <li><a href="">Công nghệ thông tin</a></li>
+                                    <li><a href="">Tin học văn phòng</a></li>
+                                    <li><a href="">Âm nhạc</a></li>
+                                    <li><a href="">Thể thao - Sức khỏe</a></li>
+                                    <li><a href="">Thiết kế</a></li>
+                                    <li><a href="">Phát triển bản thân</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Single item -->
+
+                        <!-- Single item -->
+                        <div class="col-md-4 col-sm-6 item equal-height">
                             <div class="f-item popular-courses">
-                                <h4>Popular Courses</h4>
+                                <h4>Khóa học phổ biến</h4>
                                 <ul>
                                     <li>
                                         <div class="thumb">
@@ -184,7 +142,7 @@
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <a href="#">Subjects allied to Creative arts and design</a>
+                                            <a href="#">Tiếng anh giao tiếp</a>
                                             <ul class="meta">
                                                 <li>
                                                     <i class="fas fa-star"></i>
@@ -193,7 +151,7 @@
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star-half-alt"></i>
                                                 </li>
-                                                <li>(128) enrolled</li>
+                                                <li>(128) Đánh giá</li>
                                             </ul>
                                         </div>
                                     </li>
@@ -204,7 +162,7 @@
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <a href="#">Business and administrative subjects</a>
+                                            <a href="#">Photoshop cho người mới bắt đầu</a>
                                             <ul class="meta">
                                                 <li>
                                                     <i class="fas fa-star"></i>
@@ -213,7 +171,7 @@
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star"></i>
                                                 </li>
-                                                <li>(98) enrolled</li>
+                                                <li>(98) Đánh giá</li>
                                             </ul>
                                         </div>
                                     </li>
@@ -224,7 +182,7 @@
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <a href="#">Business and administrative subjects</a>
+                                            <a href="#">Phát triển kỹ năng giao tiếp</a>
                                             <ul class="meta">
                                                 <li>
                                                     <i class="fas fa-star"></i>
@@ -233,7 +191,7 @@
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star-half-alt"></i>
                                                 </li>
-                                                <li>(688) enrolled</li>
+                                                <li>(688) Đánh giá</li>
                                             </ul>
                                         </div>
                                     </li>
@@ -249,18 +207,15 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
-                            <p>&copy; Copyright 2020. All Rights Reserved.</p>
+                            <p>&copy; 2020 - Bản quyền team QTTT </p>
                         </div>
                         <div class="col-md-6 text-right link">
                             <ul>
                                 <li>
-                                    <a href="#">Terms of user</a>
+                                    <a href="#">Giới thiệu</a>
                                 </li>
                                 <li>
-                                    <a href="#">License</a>
-                                </li>
-                                <li>
-                                    <a href="#">Support</a>
+                                    <a href="#">Liên hệ</a>
                                 </li>
                             </ul>
                         </div>

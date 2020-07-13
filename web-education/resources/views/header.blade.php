@@ -38,7 +38,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="../">
                         <img src="assets/img/logo.png" class="logo" alt="Logo">
                     </a>
                 </div>
@@ -47,60 +47,29 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index.html">Home Version One</a></li>
-                                <li><a href="index-2.html">Home Version Two</a></li>
-                            </ul>
+                        <li>
+                            <a href="gioi-thieu">Giới thiệu</a>
+                        </li>
+                        <li>
+                            <a href="khoa-hoc">Khóa học</a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Lĩnh vực</a>
                             <ul class="dropdown-menu">
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
-                                <li><a href="404.html">Error Page</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Courses</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="courses-grid.html">Course Grid</a></li>
-                                <li><a href="courses-carousel.html">Course Carousel</a></li>
-                                <li><a href="course-details.html">Course Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Teachers</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="advisor-carousel.html">Advisor Carousel</a></li>
-                                <li><a href="advisor-grid.html">Advisor Grid</a></li>
-                                <li><a href="advisor-details.html">Advisor Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Event</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="event-1.html">Event Version One</a></li>
-                                <li><a href="event-2.html">Event Version Two</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="blog-standard.html">Blog Standard</a></li>
-                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                <li><a href="blog-single.html">Blog Single Standard</a></li>
-                                <li><a href="blog-single-left-sidebar.html">Single Left Sidebar</a></li>
-                                <li><a href="blog-single-right-sidebar.html">Single Right Sidebar</a></li>
+                                <li><a href="">Ngoại ngữ</a></li>
+                                <li><a href="">Công nghệ thông tin</a></li>
+                                <li><a href="">Tin học văn phòng</a></li>
+                                <li><a href="">Âm nhạc</a></li>
+                                <li><a href="">Thể thao - Sức khỏe</a></li>
+                                <li><a href="">Thiết kế</a></li>
+                                <li><a href="">Phát triển bản thân</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="contact.html">contact</a>
+                            <a href="giang-vien">Giảng viên</a>
+                        </li>
+                        <li>
+                            <a href="lien-he">Liên hệ</a>
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
