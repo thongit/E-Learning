@@ -55,7 +55,7 @@
                                         <span>Giảng viên</span>
                                         <h4>Nguyễn Văn A</h4>
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-lg btn-block">Thông tin giảng viên</button>
+                                    <a href="thong-tin-giang-vien"><button type="button" class="btn btn-primary btn-lg btn-block">Thông tin giảng viên </button></a>
                                 </div>
                             </div>
                             <div class="sidebar-item category">

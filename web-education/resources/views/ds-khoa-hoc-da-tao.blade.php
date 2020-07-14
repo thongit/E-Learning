@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                     </div>
                     <!-- Start Sidebar -->
                     <div class="sidebar col-md-4">

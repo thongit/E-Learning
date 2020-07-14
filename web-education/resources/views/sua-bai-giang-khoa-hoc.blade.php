@@ -7,11 +7,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h1>Tạo mô tả khóa học</h1>
+                    <h1>Sửa bài giảng khóa học</h1>
                     <ul class="breadcrumb">
                         <li><a href="#"><i class="fas fa-home"></i> ...</a></li>
                         <li><a href="#">...</a></li>
-                        <li class="active">Tạo mô tả khóa học</li>
+                        <li class="active">Sửa bài giảng khóa học</li>
                     </ul>
                 </div>
             </div>
@@ -27,42 +27,28 @@
                 <div class="blog-items">
 
                     <div class="blog-content col-md-8">
-                        <form method="post" action="">
-                            <div class="panel panel-info">
-                              <div class="panel-heading">Khóa học đang tạo</div>
-                              <div class="panel-body">Phát Âm Tiếng Anh Chuẩn</div>
-                            </div>
-                            <div class="form-group">
-                                <label >Danh sách chương đã tạo</label>
-                                <select class="form-control" id="selectChuong">
-                                  <option>Giới thiệu</option>
-                                  <option>Ngữ âm cơ bản</option>
-                                  <option>Ngữ âm nâng cao</option>
-                                  <option>Tổng kết</option>
-                                </select>
-                            </div>
-                             <br>
-                            <div id="inputFormBaiGiang">
-                                <div class="form-group">
-                                    <label for="motakhoahoc">Tên bài</label>
-                                    <input type="text" class="form-control" id="motakhoahoc" placeholder="Tên bào giảng">
+                        <h3>Sửa bài giảng của khóa học</h3>
+                            <form>
+                                <div id="inputFormBaiGiang">
+                                    <div class="form-group">
+                                        <label for="motakhoahoc">Tên bài giảng</label>
+                                        <input type="text" class="form-control" id="motakhoahoc" value="Giới thiệu">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="uploadvideo">Video bài giảng</label><br>
+                                        <p for="tenfilevideo">gioithieu.mp4</p>
+                                        <input type="file" class="form-control-file border" name="uploadvideo">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="uploadtailieu">Tài liệu bài giảng</label><br>
+                                        <p for="tenfiletailieu">gioithieu.pdf</p>
+                                        <input type="file" class="form-control-file border" name="uploadtailieu">
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label for="uploadvideo">Upload video</label>
-                                    <input type="file" class="form-control-file border" name="uploadvideo">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="uploadtailieu">Upload Tài liệu</label>
-                                    <input type="file" class="form-control-file border" name="uploadtailieu">
-                                </div>
-                            </div>
-                            <br>
-                            <div>
-                                <button type="button" class="btn btn-success">Lưu lại</button>
-                                <button type="button" class="btn btn-danger">Làm mới</button>
-                            </div>
-                        </form>
-                    </div>
+                                <button type="button" class="btn btn-danger">Sửa</button>
+                            </form>
+                            
+                        </div>
                     <!-- Start Sidebar -->
                     <div class="sidebar col-md-4">
                         <aside>

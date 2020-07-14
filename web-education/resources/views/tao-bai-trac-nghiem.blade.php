@@ -7,11 +7,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h1>Tạo mô tả khóa học</h1>
+                    <h1>Tạo bài trắc nghiệm</h1>
                     <ul class="breadcrumb">
                         <li><a href="#"><i class="fas fa-home"></i> ...</a></li>
                         <li><a href="#">...</a></li>
-                        <li class="active">Tạo mô tả khóa học</li>
+                        <li class="active">Tạo bài trắc nghiệm</li>
                     </ul>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                               <div class="panel-body">Phát Âm Tiếng Anh Chuẩn</div>
                             </div>
                             <div class="form-group">
-                                <label >Danh sách chương đã tạo</label>
+                                <label for="exampleFormControlSelect1">Danh sách chương đã tạo</label>
                                 <select class="form-control" id="selectChuong">
                                   <option>Giới thiệu</option>
                                   <option>Ngữ âm cơ bản</option>
@@ -43,17 +43,13 @@
                             </div>
                              <br>
                             <div id="inputFormBaiGiang">
-                                <div class="form-group">
-                                    <label for="motakhoahoc">Tên bài</label>
-                                    <input type="text" class="form-control" id="motakhoahoc" placeholder="Tên bào giảng">
+                                <div class="col-sm-8">
+                                    <label for="motakhoahoc">Tên bài kiểm tra</label>
+                                    <input type="text" class="form-control" id="motakhoahoc" placeholder="Tên bài kiểm tra">
                                 </div>
-                                <div class="col-sm-6">
-                                    <label for="uploadvideo">Upload video</label>
-                                    <input type="file" class="form-control-file border" name="uploadvideo">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="uploadtailieu">Upload Tài liệu</label>
-                                    <input type="file" class="form-control-file border" name="uploadtailieu">
+                                <div class="col-sm-4">
+                                    <label for="motakhoahoc">Thời gian làm bài(Phút)</label>
+                                    <input type="number" class="form-control" min=1>
                                 </div>
                             </div>
                             <br>
