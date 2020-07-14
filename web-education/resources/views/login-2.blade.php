@@ -12,24 +12,36 @@
                             <div class="heading">
                                 <h4><i class="fas fa-sign-in-alt"></i>Đăng nhập</h4>
                             </div>
+                            
+                            <form action="{{ route('xulydangnhap')}}" method="POST">
+                                {{ csrf_field() }}
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Email*" type="email">
+                                        <input class="form-control" id="email" name="email" placeholder="Email" type="text"  >
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
+
+                                        <input class="form-control" id="mat_khau" name="mat_khau" placeholder="Password*" type="password" >
+
                                         <input class="form-control" placeholder="Mật khẩu*" type="password">
+
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
+
+                                    <label for="remember"><input type="checkbox" id="login-remember">Remember Me</label>
+                                    <a title="Lost Password" href="#" class="lost-pass-link">Lost your password?</a>
+
                                     <label for="login-remember"><input type="checkbox" id="login-remember">Nhớ mật khẩu</label>
                                     <a title="Lost Password" href="#" class="lost-pass-link">Quên mật khẩu</a>
+
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -39,7 +51,12 @@
                                     </button>
                                 </div>
                             </div>
+
+                             </form>
+                            <p class="link-bottom">Not a member yet? <a href="#">Register now</a></p>
+
                             <p class="link-bottom">Chưa có tài khoản? <a href="#">Đăng ký</a></p>
+
                         </div>
                         <div class="login-social">
                             <h4>Đăng nhập với</h4>
