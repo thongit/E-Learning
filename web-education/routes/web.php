@@ -115,8 +115,12 @@ Route::get('/sua-bai-giang-khoa-hoc', function () {
     return view('sua-bai-giang-khoa-hoc');
 });
 
-Route::get('gioi-thieu', function () {
+Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
+});
+
+Route::get('quen-mat-khau', function () {
+    return view('quen-mat-khau');
 });
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
