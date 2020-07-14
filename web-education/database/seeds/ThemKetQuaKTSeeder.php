@@ -28,6 +28,6 @@ class ThemKetQuaKTSeeder extends Seeder
         );
         $ketquakt = ketquakt::create(
         	['nguoi_dung_id'=>'26','diem'=>'2/10','bai_kiem_tra_id'=>'6','bai_lam'=>'ACAABCDBDCABDACCBBCD']
-
+        );
     }
 }
