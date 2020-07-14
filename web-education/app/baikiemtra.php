@@ -1,0 +1,10 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class baikiemtra extends Model
+{
+     protected $table ="bai_kiem_tra";
+}

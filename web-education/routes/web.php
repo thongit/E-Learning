@@ -90,7 +90,6 @@ Route::get('/ds-khoa-hoc-da-tao', function () {
 Route::get('/tao-bai-giang-cho-chuong', function () {
     return view('tao-bai-giang-cho-chuong');
 });
-
 Route::get('/tao-mo-ta-khoa-hoc', function () {
     return view('tao-mo-ta-khoa-hoc');
 });
@@ -100,7 +99,7 @@ Route::get('/tao-chuong-cho-khoa-hoc', function () {
 });
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
-
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
-
+Route::get('','NguoiDungCotroller@getDangNhap')->name('dangnhap');
+Route::post('/login-2','NguoiDungCotroller@postxulyDangNhap')->name('xulydangnhap');
 ?>
