@@ -1,24 +1,40 @@
 @extends('layout')
 @section( 'content')
 @include('header')
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+
+<!-- Sweet alert init js-->
+<!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
+
 <!-- Start Login
     ============================================= -->
+    @if (session('thongbao'))
+    <script>
+        swal.fire("{{ session('thongbao') }}","","success")
+    </script>
+@endif
+    
     <div class="login-area default-padding">
         <div class="container">
-            <div class="row">
+            
                 <div class="col-md-6 col-md-offset-3">
-                    <form action="#" id="login-form" class="white-popup-block">
+                    <form action="{{ route('xu-ly-dang-nhap')}}" id="login-form" method="POST" class="white-popup-block">
+                    @csrf
                         <div class="login-custom">
                             <div class="heading">
                                 <h4><i class="fas fa-sign-in-alt"></i>Đăng nhập</h4>
                             </div>
-                            
-                            <form action="{{ route('xulydangnhap')}}" method="POST">
-                                {{ csrf_field() }}
                             <div class="col-md-12">
+                                
                                 <div class="row">
+                                @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{session('error')}}
+                                </div>
+                                @endif
                                     <div class="form-group">
-                                        <input class="form-control" id="email" name="email" placeholder="Email" type="text"  >
+                                        <input class="form-control" id="email" name="email" placeholder="Email*" type="email"  required >
                                     </div>
                                 </div>
                             </div>
@@ -26,20 +42,13 @@
                                 <div class="row">
                                     <div class="form-group">
 
-                                        <input class="form-control" id="mat_khau" name="mat_khau" placeholder="Password*" type="password" >
-
-                                        <input class="form-control" placeholder="Mật khẩu*" type="password">
+                                        <input class="form-control"  id="mat_khau" name="mat_khau" placeholder="Mật khẩu*" type="password"  required>
 
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
-
-                                    <label for="remember"><input type="checkbox" id="login-remember">Remember Me</label>
-                                    <a title="Lost Password" href="#" class="lost-pass-link">Lost your password?</a>
-
-                                    <label for="login-remember"><input type="checkbox" id="login-remember">Nhớ mật khẩu</label>
                                     <a title="Lost Password" href="#" class="lost-pass-link">Quên mật khẩu</a>
 
                                 </div>
@@ -47,19 +56,13 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <button type="submit">
-                                        Login
+                                        Đăng nhập
                                     </button>
                                 </div>
                             </div>
-
-                             </form>
-                            <p class="link-bottom">Not a member yet? <a href="#">Register now</a></p>
-
-                            <p class="link-bottom">Chưa có tài khoản? <a href="#">Đăng ký</a></p>
-
-                        </div>
-                        <div class="login-social">
-                            <h4>Đăng nhập với</h4>
+                            <p class="link-bottom">Chưa có tài khoản? <a href="dang-ky">Đăng ký</a></p>
+                            <div class="login-social">
+                            <!-- <h3>Đăng nhập với</h3>
                             <ul>
                                 <li class="facebook">
                                     <a href="#">
@@ -76,8 +79,10 @@
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </div>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

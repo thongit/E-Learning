@@ -7,6 +7,11 @@
     <title>AKKHOR | Home 1</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+
+<!-- Sweet alert init js-->
+     <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
+     <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets-admin/img/favicon.png') }}">
     <!-- Normalize CSS -->
@@ -80,7 +85,7 @@
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">Stevne Zone</h5>
+                                <h5 class="item-title">{{ Session::get('ho_ten') }}</h5>
                                 <span>Admin</span>
                             </div>
                             <div class="admin-img">
@@ -89,7 +94,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="item-header">
-                                <h6 class="item-title">Steven Zone</h6>
+                                <h6 class="item-title">{{ Session::get('ho_ten') }}</h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
@@ -97,8 +102,25 @@
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li><a onclick="logout()" href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
+                                <script>
+                            function logout() {
+                                Swal.fire({
+                                title: 'Bạn có chắc muốn đăng xuất?',
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Có',
+                                cancelButtonText:'Không'
+                                }).then((result) => {
+                                if (result.value) {
+                                    open("{{ route('dang-xuat') }}","_self") 
+                                }
+                        })
+                            };
+                        </script>
                             </div>
                         </div>
                     </li>

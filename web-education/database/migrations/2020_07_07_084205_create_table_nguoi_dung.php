@@ -19,8 +19,8 @@ class CreateTableNguoiDung extends Migration
             $table->string('email');
             $table->string('mat_khau');
             $table->integer('loai_tk');
-            $table->integer('cmnd');
-            $table->integer('sdt');
+            $table->string('cmnd');
+            $table->string('sdt');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,6 +15,11 @@
     <link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
 
     <!-- ========== Start Stylesheet ========== -->
+    <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+
+<!-- Sweet alert init js-->
+ <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
     <link href=" {{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href=" {{ asset ('assets/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href=" {{ asset ('assets/css/flaticon-set.css') }}" rel="stylesheet">
@@ -69,6 +74,7 @@
                             </ul>
                         </div>
                     </div>
+                    @if(Session::get('ho_ten')== null)
                      <div class="col-md-4 link text-right">
                         <ul>
                             <li>
@@ -79,6 +85,36 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
+                    @if(Session::get('ho_ten')!= null)
+                    <div class="col-md-4 link text-right">
+                        <ul>
+                            <li>
+                            <h5>User: {{ Session::get('ho_ten') }} </h5>
+                            </li>
+                            <li>
+                                <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>
+                            </li>
+                        </ul>
+                        <script>
+                            function logout() {
+                                Swal.fire({
+                                title: 'Bạn có chắc muốn đăng xuất?',
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Có',
+                                cancelButtonText:'Không'
+                                }).then((result) => {
+                                if (result.value) {
+                                    open("{{ route('dang-xuat') }}","_self") 
+                                }
+                        })
+                            };
+                        </script>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -246,7 +282,9 @@
         <script src=" {{ asset ('assets/js/jquery.nice-select.min.js') }}"></script>
         <script src=" {{ asset ('assets/js/bootsnav.js') }}"></script>
         <script src=" {{ asset ('assets/js/main.js') }}"></script>
-
+       
         @yield('js')
+        
+
     </body>
     </html>

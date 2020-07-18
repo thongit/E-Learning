@@ -2963,7 +2963,7 @@ div#bootcarousel {
   box-sizing: border-box;
   clear: both;
   cursor: pointer;
-  display: block;
+  display: none;
   float: left;
   font-family: inherit;
   font-size: 14px;
@@ -5282,8 +5282,7 @@ form.white-popup-block .link-bottom {
 
 
 form.white-popup-block li {
-  display: inline-block;
-  float: left;
+  
   margin-right: 5px;
   margin-bottom: 5px;
 }

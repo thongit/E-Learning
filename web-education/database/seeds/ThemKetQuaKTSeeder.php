@@ -27,7 +27,13 @@ class ThemKetQuaKTSeeder extends Seeder
         	['nguoi_dung_id'=>'26','diem'=>'4/10','bai_kiem_tra_id'=>'5','bai_lam'=>'ACAABCDBDCABDACCBBCD']
         );
         $ketquakt = ketquakt::create(
+<<<<<<< Updated upstream
         	['nguoi_dung_id'=>'26','diem'=>'2/10','bai_kiem_tra_id'=>'6','bai_lam'=>'ACAABCDBDCABDACCBBCD']
         );
+=======
+            ['nguoi_dung_id'=>'26','diem'=>'2/10','bai_kiem_tra_id'=>'6','bai_lam'=>'ACAABCDBDCABDACCBBCD']
+        );
+
+>>>>>>> Stashed changes
     }
 }
