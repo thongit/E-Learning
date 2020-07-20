@@ -26,21 +26,36 @@
             <div class="row">
                 <div class="blog-items">
                     <div class="blog-content col-md-8">
-                        <form method="post" action="">
+                        @if(count($errors)>0)
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $err)
+                                    {{$err}}<br>
+                                @endforeach
+                            </div>
+                        @endif
+                        @if(session('thongbao'))
+                            <div class="alert alert-success">
+                                {{session('thongbao')}}
+                            </div>
+                        @endif
+                        <form method="post" action="{{ route('xl-tao-chuong',$khoahocs->id) }}">
+                            {{ csrf_field() }}
                             <div class="panel panel-info">
                               <div class="panel-heading">Khóa học đang tạo</div>
-                              <div class="panel-body">Phát Âm Tiếng Anh Chuẩn</div>
+                              <div class="panel-body">
+                                {{$khoahocs->ten_khoa_hoc}}
+                            </div>
                             </div>
                             <div id="inputFormRow">
                                 <div>
                                     <label for="tenchuong">Tên chương 1</label>
-                                    <input type="text" name="title[]" class="form-control m-input" placeholder="Tên chương" autocomplete="off">
+                                    <input type="text" name="chuong1" class="form-control m-input" placeholder="Tên chương" required="">
                                 </div>
                                 <div id="newbaigiang"></div>
                             </div>
                             <br>
                             <button id="thembaigiang" type="button" class="btn btn-info">Thêm Chương</button>
-                            <button type="button" class="btn btn-success">Lưu lại</button>
+                            <button type="submit" class="btn btn-success">Lưu lại</button>
                         </form>
                     </div>
                     <!-- Start Sidebar -->
@@ -97,8 +112,8 @@
         var html = '';
         html += '<br><div id="inputFormBaiGiang">';
         html += '<div>';
-            html += '<label for="tenchuong">Chương '+ demChuong +'</label>';
-            html += '<input type="text" name="Chuong '+ demChuong +' " class="form-control m-input" placeholder="Tên chương" autocomplete="off">';
+            html += '<label for="tenchuong">Tên chương '+demChuong+'</label>';
+            html += '<input type="text" name="chuong'+demChuong+'" class="form-control m-input" placeholder="Tên chương" required="">';
         html += '</div>';
         html += '</div>';
         $('#newbaigiang').append(html);

@@ -27,37 +27,71 @@
                 <div class="blog-items">
 
                     <div class="blog-content col-md-8">
-                            <form>
+                            @if(count($errors)>0)
+                                <div class="alert alert-danger">
+                                    @foreach($errors->all() as $err)
+                                        {{$err}}<br>
+                                    @endforeach
+                                </div>
+                            @endif
+                            @if(session('thongbao'))
+                                <div class="alert alert-success">
+                                    {{session('thongbao')}}
+                                </div>
+                            @endif
+                            <form action="" method="POST">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                                 <div class="form-group">
                                     <label for="tenkhoahoc">Tên khóa học</label>
-                                    <input type="text" class="form-control" id="tenkhoahoc" placeholder="Thiết kế website">
+                                    <input type="text" class="form-control" id="tenkhoahoc" placeholder="Thiết kế website" name="TenKhoaHoc">
                                 </div>
                                 <div class="form-group">
                                     <label for="motakhoahoc">Mô tả khóa học</label>
-                                    <input type="text" class="form-control" id="motakhoahoc" placeholder="website">
+                                    <input type="text" class="form-control" id="motakhoahoc" placeholder="website" name="MoTaKhoaHoc">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="mucdo">Cấp độ</label>
+                                    <select name="MucDo" id="">
+                                        <option value="socap">Sơ cấp</option>
+                                        <option value="trungcap">Trung cấp</option>
+                                        <option value="chuyensau">Chuyên sâu</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="ngonngu">Ngôn ngữ</label>
+                                    <select name="NgonNgu" id="">
+                                        <option value="tiengviet">Tiếng việt</option>
+                                        <option value="tienganh">Tiếng anh</option>
+                                    </select>
+                                </div>
+                                
+                                
+                                
+                                
+                                <div class="col-sm-6">
+                                    <label for="gia">Giá khóa học</label>
+                                    <input type="number" class="form-control" name="Gia" placeholder="500.000 đồng">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="khoahoc">Ảnh khóa học</label>
-                                    <input type="file" class="form-control-file" id="anhkhoahoc">
+                                    <input type="file" class="form-control-file" id="anhkhoahoc" name="AnhKhoaHoc">
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="linhvuc">Lĩnh vực</label>
-                                    <select class="form-control" id="linhvuc">
-                                    <option>Âm nhạc</option>
-                                    <option>Công nghệ</option>
-                                    <option>..</option>
+                                    <select class="form-control" id="" name="LinhVuc">
+                                    @foreach ($linhvucs as $lv)
+                                    <option value="{{$lv->id}}">
+                                        {{$lv->ten_linh_vuc}}
+                                    </option>
+                                    @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="yeucaukhoahoc">Yêu cầu khóa học</label>
-                                    <input type="text" class="form-control" id="yeucaukhoahoc" placeholder="laptop,máy tính,...">
-                                </div>
-                                <div class="form-group">
                                     <label for="motatongquat">Mô tả tổng quát</label>
-                                    <textarea class="form-control" id="motatongquat" rows="3"></textarea>
+                                    <textarea class="form-control" name="MoTaTongQuat" rows="3"></textarea>
                                 </div>
-                                <button type="button" class="btn btn-success">Lưu lại</button>
-                                <button type="button" class="btn btn-danger">Làm mới</button>
+                                <button type="submit" class="btn btn-success">Lưu lại</button>
+                                <button type="reset" class="btn btn-danger">Làm mới</button>
                             </form>
                         </div>
                     <!-- Start Sidebar -->

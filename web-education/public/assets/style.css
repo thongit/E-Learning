@@ -2963,7 +2963,7 @@ div#bootcarousel {
   box-sizing: border-box;
   clear: both;
   cursor: pointer;
-  display: none;
+  display: block;
   float: left;
   font-family: inherit;
   font-size: 14px;

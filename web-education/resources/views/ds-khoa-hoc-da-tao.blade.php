@@ -41,56 +41,22 @@
                                                         <th>Hình ảnh khóa học</th>
                                                         <th>Tên khóa học</th>
                                                         <th></th>
-                                                        <th>Dung lượng</th>
                                                         <th>Ngày tạo</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($khoahocs as $k)
                                                     <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
+                                                        <td ><img src="{{$k->hinh_anh}}" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
+                                                        <td>{{$k->ten_khoa_hoc}}</td>
                                                         <td class="text-center">
                                                             <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
                                                             <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
                                                             <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
                                                         </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
+                                                        <td>{{$k->created_at}}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
-
+                                                        @endforeach
                                                 </tbody>
                                             </table>
                                         </div>

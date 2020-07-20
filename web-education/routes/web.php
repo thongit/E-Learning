@@ -88,16 +88,6 @@ Route::get('/ds-khoa-hoc-da-tao', function () {
     return view('ds-khoa-hoc-da-tao');
 });
 
-Route::get('/tao-bai-giang-cho-chuong', function () {
-    return view('tao-bai-giang-cho-chuong');
-});
-Route::get('/tao-mo-ta-khoa-hoc', function () {
-    return view('tao-mo-ta-khoa-hoc');
-});
-
-Route::get('/tao-chuong-cho-khoa-hoc', function () {
-    return view('tao-chuong-cho-khoa-hoc');
-});
 
 Route::get('/tao-bai-trac-nghiem', function () {
     return view('tao-bai-trac-nghiem');
@@ -119,12 +109,22 @@ Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
 
-<<<<<<< Updated upstream
+Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@index');
+Route::get('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@getTaoMoTaKhoaHoc');
+Route::post('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@postTaoMoTaKhoaHoc');
+
+Route::get('khoa-hoc/tao-chuong-cho-khoa-hoc/{idKhoahoc}','KhoaHocController@getTaoChuongChoKhoaHoc');
+Route::post('khoa-hoc/tao-chuong-cho-khoa-hoc/{idKhoahoc}','KhoaHocController@postTaoChuongChoKhoaHoc')->name('xl-tao-chuong');
+
+Route::get('khoa-hoc/tao-bai-giang-cho-chuong/{idKhoahoc}','KhoaHocController@getTaoBaiGiangChoChuong');
+Route::post('khoa-hoc/tao-bai-giang-cho-chuong/{idKhoahoc}','KhoaHocController@postTaoBaiGiangChoChuong')->name('xl-tao-bai-giang');
+
+// <<<<<<< Updated upstream
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
-=======
->>>>>>> Stashed changes
+// =======
+// >>>>>>> Stashed changes
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
