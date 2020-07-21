@@ -39,15 +39,15 @@
                                     {{session('thongbao')}}
                                 </div>
                             @endif
-                            <form action="" method="POST">
+                            <form action="" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                                 <div class="form-group">
                                     <label for="tenkhoahoc">Tên khóa học</label>
-                                    <input type="text" class="form-control" id="tenkhoahoc" placeholder="Thiết kế website" name="TenKhoaHoc">
+                                    <input type="text" class="form-control" placeholder="Thiết kế website" name="TenKhoaHoc" value="{{ old('TenKhoaHoc') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="motakhoahoc">Mô tả khóa học</label>
-                                    <input type="text" class="form-control" id="motakhoahoc" placeholder="website" name="MoTaKhoaHoc">
+                                    <input type="text" class="form-control" placeholder="website" name="MoTaKhoaHoc" value="{{ old('MoTaKhoaHoc') }}">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="mucdo">Cấp độ</label>
@@ -64,17 +64,13 @@
                                         <option value="tienganh">Tiếng anh</option>
                                     </select>
                                 </div>
-                                
-                                
-                                
-                                
                                 <div class="col-sm-6">
                                     <label for="gia">Giá khóa học</label>
-                                    <input type="number" class="form-control" name="Gia" placeholder="500.000 đồng">
+                                    <input type="number" class="form-control" name="Gia" placeholder="500.000 đồng" value="{{ old('Gia') }}">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="khoahoc">Ảnh khóa học</label>
-                                    <input type="file" class="form-control-file" id="anhkhoahoc" name="AnhKhoaHoc">
+                                    <input type="file" class="form-control-file" name="AnhKhoaHoc" value="{{ old('AnhKhoaHoc') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="linhvuc">Lĩnh vực</label>
@@ -88,7 +84,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="motatongquat">Mô tả tổng quát</label>
-                                    <textarea class="form-control" name="MoTaTongQuat" rows="3"></textarea>
+                                    <input type="textarea" class="form-control" name="MoTaTongQuat" value="{{ old('MoTaTongQuat') }}" rows="3" >
                                 </div>
                                 <button type="submit" class="btn btn-success">Lưu lại</button>
                                 <button type="reset" class="btn btn-danger">Làm mới</button>

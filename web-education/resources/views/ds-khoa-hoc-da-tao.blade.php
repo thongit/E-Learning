@@ -45,13 +45,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
                                                     @foreach ($khoahocs as $k)
                                                     <tr>
-                                                        <td ><img src="{{$k->hinh_anh}}" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
+                                                        <td ><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
                                                         <td>{{$k->ten_khoa_hoc}}</td>
                                                         <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
+                                                            <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-sm btn-danger">Xóa</span></a>
+                                                            <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-sm btn-primary">Sửa</span></a>
                                                             <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
                                                         </td>
                                                         <td>{{$k->created_at}}</td>
@@ -108,4 +109,27 @@
         </div>
     </div>
     <!-- End Blog -->
+<script>
+function thongbaoxoa($id) {
+    Swal.fire({
+        title: 'Bạn có Muốn Xóa Không?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok. Xóa nó!',
+        cancelButtonText:'Không'
+        }).then((result) => {
+        if (result.value) {
+            Swal.fire(
+            'Đã Xóa!',
+            'Bạn đã xóa thành công.',
+            'success'
+            )
+            $url='/khoa-hoc/xoa/'+$id;
+            open($url,"_self") 
+        }
+    })
+}
+</script>
 @endsection

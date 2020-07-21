@@ -28,24 +28,48 @@
 
                     <div class="blog-content col-md-8">
                         <h3>Sửa bài giảng của khóa học</h3>
-                            <form>
-                                <div id="inputFormBaiGiang">
+                                @if(count($errors)>0)
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->all() as $err)
+                                            {{$err}}<br>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                @if(session('thongbao'))
+                                    <div class="alert alert-success">
+                                        {{session('thongbao')}}
+                                    </div>
+                                @endif
+                           <form action="" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                                    <div class="panel panel-info">
+                                          <div class="panel-heading">Khóa học đang sửa</div>
+                                          <div class="panel-body">{{$noidungs->Chuong->KhoaHoc->ten_khoa_hoc}}</div>
+                                    </div>
+                                    <div class="panel panel-info">
+                                          <div class="panel-heading">Chương đang sửa</div>
+                                          <div class="panel-body">{{$noidungs->Chuong->ten_chuong}}</div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="motakhoahoc">Tên bài giảng</label>
-                                        <input type="text" class="form-control" id="motakhoahoc" value="Giới thiệu">
+                                        <input type="text" class="form-control" id="motakhoahoc" name="TieuDe" value="{{$noidungs->tieu_de}}">
                                     </div>
+
                                     <div class="col-sm-6">
-                                        <label for="uploadvideo">Video bài giảng</label><br>
-                                        <p for="tenfilevideo">gioithieu.mp4</p>
-                                        <input type="file" class="form-control-file border" name="uploadvideo">
+                                    <label for="">Video hiện tại</label><br>
+                                    <video src="{{ asset('assets/video/'.$noidungs->video) }}" width="100" height="50">
                                     </div>
+
                                     <div class="col-sm-6">
-                                        <label for="uploadtailieu">Tài liệu bài giảng</label><br>
-                                        <p for="tenfiletailieu">gioithieu.pdf</p>
-                                        <input type="file" class="form-control-file border" name="uploadtailieu">
+                                        <label for="">Video bài giảng</label><br>
+                                        <input type="file" class="form-control-file border" name="Video">
                                     </div>
-                                </div>
-                                <button type="button" class="btn btn-danger">Sửa</button>
+                                    <!-- chưa làm xong -->
+                                    <div class="col-sm-12">
+                                        <label for="">Tài liệu bài giảng</label>
+                                        <input type="file" class="form-control-file border" name="TaiLieu">
+                                    </div>
+                                <button type="submit" class="btn btn-danger">Sửa</button>
                             </form>
                             
                         </div>

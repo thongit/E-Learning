@@ -84,11 +84,6 @@ Route::get('/them-cau-hoi', function () {
     return view('them-cau-hoi');
 })->name('them-cau-hoi');
 
-Route::get('/ds-khoa-hoc-da-tao', function () {
-    return view('ds-khoa-hoc-da-tao');
-});
-
-
 Route::get('/tao-bai-trac-nghiem', function () {
     return view('tao-bai-trac-nghiem');
 });
@@ -109,7 +104,7 @@ Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
 
-Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@index');
+Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc');
 Route::get('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@getTaoMoTaKhoaHoc');
 Route::post('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@postTaoMoTaKhoaHoc');
 
@@ -118,6 +113,18 @@ Route::post('khoa-hoc/tao-chuong-cho-khoa-hoc/{idKhoahoc}','KhoaHocController@po
 
 Route::get('khoa-hoc/tao-bai-giang-cho-chuong/{idKhoahoc}','KhoaHocController@getTaoBaiGiangChoChuong');
 Route::post('khoa-hoc/tao-bai-giang-cho-chuong/{idKhoahoc}','KhoaHocController@postTaoBaiGiangChoChuong')->name('xl-tao-bai-giang');
+
+Route::get('khoa-hoc/xoa/{idKhoahoc}','CMSController@getXoaKhoahoc');
+Route::get('khoa-hoc/sua/{idKhoahoc}','CMSController@getSuaKhoaHoc');
+Route::post('khoa-hoc/sua/{idKhoahoc}','CMSController@postSuaKhoaHoc');
+
+Route::get('khoa-hoc/xoa-chuong/{idChuong}','CMSController@getXoaChuong');
+Route::get('khoa-hoc/sua-chuong/{idChuong}','CMSController@getSuaChuong');
+Route::post('khoa-hoc/sua-chuong/{idChuong}','CMSController@postSuaChuong');
+
+Route::get('khoa-hoc/xoa-bai-giang/{idBaiGiang}','CMSController@getXoaBaiGiang');
+Route::get('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@getSuaBaiGiang');
+Route::post('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@postSuaBaiGiang');
 
 // <<<<<<< Updated upstream
 Route::get('quen-mat-khau', function () {

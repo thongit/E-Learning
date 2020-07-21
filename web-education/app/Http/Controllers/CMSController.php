@@ -11,35 +11,30 @@ use App\noidung;
 use Session;
 use Auth;
 
-
-class KhoaHocController extends Controller
+class CMSController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getDanhSachKhoaHoc()
+    public function getXoaKhoahoc($idKhoaHoc)
     {
-        $nguoi_dung_ids=auth()->user()->id;
-        $khoahocs=DB::table('khoa_hoc')->where('nguoi_dung_id', $nguoi_dung_ids)->get();
-        return view('ds-khoa-hoc-da-tao',compact('khoahocs'));
+        $khoahocs=khoahoc::find($idKhoaHoc);
+        $khoahocs->delete();
+        return redirect('khoa-hoc/ds-khoa-hoc-da-tao')->with('thongbao','Xóa thành công');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getTaoMoTaKhoaHoc()
+    public function getSuaKhoaHoc($idKhoaHoc)
     {
         $linhvucs= linhvuc::all();
-        return view('tao-mo-ta-khoa-hoc',['linhvucs'=>$linhvucs]);
+        $chuongs= chuong::all();
+        $khoahocs=khoahoc::find($idKhoaHoc);
+        return view('sua-mo-ta-khoa-hoc',['khoahocs'=>$khoahocs,'linhvucs'=>$linhvucs,'chuongs'=>$chuongs]);
     }
-    public function postTaoMoTaKhoaHoc(Request $request)
+    public function postSuaKhoaHoc(Request $request,$idKhoaHoc)
     {
-        
-        $khoahocs= new khoahoc;
+        $khoahocs=khoahoc::find($idKhoaHoc);
         $this->validate($request,
         [
             'TenKhoaHoc'=>'required',
@@ -91,59 +86,53 @@ class KhoaHocController extends Controller
         $khoahocs->ngon_ngu=$request->NgonNgu;
         $khoahocs->muc_do=$request->MucDo;
 
-        $khoahocs->save();
-        if($khoahocs->save())
-        {
-            $idKhoaHoc=$khoahocs->id;
-            return redirect('khoa-hoc/tao-chuong-cho-khoa-hoc/'.$idKhoaHoc);
-        }
-        return redirect('khoa-hoc/tao-mo-ta-khoa-hoc')->back()->withInput(Input::all())->with('thongbao','Thêm thành công');
+        $khoahocs->update();
+        return redirect('khoa-hoc/sua/'.$idKhoaHoc)->with('thongbao','Sửa thành công');
     }
 
-    public function getTaoChuongChoKhoaHoc($idKhoahoc)
+    public function getXoaChuong($idChuong)
     {
-        $chuongs= chuong::all();
-        $khoahocs=khoahoc::find($idKhoahoc);
-        return view('tao-chuong-cho-khoa-hoc',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs]);
+        $chuongs=chuong::find($idChuong);
+        $chuongs->delete();
+        return redirect()->back()->with('thongbao','Xóa chương thành công');
     }
 
-    public function postTaoChuongChoKhoaHoc(Request $request,$idKhoahoc)
+    public function getSuaChuong($idChuong)
     {
-        $khoahocs=khoahoc::find($idKhoahoc);
-        $size = count($request->all())-1;
-        for ($i=1; $i <= $size; $i++) {
-        $chuongs= new chuong();
-            $c='chuong'.$i;
-            $chuongs->ten_chuong=$request->input($c);
-            $chuongs->khoa_hoc_id=$khoahocs->id;
-            $chuongs->thoi_gian=1;
-            $chuongs->trang_thai=1;
-            $chuongs->save();
-        }
-        $idKhoaHoc=$khoahocs->id;
-        return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
+        $noidungs=noidung::all();
+        $chuongs=chuong::find($idChuong);
+        return view('sua-chuong-khoa-hoc',['chuongs'=>$chuongs,'noidungs'=>$noidungs]);
     }
 
-     public function getTaoBaiGiangChoChuong($idKhoahoc)
+    public function postSuaChuong(Request $request,$idChuong)
     {
-        $chuongs= chuong::all();
-        $noidungs= noidung::all();
-        $khoahocs=khoahoc::find($idKhoahoc);
-        return view('tao-bai-giang-cho-chuong',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs,'noidungs'=>$noidungs]);
+        $chuongs=chuong::find($idChuong);
+        $this->validate($request,
+        [
+            'TenChuong'=>'required'
+        ],
+        [   
+            'TenChuong.required'=>'Bạn chưa nhập tên chương',
+        ]);
+        $chuongs->ten_chuong=$request->TenChuong;
+        $chuongs->update();
+        return redirect()->back()->with('thongbao','Sửa chương thành công');
     }
 
-    public function postTaoBaiGiangChoChuong(Request $request,$idKhoahoc)
+    public function getXoaBaiGiang($idBaiGiang)
     {
-        $khoahocs=khoahoc::find($idKhoahoc);
-        $noidungs= new noidung;
-        // if($request->hasFile('Video'))
-        // {
-        //     $file= $request->file('Video');
-        //     $name=$file->getClientOriginalName();
-        //     $file->move('assets/images/'.$name);
-        //     $noidungs->video=$name;
-        // }
-
+        $noidungs=noidung::find($idBaiGiang);
+        $noidungs->delete();
+        return redirect()->back()->with('thongbao','Xóa Bài giảng thành công');
+    }
+    public function getSuaBaiGiang($idBaiGiang)
+    {
+        $noidungs=noidung::find($idBaiGiang);
+        return view('sua-bai-giang-khoa-hoc',['noidungs'=>$noidungs]);
+    }
+    public function postSuaBaiGiang(Request $request,$idBaiGiang)
+    {
+        $noidungs=noidung::find($idBaiGiang);
         $this->validate($request,
         [
             'TieuDe'=>'required',
@@ -187,15 +176,20 @@ class KhoaHocController extends Controller
             $noidungs->tai_lieu=$fileNameToStore;
         }
         $noidungs->tieu_de= $request->TieuDe;
-        $noidungs->chuong_id= $request->Chuong;
-        $noidungs->trang_thai=1;
-        $noidungs->save();
-        $idKhoaHoc=$khoahocs->id;
-        return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
+        $noidungs->update();
+        return redirect()->back()->with('thongbao','Sửa chương thành công');
     }
-    
 
+    public function index()
+    {
+        //
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //

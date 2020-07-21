@@ -60,7 +60,7 @@
                              <br>
                             <div class="form-group">
                                 <label for="motakhoahoc">Tên bài</label>
-                                <input type="text" class="form-control" id="motakhoahoc" placeholder="Tên bào giảng" name="TieuDe">
+                                <input type="text" class="form-control" id="motakhoahoc" placeholder="Tên bào giảng" name="TieuDe" value="">
                             </div>
                             <div class="col-sm-6">
                                 <label for="uploadvideo">Upload video</label>
