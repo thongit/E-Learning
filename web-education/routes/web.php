@@ -64,9 +64,7 @@ Route::get('/ds-linh-vuc', function () {
     return view('ds-linh-vuc');
 });
 
-Route::get('/thong-ke', function () {
-    return view('thong-ke');
-});
+
 
 Route::get('/ds-hoc-vien', function () {
     return view('ds-hoc-vien');
@@ -103,6 +101,18 @@ Route::get('/sua-bai-giang-khoa-hoc', function () {
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
+
+Route::get('admin/ds-hoc-vien','AdminController@getHocVien');
+
+Route::get('admin/ds-giang-vien','AdminController@getGiangVien');
+
+Route::get('admin/ds-admin','AdminController@getAdmin');
+
+Route::get('admin/ds-khoa-hoc','AdminController@getKhoaHoc');
+
+Route::get('admin/ds-khoa-hoc/{id}', 'AdminController@completedUpdate')->name('completedUpdate');
+
+Route::get('admin/thong-ke','AdminController@getThongKe');
 
 Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc');
 Route::get('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@getTaoMoTaKhoaHoc');
