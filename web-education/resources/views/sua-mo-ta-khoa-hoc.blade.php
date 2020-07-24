@@ -110,7 +110,7 @@
                                 <tbody>
                                     @foreach ($chuongs as $c)
                                     @if($khoahocs->id==$c->khoa_hoc_id)
-c                                    <tr>
+                                    <tr>
                                         <td>{{$c->ten_chuong}}</td>
                                         <td class="text-center">
                                             <a onclick="thongbaoxoa({{$c->id}})"><span class="btn btn-sm btn-danger">Xóa</span></a>

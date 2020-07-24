@@ -45,7 +45,7 @@
         <div class="navbar navbar-expand-md header-menu-one bg-light">
             <div class="nav-bar-header-one">
                 <div class="header-logo">
-                    <a href="index.html">
+                    <a href="">
                         <img src="{{asset ('assets-admin/img/logo.png') }}" alt="logo">
                     </a>
                 </div>
@@ -131,32 +131,44 @@
                             <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
-                                    <a href="index.html" class="nav-link"><i class="fas fa-angle-right"></i>Admin</a>
+                                    <a href="" class="nav-link"><i class="fas fa-angle-right"></i>Admin</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="index3.html" class="nav-link"><i
+                                    <a href="/admin/ds-hoc-vien" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Học viên</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="index4.html" class="nav-link"><i class="fas fa-angle-right"></i>Giáo viên</a>
+                                    <a href="/admin/ds-giang-vien" class="nav-link"><i class="fas fa-angle-right"></i>Giáo viên</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Học viên</span></a>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i
-                                    class="flaticon-multiple-users-silhouette"></i><span>Giáo Viên</span></a>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Khóa học</span></a>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Tài liệu</span></a>
+                            <a href="" class="nav-link"><i class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Khóa học</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="/admin/ds-khoa-hoc" class="nav-link"><i class="fas fa-angle-right"></i>Tất cả khóa học</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/ds-khoa-hoc-da-duyet" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Khóa học đã duyệt</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/ds-khoa-hoc-chua-duyet" class="nav-link"><i class="fas fa-angle-right"></i>Khóa học chưa duyệt</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="all-subject.html" class="nav-link"><i
+                            <a href="/admin/ds-hoc-vien" class="nav-link"><i class="flaticon-classmates"></i><span>Học viên</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/ds-giang-vien" class="nav-link"><i
+                                    class="flaticon-multiple-users-silhouette"></i><span>Giáo Viên</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="flaticon-books"></i><span>Tài liệu</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i
                                     class="flaticon-open-book"></i><span>Video</span></a>
                         </li>
                      <!--    <li class="nav-item sidebar-nav-item">

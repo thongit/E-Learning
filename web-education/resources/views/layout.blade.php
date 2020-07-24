@@ -59,7 +59,7 @@
         <div class="top-bar-area bg-dark inc-border text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 address-info text-left">
+                    <div class="col-md-6 address-info text-left">
                         <div class="info">
                             <ul>
                                 <li>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     @if(Session::get('ho_ten')== null)
-                     <div class="col-md-4 link text-right">
+                     <div class="col-md-6 link text-right">
                         <ul>
                             <li>
                                 <a href="dang-nhap">Đăng nhập</a>
@@ -87,8 +87,11 @@
                     </div>
                     @endif
                     @if(Session::get('ho_ten')!= null)
-                    <div class="col-md-4 link text-right">
+                    <div class="col-md-6 link text-right">
                         <ul>
+                            <li>
+                                <a class="btn-danger" href="#">Trở thành giảng viên</a>
+                            </li>
                             <li>
                             <h5>User: {{ Session::get('ho_ten') }} </h5>
                             </li>

@@ -110,9 +110,15 @@ Route::get('admin/ds-admin','AdminController@getAdmin');
 
 Route::get('admin/ds-khoa-hoc','AdminController@getKhoaHoc');
 
+Route::get('admin/ds-khoa-hoc-chua-duyet','AdminController@getKhoaHocChuaDuyet');
+
+Route::get('admin/ds-khoa-hoc-da-duyet','AdminController@getKhoaHocDaDuyet');
+
 Route::get('admin/ds-khoa-hoc/{id}', 'AdminController@completedUpdate')->name('completedUpdate');
 
 Route::get('admin/thong-ke','AdminController@getThongKe');
+
+Route::get('khoa-hoc/ds-khoa-hoc-da-tao/{id}', 'AdminController@khoaHocUpdate')->name('khoaHocUpdate');
 
 Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc');
 Route::get('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@getTaoMoTaKhoaHoc');

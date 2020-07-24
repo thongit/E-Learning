@@ -48,13 +48,44 @@ class AdminController extends Controller
         return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
     }
 
+    public function getKhoaHocChuaDuyet()
+    {
+        $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',2)->get();
+        return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+    }
+
+    public function getKhoaHocDaDuyet()
+    {
+        $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',3)->get();
+        return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+    }
+
     public function completedUpdate(Request $request,$id)
     {
-        // Set ALL records to a status of 0
+        $khoahocs=khoahoc::find($id);
+        if($khoahocs->trang_thai==2)
+        {
+            $khoahocs->trang_thai=3;
+            $khoahocs->save();
+        }
+        else
+        {
+            $khoahocs->trang_thai=2;
+            $khoahocs->save();
+        }
+        return redirect()->back()->with('message', 'Status changed!');
+    }
+    public function khoaHocUpdate(Request $request,$id)
+    {
         $khoahocs=khoahoc::find($id);
         if($khoahocs->trang_thai==1)
         {
             $khoahocs->trang_thai=2;
+            $khoahocs->save();
+        }
+        else if($khoahocs->trang_thai==2)
+        {
+            $khoahocs->trang_thai=1;
             $khoahocs->save();
         }
         else
