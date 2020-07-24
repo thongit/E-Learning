@@ -11,7 +11,6 @@ use App\noidung;
 use Session;
 use Auth;
 
-
 class KhoaHocController extends Controller
 {
     /**
@@ -19,6 +18,7 @@ class KhoaHocController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function getDanhSachKhoaHoc()
     {
         $nguoi_dung_ids=auth()->user()->id;
@@ -26,11 +26,27 @@ class KhoaHocController extends Controller
         return view('ds-khoa-hoc-da-tao',compact('khoahocs'));
     }
 
+
+    public function index()
+    {
+        $dsLinhVuc = linhvuc::all();
+        $dsKhoaHoc = khoahoc::whereIn('id',[1,2,3,4,5,6])->get();
+        return view('index', compact('dsKhoaHoc','dsLinhVuc'));
+    }
+
+    public function hienThiKhoaHoc()
+    {
+        $dsKhoaHoc = khoahoc::all();
+        $dsLinhVuc = linhvuc::all();
+        return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function getTaoMoTaKhoaHoc()
     {
         $linhvucs= linhvuc::all();
@@ -38,7 +54,7 @@ class KhoaHocController extends Controller
     }
     public function postTaoMoTaKhoaHoc(Request $request)
     {
-        
+
         $khoahocs= new khoahoc;
         $this->validate($request,
         [
@@ -50,7 +66,7 @@ class KhoaHocController extends Controller
             'MoTaTongQuat'=>'required'
 
         ],
-        [   
+        [
             'TenKhoaHoc.required'=>'Bạn chưa nhập tên khóa học',
             'MoTaKhoaHoc.required'=>'Bạn chưa nhập mô tả khóa học',
             'AnhKhoaHoc.required'=>'Bạn chưa upload hình khóa học',
@@ -150,7 +166,7 @@ class KhoaHocController extends Controller
             'TaiLieu'=>'mimes:doc,pdf,docx|max:10000',
             'Video'=>'required|mimes:mpeg,3gp,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|nullable|max:100040'
         ],
-        [   
+        [
             'TieuDe.required'=>'Chưa nhập tên bài giảng',
             'TaiLieu.mimes'=>'Đuôi file phải là doc,pdf,docx',
             'TaiLieu.max'=>'Dung lượng tối đa 10M',
@@ -193,7 +209,8 @@ class KhoaHocController extends Controller
         $idKhoaHoc=$khoahocs->id;
         return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
     }
-    
+
+
 
 
     public function create()
@@ -256,4 +273,74 @@ class KhoaHocController extends Controller
     {
         //
     }
+
+
+    public function timKiem(Request $request)
+    {
+        //$dsSanPham = SanPham::paginate(12);
+        $dsLinhVuc = linhvuc::all();
+        $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
+        if(sizeOf($dsKhoaHoc) <= 0)
+        {
+            return abort(404);
+        }
+       return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
+    }
+
+    // public function timKiemMucDo(Request $request)
+    // {
+    //     //$dsSanPham = SanPham::paginate(12);
+    //     $dsLinhVuc = linhvuc::all();
+
+    //     $dsKhoaHoc = khoahoc::where('muc_do', 'like', '%'.$request->tk_trung_cap.'%')
+    //                             ->where('muc_do', 'like', '%'.$request->tk_so_cap.'%')
+    //                             ->where('muc_do', 'like', '%'.$request->tk_chuyen_sau.'%')
+    //     ->get();
+    //     if(sizeOf($dsKhoaHoc) <= 0)
+    //     {
+    //         return abort(404);
+    //     }
+    //    return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
+    // }
+
+
+    public function timKiemNangCao(Request $request)
+    {
+        $dsLinhVuc = linhvuc::all();
+        $value = $request->get('value');
+
+        $dsKhoaHoc = khoahoc::where('muc_do',$value)->get();
+        dd($value);
+        // $dsTimKiem = khoahoc::query();
+
+        // if ($request->has('muc_do')) {
+        //     $dsTimKiem->where('muc_do', 'LIKE', '%' . $request->muc_do . '%');
+        // }
+
+        // if ($request->has('status')) {
+        //     $dsKhoaHoc->where('status', $request->status);
+        // }
+        // if ($request->has('type')) {
+        //     $dsKhoaHoc->where('type', $request->type);
+        // }
+
+        // if ($request->has('price')) {
+        //     $dsKhoaHoc->where('price', $request->price);
+        // }
+
+        // $dsKhoaHoc =  $dsTimKiem->get();
+        return view('tim-kiem',compact('dsKhoaHoc','dsLinhVuc'));
+    }
+
+    public function hienThiChiTietKhoaHoc($id)
+    {
+        $dsKhoaHoc = khoahoc::where('id', $id)->first();
+        $dsLinhVuc = linhvuc::all();
+        if($dsKhoaHoc == null)
+        {
+            return abort(404);
+        }
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
+    }
+
 }
