@@ -3,7 +3,7 @@
 @include('header')
 <!-- Start Breadcrumb
     ============================================= -->
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url(assets/img/banner/19.jpg);">
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url({{asset('assets/img/banner/19.jpg')}});">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -28,12 +28,12 @@
                 <div class="col-md-9">
                     <div class="courses-info">
                         <h2>
-                            Java Programming Masterclass with professional And qualified author author
+                            {{ $dsKhoaHoc->ten_khoa_hoc}}
                         </h2>
                         <div class="course-meta">
                             <div class="item author">
                                 <div class="thumb">
-                                    <a href="#"><img alt="Thumb" src="assets/img/team/6.jpg"></a>
+                                    <a href="#"><img alt="Thumb" src="{{asset('assets/img/team/6.jpg')}}"></a>
                                 </div>
                                 <div class="desc">
                                     <h4>Author</h4>
@@ -41,8 +41,8 @@
                                 </div>
                             </div>
                             <div class="item category">
-                                <h4>Category</h4>
-                                <a href="#">Science</a>
+                                <h4>Mức Độ</h4>
+                                <a href="#">{{ $dsKhoaHoc->muc_do }}</a>
                             </div>
                             <div class="item rating">
                                 <h4>Review</h4>
@@ -54,8 +54,8 @@
                                 <span>(1 Rating)</span>
                             </div>
                             <div class="item price">
-                                <h4>Price</h4>
-                                <span>$29.00</span>
+                                <h4>Giá</h4>
+                                <span>{{ number_format($dsKhoaHoc->gia) }} VNĐ</span>
                             </div>
                             <div class="align-right">
                                 <a class="btn btn-theme effect btn-sm" href="#">
@@ -63,29 +63,29 @@
                                 </a>
                             </div>
                         </div>
-                        <img src="assets/img/courses/1.jpg" alt="Thumb">
+                        <img src="{{asset('assets/img/courses/1.jpg')}}" alt="Thumb">
                         <!-- Star Tab Info -->
                         <div class="tab-info">
                             <!-- Tab Nav -->
                             <ul class="nav nav-pills">
                                 <li class="active">
                                     <a data-toggle="tab" href="#tab1" aria-expanded="true">
-                                        Overview
+                                        Thông tin chung
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#tab2" aria-expanded="false">
-                                        Curriculum
+                                        Giáo trình
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#tab3" aria-expanded="false">
-                                        Instructors
+                                       Giảng viên
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#tab4" aria-expanded="false">
-                                        Reviews
+                                        Đánh giá
                                     </a>
                                 </li>
                             </ul>
@@ -95,27 +95,9 @@
                                 <!-- Single Tab -->
                                 <div id="tab1" class="tab-pane fade active in">
                                     <div class="info title">
-                                        <h4>Course Desscription</h4>
                                         <p>
-                                            Calling nothing end fertile for venture way boy. Esteem spirit temper too say adieus who direct esteem. It esteems luckily mr or picture placing drawing no. Apartments frequently or motionless on reasonable projecting expression. Way mrs end gave tall walk fact bed.
+                                            {!! $dsKhoaHoc->mo_ta_chi_tiet !!}
                                         </p>
-                                        <p>
-                                            Placing assured be if removed it besides on. Far shed each high read are men over day. Afraid we praise lively he suffer family estate is. Ample order up in of in ready. Timed blind had now those ought set often which. Or snug dull he show more true wish. No at many deny away miss evil. On in so indeed spirit an mother. Amounted old strictly but marianne admitted. People former is remove remain as.
-                                        </p>
-                                        <h4>Main Features</h4>
-                                        <p>
-                                            Calling nothing end fertile for venture way boy. Esteem spirit temper too say adieus who direct esteem. It esteems luckily mr or picture placing drawing no. Apartments frequently or motionless on reasonable projecting expression. Way mrs end gave tall walk fact bed.
-                                        </p>
-                                        <h4>Learning Outcomes</h4>
-                                        <ul class="list">
-                                            <li><i class="fas fa-angle-right"></i> Over 37 lectures and 55.5 hours of content!</li>
-                                            <li><i class="fas fa-angle-right"></i> Testing Training Included.</li>
-                                            <li><i class="fas fa-angle-right"></i> Best suitable for beginners to advanced level users and who learn faster when demonstrated.</li>
-                                            <li><i class="fas fa-angle-right"></i> Course content designed by considering current software testing technology and the job market.</li>
-                                            <li><i class="fas fa-angle-right"></i> Practical assignments at the end of every session.</li>
-                                            <li><i class="fas fa-angle-right"></i> Unlimited Resourses</li>
-                                            <li><i class="fas fa-angle-right"></i> Practical learning experience with live project work and examples.</li>
-                                        </ul>
                                     </div>
                                 </div>
                                 <!-- End Single Tab -->
@@ -288,7 +270,7 @@
                                             <!-- Advisor Item -->
                                             <div class="item">
                                                 <div class="thumb">
-                                                    <img src="assets/img/advisor/1.jpg" alt="Thumb">
+                                                    <img src="{{asset('assets/img/advisor/1.jpg')}}" alt="Thumb">
                                                 </div>
                                                 <div class="info">
                                                     <div class="author">
@@ -310,7 +292,7 @@
                                                     </div>
                                                     <span class="designation">senior lecturer</span>
                                                     <p>
-                                                        Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular use for considered projection cultivated. Worth of do doubt shall
+                                                        Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particularfor considered projection cultivated. Worth of do doubt shall
                                                     </p>
                                                 </div>
                                             </div>
@@ -318,7 +300,7 @@
                                             <!-- Advisor Item -->
                                             <div class="item">
                                                 <div class="thumb">
-                                                    <img src="assets/img/advisor/2.jpg" alt="Thumb">
+                                                    <img src="{{asset('assets/img/advisor/2.jpg')}}" alt="Thumb">
                                                 </div>
                                                 <div class="info">
                                                     <div class="author">
@@ -340,7 +322,7 @@
                                                     </div>
                                                     <span class="designation">Java Programmer</span>
                                                     <p>
-                                                        Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular use for considered projection cultivated. Worth of do doubt shall
+                                                        Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular for considered projection cultivated. Worth of do doubt shall
                                                     </p>
                                                 </div>
                                             </div>
@@ -459,7 +441,7 @@
                                 <li>
                                     <div class="thumb">
                                         <a href="#">
-                                            <img src="assets/img/gallery/9.jpg" alt="Thumb">
+                                            <img src="{{asset('assets/img/gallery/9.jpg')}}" alt="Thumb">
                                         </a>
                                     </div>
                                     <div class="info">
@@ -479,7 +461,7 @@
                                 <li>
                                     <div class="thumb">
                                         <a href="#">
-                                            <img src="assets/img/gallery/10.jpg" alt="Thumb">
+                                            <img src="{{asset('assets/img/gallery/10.jpg')}}" alt="Thumb">
                                         </a>
                                     </div>
                                     <div class="info">
@@ -499,7 +481,7 @@
                                 <li>
                                     <div class="thumb">
                                         <a href="#">
-                                            <img src="assets/img/gallery/11.jpg" alt="Thumb">
+                                            <img src="{{asset('assets/img/gallery/11.jpg')}}" alt="Thumb">
                                         </a>
                                     </div>
                                     <div class="info">
@@ -531,7 +513,7 @@
     ============================================= -->
     <div class="newsletter-area fixed">
         <div class="container">
-            <div class="subscribe-items shadow theme-hard default-padding bg-cover" style="background-image: url(assets/img/banner/11.jpg);">
+            <div class="subscribe-items shadow theme-hard default-padding bg-cover" style="background-image: url({{asset('assets/img/banner/11.jpg')}});">
                 <div class="row">
                     <div class="col-md-7 left-info">
                         <div class="info-box">

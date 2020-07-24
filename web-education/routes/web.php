@@ -11,18 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 
 Route::get('/khoa-hoc', function () {
     return view('khoa-hoc');
 });
 
-Route::get('/chi-tiet-khoa-hoc', function () {
-    return view('chi-tiet-khoa-hoc');
-});
+// Route::get('/chi-tiet-khoa-hoc', function () {
+//     return view('KhoaHoc.chi-tiet-khoa-hoc');
+// });
 
 Route::get('/giang-vien', function () {
     return view('giang-vien');
@@ -63,8 +63,6 @@ Route::get('/login-admin', function () {
 Route::get('/ds-linh-vuc', function () {
     return view('ds-linh-vuc');
 });
-
-
 
 Route::get('/ds-hoc-vien', function () {
     return view('ds-hoc-vien');
@@ -142,12 +140,35 @@ Route::get('khoa-hoc/xoa-bai-giang/{idBaiGiang}','CMSController@getXoaBaiGiang')
 Route::get('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@getSuaBaiGiang');
 Route::post('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@postSuaBaiGiang');
 
-// <<<<<<< Updated upstream
+
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
-// =======
-// >>>>>>> Stashed changes
+
+
+Route::get('thu-lay-gia-tri', function () {
+    return view('thu-lay-gia-tri');
+});
+
+// Route::get('tim-kiem', function () {
+//     return view('tim-kiem');
+// });
+
+Route::prefix('trang-chu')->group(function () {
+    Route::name('trang-chu.')->group(function(){
+    //trang chủ
+    Route::get('/', 'KhoaHocController@index')->name('index');
+    //trang khóa học
+    Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
+    //Hiển thị tìm kiếm
+    Route::get('tim-kiem', 'KhoaHocController@timKiem')->name('xu-ly-tim-kiem');
+     //Hiển thị tìm kiếm nâng cao
+     Route::get('tim-kiem-nc', 'KhoaHocController@timKiemNangCao')->name('xu-ly-tim-kiem-nc');
+    //Hiển thị chi tiết khóa  học
+    Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
+
+    });
+});
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
@@ -156,4 +177,7 @@ Route::post('login-2','NguoiDungController@xuLyDangNhap')->name('xu-ly-dang-nhap
 Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');
 Route::get('register','NguoiDungController@dangKy')->name('dang-ky');
 Route::post('register','NguoiDungController@xuLyDangKy')->name('xu-ly-dang-ky');
+// Route::get('','NguoiDungCotroller@getDangNhap')->name('dangnhap');
+// Route::post('/login-2','NguoiDungCotroller@postxulyDangNhap')->name('xulydangnhap');
+
 ?>

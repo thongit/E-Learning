@@ -11,4 +11,9 @@ class khoahoc extends Model
     {
         return $this->belongsTo('App\linhvuc');
     }
+
+    //  public function linhVuc()
+    //  {
+    //     return $this->belongsTo('App\linhvuc','linh_vuc_id','id');
+    //  }
 }
