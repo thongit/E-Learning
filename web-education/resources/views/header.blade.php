@@ -11,8 +11,9 @@
                 <div class="row">
                     <div class="top-search">
                         <div class="input-group">
-                            <form action="#">
-                                <input type="text" name="text" class="form-control" placeholder="Search">
+                            <form action="{{ route('trang-chu.xu-ly-tim-kiem') }}" method="GET">
+                                @csrf
+                                <input type="text" name="key_word_tenkh" class="form-control" placeholder="Search">
                                 <button type="submit">
                                     <i class="ti-search"></i>
                                 </button>
@@ -38,8 +39,8 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="../">
-                        <img src="assets/img/logo.png" class="logo" alt="Logo">
+                    <a class="navbar-brand" href="{{ route('trang-chu.index')}}">
+                        <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="Logo">
                     </a>
                 </div>
                 <!-- End Header Navigation -->
@@ -51,18 +52,14 @@
                             <a href="gioi-thieu">Giới thiệu</a>
                         </li>
                         <li>
-                            <a href="khoa-hoc">Khóa học</a>
+                            <a href="{{ route('trang-chu.khoa-hoc') }}">Khóa học</a>
                         </li>
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown">Lĩnh vực</a>
                             <ul class="dropdown-menu">
-                                <li><a href="">Ngoại ngữ</a></li>
-                                <li><a href="">Công nghệ thông tin</a></li>
-                                <li><a href="">Tin học văn phòng</a></li>
-                                <li><a href="">Âm nhạc</a></li>
-                                <li><a href="">Thể thao - Sức khỏe</a></li>
-                                <li><a href="">Thiết kế</a></li>
-                                <li><a href="">Phát triển bản thân</a></li>
+                                @foreach($dsLinhVuc as $linhVuc)
+                                    <li><a href="#">{{ $linhVuc->ten_linh_vuc }}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <li>

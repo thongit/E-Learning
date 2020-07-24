@@ -36,8 +36,8 @@
     @yield('css')
     <!-- ========== End Stylesheet ========== -->
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- HTML5 shim and Respondjs IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src=" {{ asset ('assets/js/html5/html5shiv.min.js') }}"></script>
       <script src=" {{ asset ('assets/js/html5/respond.min.js') }}"></script>
@@ -119,6 +119,7 @@
             </div>
         </div>
     <!-- End Header Top -->
+
 
     <!-- Start Body -->
         @yield('content')
