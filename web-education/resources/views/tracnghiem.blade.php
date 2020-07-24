@@ -93,6 +93,7 @@
 	}
 	.chi-tiet-kt{
 		text-align:center;
+		font-size:23px;
 	}
 	.center{
 		text-align:center;
@@ -243,12 +244,12 @@
 	}
 </style>
 <link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-var TEST_DETAILS,QUESTIONS,CURRENT_QUES=0,USERNAME,PASSWORD,SUBMITTED=false;
-var CAUHOI = 2;
+var TEST_DETAILS,QUESTIONS,CURRENT_QUES=0,CAUDUNG = 0,CAUBO = 0,SUBMITTED=false;
+var CAUHOI = {!! json_encode($cauHoi) !!};
 $(document).ready(function(){
-	
+
     $.ajax({
         type: "GET", 
         url: DEPLOYED_WEB_APP_URL+"?action=testDetails", 
@@ -259,17 +260,15 @@ $(document).ready(function(){
         	if(TEST_DETAILS.timeAlotted>0){
         		$("#testMeta").append("Thời gian làm : "+TEST_DETAILS.timeAlotted+" phút");
         	}
-			$("#testMeta").append("<br/> Số câu hỏi : "+(CAUHOI.length-1));
+			$("#testMeta").append("<br/> Số câu hỏi : "+(CAUHOI.length));
         }, 
 		error: function(xhr, textStatus, errorThrown) {
             alert("Some error occured while loading the test, please refresh the page.");
         }
     });
+
 	$("#bat-dau").click(function(){
 		$(".start-loader").show();
-		
-		USERNAME = $("#regnNum").val();
-		PASSWORD = $("#password").val();
 		QUESTIONS = CAUHOI;
 		$(".user").text("Minh Tân");
 		$(".login-section,.instruction-section").remove();
@@ -289,15 +288,13 @@ $(document).ready(function(){
 		}
 	});
 
-	//Hiển thị nút submit và nút tiếp theo
-
 	$(document).on("click",".q-num",function(){
 		$(".q-num").css({"border":"1px solid #c0c0c0","fontWeight":"normal"});
 		$(".q-num").eq($(this).attr("index")).css({"border":"1px solid #0077A7","fontWeight":"bold"});
 		var self = this;
 		CURRENT_QUES = parseInt($(self).attr("index"));
 		setTimeout(function(){ 
-			populateQuestion(QUESTIONS[$(self).attr("index")],parseInt($(self).attr("index")));
+			populateQuestion(QUESTIONS[CURRENT_QUES],parseInt($(self).attr("index")));
 		}, 250);
 		if(CURRENT_QUES>=QUESTIONS.length-1){
 			$("#next").hide();
@@ -308,50 +305,112 @@ $(document).ready(function(){
 		}
 	});
 	
-	//đổi màu câu đã tick
-	
 	$(document).on("click","input[name='dq-op']",function(){
-		if(QUESTIONS[CURRENT_QUES][7]){
+		if(QUESTIONS[CURRENT_QUES][8]){
 			if($(this).is(":checked")){
-				QUESTIONS[CURRENT_QUES][7] = parseInt($(this).attr("id").replace("dq-op",""));
+				switch (parseInt($(this).attr("id").replace("dq-op","")))
+				{
+					case 1: 
+						QUESTIONS[CURRENT_QUES][8] = 'A';
+						break;
+					case 2: 
+						QUESTIONS[CURRENT_QUES][8] = 'B';
+						break;
+					case 3: 
+						QUESTIONS[CURRENT_QUES][8] = 'C';
+						break;
+					case 4: 
+						QUESTIONS[CURRENT_QUES][8] = 'D';
+						break;
+					case 5: 
+						QUESTIONS[CURRENT_QUES][8] = 'E';
+						break;
+					default: 
+						QUESTIONS[CURRENT_QUES][8] = 'F';
+						break;
+				}
 			}else{
-				QUESTIONS[CURRENT_QUES][7] = 0;
+				QUESTIONS[CURRENT_QUES][8] = null;
 			}
 		}else{
 			QUESTIONS[CURRENT_QUES].push(0);
-			QUESTIONS[CURRENT_QUES][7] = parseInt($(this).attr("id").replace("dq-op",""));
+			switch (parseInt($(this).attr("id").replace("dq-op","")))
+			{
+				case 1: 
+					QUESTIONS[CURRENT_QUES][8] = 'A';
+					break;
+				case 2: 
+					QUESTIONS[CURRENT_QUES][8] = 'B';
+					break;
+				case 3: 
+					QUESTIONS[CURRENT_QUES][8] = 'C';
+					break;
+				case 4: 
+					QUESTIONS[CURRENT_QUES][8] = 'D';
+					break;
+				case 5: 
+					QUESTIONS[CURRENT_QUES][8] = 'E';
+					break;
+				default: 
+					QUESTIONS[CURRENT_QUES][8] = 'F';
+					break;
+			}
 		}
 		$('input:checkbox:not("#'+$(this).attr("id")+'")').prop("checked",false);
 		
 		if($(this).is(":checked")){
-			$(".q-num[index='"+CURRENT_QUES+"']").css("background","#8CC4DA");
+			$(".q-num[index='"+(CURRENT_QUES)+"']").css("background","#8CC4DA");
 		}else{
-			$(".q-num[index='"+CURRENT_QUES+"']").css("background","#f0f0f0");
+			$(".q-num[index='"+(CURRENT_QUES)+"']").css("background","#f0f0f0");
 		}
 	});
-	
-	// tiếp tục
 	
 	$("#next").click(function(){
 		CURRENT_QUES = CURRENT_QUES+1;
 		$(".q-num[index='"+CURRENT_QUES+"']").trigger("click");
 	});
 	
-	// lấy câu hỏi
-	
 	function populateQuestion(ques,index){
-		$(".question").html("<td>Câu số "+(index+1)+"</td><td>"+ques[0]+"</td>");
-		$(".option1").html("<td><input type='checkbox' id='dq-op1' name='dq-op'/></td><td><label for='dq-op1'>"+ques[1]+"</label></td>");
-		$(".option2").html("<td><input type='checkbox' id='dq-op2' name='dq-op'/></td><td><label for='dq-op2'>"+ques[2]+"</label></td>");
-		$(".option3").html("<td><input type='checkbox' id='dq-op3' name='dq-op'/></td><td><label for='dq-op3'>"+ques[3]+"</label></td>");
-		$(".option4").html("<td><input type='checkbox' id='dq-op4' name='dq-op'/></td><td><label for='dq-op4'>"+ques[4]+"</label></td>");
-		if(ques[7]){
-			$("#dq-op"+ques[7]).prop("checked","true");
+		$(".question").html("<td>Câu "+(index+1)+":</td><td>"+ques[0]+"</td>");
+		$(".option1").html("<td><input type='checkbox' id='dq-op1' name='dq-op'/></td><td><label for='dq-op1'>"+ques[2]+"</label></td>");
+		$(".option2").html("<td><input type='checkbox' id='dq-op2' name='dq-op'/></td><td><label for='dq-op2'>"+ques[3]+"</label></td>");
+		if(ques[4] != null)
+		{
+			$(".option3").html("<td><input type='checkbox' id='dq-op3' name='dq-op'/></td><td><label for='dq-op3'>"+ques[4]+"</label></td>");
+		}
+		else
+		{
+			$(".option3").html("");
+		}
+		if(ques[5] != null)
+		{
+			$(".option4").html("<td><input type='checkbox' id='dq-op4' name='dq-op'/></td><td><label for='dq-op4'>"+ques[5]+"</label></td>");
+		}
+		else
+		{
+			$(".option4").html("");
+		}
+		if(ques[6] != null)
+		{
+			$(".option5").html("<td><input type='checkbox' id='dq-op5' name='dq-op'/></td><td><label for='dq-op5'>"+ques[6]+"</label></td>");
+		}
+		else
+		{
+			$(".option5").html("");
+		}
+		if(ques[7] != null)
+		{
+			$(".option6").html("<td><input type='checkbox' id='dq-op6' name='dq-op'/></td><td><label for='dq-op6'>"+ques[7]+"</label></td>");
+		}
+		else
+		{
+			$(".option6").html("");
+		}
+		if(ques[8]){
+			$("#dq-op"+ques[8]).prop("checked","true");
 		}
 		$(".question-tbl").fadeTo("fast", 0.33).fadeTo("fast",1);
 	}
-	
-	// how to submit
 	
 	$(".submit-answers").click(function(){
 		$(".q-num[index='"+(QUESTIONS.length-1)+"']").trigger("click");
@@ -364,10 +423,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	//nộp bài
-	
 	$("#submit").click(function(){
-		console.log("TEST_DETAILS",TEST_DETAILS);
 		if(confirm("Are you sure to submit your answers ?")){
 			submitAnswers();
 		}
@@ -377,20 +433,72 @@ $(document).ready(function(){
 		SUBMITTED = true;
 		$("#submit").prop("disabled",true);
 		$("#submitLoader").show().css("top","12px");
-		var answers="";
-		QUESTIONS.sort(function (a, b) {
-			if (a[6] > b[6]) {
-				return 1;
+		$(".question-section,.question-navigation").remove();
+		if(1>2){
+			$(".no-score").css("display","block");
+		}else if(1>3){
+			$(".with-ques").show();
+			console.log(QUESTIONS);
+			for(i=0;i<QUESTIONS.length;i++){
+				htmlTable="<table id='qwn-"+i+"'><tr class='question'><td class='v-top'>Câu "+(i+1)+":</td><td class='left'>"+QUESTIONS[i][0]+"</td></tr>";
+				htmlTable+="<tr class='option optionA'><td class='v-top'><input disabled type='checkbox' id='dq-opA' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][2]+"</label></td></tr>";
+				htmlTable+="<tr class='option optionB'><td class='v-top'><input disabled type='checkbox' id='dq-opB' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][3]+"</label></td></tr>";
+				if(QUESTIONS[i][4] != null)
+				{
+					htmlTable+="<tr class='option optionC'><td class='v-top'><input disabled type='checkbox' id='dq-opC' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][4]+"</label></td></tr>";
+				}
+				if(QUESTIONS[i][5] != null)
+				{
+					htmlTable+="<tr class='option optionD'><td class='v-top'><input disabled type='checkbox' id='dq-opD' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][5]+"</label></td></tr>";
+				}
+				if(QUESTIONS[i][6] != null)
+				{
+					htmlTable+="<tr class='option optionE'><td class='v-top'><input disabled type='checkbox' id='dq-opE' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][6]+"</label></td></tr>";
+				}
+				if(QUESTIONS[i][7] != null)
+				{
+					htmlTable+="<tr class='option optionF'><td class='v-top'><input disabled type='checkbox' id='dq-opF' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][7]+"</label></td></tr>";
+				}
+				$(".with-ques .only-questions").append(htmlTable);
+				$("#qwn-"+i+" #dq-op"+QUESTIONS[i][1]).prop("checked",true);
+				$("#qwn-"+i+" .option"+QUESTIONS[i][1]).css("color","green");
+				$("#qwn-"+i+" .option"+QUESTIONS[i][8]).css({"font-weight":"bold", "font-size": "x-large"});
+				if(QUESTIONS[i][1] != QUESTIONS[i][8]){
+					$("#qwn-"+i+" .option"+QUESTIONS[i][8]).css("color","red");
+				}
+				else{
+					CAUDUNG = CAUDUNG + 1;
+				}
+				if(QUESTIONS[i][8] == null)
+				{
+					CAUBO = CAUBO + 1;
+				}
 			}
-			if (a[6] < b[6]) {
-				return -1;
-			}
-			return 0;
-		});
-		for(var i=0;i<QUESTIONS.length;i++){
-			answers+=(i+1)+"-"+(QUESTIONS[i][7] ? QUESTIONS[i][7] : "0")+",";
+			displayScore(".with-ques .only-scores");
+			console.log(QUESTIONS);
 		}
-		answers = answers.slice(0, -1);	
+		else {
+			for(i=0;i<QUESTIONS.length;i++){
+				if(QUESTIONS[i][1] == QUESTIONS[i][8]){
+					CAUDUNG = CAUDUNG + 1;
+				}
+				if(QUESTIONS[i][8] == null)
+				{
+					CAUBO = CAUBO + 1;
+				}
+			}
+			$(".with-score").show();
+			displayScore(".with-score");
+		}
+	}
+
+	function displayScore(placeholder){
+		$(placeholder).append("<div>Tên: <span> Minh Tân </span></div>");
+		$(placeholder).append("<div>Điểm: <span>"+CAUDUNG+"/"+QUESTIONS.length+"</span></div>");
+		$(placeholder).append("<div>Tỷ lệ: <span>"+Math.round(((CAUDUNG/QUESTIONS.length) * 100 * 100) / 100).toFixed(2)+"%</span></div>");
+		$(placeholder).append("<div>Số câu đúng: <span class='green'>"+ CAUDUNG +"</span></div>");
+		$(placeholder).append("<div>Số câu sai: <span class='red'>"+ (QUESTIONS.length - CAUDUNG - CAUBO) +"</span></div>");
+		$(placeholder).append("<div>Số câu bỏ qua: <span>"+ CAUBO +"</span></div>");
 	}
 
 	function countDown(minutes) {
@@ -441,6 +549,8 @@ window.onbeforeunload = function(event){
 				<tr class="option option2"></tr>
 				<tr class="option option3"></tr>
 				<tr class="option option4"></tr>
+				<tr class="option option5"></tr>
+				<tr class="option option6"></tr>
 			</table>
 		</div>
 		<div class="question-navigation inline-block display-none" style="width:30%;padding: 1% 2% 2% 2%;margin: 2% 0%;vertical-align:top;border-left: 1px solid #c0c0c0;">
