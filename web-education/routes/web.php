@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 Route::get('/khoa-hoc', function () {
     return view('khoa-hoc');
 });
 
-Route::get('/chi-tiet-khoa-hoc', function () {
-    return view('chi-tiet-khoa-hoc');
-});
+// Route::get('/chi-tiet-khoa-hoc', function () {
+//     return view('KhoaHoc.chi-tiet-khoa-hoc');
+// });
 
 Route::get('/giang-vien', function () {
     return view('giang-vien');
@@ -122,8 +122,32 @@ Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
 
+Route::get('thu-lay-gia-tri', function () {
+    return view('thu-lay-gia-tri');
+});
+
+// Route::get('tim-kiem', function () {
+//     return view('tim-kiem');
+// });
+
+Route::prefix('trang-chu')->group(function () {
+    Route::name('trang-chu.')->group(function(){
+    //trang chủ
+    Route::get('/', 'KhoaHocController@index')->name('index');
+    //trang khóa học
+    Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
+    //Hiển thị tìm kiếm
+    Route::get('tim-kiem', 'KhoaHocController@timKiem')->name('xu-ly-tim-kiem');
+     //Hiển thị tìm kiếm nâng cao
+     Route::get('tim-kiem-nc', 'KhoaHocController@timKiemNangCao')->name('xu-ly-tim-kiem-nc');
+    //Hiển thị chi tiết khóa  học
+    Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
+
+    });
+});
+
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
-Route::get('','NguoiDungCotroller@getDangNhap')->name('dangnhap');
-Route::post('/login-2','NguoiDungCotroller@postxulyDangNhap')->name('xulydangnhap');
+// Route::get('','NguoiDungCotroller@getDangNhap')->name('dangnhap');
+// Route::post('/login-2','NguoiDungCotroller@postxulyDangNhap')->name('xulydangnhap');
 ?>
