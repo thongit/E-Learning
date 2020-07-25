@@ -16,17 +16,11 @@
 // });
 
 
-Route::get('/khoa-hoc', function () {
-    return view('khoa-hoc');
-});
-
 // Route::get('/chi-tiet-khoa-hoc', function () {
 //     return view('KhoaHoc.chi-tiet-khoa-hoc');
 // });
 
-Route::get('/giang-vien', function () {
-    return view('giang-vien');
-});
+Route::get('giang-vien','KhoaHocController@getGiangVien');
 
 Route::get('/thong-tin-giang-vien', function () {
     return view('thong-tin-giang-vien');
@@ -140,6 +134,7 @@ Route::get('khoa-hoc/xoa-bai-giang/{idBaiGiang}','CMSController@getXoaBaiGiang')
 Route::get('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@getSuaBaiGiang');
 Route::post('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@postSuaBaiGiang');
 
+Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc');
 
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
@@ -153,7 +148,6 @@ Route::get('thu-lay-gia-tri', function () {
 //     return view('tim-kiem');
 // });
 
-Route::prefix('trang-chu')->group(function () {
     Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');
@@ -167,7 +161,6 @@ Route::prefix('trang-chu')->group(function () {
     Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
 
     });
-});
 
 
 // Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');

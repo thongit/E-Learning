@@ -34,11 +34,23 @@ class KhoaHocController extends Controller
         return view('index', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
+    public function getLinhVuc($id)
+    {
+        $khoaHoc_linhVuc= khoahoc::where('linh_vuc_id',$id)->get();
+        return view('linh-vuc-khoa-hoc',compact('khoaHoc_linhVuc'));
+    }
+
     public function hienThiKhoaHoc()
     {
         $dsKhoaHoc = khoahoc::all();
         $dsLinhVuc = linhvuc::all();
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
+    }
+
+    public function getGiangVien()
+    {
+        $giangviens= nguoidung::where('loai_tk',2)->get();
+        return view('giang-vien', compact('giangviens','giangviens'));
     }
 
     /**

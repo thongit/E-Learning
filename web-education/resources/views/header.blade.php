@@ -49,7 +49,7 @@
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
                         <li>
-                            <a href="gioi-thieu">Giới thiệu</a>
+                            <a href="/gioi-thieu">Giới thiệu</a>
                         </li>
                         <li>
                             <a href="{{ route('trang-chu.khoa-hoc') }}">Khóa học</a>
@@ -57,21 +57,20 @@
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown">Lĩnh vực</a>
                             <ul class="dropdown-menu">
-                                @foreach($dsLinhVuc as $linhVuc)
-                                    <li><a href="#">{{ $linhVuc->ten_linh_vuc }}</a></li>
+                                @foreach($linhvucs as $linhVuc)
+                                    <li><a href="/linh-vuc/{{$linhVuc->id}}">{{ $linhVuc->ten_linh_vuc }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
                         <li>
-                            <a href="giang-vien">Giảng viên</a>
+                            <a href="/giang-vien">Giảng viên</a>
                         </li>
                         <li>
-                            <a href="lien-he">Liên hệ</a>
+                            <a href="/lien-he">Liên hệ</a>
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
-
         </nav>
         <!-- End Navigation -->
 

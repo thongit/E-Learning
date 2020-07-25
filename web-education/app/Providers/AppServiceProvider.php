@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\linhvuc;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('header',function($view)
+        {
+            $linhvucs=linhvuc::all();
+            $view->with('linhvucs',$linhvucs);
+        });
     }
 }
