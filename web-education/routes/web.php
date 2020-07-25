@@ -76,9 +76,9 @@ Route::get('/kich-hoat-khoa-hoc', function () {
     return view('kich-hoat-khoa-hoc');
 });
 
-Route::get('/them-cau-hoi', function () {
-    return view('them-cau-hoi');
-})->name('them-cau-hoi');
+// Route::get('/them-cau-hoi', function () {
+//     return view('them-cau-hoi');
+// })->name('them-cau-hoi');
 
 Route::get('/tao-bai-trac-nghiem', function () {
     return view('tao-bai-trac-nghiem');
@@ -145,7 +145,6 @@ Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
 
-
 Route::get('thu-lay-gia-tri', function () {
     return view('thu-lay-gia-tri');
 });
@@ -170,8 +169,15 @@ Route::prefix('trang-chu')->group(function () {
     });
 });
 
-Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
+
+// Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
+// Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
+
+Route::get('trac-nghiem-excel/{tenFile}','ExportFileExcelController@docDuLieu')->name('trac-nghiem-excel');
+Route::get('/them-cau-hoi-excel/{id}','ExportFileExcelController@index')->name('them-cau-hoi-excel');
+Route::post('export', 'ExportFileExcelController@export')->name('export');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
+
 Route::get('login-2','NguoiDungController@dangNhap')->name('dang-nhap');
 Route::post('login-2','NguoiDungController@xuLyDangNhap')->name('xu-ly-dang-nhap');
 Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');

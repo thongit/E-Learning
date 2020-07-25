@@ -11,4 +11,14 @@ class chuong extends Model
     {
         return $this->belongsTo('App\khoahoc');
     }
+
+    public function noiDung()
+    {
+        return $this->hasMany('App\noidung');
+    }
+
+    public function baiKiemTra()
+    {
+        return $this->hasMany('App\baikiemtra');
+    }
 }
