@@ -21,6 +21,8 @@ class CreateTableNguoiDung extends Migration
             $table->integer('loai_tk');
             $table->string('cmnd');
             $table->string('sdt');
+            $table->string("anh_dai_dien");
+            $table->string("dia_chi");
             $table->timestamps();
             $table->softDeletes();
         });

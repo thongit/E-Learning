@@ -115,16 +115,16 @@ Route::get('/sua-bai-giang-khoa-hoc', function () {
     return view('sua-bai-giang-khoa-hoc');
 });
 
+Route::get('/quen-mat-khau', function () {
+    return view('quen-mat-khau');
+});
+
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
-
-<<<<<<< Updated upstream
-Route::get('quen-mat-khau', function () {
-    return view('quen-mat-khau');
+Route::get('/trang-ca-nhan', function () {
+    return view('trang-ca-nhan');
 });
-=======
->>>>>>> Stashed changes
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
@@ -133,4 +133,11 @@ Route::post('login-2','NguoiDungController@xuLyDangNhap')->name('xu-ly-dang-nhap
 Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');
 Route::get('register','NguoiDungController@dangKy')->name('dang-ky');
 Route::post('register','NguoiDungController@xuLyDangKy')->name('xu-ly-dang-ky');
+Route::get('trang-ca-nhan','NguoiDungController@getSua')->name('sua');
+Route::post('trang-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua');
+// Route::get('quen-mat-khau','NguoiDungController@quenMatKhau')->name('quen-mat-khau');
+// Route::post('trang-ca-nhan','NguoiDungController@xuLyQuenMatKhau')->name('xu-ly-quen-mat-khau');doiMatKhau
+Route::post('mail/send','NguoiDungController@xuLyQuenMatKhau')->name('xu-ly-quen-mat-khau');
+Route::get('doi-mat-khau','NguoiDungController@doiMatKhau')->name('doi-mat-khau');
+Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
 ?>

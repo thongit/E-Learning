@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
-
+   
 <!-- Sweet alert init js-->
      <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
      <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
@@ -34,7 +34,13 @@
     <script src="{{asset ('assets-admin/js/modernizr-3.6.0.min.js') }}"></script>
     {{--  font awesome  --}}
     <link href=" {{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    
+
+<!-- Sweet alert init js-->
+<!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
 </head>
+
 
 <body>
     <!-- Preloader Start Here -->
@@ -98,11 +104,11 @@
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
-                                    <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
-                                    <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
-                                    <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
-                                    <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li><a onclick="logout()" href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li><a href="trang-ca-nhan"><i class="flaticon-user"></i>Trang cá nhân</a></li>
+                                    <!-- <li><a href="#"><i class="flaticon-list"></i>Task</a></li> -->
+                                    <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Tin nhắn</a></li>
+                                    <!-- <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li> -->
+                                    <li><a onclick="logout()" href="#"><i class="flaticon-turn-off"></i>Đăng xuất</a></li>
                                 </ul>
                                 <script>
                             function logout() {

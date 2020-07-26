@@ -89,8 +89,9 @@
                     @if(Session::get('ho_ten')!= null)
                     <div class="col-md-4 link text-right">
                         <ul>
+                        
                             <li>
-                            <h5>User: {{ Session::get('ho_ten') }} </h5>
+                                <a id="trang_cn" href="trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
                             </li>
                             <li>
                                 <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\nguoidung;
 use App\Providers;
 use Session;
+use Auth;
 use Illuminate\Support\Facades\DB;
 use Alert;
+
+use Mail;
+use App\Mail\DemoMail;
+
 class NguoiDungController extends Controller
 {
     /**
@@ -17,6 +21,7 @@ class NguoiDungController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $e;
     public function dangNhap()
     {
         return view('dang-nhap');
@@ -84,7 +89,6 @@ class NguoiDungController extends Controller
             'mat_khau_nl.same'=>'Mật khẩu nhập lại không khớp!',
             'email.unique'=>'Email đã được đăng ký tài khoản!',
 
-            
         ]);
        
         $nguoidung= new nguoidung;
@@ -94,20 +98,136 @@ class NguoiDungController extends Controller
         $nguoidung->loai_tk= '1';
         $nguoidung->cmnd= $request->so_cmnd;
         $nguoidung->sdt= $request->so_dt;
-        
+        $nguoidung->anh_dai_dien= 'null';
+        $nguoidung->dia_chi= 'null';
         $nguoidung->save();
         return redirect('dang-nhap')->with('thongbao','Đăng ký thành công');
     }
     
+    public function getSua()
+    {
+        $nguoi_dung_ids=auth()->user()->id;
+        $nguoidungs=DB::table('nguoi_dung')->where('id','=', $nguoi_dung_ids)->first();
+        return view('trang-ca-nhan',compact('nguoidungs'));
+    }
+
+    public function postSua(Request $request)
+    {  
+        $nguoidung=nguoidung::find(auth()->user()->id);
+       
+        $this->validate($request,
+        [
+            'ho_ten'=>'required|min:3|',
+            'so_cmnd'=>'required|max:10|',
+            'so_dt'=>'required|max:10|',
+            'anh-dai-dien'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    
+        ],
+        [ 
+            'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
+            'so_dt.max'=>'Số điện thoại không hợp lệ!',
+            'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
+            'anh-dai-dien.image'=>'Định dạng phải là hình ảnh',
+            'anh-dai-dien.mimes'=>'Đuôi hình ảnh phải là:jpeg, png, jpg, gif, svg',
+            'anh-dai-dien.max'=>'Dung lượng tối đa 2048kb'
+
+            
+        ]);
+        $nguoidung->ho_ten= $request->ho_ten;
+        $nguoidung->email= $request->email;
+        $nguoidung->cmnd= $request->so_cmnd;
+        $nguoidung->sdt= $request->so_dt;
+        if($request->hasFile('anh-dai-dien'))
+        {   
+          $file=$request->file('anh-dai-dien');
+          $filenameWithExt = $request->file('anh-dai-dien')->getClientOriginalName();
+          $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+          $extension = $request->file('anh-dai-dien')->getClientOriginalExtension();
+          $fileNameToStore = $filename.'_'.time().'.'.$extension;
+          $destinationPath = 'assets/images';
+          $file->move($destinationPath,$fileNameToStore);
+          $nguoidung->anh_dai_dien=$fileNameToStore;
+        }
+       
+        $nguoidung->dia_chi= $request->dia_chi;
+        $nguoidung->update();
+        return redirect('trang-ca-nhan')->with('thongbao','Cập nhật thành công');
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function quenMatKhau()
     {
-        return "ok";
+        return view('quen-mat-khau');
+    }
+
+    public function xuLyQuenMatKhau(Request $request)
+    {
+        
+    //     //$remember=$request->has('remember')? true:false;
+    //     $nguoidungs = nguoidung::where('email','=',$request->email )->first();
+    //     if ($nguoidungs == null || $nguoidungs->email != $request->email) {
+    //         Session::flash('error', 'Email không tồn tại, vui lòng nhập lại!');
+    //         return redirect('quen-mat-khau');
+    //     }
+    //     $nguoidungs = Sentinel::findById($nguoidungs->id);
+    //     $reminder = Reminder::exists($nguoidungs) ? : Reminder::create($nguoidungs);
+    //     $this->sendEmail($nguoidungs,$reminder->code);
+    //     return redirect('quen-mat-khau')->with('thongbao','Vui lòng kiểm tra email');
+    // }
+    // public function sendEmail($nguoidungs,$code)
+    // {
+    //     Mail::send(
+    //         'email.forgot',
+    //         ['nguoidungs'=>$nguoidungs,'code'=>$code],
+    //         function($message) use ($nguoidungs){
+    //             $message->to($nguoidungs->email);
+    //             $message->subject("$nguoidungs->ho_ten,Đặt lại mk");
+
+    //         }
+    //     );   
+    $e=$request->email;
+        $nguoidungs = nguoidung::where('email','=',$request->email )->first();
+        if ($nguoidungs == null || $nguoidungs->email != $request->email) {
+            Session::flash('error', 'Email không tồn tại, vui lòng nhập lại!');
+            return redirect('quen-mat-khau');
+        }
+        else{
+    Mail::to($e)->send(new DemoMail($e));
+    session()->put('email_qmk', $e);
+    return redirect('quen-mat-khau')->with('thongbao','Đã gửi yêu cầu lấy lại mật khẩu, vui lòng kiểm tra email!');
+
+        }
+    }
+
+    public function doiMatKhau()
+    {
+      return view('doi-mat-khau');
+    }
+
+    public function xuLyDoiMatKhau(Request $request)
+    {
+     $email = session()->get('email_qmk');
+     $nguoidung=DB::table('nguoi_dung')->where('email','=', $email)->first();
+  
+     $this->validate($request,
+     [
+        'mat_khau'=>'min:6',
+         'xac-nhan-mat-khau'=>'same:mat_khau'
+     ],
+     [ 
+         'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
+         'xac-nhan-mat-khau.same'=>'Mật khẩu nhập lại không khớp!'
+
+     ]);
+     DB::table('nguoi_dung')
+     ->where('id', $nguoidung->id)
+     ->update(['mat_khau' =>bcrypt($request->mat_khau)]);
+     return redirect('dang-nhap')->with('thongbao','Cập nhật thành công');
+    
     }
 
     /**

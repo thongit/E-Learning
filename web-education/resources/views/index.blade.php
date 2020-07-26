@@ -22,11 +22,11 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="content">
-                                            <h2 data-animation="animated slideInDown">Learn from us and Accelerate <strong>Your Bright Future.</strong></h2>
+                                            <h2 data-animation="animated slideInDown">Học hỏi từ chúng tôi <strong>  tăng tốc tương lai tươi sáng của bạn.</strong></h2>
                                             <p data-animation="animated slideInLeft">
-                                                #Improving lives through learning
+                                            # Cải thiện cuộc sống thông qua học tập
                                             </p>
-                                            <a data-animation="animated slideInUp" class="btn btn-theme effect btn-md" href="#">Learn more</a>
+                                            <a data-animation="animated slideInUp" class="btn btn-theme effect btn-md" href="#">Tìm hiểu thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -41,11 +41,11 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="content">
-                                            <h2 data-animation="animated slideInDown">Learn From Best Online <strong>Training Course</strong></h2>
+                                            <h2 data-animation="animated slideInDown">Học từ khóa đào tạo trực tuyến tốt nhất<strong></strong></h2>
                                             <p data-animation="animated slideInLeft">
-                                                #Improving lives through learning
+                                            # Cải thiện cuộc sống thông qua học tập
                                             </p>
-                                            <a data-animation="animated slideInUp" class="btn btn-theme effect btn-md" href="#">Learn more</a>
+                                            <a data-animation="animated slideInUp" class="btn btn-theme effect btn-md" href="#">Tìm hiểu thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -59,11 +59,11 @@
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#bootcarousel" data-slide="prev">
                 <i class="fa fa-angle-left"></i>
-                <span class="sr-only">Previous</span>
+                <span class="sr-only">Trước</span>
             </a>
             <a class="right carousel-control" href="#bootcarousel" data-slide="next">
                 <i class="fa fa-angle-right"></i>
-                <span class="sr-only">Next</span>
+                <span class="sr-only">Tiếp</span>
             </a>
         </div>
     </div>
@@ -76,14 +76,14 @@
             <div class="row">
                 <div class="about-items">
                     <div class="col-md-6 about-info">
-                        <h2>Welcome ! <span>We're Global Education Academy</span></h2>
+                        <h2>Chào mừng ! <span>Chúng tôi là Học viện Giáo dục Toàn cầu</span></h2>
                         <blockquote>
-                            A man who has never gone to school may steal from a freight car; but if he has a university education, he may steal the whole railroad.
+                        Một người đàn ông chưa bao giờ đi học có thể ăn cắp từ một chiếc xe chở hàng; nhưng nếu anh ta có một nền giáo dục đại học, anh ta có thể ăn cắp toàn bộ đường sắt.
                         </blockquote>
                         <div class="semester-apply">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 item">
-                                    <h4>Semester Fall 2020</h4>
+                                    <h4>Học kỳ mùa thu 2020</h4>
                                     <p>
                                         Affection additions nay. He no an nature ye talent houses wisdom.
                                     </p>

@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <a title="Lost Password" href="#" class="lost-pass-link">Quên mật khẩu</a>
+                                    <a title="Lost Password" href="quen-mat-khau" class="lost-pass-link">Quên mật khẩu</a>
 
                                 </div>
                             </div>
