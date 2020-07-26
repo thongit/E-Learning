@@ -13,7 +13,13 @@
     <script>
         swal.fire("{{ session('thongbao') }}","","success")
     </script>
-@endif
+    @endif
+
+    @if (session('alerterror'))
+    <script>
+        swal.fire("{{ session('alerterror') }}","","error")
+    </script>
+    @endif
     
     <div class="login-area default-padding">
         <div class="container">

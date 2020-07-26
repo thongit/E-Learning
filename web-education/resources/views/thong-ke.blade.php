@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html class="no-js" lang="">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
@@ -468,12 +468,15 @@
             </div>
             <!-- Sidebar Area End Here -->
             <div class="dashboard-content-one">
+@extends('layout-admin')
+@section('content-admin')
+<div class="dashboard-content-one">
                 <!-- Breadcubs Area Start Here -->
                 <div class="breadcrumbs-area">
                     <h3>Admin Dashboard</h3>
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="/admin/thong-ke">Home</a>
                         </li>
                         <li>Admin</li>
                     </ul>
@@ -491,8 +494,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Students</div>
-                                        <div class="item-number"><span class="counter" data-num="150000">1,50,000</span></div>
+                                        <div class="item-title">Học viên</div>
+                                        <div class="item-number"><span class="counter" data-num="{{$danhSachNguoiDung}}">{{$danhSachNguoiDung}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -508,8 +511,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Teachers</div>
-                                        <div class="item-number"><span class="counter" data-num="2250">2,250</span></div>
+                                        <div class="item-title">Giảng viên</div>
+                                        <div class="item-number"><span class="counter" data-num="{{$danhSachGiangVien}}">{{$danhSachGiangVien}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -525,8 +528,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Parents</div>
-                                        <div class="item-number"><span class="counter" data-num="5690">5,690</span></div>
+                                        <div class="item-title">Khóa học</div>
+                                        <div class="item-number"><span class="counter" data-num="{{$danhSachKhoaHoc}}">{{$danhSachKhoaHoc}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -829,68 +832,6 @@
                 </div>
                 <!-- Dashboard Content End Here -->
                 <!-- Social Media Start Here -->
-                <div class="row gutters-20">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="card dashboard-card-seven">
-                            <div class="social-media bg-fb hover-fb">
-                                <div class="media media-none--lg">
-                                    <div class="social-icon">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </div>
-                                    <div class="media-body space-sm">
-                                        <h6 class="item-title">Like us on facebook</h6>
-                                    </div>
-                                </div>
-                                <div class="social-like">30,000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="card dashboard-card-seven">
-                            <div class="social-media bg-twitter hover-twitter">
-                                <div class="media media-none--lg">
-                                        <div class="social-icon">
-                                        <i class="fab fa-twitter"></i>
-                                        </div>
-                                        <div class="media-body space-sm">
-                                            <h6 class="item-title">Follow us on twitter</h6>
-                                        </div>
-                                </div>
-                                <div class="social-like">1,11,000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="card dashboard-card-seven">
-                            <div class="social-media bg-gplus hover-gplus">
-                                <div class="media media-none--lg">
-                                    <div class="social-icon">
-                                        <i class="fab fa-google-plus-g"></i>
-                                    </div>
-                                    <div class="media-body space-sm">
-                                        <h6 class="item-title">Follow us on googleplus</h6>
-                                    </div>
-                                </div>
-                                <div class="social-like">19,000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="card dashboard-card-seven">
-                            <div class="social-media bg-linkedin hover-linked">
-                                <div class="media media-none--lg">
-                                    <div class="social-icon">
-                                    <i class="fab fa-linkedin-in"></i>
-                                    </div>
-                                    <div class="media-body space-sm">
-                                        <h6 class="item-title">Follow us on linked</h6>
-                                    </div>
-                                </div>
-                                <div class="social-like">45,000</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- Social Media End Here -->
                 <!-- Footer Area Start Here -->
                 <footer class="footer-wrap-layout1">
@@ -899,34 +840,4 @@
                 </footer>
                 <!-- Footer Area End Here -->
             </div>
-        </div>
-        <!-- Page Area End Here -->
-    </div>
-    <!-- jquery-->
-    <script src="{{ asset('assets-admin/js/jquery-3.3.1.min.js') }}"></script>
-    <!-- Plugins js -->
-    <script src="{{ asset('assets-admin/js/plugins.js') }}"></script>
-    <!-- Popper js -->
-    <script src="{{asset ('assets-admin/js/popper.min.js') }}"></script>
-    <!-- Bootstrap js -->
-    <script src="{{asset ('assets-admin/js/bootstrap.min.js') }}"></script>
-    <!-- Counterup Js -->
-    <script src="{{asset ('assets-admin/js/jquery.counterup.min.js') }}"></script>
-    <!-- Moment Js -->
-    <script src="{{asset ('assets-admin/js/moment.min.js') }}"></script>
-    <!-- Waypoints Js -->
-    <script src="{{asset ('assets-admin/js/jquery.waypoints.min.js') }}"></script>
-    <!-- Scroll Up Js -->
-    <script src="{{asset ('assets-admin/js/jquery.scrollUp.min.js') }}"></script>
-    <!-- Full Calender Js -->
-    <script src="{{asset ('assets-admin/js/fullcalendar.min.js') }}"></script>
-    <!-- Chart Js -->
-    <script src="{{asset ('assets-admin/js/Chart.min.js') }}"></script>
-    <!-- Custom Js -->
-    <script src="{{asset ('assets-admin/js/main.js') }}"></script>
-
-</body>
-
-
-<!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Jul 2019 05:33:03 GMT -->
-</html>
+@endsection

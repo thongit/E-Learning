@@ -51,12 +51,14 @@ class NguoiDungController extends Controller
         Auth::login($nd);
         session()->put('login', true);
         session()->put('ho_ten', $nd->ho_ten);
+        session()->put('id_nd', $nd->id);
         return redirect('/');
         }
         Auth::login($nd);
         session()->put('login', true);
         session()->put('ho_ten', $nd->ho_ten);
-        return redirect('thong-ke');
+        session()->put('id_nd', $nd->id);
+        return redirect('admin/thong-ke');
         
     }
     public function logout()

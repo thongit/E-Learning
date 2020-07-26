@@ -352,7 +352,7 @@ input {
 }
 
 .default-padding.bottom-less {
-  padding-top: 120px;
+  /* padding-top: 120px; */
   padding-bottom: 90px;
 }
 
@@ -1868,6 +1868,7 @@ div#bootcarousel {
 
 .top-course-items .item {
   box-shadow: 0 0 10px #cccccc;
+  margin: 5%;
 }
 
 .top-course-items .item .thumb {
@@ -1942,6 +1943,7 @@ div#bootcarousel {
 
 .top-course-items .item .info {
   padding: 30px;
+  height:300px;
 }
 
 .top-course-items .info .meta ul {
@@ -2963,7 +2965,7 @@ div#bootcarousel {
   box-sizing: border-box;
   clear: both;
   cursor: pointer;
-  display: none;
+  display: block;
   float: left;
   font-family: inherit;
   font-size: 14px;
@@ -2984,7 +2986,7 @@ div#bootcarousel {
   white-space: nowrap;
   width: 100%;
   margin-bottom: 15px;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .nice-select:hover {
@@ -5686,3 +5688,23 @@ footer .footer-bottom .link li a {
     margin: 5% 0%;
 }
 
+.lam-gon-van-ban-mo-ta{
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+}
+
+.lam-gon-van-ban-mo-ta:hover{
+    overflow: visible;
+}
+
+.mg-tim-kiem-nc{
+    margin-top: 5%;
+    margin-left: 24%;
+}
+
+.bg-tim-kiem-nc{
+    background-color:#4584b7;
+}

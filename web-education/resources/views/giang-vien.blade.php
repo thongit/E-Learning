@@ -25,168 +25,23 @@
         <div class="container">
             <div class="row">
                 <div class="advisor-items col-3 text-light text-center">
+
                     <!-- Single item -->
+                    @foreach($giangviens as $gv)
                     <div class="col-md-4 col-sm-6 single-item">
                         <div class="item">
                             <div class="thumb">
-                                <img src="assets/img/advisor/1.jpg" alt="Thumb">
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info">
-                                <span>Art Teacher</span>
-                                <h4>Jonathom Nil</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single item -->
-                    <!-- Single item -->
-                    <div class="col-md-4 col-sm-6 single-item">
-                        <div class="item">
-                            <div class="thumb">
-                                <img src="assets/img/advisor/2.jpg" alt="Thumb">
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
+                                <img src="{{ asset('assets/images/'.$gv->anh_dai_dien) }}" alt="Thumb">
                             </div>
                             <div class="info">
                                 <span>PHP Expert</span>
-                                <h4>Admon Kilho</h4>
+                                <h4>{{$gv->ho_ten}}</h4>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                     <!-- End Single item -->
-                    <!-- Single item -->
-                    <div class="col-md-4 col-sm-6 single-item">
-                        <div class="item">
-                            <div class="thumb">
-                                <img src="assets/img/advisor/3.jpg" alt="Thumb">
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info">
-                                <span>WordPress Ninja</span>
-                                <h4>John Kabir</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single item -->
-                    <!-- Single item -->
-                    <div class="col-md-4 col-sm-6 single-item">
-                        <div class="item">
-                            <div class="thumb">
-                                <img src="assets/img/advisor/4.jpg" alt="Thumb">
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info">
-                                <span>Web Developer</span>
-                                <h4>Bubta Hurb</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single item -->
-                    <!-- Single item -->
-                    <div class="col-md-4 col-sm-6 single-item">
-                        <div class="item">
-                            <div class="thumb">
-                                <img src="assets/img/team/6.jpg" alt="Thumb">
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info">
-                                <span>Ajax Expert</span>
-                                <h4>Behlam Tuntas</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single item -->
-                    <!-- Single item -->
-                    <div class="col-md-4 col-sm-6 single-item">
-                        <div class="item">
-                            <div class="thumb">
-                                <img src="assets/img/team/7.jpg" alt="Thumb">
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info">
-                                <span>Data Analyst</span>
-                                <h4>Parum Bahkam</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single item -->
+
                 </div>
             </div>
         </div>

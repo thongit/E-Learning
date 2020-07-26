@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\linhvuc;
-
+use App\khoahoc;
 
 class LinhvucController extends Controller
 {
@@ -16,7 +16,7 @@ class LinhvucController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -84,4 +84,19 @@ class LinhvucController extends Controller
     {
         //
     }
+
+    //Hiển thị tất cả các lĩnh vực
+    public function hienThiLinhVuc()
+    {
+        $dsLinhVuc = linhvuc::all();
+        return view('ds-linh-vuc', compact('dsLinhVuc'));
+    }
+
+
+
+
+
+
+
+
 }

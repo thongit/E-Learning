@@ -41,56 +41,36 @@
                                                         <th>Hình ảnh khóa học</th>
                                                         <th>Tên khóa học</th>
                                                         <th></th>
-                                                        <th>Dung lượng</th>
-                                                        <th>Ngày tạo</th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td ><img src="assets/img/advisor/2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
-                                                        <td>Thiết kế web</td>
-                                                        <td class="text-center">
-                                                            <a href="#"><span class="btn btn-sm btn-danger">Xóa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-primary">Sửa</span></a>
-                                                            <a href="#"><span class="btn btn-sm btn-info">Xem</span></a>
-                                                        </td>
-                                                        <td>5M</td>
-                                                        <td>15/7/2020 09:48:2</td>
-                                                    </tr>
 
+                                                    @foreach ($khoahocs as $k)
+                                                    <tr>
+                                                        <td ><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
+                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td class="text-center">
+                                                            <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
+                                                            <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
+                                                        </td>
+                                                        <td>
+                                                        @if($k->trang_thai == 3)            
+                                                        <p class="btn btn-success" onclick="update({{$k->id}})">Đã duyệt</p> 
+                                                        @endif 
+
+                                                        @if($k->trang_thai == 2)                     
+                                                        <p class="btn btn-warning" onclick="update({{$k->id}})">Đang chờ duyệt</p>
+                                                        @endif
+
+                                                        @if($k->trang_thai==1)     <p class="btn btn-primary" onclick="update({{$k->id}})">Gửi kiểm duyệt</p>
+                                                        @endif
+
+                                                         </td>
+                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                    </tr>
+                                                        @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -98,48 +78,56 @@
                                 </div>
                             </div>  
                     </div>
-                    <!-- Start Sidebar -->
-                    <div class="sidebar col-md-4">
-                        <aside>
-                            <div class="single-item">
-                                <div class="item">
-                                    <div class="thumb">
-                                        <img src="assets/img/advisor/2.jpg" alt="Thumb">
-                                    </div>
-                                    <div class="info">
-                                        <span>Giảng viên</span>
-                                        <h4>Nguyễn Văn A</h4>
-                                    </div>
-                                    <button type="button" class="btn btn-primary btn-lg btn-block">Tạo khóa học</button>
-                                </div>
-                            </div>
-                            <div class="sidebar-item category">
-                                <div class="title">
-                                    <h4>Danh mục</h4>
-                                </div>
-                                <div class="sidebar-info">
-                                    <ul>
-                                        <li>
-                                            <a href="#">Thông tin cá nhân</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Quản trị khóa học</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Kho tài liệu</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Đăng xuất</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </aside>
-                    </div>
-                    <!-- End Start Sidebar -->
+                   @include('panel')
                 </div>
             </div>
         </div>
     </div>
     <!-- End Blog -->
+<script>
+function thongbaoxoa($id) {
+    Swal.fire({
+        title: 'Bạn có Muốn Xóa Không?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok. Xóa nó!',
+        cancelButtonText:'Không'
+        }).then((result) => {
+        if (result.value) {
+            Swal.fire(
+            'Đã Xóa!',
+            'Bạn đã xóa thành công.',
+            'success'
+            )
+            $url='/khoa-hoc/xoa/'+$id;
+            open($url,"_self") 
+        }
+    })
+}
+</script>
+<script>
+function update($id) {
+    Swal.fire({
+        title: 'Bạn có thay đổi Không?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok. Thay đổi!',
+        cancelButtonText:'Không'
+        }).then((result) => {
+        if (result.value) {
+            Swal.fire(
+            'Thành công!',
+            'Bạn đã thay đổi thành công.',
+            'success'
+            )
+            $url='/khoa-hoc/ds-khoa-hoc-da-tao/'+$id;
+            open($url,"_self") 
+        }
+    })
+}
+</script>
 @endsection

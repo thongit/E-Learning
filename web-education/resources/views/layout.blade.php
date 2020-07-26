@@ -36,8 +36,8 @@
     @yield('css')
     <!-- ========== End Stylesheet ========== -->
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- HTML5 shim and Respondjs IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src=" {{ asset ('assets/js/html5/html5shiv.min.js') }}"></script>
       <script src=" {{ asset ('assets/js/html5/respond.min.js') }}"></script>
@@ -59,7 +59,7 @@
         <div class="top-bar-area bg-dark inc-border text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 address-info text-left">
+                    <div class="col-md-6 address-info text-left">
                         <div class="info">
                             <ul>
                                 <li>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     @if(Session::get('ho_ten')== null)
-                     <div class="col-md-4 link text-right">
+                     <div class="col-md-6 link text-right">
                         <ul>
                             <li>
                                 <a href="dang-nhap">Đăng nhập</a>
@@ -87,11 +87,17 @@
                     </div>
                     @endif
                     @if(Session::get('ho_ten')!= null)
-                    <div class="col-md-4 link text-right">
+                    <div class="col-md-6 link text-right">
                         <ul>
                         
                             <li>
+
                                 <a id="trang_cn" href="trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
+
+                                <a class="btn-danger" href="#">Trở thành giảng viên</a>
+                            </li>
+                            <li>
+                            <h5>User: {{ Session::get('ho_ten') }} </h5>
                             </li>
                             <li>
                                 <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>
@@ -120,6 +126,7 @@
             </div>
         </div>
     <!-- End Header Top -->
+
 
     <!-- Start Body -->
         @yield('content')
