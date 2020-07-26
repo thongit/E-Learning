@@ -1,5 +1,12 @@
 @extends('layout')
 @section('content')
+
+@if (session('alerterror'))
+    <script>
+        swal.fire("{{ session('alerterror') }}","","error")
+    </script>
+@endif
+
 @include('header')
   <!-- Start Banner
     ============================================= -->

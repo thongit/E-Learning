@@ -14,6 +14,7 @@ use App\chuong;
 use App\baikiemtra;
 use App\hoadon;
 use App\cthoadon;
+use App\ketquakt;
 
 class ExportFileExcelController extends Controller implements FromCollection, WithHeadings
 {
@@ -103,35 +104,42 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             $chuong = baikiemtra::where('file_de_kt','=',$tenFile)->first();
             $khoaHocID = $chuong->Chuong->khoa_hoc_id;
             $hoaDon = hoadon::where('nguoi_dung_id','=',$id_nd)->get();
+            $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $chuong->id],])->first();
             foreach($hoaDon as $hd)
             {
                 $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
             }
-            if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+            if($kiemtra == null)
             {
-                $thoiGianCongBo = Carbon::create(2020, 07, 21, 12, 20, 00);
-                $thoiGianKetThuc = Carbon::create(2020, 07, 27, 12, 20, 00);
-                $now = Carbon::now();
-                
-                if($thoiGianCongBo >= $now)
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
                 {
-                    echo 'Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo;
-                }
-                else if($thoiGianKetThuc <= $now)
-                {
-                    echo 'Bài kiểm tra đã kết thúc';
+                    $thoiGianCongBo = Carbon::create(2020, 07, 21, 12, 20, 00);
+                    $thoiGianKetThuc = Carbon::create(2020, 07, 27, 12, 20, 00);
+                    $now = Carbon::now();
+                    
+                    if($thoiGianCongBo >= $now)
+                    {
+                        echo 'Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo;
+                    }
+                    else if($thoiGianKetThuc <= $now)
+                    {
+                        echo 'Bài kiểm tra đã kết thúc';
+                    }
+                    else
+                    {
+                        $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                        foreach($CauHoi as $cauHoi){}
+                        array_splice($cauHoi,0,1);
+                        return view('tracnghiem',compact('cauHoi','chuong'));
+                    }
                 }
                 else
                 {
-                    $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
-                    foreach($CauHoi as $cauHoi){}
-                    array_splice($cauHoi,0,1);
-                    return view('tracnghiem',compact('cauHoi'));
+                    abort(404);
                 }
             }
-            else
-            {
-                abort(404);
+            else{
+                return redirect('/')->with('alerterror', 'Bạn đã hoàn thành bài kiểm tra!');
             }
         }
         else
@@ -139,4 +147,15 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
         }
     }
+
+    public function luuBaiLam(Request $request) {
+        $ketquakt = new ketquakt();
+        $id_nd = session()->get('id_nd');
+        $ketquakt->nguoi_dung_id = $id_nd;
+        $ketquakt->bai_kiem_tra_id = $request->baiktid;
+        $ketquakt->diem = $request->diem;
+        $ketquakt->bai_lam = $request->bailam;
+        $ketquakt->save();
+        return response()->json(array('msg'=> 'Bạn đã hoàn thành bài kiểm tra!'), 200);
+     }
 }

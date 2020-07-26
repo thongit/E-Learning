@@ -171,6 +171,8 @@ Route::get('/them-cau-hoi-excel/{id}','ExportFileExcelController@index')->name('
 Route::post('export', 'ExportFileExcelController@export')->name('export');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
 
+Route::post('luu-ket-qua','ExportFileExcelController@luuBaiLam')->name('luu-ket-qua');
+
 Route::get('login-2','NguoiDungController@dangNhap')->name('dang-nhap');
 Route::post('login-2','NguoiDungController@xuLyDangNhap')->name('xu-ly-dang-nhap');
 Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');

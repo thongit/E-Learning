@@ -268,9 +268,9 @@ $(document).ready(function(){
 		{
 			swal.fire("Bạn chưa nhập số câu hỏi","" , "error")
 		}
-		else if(document.getElementById("soCauHoi").value <5 || document.getElementById("soCauHoi").value>50)
+		else if(document.getElementById("soCauHoi").value <10 || document.getElementById("soCauHoi").value>50)
 		{
-			swal.fire("Số câu hỏi phải trong khoảng 5 đến 50 câu!","" , "error")
+			swal.fire("Số câu hỏi phải trong khoảng 10 đến 50 câu!","" , "error")
 		}
 		else if(document.getElementById("thoiGianLam").value == '')
 		{

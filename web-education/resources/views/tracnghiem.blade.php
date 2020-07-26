@@ -246,26 +246,16 @@
 <link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-var TEST_DETAILS,QUESTIONS,CURRENT_QUES=0,CAUDUNG = 0,CAUBO = 0,SUBMITTED=false;
+var TEST_DETAILS,QUESTIONS,CURRENT_QUES=0,CAUDUNG = 0,CAUBO = 0,SUBMITTED=false, DIEM, BAILAM = "";
 var CAUHOI = {!! json_encode($cauHoi) !!};
+var BAIKTID = {!! json_encode($chuong) !!};
 $(document).ready(function(){
-
-    $.ajax({
-        type: "GET", 
-        url: DEPLOYED_WEB_APP_URL+"?action=testDetails", 
-        success:function(response){
-			$("#testContent").show();
-        	TEST_DETAILS = JSON.parse(response);
-        	$(".dq-test-title").html(TEST_DETAILS.title);
-        	if(TEST_DETAILS.timeAlotted>0){
-        		$("#testMeta").append("Thời gian làm : "+TEST_DETAILS.timeAlotted+" phút");
-        	}
-			$("#testMeta").append("<br/> Số câu hỏi : "+(CAUHOI.length));
-        }, 
-		error: function(xhr, textStatus, errorThrown) {
-            alert("Some error occured while loading the test, please refresh the page.");
-        }
-    });
+	$("#testContent").show();
+	$(".dq-test-title").html("Tên bài kiểm tra: "+BAIKTID.ten_bai_kt);
+	if(BAIKTID.thoi_gian_lam>0){
+		$("#testMeta").append("Thời gian làm : "+BAIKTID.thoi_gian_lam+" phút");
+	}
+	$("#testMeta").append("<br/> Số câu hỏi : "+(CAUHOI.length));
 
 	$("#bat-dau").click(function(){
 		$(".start-loader").show();
@@ -277,8 +267,8 @@ $(document).ready(function(){
 			$(".question-navigation .num-wrapper").append("<div class='inline-block q-num' index="+i+">"+(i+1)+"</div>");
 		}
 		$(".q-num[index='0']").trigger("click");
-		if(TEST_DETAILS.timeAlotted>0){
-			countDown(TEST_DETAILS.timeAlotted);
+		if(BAIKTID.thoi_gian_lam>0){
+			countDown(BAIKTID.thoi_gian_lam);
 		}
 	});
 	
@@ -308,53 +298,14 @@ $(document).ready(function(){
 	$(document).on("click","input[name='dq-op']",function(){
 		if(QUESTIONS[CURRENT_QUES][8]){
 			if($(this).is(":checked")){
-				switch (parseInt($(this).attr("id").replace("dq-op","")))
-				{
-					case 1: 
-						QUESTIONS[CURRENT_QUES][8] = 'A';
-						break;
-					case 2: 
-						QUESTIONS[CURRENT_QUES][8] = 'B';
-						break;
-					case 3: 
-						QUESTIONS[CURRENT_QUES][8] = 'C';
-						break;
-					case 4: 
-						QUESTIONS[CURRENT_QUES][8] = 'D';
-						break;
-					case 5: 
-						QUESTIONS[CURRENT_QUES][8] = 'E';
-						break;
-					default: 
-						QUESTIONS[CURRENT_QUES][8] = 'F';
-						break;
-				}
-			}else{
+				QUESTIONS[CURRENT_QUES][8] = $(this).attr("id").replace("dq-op","");
+			}
+			else{
 				QUESTIONS[CURRENT_QUES][8] = null;
 			}
 		}else{
 			QUESTIONS[CURRENT_QUES].push(0);
-			switch (parseInt($(this).attr("id").replace("dq-op","")))
-			{
-				case 1: 
-					QUESTIONS[CURRENT_QUES][8] = 'A';
-					break;
-				case 2: 
-					QUESTIONS[CURRENT_QUES][8] = 'B';
-					break;
-				case 3: 
-					QUESTIONS[CURRENT_QUES][8] = 'C';
-					break;
-				case 4: 
-					QUESTIONS[CURRENT_QUES][8] = 'D';
-					break;
-				case 5: 
-					QUESTIONS[CURRENT_QUES][8] = 'E';
-					break;
-				default: 
-					QUESTIONS[CURRENT_QUES][8] = 'F';
-					break;
-			}
+			QUESTIONS[CURRENT_QUES][8] = $(this).attr("id").replace("dq-op","");
 		}
 		$('input:checkbox:not("#'+$(this).attr("id")+'")').prop("checked",false);
 		
@@ -372,11 +323,11 @@ $(document).ready(function(){
 	
 	function populateQuestion(ques,index){
 		$(".question").html("<td>Câu "+(index+1)+":</td><td>"+ques[0]+"</td>");
-		$(".option1").html("<td><input type='checkbox' id='dq-op1' name='dq-op'/></td><td><label for='dq-op1'>"+ques[2]+"</label></td>");
-		$(".option2").html("<td><input type='checkbox' id='dq-op2' name='dq-op'/></td><td><label for='dq-op2'>"+ques[3]+"</label></td>");
+		$(".option1").html("<td><input type='checkbox' id='dq-opA' name='dq-op'/></td><td><label for='dq-opA'>"+ques[2]+"</label></td>");
+		$(".option2").html("<td><input type='checkbox' id='dq-opB' name='dq-op'/></td><td><label for='dq-opB'>"+ques[3]+"</label></td>");
 		if(ques[4] != null)
 		{
-			$(".option3").html("<td><input type='checkbox' id='dq-op3' name='dq-op'/></td><td><label for='dq-op3'>"+ques[4]+"</label></td>");
+			$(".option3").html("<td><input type='checkbox' id='dq-opC' name='dq-op'/></td><td><label for='dq-opC'>"+ques[4]+"</label></td>");
 		}
 		else
 		{
@@ -384,7 +335,7 @@ $(document).ready(function(){
 		}
 		if(ques[5] != null)
 		{
-			$(".option4").html("<td><input type='checkbox' id='dq-op4' name='dq-op'/></td><td><label for='dq-op4'>"+ques[5]+"</label></td>");
+			$(".option4").html("<td><input type='checkbox' id='dq-opD' name='dq-op'/></td><td><label for='dq-opD'>"+ques[5]+"</label></td>");
 		}
 		else
 		{
@@ -392,7 +343,7 @@ $(document).ready(function(){
 		}
 		if(ques[6] != null)
 		{
-			$(".option5").html("<td><input type='checkbox' id='dq-op5' name='dq-op'/></td><td><label for='dq-op5'>"+ques[6]+"</label></td>");
+			$(".option5").html("<td><input type='checkbox' id='dq-opE' name='dq-op'/></td><td><label for='dq-opE'>"+ques[6]+"</label></td>");
 		}
 		else
 		{
@@ -400,7 +351,7 @@ $(document).ready(function(){
 		}
 		if(ques[7] != null)
 		{
-			$(".option6").html("<td><input type='checkbox' id='dq-op6' name='dq-op'/></td><td><label for='dq-op6'>"+ques[7]+"</label></td>");
+			$(".option6").html("<td><input type='checkbox' id='dq-opF' name='dq-op'/></td><td><label for='dq-opF'>"+ques[7]+"</label></td>");
 		}
 		else
 		{
@@ -434,67 +385,87 @@ $(document).ready(function(){
 		$("#submit").prop("disabled",true);
 		$("#submitLoader").show().css("top","12px");
 		$(".question-section,.question-navigation").remove();
-		if(1>2){
-			$(".no-score").css("display","block");
-		}else if(1>3){
-			$(".with-ques").show();
-			console.log(QUESTIONS);
-			for(i=0;i<QUESTIONS.length;i++){
-				htmlTable="<table id='qwn-"+i+"'><tr class='question'><td class='v-top'>Câu "+(i+1)+":</td><td class='left'>"+QUESTIONS[i][0]+"</td></tr>";
-				htmlTable+="<tr class='option optionA'><td class='v-top'><input disabled type='checkbox' id='dq-opA' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][2]+"</label></td></tr>";
-				htmlTable+="<tr class='option optionB'><td class='v-top'><input disabled type='checkbox' id='dq-opB' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][3]+"</label></td></tr>";
-				if(QUESTIONS[i][4] != null)
-				{
-					htmlTable+="<tr class='option optionC'><td class='v-top'><input disabled type='checkbox' id='dq-opC' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][4]+"</label></td></tr>";
+		for(i=0;i<QUESTIONS.length;i++){
+			if(QUESTIONS[i][1] == QUESTIONS[i][8]){
+				CAUDUNG = CAUDUNG + 1;
+			}
+			if(QUESTIONS[i][8] == null)
+			{
+				CAUBO = CAUBO + 1;
+				BAILAM += "_";
+			}
+			else{
+				BAILAM += QUESTIONS[i][8];
+			}
+			console.log(CAUDUNG);
+		}
+		DIEM = CAUDUNG +"/"+QUESTIONS.length;
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		$.ajax({
+			type:'POST',
+			url:'{{ route("luu-ket-qua") }}',
+			data:
+			{
+			_token : '<?php echo csrf_token() ?>',
+			diem: DIEM,
+			bailam: BAILAM,
+			baiktid : BAIKTID.id
+			},
+			success:function(data) {
+				if(1>2){
+					$(".no-score").css("display","block");
+				}else if(1>0){
+					$(".with-ques").show();
+					console.log(QUESTIONS);
+					for(i=0;i<QUESTIONS.length;i++){
+						htmlTable="<table id='qwn-"+i+"'><tr class='question'><td class='v-top'>Câu "+(i+1)+":</td><td class='left'>"+QUESTIONS[i][0]+"</td></tr>";
+						htmlTable+="<tr class='option optionA'><td class='v-top'><input disabled type='checkbox' id='dq-opA' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][2]+"</label></td></tr>";
+						htmlTable+="<tr class='option optionB'><td class='v-top'><input disabled type='checkbox' id='dq-opB' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][3]+"</label></td></tr>";
+						if(QUESTIONS[i][4] != null)
+						{
+							htmlTable+="<tr class='option optionC'><td class='v-top'><input disabled type='checkbox' id='dq-opC' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][4]+"</label></td></tr>";
+						}
+						if(QUESTIONS[i][5] != null)
+						{
+							htmlTable+="<tr class='option optionD'><td class='v-top'><input disabled type='checkbox' id='dq-opD' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][5]+"</label></td></tr>";
+						}
+						if(QUESTIONS[i][6] != null)
+						{
+							htmlTable+="<tr class='option optionE'><td class='v-top'><input disabled type='checkbox' id='dq-opE' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][6]+"</label></td></tr>";
+						}
+						if(QUESTIONS[i][7] != null)
+						{
+							htmlTable+="<tr class='option optionF'><td class='v-top'><input disabled type='checkbox' id='dq-opF' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][7]+"</label></td></tr>";
+						}
+						$(".with-ques .only-questions").append(htmlTable);
+						$("#qwn-"+i+" #dq-op"+QUESTIONS[i][1]).prop("checked",true);
+						$("#qwn-"+i+" .option"+QUESTIONS[i][1]).css("color","green");
+						$("#qwn-"+i+" .option"+QUESTIONS[i][8]).css({"font-weight":"bold", "font-size": "x-large"});
+						if(QUESTIONS[i][1] != QUESTIONS[i][8]){
+							$("#qwn-"+i+" .option"+QUESTIONS[i][8]).css("color","red");
+						}
+					}
+					displayScore(".with-ques .only-scores");
+					console.log(QUESTIONS);
 				}
-				if(QUESTIONS[i][5] != null)
-				{
-					htmlTable+="<tr class='option optionD'><td class='v-top'><input disabled type='checkbox' id='dq-opD' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][5]+"</label></td></tr>";
-				}
-				if(QUESTIONS[i][6] != null)
-				{
-					htmlTable+="<tr class='option optionE'><td class='v-top'><input disabled type='checkbox' id='dq-opE' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][6]+"</label></td></tr>";
-				}
-				if(QUESTIONS[i][7] != null)
-				{
-					htmlTable+="<tr class='option optionF'><td class='v-top'><input disabled type='checkbox' id='dq-opF' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][7]+"</label></td></tr>";
-				}
-				$(".with-ques .only-questions").append(htmlTable);
-				$("#qwn-"+i+" #dq-op"+QUESTIONS[i][1]).prop("checked",true);
-				$("#qwn-"+i+" .option"+QUESTIONS[i][1]).css("color","green");
-				$("#qwn-"+i+" .option"+QUESTIONS[i][8]).css({"font-weight":"bold", "font-size": "x-large"});
-				if(QUESTIONS[i][1] != QUESTIONS[i][8]){
-					$("#qwn-"+i+" .option"+QUESTIONS[i][8]).css("color","red");
-				}
-				else{
-					CAUDUNG = CAUDUNG + 1;
-				}
-				if(QUESTIONS[i][8] == null)
-				{
-					CAUBO = CAUBO + 1;
+				else {
+					$(".with-score").show();
+					displayScore(".with-score");
 				}
 			}
-			displayScore(".with-ques .only-scores");
-			console.log(QUESTIONS);
-		}
-		else {
-			for(i=0;i<QUESTIONS.length;i++){
-				if(QUESTIONS[i][1] == QUESTIONS[i][8]){
-					CAUDUNG = CAUDUNG + 1;
-				}
-				if(QUESTIONS[i][8] == null)
-				{
-					CAUBO = CAUBO + 1;
-				}
-			}
-			$(".with-score").show();
-			displayScore(".with-score");
-		}
+		});
+		
+
+		
 	}
 
 	function displayScore(placeholder){
-		$(placeholder).append("<div>Tên: <span> Minh Tân </span></div>");
-		$(placeholder).append("<div>Điểm: <span>"+CAUDUNG+"/"+QUESTIONS.length+"</span></div>");
+		$(placeholder).append("<div>Tên: <span> {{ Session::get('ho_ten') }} </span></div>");
+		$(placeholder).append("<div>Điểm: <span>"+DIEM+"</span></div>");
 		$(placeholder).append("<div>Tỷ lệ: <span>"+Math.round(((CAUDUNG/QUESTIONS.length) * 100 * 100) / 100).toFixed(2)+"%</span></div>");
 		$(placeholder).append("<div>Số câu đúng: <span class='green'>"+ CAUDUNG +"</span></div>");
 		$(placeholder).append("<div>Số câu sai: <span class='red'>"+ (QUESTIONS.length - CAUDUNG - CAUBO) +"</span></div>");
@@ -518,7 +489,7 @@ $(document).ready(function(){
 						$(".q-num[index='"+(QUESTIONS.length-1)+"']").trigger("click");
 						submitAnswers();
 						setTimeout(function(){
-							alert("Time up ! Your answers have been submitted.");	
+							alert("Hết thời gian ! Bài kiểm tra của bạn đã kết thúc!");	
 						}, 1000);
 					}
 				}
@@ -535,6 +506,8 @@ window.onbeforeunload = function(event){
 	<div class="dq-test-title">
 	</div>
 	<div id="testContent">
+	<form method="post" action="{{ route('luu-ket-qua') }}" role="form">
+		{!! csrf_field() !!}
 		<div class="half-width instruction-section" style="margin:30px 0px;background:#f0f0f0;border-radius:5px;">
 			<div id="testMeta" class="chi-tiet-kt"></div>
 			<div class="half-width login-section">
@@ -564,6 +537,7 @@ window.onbeforeunload = function(event){
 			</div>
 			<div class="right" style="font-size:14px;margin: 10px 0px;"><a href="#" class="submit-answers">Làm thế nào để nộp bài</a></div>
 		</div>
+		</form>
 		<div class="test-finished no-score display-none">
 			<h3>Bạn đã hoàn thành bài kiểm tra?</h3>
 		</div>
