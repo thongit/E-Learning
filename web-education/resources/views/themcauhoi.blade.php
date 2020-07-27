@@ -243,11 +243,20 @@
 	}
 </style>
 <link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
-<script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-<script src="{{ asset('assets/js/pages/sweet-alerts.init.js') }}"></script>
-<link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+@if (session('success'))
+	<script>
+		Swal.fire(
+		'{{ session("success") }}',
+		'',
+		'success'
+		)
+	</script>
+@endif
 <script>
 var TEST_DETAILS,CURRENT_QUES=1,SOCAU,SUBMITTED=false, THEMDAPAN = new Array();
 var CAUHOI, DAPANA, DAPANB, DAPANC = "", DAPAND = "", DAPANE = "", DAPANF = "", DAPANDUNG;
@@ -748,8 +757,12 @@ window.onbeforeunload = function(event){
 					<input type="datetime-local" id="ketThucKT" name="ketThucKT">
 				</div>
 				<br/>
-				<input type="checkbox" id="hienThiKQ" name="hienThiKQ" value="HienThi">
-				<label for="hienThiKQ"> Hiển Thị kết quả khi hoàn thành bài kiểm tra</label><br>
+				<input type="radio" id="hienthi" name="hienThiKQ" value="HienThi">
+				<label for="hienthi">Hiển Thị kết quả khi hoàn thành bài kiểm tra</label><br>
+				<input type="radio" id="lamlai" name="hienThiKQ" value="LamLai">
+				<label for="lamlai">Cho phép làm lại bài kiểm tra</label><br>
+				<input type="radio" id="khong" name="hienThiKQ" value="0" checked>
+				<label for="khong">Không hiển thị và không cho phép làm lại</label><br>
 				<br/>
 				<button type="button" id="tao-cau-hoi" class="btn btn-primary">Tạo câu hỏi</button>
 			</div>

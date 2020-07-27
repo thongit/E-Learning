@@ -21,8 +21,8 @@ class CreateTableBaiKiemTra extends Migration
             $table->string('file_de_kt');
             $table->integer('trang_thai');
             $table->integer('hien_thi');
-            $table->timestamps('thoi_gian_mo');
-            $table->timestamps('thoi_gian_dong');
+            $table->dateTime('thoi_gian_mo')->nullable();
+            $table->dateTime('thoi_gian_dong')->nullable();
             $table->integer('lam_lai');
             $table->timestamps();
             $table->softDeletes();

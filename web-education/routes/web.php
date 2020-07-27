@@ -109,7 +109,6 @@ Route::post('tro-thanh-giang-vien','NguoiDungController@postTroThanhGiangVien')-
 Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
 
 
-
 Route::get('admin/ds-hoc-vien','AdminController@getHocVien');
 
 Route::get('admin/ds-giang-vien','AdminController@getGiangVien');
@@ -186,7 +185,7 @@ Route::get('trac-nghiem-excel/{tenFile}','ExportFileExcelController@docDuLieu')-
 Route::get('/them-cau-hoi-excel/{id}','ExportFileExcelController@index')->name('them-cau-hoi-excel');
 Route::post('export', 'ExportFileExcelController@export')->name('export');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
-
+Route::post('lam-lai','ExportFileExcelController@destroy')->name('lam-lai');
 Route::post('luu-ket-qua','ExportFileExcelController@luuBaiLam')->name('luu-ket-qua');
 
 Route::get('login-2','NguoiDungController@dangNhap')->name('dang-nhap');
