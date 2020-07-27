@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use App\nguoidung;
 use App\tochuc;
+use App\cthoadon;
 use App\Providers;
 use Session;
 use Auth;
@@ -35,6 +36,23 @@ class NguoiDungController extends Controller
     public function getDangKyGiangVien()
     {
         return view('dang-ky-giang-vien');
+    }
+    public function getQuanLyDonHang()
+    {
+        $cthoadons= cthoadon::all();
+        $giangviens=nguoidung::find(auth()->user()->id);
+        return view('ql-don-hang',['cthoadons'=>$cthoadons,'giangviens'=>$giangviens]);
+    }
+
+    public function quanLyDonHangUpdate(Request $request,$id)
+    {
+        $cthoadons=cthoadon::find($id);
+        if($cthoadons->trang_thai==1)
+        {
+            $cthoadons->trang_thai=2;
+            $cthoadons->save();
+        }
+        return redirect()->back()->with('message', 'Status changed!');
     }
     
     public function postTroThanhGiangVien(Request $request)

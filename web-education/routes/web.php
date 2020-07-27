@@ -34,6 +34,11 @@ Route::get('thanh-toan', function () {
     return view('thanh-toan');
 });
 
+Route::get('giang-vien/quan-ly-don-hang','NguoiDungController@getQuanLyDonHang');
+
+Route::get('giang-vien/quan-ly-don-hang/{id}', 'NguoiDungController@quanLyDonHangUpdate')->name('DonHangUpdate');
+
+
 Route::get('dang-ky', function () {
     return view('register');
 });

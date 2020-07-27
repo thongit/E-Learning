@@ -93,7 +93,7 @@
                             <li><a class="btn-danger" href="/tro-thanh-giang-vien">Trở thành giảng viên</a></li>
                             @endif
                             <li>
-                            <a id="trang_cn" href="trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
+                            <a id="trang_cn" href="/trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
                             </li>
                             <li>
                                 <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>
