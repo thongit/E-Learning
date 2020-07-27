@@ -37,7 +37,7 @@
                             @foreach($danhSachKhoaHoc as $item)
                             <tr>
                                 <td><img src="{{ asset('assets/images/'.$item->hinh_anh) }}" width="50px" height="50px"></td>
-                                <td>{{$item->ten_khoa_hoc}}</td>
+                                <td><a href="{{route('lay-chuong',{{$item->id}})}}">{{$item->ten_khoa_hoc}}</a></td>
                                 <td>{{$item->gia}}</td>
                                 <td>{{$item->muc_do}}</td>
                                 <td>{{$item->created_at}}</td>

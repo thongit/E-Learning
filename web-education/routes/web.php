@@ -30,6 +30,10 @@ Route::get('dang-nhap', function () {
     return view('login-2');
 });
 
+Route::get('thanh-toan', function () {
+    return view('thanh-toan');
+});
+
 Route::get('dang-ky', function () {
     return view('register');
 });
@@ -110,6 +114,8 @@ Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name(
 
 
 Route::get('admin/ds-hoc-vien','AdminController@getHocVien');
+
+Route::get('admin/khoa-hoc/{id}','AdminController@getChuong')->name('lay-chuong');
 
 Route::get('admin/ds-giang-vien','AdminController@getGiangVien');
 

@@ -30,6 +30,12 @@ class AdminController extends Controller
         return view('ds-hoc-vien-admin',compact('danhSachNguoiDung'));
     }
 
+    public function getChuong($id)
+    {
+        $chuongs=chuong::find($id);
+        return view('ds-chuong-admin',['chuongs'=>$chuongs]);
+    }
+
     public function getGiangVien()
     {
         $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get();
