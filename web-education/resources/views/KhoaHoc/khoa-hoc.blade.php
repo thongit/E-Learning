@@ -32,10 +32,10 @@
                     <div class="col-md-4 col-sm-6 equal-height">
                         <div class="item">
                             <div class="thumb">
-                                <img src="{{ asset('assets/img/courses/1.jpg') }}" alt="Thumb">
+                                <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
                                 <div class="overlay">
                                     <a href="#">
-                                        <img src="{{ asset('assets/img/team/1.jpg') }}" alt="Thumb">
+                                        <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                     </a>
                                     <ul>
                                         <li><i class="fas fa-clock"></i> 04:15:38</li>
@@ -47,8 +47,8 @@
                                 <div class="meta">
                                     <ul>
                                         <li>
-                                            <a href="#">Education</a>
-                                            <a href="#"> {{ $khoaHoc->linhVuc->ten_linh_vuc }}</a>
+                                            <a href="#">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                            <a href="#"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
                                         </li>
                                         <li>
                                             <i class="fas fa-star"></i>

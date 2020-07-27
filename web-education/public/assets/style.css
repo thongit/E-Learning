@@ -5286,7 +5286,7 @@ form.white-popup-block .link-bottom {
 
 
 form.white-popup-block li {
-  
+
   margin-right: 5px;
   margin-bottom: 5px;
 }
@@ -5709,4 +5709,14 @@ footer .footer-bottom .link li a {
 
 .bg-tim-kiem-nc{
     background-color:#4584b7;
+}
+
+/* Css cho ảnh chi tiết kháo học */
+.img-ct-khoa-hoc
+{
+    width: 100%;
+}
+.img-khoa-hoc{
+    width: 800px;
+    height: 180px;
 }
