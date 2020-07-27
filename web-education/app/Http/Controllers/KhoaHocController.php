@@ -8,6 +8,9 @@ use App\linhvuc;
 use App\chuong;
 use App\nguoidung;
 use App\noidung;
+use App\danhgiakh;
+use App\tochuc;
+use App\cthoadon;
 use Session;
 use Auth;
 
@@ -361,7 +364,49 @@ class KhoaHocController extends Controller
         {
             return abort(404);
         }
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
+        $danhGia = danhgiakh::where('khoa_hoc_id','=',$id)->get();
+        $sao1 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',1],])->count();
+        $sao2 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',2],])->count();
+        $sao3 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',3],])->count();
+        $sao4 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',4],])->count();
+        $sao5 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',5],])->count();
+        if(sizeof($danhGia)>0)
+        {
+            $trungBinh =($sao1 + $sao2*2 + $sao3*3 + $sao4*4 + $sao5*5)/sizeof($danhGia);
+            $ctDanhGia = array(
+                '0' => $sao1,
+                '1' => $sao2,
+                '2' => $sao3,
+                '3' => $sao4,
+                '4' => $sao5,
+                '5' => round( $trungBinh, 1, PHP_ROUND_HALF_EVEN),
+                '6' => $sao1/sizeof($danhGia)*100,
+                '7' => $sao2/sizeof($danhGia)*100,
+                '8' => $sao3/sizeof($danhGia)*100,
+                '9' => $sao4/sizeof($danhGia)*100,
+                '10' => $sao5/sizeof($danhGia)*100,
+            );
+        }
+        else
+        {
+            $ctDanhGia = array(
+                '0' => 0,
+                '1' => 0,
+                '2' => 0,
+                '3' => 0,
+                '4' => 0,
+                '5' => 0,
+                '6' => 0,
+                '7' => 0,
+                '8' => 0,
+                '9' => 0,
+                '10' => 0,
+            );
+        }
+        
+        $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
+        $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia'));
     }
 
 }

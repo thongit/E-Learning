@@ -11,6 +11,6 @@ class linhvuc extends Model
 
    public function khoaHoc()
    {
-      return $this->hasMany('App\khoahoc');
+      return $this->hasMany('App\khoahoc','khoa_hoc_id');
    }
 }

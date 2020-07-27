@@ -9,7 +9,7 @@ class chuong extends Model
     protected $table ="chuong";
     public function KhoaHoc()
     {
-        return $this->belongsTo('App\khoahoc');
+        return $this->belongsTo('App\khoahoc','khoa_hoc_id');
     }
 
     public function noiDung()

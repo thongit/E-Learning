@@ -10,7 +10,7 @@ class nhantin extends Model
 
      public function khoaHoc()
      {
-          return $this->belongsTo('App\khoahoc');
+          return $this->belongsTo('App\khoahoc','khoa_hoc_id');
      }
 
      public function nguoiDung()

@@ -60,8 +60,8 @@
                                 <div class="col-sm-6">
                                     <label for="ngonngu">Ngôn ngữ</label>
                                     <select name="NgonNgu" id="">
-                                        <option value="tiengviet">Tiếng việt</option>
-                                        <option value="tienganh">Tiếng anh</option>
+                                        <option value="Tiếng việt">Tiếng việt</option>
+                                        <option value="Tiếng anh">Tiếng anh</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6">

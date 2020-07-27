@@ -45,13 +45,13 @@
                                 <a href="#">{{ $dsKhoaHoc->muc_do }}</a>
                             </div>
                             <div class="item rating">
-                                <h4>Review</h4>
+                                <h4>Đánh giá</h4>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
-                                <span>(1 Rating)</span>
+                                <span>({{ sizeof($danhGia) }} Đánh giá)</span>
                             </div>
                             <div class="item price">
                                 <h4>Giá</h4>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="align-right">
                                 <a class="btn btn-theme effect btn-sm" href="#">
-                                    <i class="fas fa-chart-bar"></i> Enroll
+                                    <i class="fas fa-chart-bar"></i> Ghi danh
                                 </a>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                         <p>
                                         </p>
                                         <h4>Danh Sách Bài Học</h4>
-                                        @foreach($dsKhoaHoc->Chuong as $dschuong)
+                                        @foreach($dsKhoaHoc->Chuong as $key => $dschuong)
                                         <!-- Start Course List -->
                                         <div class="course-list-items acd-items acd-arrow">
                                             <div class="panel-group symb" id="accordion">
@@ -117,33 +117,34 @@
                                                     <div class="panel-heading">
                                                         <h4 class="panel-title">
                                                             <a data-toggle="collapse" data-parent="#accordion" href="#ac{{$dschuong->id}}">
-                                                                <strong>{{ $dschuong->id }}</strong>
+                                                                <strong>{{$loop->index +1}}</strong>
                                                                 {{ $dschuong->ten_chuong }}
                                                             </a>
                                                         </h4>
                                                     </div>
 
-                                                    <div id="ac{{ $dschuong->id }}" class="panel-collapse collapse in">
+                                                    <div id="ac{{ $dschuong->id }}" class="panel-collapse collapse">
                                                         <div class="panel-body">
                                                             <ul>
-                                                                @foreach($dsKhoaHoc->dsChuongBai as $dsBai)
+                                                                @foreach($dschuong->noiDung as $dsBai)
                                                                 <li>
                                                                     <div class="title">
-                                                                        {{--  <i class="fas fa-play-circle"></i>
+                                                                        <i class="fas fa-play-circle"></i>
+                                                                        <!-- <i class="fas fa-file"></i> -->
                                                                         <p>
-                                                                            Lecture 1.0
-                                                                        </p>  --}}
+                                                                            Bài {{$key +1}}.{{$loop->index +1}}
+                                                                        </p>
                                                                         <h5>
-                                                                            <a href="#">{{ $dsBai->chuong_id }}</a>
+                                                                            <a href="#">{{ $dsBai->tieu_de }}</a>
                                                                         </h5>
                                                                         <div class="access-type">
-                                                                            <i class="fas fa-eye"></i>
+                                                                            <img src="{{asset('assets/img/quiz.png')}}" alt="Kiểm tra" style="width:20px;height:20px;">
                                                                         </div>
                                                                     </div>
                                                                     <div class="intro">
                                                                         <div class="item">
                                                                             <p>
-                                                                                Phát Hành - {{ Date($dsBai->created_at) }}
+                                                                                Phát hành - {{ $dsBai->created_at->diffForHumans() }}
                                                                             </p>
                                                                         </div>
                                                                         <div class="item">
@@ -155,33 +156,6 @@
                                                                     </div>
                                                                 </li>
                                                                 @endforeach
-                                                                <li>
-                                                                    <div class="title">
-                                                                        <i class="fas fa-file"></i>
-                                                                        <p>
-                                                                            Lecture 1.2
-                                                                        </p>
-                                                                        <h5>
-                                                                            <a href="#">Basic development</a>
-                                                                        </h5>
-                                                                        <div class="access-type">
-                                                                            <i class="fas fa-lock"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="intro">
-                                                                        <div class="item">
-                                                                            <p>
-                                                                                Published - 28 Apr, 2020
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="item">
-                                                                            <p>
-                                                                                Duration: 3 hours 45 min
-                                                                            </p>
-                                                                           <a href="#">Preview</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -208,58 +182,17 @@
                                                 </div>
                                                 <div class="info">
                                                     <div class="author">
-                                                        <h4>{{ $dsKhoaHoc->giangVien->ho_ten }}</h4>
-                                                        <ul>
-                                                            <li class="facebook">
-                                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                                            </li>
-                                                            <li class="twitter">
-                                                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                                            </li>
-                                                            <li class="dribbble">
-                                                                <a href="#"><i class="fab fa-dribbble"></i></a>
-                                                            </li>
-                                                            <li class="youtube">
-                                                                <a href="#"><i class="fab fa-youtube"></i></a>
-                                                            </li>
-                                                        </ul>
+                                                        <h4>@if($toChuc) {{ $toChuc->ten_to_chuc }} @else {{ $dsKhoaHoc->giangVien->ho_ten }} @endif</h4>
                                                     </div>
-                                                    <span class="designation">{{ $dsKhoaHoc->giangVien->email }}</span>
+                                                    <span class="designation">@if($toChuc) {{ $toChuc->emal_nlh }} @else {{ $dsKhoaHoc->giangVien->email }} @endif</span>
                                                     <p>
-                                                        Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particularfor considered projection cultivated. Worth of do doubt shall
+                                                    {{$dsKhoaHoc->giangVien->gioi_thieu}}
+                                                    </p>
+                                                    <p>
+                                                    Số khóa học: {{$dsKhoaHoc->giangVien->khoaHoc->count()}}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <!-- End Advisor Item -->
-                                            <!-- Advisor Item -->
-                                            {{--  <div class="item">
-                                                <div class="thumb">
-                                                    <img src="{{asset('assets/img/advisor/2.jpg')}}" alt="Thumb">
-                                                </div>
-                                                <div class="info">
-                                                    <div class="author">
-                                                        <h4>Bubtas Abraham</h4>
-                                                        <ul>
-                                                            <li class="facebook">
-                                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                                            </li>
-                                                            <li class="twitter">
-                                                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                                            </li>
-                                                            <li class="dribbble">
-                                                                <a href="#"><i class="fab fa-dribbble"></i></a>
-                                                            </li>
-                                                            <li class="youtube">
-                                                                <a href="#"><i class="fab fa-youtube"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <span class="designation">Java Programmer</span>
-                                                    <p>
-                                                        Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular for considered projection cultivated. Worth of do doubt shall
-                                                    </p>
-                                                </div>
-                                            </div>  --}}
                                             <!-- End Advisor Item -->
                                         </div>
                                     </div>
@@ -271,44 +204,44 @@
                                     <div class="info title">
                                         <div class="course-rating-list">
                                             <div class="average-rating">
-                                                <h2>4.5</h2>
+                                                <h2>{{ $ctDanhGia[5] }}</h2>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star-half-alt"></i>
-                                                <h4>28 Rating</h4>
+                                                <h4>{{ sizeof($danhGia) }} đánh giá</h4>
                                             </div>
                                             <div class="rating-status">
                                                 <!-- Progress Bar Start -->
                                                 <div class="progress-box">
-                                                    <h5>5 Star <span class="pull-right">90%</span></h5>
+                                                    <h5>5 Star <span class="pull-right">{{ $ctDanhGia[4] }}</span></h5>
                                                     <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" data-width="90"></div>
+                                                        <div class="progress-bar" role="progressbar" data-width="{{$ctDanhGia[10]}}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>4 Star <span class="pull-right">10%</span></h5>
+                                                    <h5>4 Star <span class="pull-right">{{ $ctDanhGia[3] }}</span></h5>
                                                     <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" data-width="10"></div>
+                                                        <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[9] }}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>3 Star <span class="pull-right">0%</span></h5>
+                                                    <h5>3 Star <span class="pull-right">{{ $ctDanhGia[2] }}</span></h5>
                                                     <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" data-width="0"></div>
+                                                        <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[8] }}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>2 Star <span class="pull-right">0%</span></h5>
+                                                    <h5>2 Star <span class="pull-right">{{ $ctDanhGia[1] }}</span></h5>
                                                     <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" data-width="0"></div>
+                                                        <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[7] }}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>1 Star <span class="pull-right">0%</span></h5>
+                                                    <h5>1 Star <span class="pull-right">{{ $ctDanhGia[0] }}</span></h5>
                                                     <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" data-width="0"></div>
+                                                        <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[6] }}"></div>
                                                     </div>
                                                 </div>
                                                 <!-- End Progressbar -->
@@ -331,21 +264,21 @@
                         <!-- Sidebar Item -->
                         <div class="sidebar-item course-info">
                             <div class="title">
-                                <h4>Đặc Trưng Khóa Học</h4>
+                                <h4>Mô tả khóa học</h4>
                             </div>
                             <ul>
                                 <li><i class="flaticon-translation"></i> Ngôn Ngữ  <span class="pull-right">{{ $dsKhoaHoc->ngon_ngu }}</span></li>
                                 <li><i class="flaticon-faculty-shield"></i> Bài giảng  <span class="pull-right">{{ $dsKhoaHoc->dsChuongBai->count() }}</span></li>
                                 <li><i class="flaticon-film"></i> Video  <span class="pull-right">04:15:38</span></li>
                                 <li><i class="flaticon-levels"></i> Mức độ  <span class="pull-right">{{ $dsKhoaHoc->muc_do }}</span></li>
-                                <li><i class="flaticon-group-of-students"></i> Học viên  <span class="pull-right">136</span></li>
+                                <li><i class="flaticon-group-of-students"></i> Học viên  <span class="pull-right">{{ sizeof($dsKhoaHoc->ctHoaDon) }}</span></li>
                             </ul>
                         </div>
                         <!-- End Sidebar Item -->
                         <!-- Sidebar Item -->
                         <div class="sidebar-item category">
                             <div class="title">
-                                <h4>Courses Category</h4>
+                                <h4>Lĩnh vực</h4>
                             </div>
                             <ul>
                                 <li>
@@ -369,7 +302,7 @@
                         <!-- Sidebar Item -->
                         <div class="sidebar-item similar-courses">
                             <div class="title">
-                                <h4>Similar Courses</h4>
+                                <h4>Khóa học tương tự</h4>
                             </div>
                             <ul>
                                 <li>
@@ -445,7 +378,7 @@
 
     <!-- Start Newsletter
     ============================================= -->
-    <div class="newsletter-area fixed">
+    <!-- <div class="newsletter-area fixed">
         <div class="container">
             <div class="subscribe-items shadow theme-hard default-padding bg-cover" style="background-image: url({{asset('assets/img/banner/11.jpg')}});">
                 <div class="row">
@@ -475,6 +408,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Newsletter -->
 @endsection

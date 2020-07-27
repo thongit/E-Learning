@@ -31,7 +31,7 @@ class nguoidung extends Authenticatable
 
     public function khoaHoc()
     {
-        return $this->hasMany('App\khoahoc');
+        return $this->hasMany('App\khoahoc','nguoi_dung_id');
     }
 
     public function hoaDon()

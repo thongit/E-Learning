@@ -99,10 +99,6 @@ Route::get('/sua-bai-giang-khoa-hoc', function () {
     return view('sua-bai-giang-khoa-hoc');
 });
 
-Route::get('/quen-mat-khau', function () {
-    return view('quen-mat-khau');
-});
-
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
@@ -175,7 +171,6 @@ Route::get('thu-lay-gia-tri', function () {
 // });
 
 
-    Route::name('trang-chu.')->group(function(){
 Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');
@@ -187,7 +182,7 @@ Route::name('trang-chu.')->group(function(){
     Route::get('tim-kiem-nc', 'KhoaHocController@timKiemNangCao')->name('xu-ly-tim-kiem-nc');
     //Hiển thị chi tiết khóa  học
     Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
-    });
+});
 
 
 // Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
@@ -196,8 +191,6 @@ Route::name('trang-chu.')->group(function(){
 Route::get('trac-nghiem-excel/{tenFile}','ExportFileExcelController@docDuLieu')->name('trac-nghiem-excel');
 Route::get('/them-cau-hoi-excel/{id}','ExportFileExcelController@index')->name('them-cau-hoi-excel');
 Route::post('export', 'ExportFileExcelController@export')->name('export');
-});
-
 
 Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');

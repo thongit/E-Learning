@@ -14,22 +14,22 @@ class khoahoc extends Model
     }
     public function ctHoaDon()
     {
-        return $this->hasMany('App\cthoadon');
+        return $this->hasMany('App\cthoadon','khoa_hoc_id');
     }
 
     public function danhGiaKH()
     {
-        return $this->hasMany('App\danhgiakh');
+        return $this->hasMany('App\danhgiakh','khoa_hoc_id');
     }
 
     public function nhanTin()
     {
-        return $this->hasMany('App\nhantin');
+        return $this->hasMany('App\nhantin','khoa_hoc_id');
     }
 
     public function nguoiDung()
      {
-          return $this->belongsTo('App\nguoidung');
+          return $this->belongsTo('App\nguoidung','nguoi_dung_id');
      }
 
     public function dsChuongBai()
