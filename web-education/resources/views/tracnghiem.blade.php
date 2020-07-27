@@ -2,7 +2,11 @@
 <script>
 	var DEPLOYED_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGAOmLhCZNm4lSKif_u7jSXs3nwtaf7h6C4K9vchWkSCtiaGMr/exec";
 </script>
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 
+<!-- Sweet alert init js-->
+<!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
 
 <title>Kiểm tra</title>
 <style>
@@ -249,7 +253,9 @@
 var TEST_DETAILS,QUESTIONS,CURRENT_QUES=0,CAUDUNG = 0,CAUBO = 0,SUBMITTED=false, DIEM, BAILAM = "";
 var CAUHOI = {!! json_encode($cauHoi) !!};
 var BAIKTID = {!! json_encode($chuong) !!};
+
 $(document).ready(function(){
+	$('#lamLai').prop("disabled",true);
 	$("#testContent").show();
 	$(".dq-test-title").html("Tên bài kiểm tra: "+BAIKTID.ten_bai_kt);
 	if(BAIKTID.thoi_gian_lam>0){
@@ -415,12 +421,9 @@ $(document).ready(function(){
 			bailam: BAILAM,
 			baiktid : BAIKTID.id
 			},
-			success:function(data) {
-				if(1>2){
-					$(".no-score").css("display","block");
-				}else if(1>0){
+			success:function(data) { 
+				if(BAIKTID.hien_thi==1){
 					$(".with-ques").show();
-					console.log(QUESTIONS);
 					for(i=0;i<QUESTIONS.length;i++){
 						htmlTable="<table id='qwn-"+i+"'><tr class='question'><td class='v-top'>Câu "+(i+1)+":</td><td class='left'>"+QUESTIONS[i][0]+"</td></tr>";
 						htmlTable+="<tr class='option optionA'><td class='v-top'><input disabled type='checkbox' id='dq-opA' name='dq-op'/></td><td class='left'><label for='dq-op2'>"+QUESTIONS[i][2]+"</label></td></tr>";
@@ -455,13 +458,49 @@ $(document).ready(function(){
 				else {
 					$(".with-score").show();
 					displayScore(".with-score");
+					if(data.msg != 0)
+					{
+						if(BAIKTID.lam_lai==1)
+						{
+							$('.lam-lai').css("display","inline-block");
+							$('#lamLai').prop("disabled",false);
+						}
+					}
 				}
 			}
 		});
-		
-
-		
 	}
+
+	function submitLamLai(){
+		$.ajax({
+			type:'POST',
+			url:'{{ route("lam-lai") }}',
+			data:
+			{
+			_token : '<?php echo csrf_token() ?>',
+			baiktid : BAIKTID.id
+			},
+			success:function(data) {
+				location.reload();
+			}
+		});
+	}
+
+	$("#lamLai").click(function (){
+		Swal.fire({
+			title: 'Bài làm này sẽ bị hủy! Bạn có muốn tiếp tục?',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Làm lại!',
+			cancelButtonText:'Không'
+			}).then((result) => {
+			if (result.value) {
+				submitLamLai();
+			}
+		})
+	});
 
 	function displayScore(placeholder){
 		$(placeholder).append("<div>Tên: <span> {{ Session::get('ho_ten') }} </span></div>");
@@ -542,6 +581,12 @@ window.onbeforeunload = function(event){
 			<h3>Bạn đã hoàn thành bài kiểm tra?</h3>
 		</div>
 		<div class="test-finished with-score display-none"></div>
+		<form method="post" action="{{ route('lam-lai') }}" role="form">
+			{!! csrf_field() !!}
+			<div style="text-align:center" class="lam-lai display-none">
+				<input type="button" id="lamLai" class="btn btn-primary" value="Làm lại" />
+			</div>
+		</form>
 		<div class="with-ques display-none">
 			<div class="half-width only-questions"></div>
 			<div class="half-width only-scores"></div>

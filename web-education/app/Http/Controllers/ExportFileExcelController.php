@@ -8,6 +8,7 @@ use Excel;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\DB;
 use App\Imports\CauHoiImport;
 use App\khoahoc;
 use App\chuong;
@@ -92,6 +93,23 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $baiKiemTra->ten_bai_kt = $request->TenBaiKT;
         $baiKiemTra->file_de_kt = $ten_file_bai_kt;
         $baiKiemTra->trang_thai = 1;
+        if($request->hienThiKQ == "HienThi")
+        {
+            $baiKiemTra->hien_thi = 1;
+            $baiKiemTra->lam_lai = 0;
+        }
+        else if($request->hienThiKQ == "LamLai")
+        {
+            $baiKiemTra->hien_thi = 0;
+            $baiKiemTra->lam_lai = 1;
+        }
+        else
+        {
+            $baiKiemTra->hien_thi = 0;
+            $baiKiemTra->lam_lai = 0;
+        }
+        $baiKiemTra->thoi_gian_mo = $request->batDauKT;
+        $baiKiemTra->thoi_gian_dong = $request->ketThucKT;
         $baiKiemTra->save();
         return redirect()->back()->with('success', 'Thêm thành công!');
    }
@@ -102,44 +120,66 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         {
             $id_nd = session()->get('id_nd');
             $chuong = baikiemtra::where('file_de_kt','=',$tenFile)->first();
-            $khoaHocID = $chuong->Chuong->khoa_hoc_id;
-            $hoaDon = hoadon::where('nguoi_dung_id','=',$id_nd)->get();
-            $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $chuong->id],])->first();
-            foreach($hoaDon as $hd)
+            if($chuong != null)
             {
-                $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
-            }
-            if($kiemtra == null)
-            {
-                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                $khoaHocID = $chuong->Chuong->khoa_hoc_id;
+                $hoaDon = hoadon::where('nguoi_dung_id','=',$id_nd)->get();
+                $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $chuong->id],])->first();
+                foreach($hoaDon as $hd)
                 {
-                    $thoiGianCongBo = Carbon::create(2020, 07, 21, 12, 20, 00);
-                    $thoiGianKetThuc = Carbon::create(2020, 07, 27, 12, 20, 00);
-                    $now = Carbon::now();
-                    
-                    if($thoiGianCongBo >= $now)
+                    $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
+                }
+                if($kiemtra == null)
+                {
+                    if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
                     {
-                        echo 'Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo;
-                    }
-                    else if($thoiGianKetThuc <= $now)
-                    {
-                        echo 'Bài kiểm tra đã kết thúc';
+                        setlocale(LC_TIME, 'vi_VN');
+                        Carbon::setLocale('vi');
+                        $now = Carbon::now();
+                        if($chuong->thoi_gian_mo != null)
+                        {
+                            $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
+                        }
+                        else
+                        {
+                            $thoiGianCongBo = null;
+                        }
+                        if($chuong->thoi_gian_dong != null)
+                        {
+                            $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
+                        }
+                        else
+                        {
+                            $thoiGianKetThuc = null;
+                        }
+                        if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
+                        {
+                            echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p>';
+                        }
+                        else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
+                        {
+                            echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra đã kết thúc</p>';
+                        }
+                        else
+                        {
+                            $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                            foreach($CauHoi as $cauHoi){}
+                            array_splice($cauHoi,0,1);
+                            return view('tracnghiem',compact('cauHoi','chuong'));
+                        }
                     }
                     else
                     {
-                        $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
-                        foreach($CauHoi as $cauHoi){}
-                        array_splice($cauHoi,0,1);
-                        return view('tracnghiem',compact('cauHoi','chuong'));
+                        abort(404);
                     }
                 }
-                else
-                {
-                    abort(404);
+                else{
+                    return redirect('/')->with('alerterror', 'Bạn đã hoàn thành bài kiểm tra!');
                 }
             }
-            else{
-                return redirect('/')->with('alerterror', 'Bạn đã hoàn thành bài kiểm tra!');
+            else
+            {
+                abort(404);
             }
         }
         else
@@ -156,6 +196,22 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $ketquakt->diem = $request->diem;
         $ketquakt->bai_lam = $request->bailam;
         $ketquakt->save();
-        return response()->json(array('msg'=> 'Bạn đã hoàn thành bài kiểm tra!'), 200);
-     }
+        $lamlai = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $request->baiktid],])->first();
+        if($lamlai == null)
+        {
+            return response()->json(array('msg'=> 'Bạn đã hoàn thành bài kiểm tra!'), 200);
+        }
+        else
+        {
+            return response()->json(array('msg'=> 0), 200);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        $id_nd = session()->get('id_nd');
+        $baikt = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id','=',$request->baiktid],])->first();
+        $baikt->delete();
+        return response()->json(array('msg'=> $request->baiktid), 200);
+    }
 }
