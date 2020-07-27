@@ -59,9 +59,9 @@
         <div class="top-bar-area bg-dark inc-border text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 address-info text-left">
+                    <div class="col-md-4 address-info text-left">
                         <div class="info">
-                            <ul>
+<!--                             <ul>
                                 <li>
                                     <i class="fas fa-copy"></i> Tổng khóa học: <strong>23400</strong>
                                 </li>
@@ -71,7 +71,7 @@
                                 <li>
                                     <i class="fas fa-phone"></i> Liên hệ <a >0123456789</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                     @if(Session::get('ho_ten')== null)
@@ -87,17 +87,13 @@
                     </div>
                     @endif
                     @if(Session::get('ho_ten')!= null)
-                    <div class="col-md-6 link text-right">
+                    <div class="col-md-8 link text-right">
                         <ul>
-                        
+                            @if(Session::get('loai_tk')==1)
+                            <li><a class="btn-danger" href="/tro-thanh-giang-vien">Trở thành giảng viên</a></li>
+                            @endif
                             <li>
-
-                                <a id="trang_cn" href="trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
-
-                                <a class="btn-danger" href="#">Trở thành giảng viên</a>
-                            </li>
-                            <li>
-                            <h5>User: {{ Session::get('ho_ten') }} </h5>
+                            <a id="trang_cn" href="trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
                             </li>
                             <li>
                                 <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>

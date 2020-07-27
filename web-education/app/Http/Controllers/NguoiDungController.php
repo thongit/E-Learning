@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 use App\nguoidung;
+use App\tochuc;
 use App\Providers;
 use Session;
 use Auth;
@@ -30,7 +32,52 @@ class NguoiDungController extends Controller
     {
         return view('dang-ky');
     }
-
+    public function getDangKyGiangVien()
+    {
+        return view('dang-ky-giang-vien');
+    }
+    
+    public function postTroThanhGiangVien(Request $request)
+    {
+        $nguoidungs=nguoidung::find(auth()->user()->id);
+        $nguoidungs->gioi_thieu=$request->KinhNghiem;
+        $nguoidungs->loai_tk=2;
+        $nguoidungs->update();
+        return redirect()->back()->with('thongbao','Thêm thành công');
+    }
+    public function postTroThanhToChuc(Request $request)
+    {
+        $tochucs= new tochuc;
+        $this->validate($request,
+        [
+            'TenToChuc'=>'required',
+            'MaSoThue'=>'required',
+            'DiaChi'=>'required',
+            'TenNguoiLienHe'=>'required',
+            'Email'=>'required|email|unique:to_chuc,emal_nlh'
+        ],
+        [
+            'TenToChuc.required'=>'Bạn chưa nhập tên tổ chức',
+            'MaSoThue.required'=>'Bạn chưa nhập mã số thuế',
+            'DiaChi.required'=>'Bạn chưa nhập địa chỉ',
+            'TenNguoiLienHe.required'=>'Bạn chưa nhận tên người liên hệ',
+            'Email.unique'=>'Email đã tồn tại'
+        ]);
+        $tochucs->ten_to_chuc=$request->TenToChuc;
+        $tochucs->ma_so_thue=$request->MaSoThue;
+        $tochucs->dia_chi=$request->DiaChi;
+        $tochucs->nguoi_lien_he=$request->TenNguoiLienHe;
+        $tochucs->emal_nlh=$request->Email;
+        $tochucs->sdt_nlh=$request->SoDienThoai;
+        $tochucs->trang_thai=1;
+        $tochucs->nguoi_dung_id=auth()->user()->id;
+        $nguoidungs=nguoidung::find(auth()->user()->id);
+        $nguoidungs->loai_tk=2;
+        $nguoidungs->update();
+        $tochucs->save();
+        return redirect()->back()->withInput(Input::all())->with('thongbao','Thêm thành công');
+    }
+    
     public function xuLyDangNhap(Request $request)
     {
         
@@ -52,6 +99,7 @@ class NguoiDungController extends Controller
         session()->put('login', true);
         session()->put('ho_ten', $nd->ho_ten);
         session()->put('id_nd', $nd->id);
+        session()->put('loai_tk', $nd->loai_tk);
         return redirect('/');
         }
         Auth::login($nd);

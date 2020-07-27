@@ -106,6 +106,9 @@ img {
   border: none;
   outline: none;
   max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 label {
@@ -5217,7 +5220,6 @@ i.fas.fa-clock {
     border: 1px solid #ffb606;
     overflow: hidden;
     background: #e7e7e7;
-    margin: 0 30px;
 }
 
 .login-area .login-custom .heading {

@@ -100,6 +100,15 @@ Route::get('/gioi-thieu', function () {
 
 Route::get('/trang-ca-nhan', function () {
     return view('trang-ca-nhan');
+});
+
+Route::get('tro-thanh-giang-vien','NguoiDungController@getDangKyGiangVien');
+
+Route::post('tro-thanh-giang-vien','NguoiDungController@postTroThanhGiangVien')->name('thanh-giang-vien');
+
+Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
+
+
 
 Route::get('admin/ds-hoc-vien','AdminController@getHocVien');
 
@@ -145,6 +154,7 @@ Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc');
 
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
+});
 
 Route::get('thu-lay-gia-tri', function () {
     return view('thu-lay-gia-tri');
