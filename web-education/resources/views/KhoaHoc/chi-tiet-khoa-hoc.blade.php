@@ -33,12 +33,12 @@
                         <div class="course-meta">
                             <div class="item author">
                                 <div class="thumb">
-                                    <a href="#"><img alt="Thumb" src="{{asset('assets/img/team/6.jpg')}}"></a>
+                                    <a href="#"><img alt="Thumb" src="{{ asset('assets/images/'.$dsKhoaHoc->giangVien->anh_dai_dien) }}"></a>
                                 </div>
-                                <div class="desc">
-                                    <h4>Author</h4>
-                                    <a href="#">Munil Druva</a>
-                                </div>
+                                {{--  <div class="desc">
+                                    <h4>{{ $dsKhoaHoc->giangVien->ho_ten }}</h4>
+                                    <a href="#">{{ $dsKhoaHoc->giangVien->email }}</a>
+                                </div>  --}}
                             </div>
                             <div class="item category">
                                 <h4>Mức Độ</h4>
@@ -63,7 +63,7 @@
                                 </a>
                             </div>
                         </div>
-                        <img src="{{asset('assets/img/courses/1.jpg')}}" alt="Thumb">
+                        <img class="img-ct-khoa-hoc" src="{{asset('assets/images/'.$dsKhoaHoc->hinh_anh)}}" alt="Thumb">
                         <!-- Star Tab Info -->
                         <div class="tab-info">
                             <!-- Tab Nav -->
@@ -103,34 +103,38 @@
                                 <!-- End Single Tab -->
 
                                 <!-- Single Tab -->
+
                                 <div id="tab2" class="tab-pane fade">
                                     <div class="info title">
                                         <p>
-                                            Placing assured be if removed it besides on. Far shed each high read are men over day. Afraid we praise lively he suffer family estate is. Ample order up in of in ready. Timed blind had now those ought set often which. Or snug dull he show more true wish. No at many deny away miss evil. On in so indeed spirit an mother. Amounted old strictly but marianne admitted. People former is remove remain as.
                                         </p>
-                                        <h4>List Of Courses</h4>
+                                        <h4>Danh Sách Bài Học</h4>
+                                        @foreach($dsKhoaHoc->Chuong as $dschuong)
                                         <!-- Start Course List -->
                                         <div class="course-list-items acd-items acd-arrow">
                                             <div class="panel-group symb" id="accordion">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
                                                         <h4 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#ac1">
-                                                                <strong>01</strong> Java Programming
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#ac{{$dschuong->id}}">
+                                                                <strong>{{ $dschuong->id }}</strong>
+                                                                {{ $dschuong->ten_chuong }}
                                                             </a>
                                                         </h4>
                                                     </div>
-                                                    <div id="ac1" class="panel-collapse collapse in">
+
+                                                    <div id="ac{{ $dschuong->id }}" class="panel-collapse collapse in">
                                                         <div class="panel-body">
                                                             <ul>
+                                                                @foreach($dsKhoaHoc->dsChuongBai as $dsBai)
                                                                 <li>
                                                                     <div class="title">
-                                                                        <i class="fas fa-play-circle"></i>
+                                                                        {{--  <i class="fas fa-play-circle"></i>
                                                                         <p>
                                                                             Lecture 1.0
-                                                                        </p>
+                                                                        </p>  --}}
                                                                         <h5>
-                                                                            <a href="#">Introduction of java</a>
+                                                                            <a href="#">{{ $dsBai->chuong_id }}</a>
                                                                         </h5>
                                                                         <div class="access-type">
                                                                             <i class="fas fa-eye"></i>
@@ -139,7 +143,7 @@
                                                                     <div class="intro">
                                                                         <div class="item">
                                                                             <p>
-                                                                                Published - 15 Aug, 2020
+                                                                                Phát Hành - {{ Date($dsBai->created_at) }}
                                                                             </p>
                                                                         </div>
                                                                         <div class="item">
@@ -150,6 +154,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </li>
+                                                                @endforeach
                                                                 <li>
                                                                     <div class="title">
                                                                         <i class="fas fa-file"></i>
@@ -180,87 +185,16 @@
                                                             </ul>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- End Course List -->
-                                        <!-- Start Course List -->
-                                        <div class="course-list-items acd-items acd-arrow">
-                                            <div class="panel-group symb" id="accordion">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#ac2">
-                                                                <strong>02</strong> PHP Programmig
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="ac2" class="panel-collapse collapse">
-                                                        <div class="panel-body">
-                                                            <ul>
-                                                                <li>
-                                                                    <div class="title">
-                                                                        <i class="fas fa-play-circle"></i>
-                                                                        <p>
-                                                                            Lecture 1.0
-                                                                        </p>
-                                                                        <h5>
-                                                                            <a href="#">Introduction</a>
-                                                                        </h5>
-                                                                        <div class="access-type">
-                                                                            <i class="fas fa-lock"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="intro">
-                                                                        <div class="item">
-                                                                            <p>
-                                                                                Published - 15 Aug, 2020
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="item">
-                                                                            <p>
-                                                                                Duration: 1 hours 30 min
-                                                                            </p>
-                                                                           <a href="#">Preview</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div class="title">
-                                                                        <i class="fas fa-file"></i>
-                                                                        <p>
-                                                                            Lecture 1.2
-                                                                        </p>
-                                                                        <h5>
-                                                                            <a href="#">Benifits Of Function</a>
-                                                                        </h5>
-                                                                        <div class="access-type">
-                                                                            <i class="fas fa-lock"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="intro">
-                                                                        <div class="item">
-                                                                            <p>
-                                                                                Published - 28 Apr, 2020
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="item">
-                                                                            <p>
-                                                                                Duration: 3 hours 45 min
-                                                                            </p>
-                                                                           <a href="#">Preview</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Course List -->
+
+                                        @endforeach
                                     </div>
                                 </div>
+
                                 <!-- End Single Tab -->
 
                                 <!-- Single Tab -->
@@ -270,11 +204,11 @@
                                             <!-- Advisor Item -->
                                             <div class="item">
                                                 <div class="thumb">
-                                                    <img src="{{asset('assets/img/advisor/1.jpg')}}" alt="Thumb">
+                                                    <img src="{{ asset('assets/images/'.$dsKhoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                                 </div>
                                                 <div class="info">
                                                     <div class="author">
-                                                        <h4>Devid Mark</h4>
+                                                        <h4>{{ $dsKhoaHoc->giangVien->ho_ten }}</h4>
                                                         <ul>
                                                             <li class="facebook">
                                                                 <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -290,7 +224,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    <span class="designation">senior lecturer</span>
+                                                    <span class="designation">{{ $dsKhoaHoc->giangVien->email }}</span>
                                                     <p>
                                                         Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particularfor considered projection cultivated. Worth of do doubt shall
                                                     </p>
@@ -298,7 +232,7 @@
                                             </div>
                                             <!-- End Advisor Item -->
                                             <!-- Advisor Item -->
-                                            <div class="item">
+                                            {{--  <div class="item">
                                                 <div class="thumb">
                                                     <img src="{{asset('assets/img/advisor/2.jpg')}}" alt="Thumb">
                                                 </div>
@@ -325,7 +259,7 @@
                                                         Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular for considered projection cultivated. Worth of do doubt shall
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div>  --}}
                                             <!-- End Advisor Item -->
                                         </div>
                                     </div>
@@ -397,14 +331,14 @@
                         <!-- Sidebar Item -->
                         <div class="sidebar-item course-info">
                             <div class="title">
-                                <h4>Course Features</h4>
+                                <h4>Đặc Trưng Khóa Học</h4>
                             </div>
                             <ul>
-                                <li><i class="flaticon-translation"></i> Language  <span class="pull-right">English</span></li>
-                                <li><i class="flaticon-faculty-shield"></i> Lectures  <span class="pull-right">23</span></li>
+                                <li><i class="flaticon-translation"></i> Ngôn Ngữ  <span class="pull-right">{{ $dsKhoaHoc->ngon_ngu }}</span></li>
+                                <li><i class="flaticon-faculty-shield"></i> Bài giảng  <span class="pull-right">{{ $dsKhoaHoc->dsChuongBai->count() }}</span></li>
                                 <li><i class="flaticon-film"></i> Video  <span class="pull-right">04:15:38</span></li>
-                                <li><i class="flaticon-levels"></i> Level  <span class="pull-right">beginner</span></li>
-                                <li><i class="flaticon-group-of-students"></i> Enrolled  <span class="pull-right">136</span></li>
+                                <li><i class="flaticon-levels"></i> Mức độ  <span class="pull-right">{{ $dsKhoaHoc->muc_do }}</span></li>
+                                <li><i class="flaticon-group-of-students"></i> Học viên  <span class="pull-right">136</span></li>
                             </ul>
                         </div>
                         <!-- End Sidebar Item -->

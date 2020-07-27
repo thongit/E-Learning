@@ -291,12 +291,14 @@ class KhoaHocController extends Controller
     {
         //$dsSanPham = SanPham::paginate(12);
         $dsLinhVuc = linhvuc::all();
+
         $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
         if(sizeOf($dsKhoaHoc) <= 0)
         {
             return abort(404);
         }
-       return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
+        $tuKhoa = $request->key_word_tenkh;
+       return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
     }
 
     // public function timKiemMucDo(Request $request)
@@ -319,10 +321,15 @@ class KhoaHocController extends Controller
     public function timKiemNangCao(Request $request)
     {
         $dsLinhVuc = linhvuc::all();
+        $input = $request->get('input');
         $value = $request->get('value');
+        $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%' . $input . '%'],
+        ['muc_do', 'like', '%' . $value . '%',]])->get();
+        //$thutimkiem = $dsKhoaHoc[0]->id;
+        foreach($dsKhoaHoc as $ds)
+        {
 
-        $dsKhoaHoc = khoahoc::where('muc_do',$value)->get();
-        dd($value);
+        }
         // $dsTimKiem = khoahoc::query();
 
         // if ($request->has('muc_do')) {
@@ -341,7 +348,9 @@ class KhoaHocController extends Controller
         // }
 
         // $dsKhoaHoc =  $dsTimKiem->get();
-        return view('tim-kiem',compact('dsKhoaHoc','dsLinhVuc'));
+        //eturn view('tim-kiem',compact('dsKhoaHoc','dsLinhVuc'));
+        return response()->json(array('sds' => $dsKhoaHoc), 200);
+
     }
 
     public function hienThiChiTietKhoaHoc($id)
