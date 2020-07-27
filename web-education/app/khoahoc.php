@@ -22,11 +22,6 @@ class khoahoc extends Model
         return $this->hasMany('App\danhgiakh');
     }
 
-    public function Chuong()
-    {
-        return $this->hasMany('App\chuong');
-    }
-
     public function nhanTin()
     {
         return $this->hasMany('App\nhantin');
@@ -36,4 +31,20 @@ class khoahoc extends Model
      {
           return $this->belongsTo('App\nguoidung');
      }
+
+    public function dsChuongBai()
+    {
+        return $this->hasManyThrough('App\noidung', 'App\chuong', 'khoa_hoc_id', 'chuong_id', 'id', 'id');
+    }
+
+    public function Chuong()
+    {
+        return $this->hasMany('App\Chuong', 'khoa_hoc_id', 'id');
+    }
+
+    public function giangVien()
+    {
+        return $this->belongsTo('App\nguoidung','nguoi_dung_id','id');
+    }
+
 }

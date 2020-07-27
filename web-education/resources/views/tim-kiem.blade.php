@@ -22,7 +22,7 @@
 
 {{-- Start tìm kiếm nâng cao --}}
 <div class="container">
-    <div class="bg-tim-kiem-nc">
+    <div class="bg-tim-kiem-nc" id="course">
     <form id="search-form" class="new-added-form" action="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}" method="GET">
         @csrf
         <div class="mg-tim-kiem-nc">
@@ -39,11 +39,11 @@
                 <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2">
                     <div class="form-group">
                         {{--  <label for="sel1">Mức D(o</label>  --}}
-                        <select class="form-control" id="chon" data-dependent="mucdo">
+                        <select class="form-control" id="chon" data-dependent="mucdo" name="chon">
                         <option>Mức Độ</option>
-                        <option value="socap">Sơ Cấp </option>
-                        <option value="trungcap">Trung Cấp </option>
-                        <option value="chuyensau">Chuyên Sâu</option>
+                        <a href="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}"><option> Sơ Cấp</option></a>
+                        <option>Trung Cấp </option>
+                        <option>Chuyên Sâu</option>
                         </select>
                     </div>
                 </div>
@@ -67,9 +67,6 @@
         </div>
     </form>
     </div>
-    <div class="row" id="course">
-
-    </div>
 </div>
 {{-- End tìm kiếm nâng cao --}}
 
@@ -80,14 +77,15 @@
             <div class="row">
                 <div class="top-course-items">
                     <!-- Single Item -->
+                    <div id="foreach">
                     @foreach($dsKhoaHoc as $khoaHoc)
                     <div class="col-md-4 col-sm-6 equal-height">
                         <div class="item">
                             <div class="thumb">
-                                <img src="{{ asset('assets/img/courses/1.jpg') }}" alt="Thumb">
+                                <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
                                 <div class="overlay">
                                     <a href="#">
-                                        <img src="{{ asset('assets/img/team/1.jpg') }}" alt="Thumb">
+                                        <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                     </a>
                                     <ul>
                                         <li><i class="fas fa-clock"></i> 04:15:38</li>
@@ -100,7 +98,7 @@
                                     <ul>
                                         <li>
                                             <a href="#">Education</a>
-                                            <a href="#"> {{ $khoaHoc->linhVuc->ten_linh_vuc }}</a>
+                                            <a href="#"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
 
                                         </li>
                                         <li>
@@ -114,7 +112,7 @@
                                     </ul>
                                 </div>
                                 <h4>
-                                    <a href="#" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
+                                    <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
                                 </h4>
                                 <p class="lam-gon-van-ban-mo-ta">
                                     {{ $khoaHoc->mo_ta_ngan }}
@@ -127,6 +125,7 @@
                         </div>
                     </div>
                     @endforeach
+                </div>
                     <!-- Single Item -->
                 </div>
             </div>
@@ -140,17 +139,20 @@
   $(document).ready(function(){
         $("#chon").change(function(){
             var value = $(this).val();
-            var dependent = $(this).data('dependent');
+            var input = {!!json_encode($tuKhoa)!!};
             var _token = $('input[name = "_token"]').val();
+            var kh;
             $.ajax({
-                url:"{{ route('trang-chu.xu-ly-tim-kiem') }}",
+                url:"{{ route('trang-chu.xu-ly-tim-kiem-nc') }}",
                 method:"GET",
-                data:{value:value, _token:_token, dependent:dependent},
-                success:function(result){
-                    $("#course").html(result);
+                data:{value:value, input:input,  _token: _token},
+                success:function(data){
+                    kh = data;
+                    $("#foreach").html('');
+                    $("#course").html(data.sds);
+                    console.log(data[0]);
                 }
             });
-            alert(value);
         });
   });
 </script>

@@ -174,18 +174,19 @@ Route::get('thu-lay-gia-tri', function () {
 //     return view('tim-kiem');
 // });
 
+
     Route::name('trang-chu.')->group(function(){
+Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');
     //trang khóa học
     Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
     //Hiển thị tìm kiếm
     Route::get('tim-kiem', 'KhoaHocController@timKiem')->name('xu-ly-tim-kiem');
-     //Hiển thị tìm kiếm nâng cao
-     Route::get('tim-kiem-nc', 'KhoaHocController@timKiemNangCao')->name('xu-ly-tim-kiem-nc');
+    //Hiển thị tìm kiếm nâng cao
+    Route::get('tim-kiem-nc', 'KhoaHocController@timKiemNangCao')->name('xu-ly-tim-kiem-nc');
     //Hiển thị chi tiết khóa  học
     Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
-
     });
 
 
@@ -195,6 +196,10 @@ Route::get('thu-lay-gia-tri', function () {
 Route::get('trac-nghiem-excel/{tenFile}','ExportFileExcelController@docDuLieu')->name('trac-nghiem-excel');
 Route::get('/them-cau-hoi-excel/{id}','ExportFileExcelController@index')->name('them-cau-hoi-excel');
 Route::post('export', 'ExportFileExcelController@export')->name('export');
+});
+
+
+Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
 Route::post('lam-lai','ExportFileExcelController@destroy')->name('lam-lai');
 Route::post('luu-ket-qua','ExportFileExcelController@luuBaiLam')->name('luu-ket-qua');
