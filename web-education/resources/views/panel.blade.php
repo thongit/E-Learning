@@ -10,7 +10,7 @@
                                         <span>Giảng viên</span>
                                         <h4>{{ Auth::user()->ho_ten }}</h4>
                                     </div>
-                                    <a href="thong-tin-giang-vien"><button type="button" class="btn btn-primary btn-lg btn-block">Thông tin giảng viên </button></a>
+                                    <a href="/khoa-hoc/tao-mo-ta-khoa-hoc"><button type="button" class="btn btn-primary btn-lg btn-block">Tạo khóa học mới</button></a>
                                 </div>
                             </div>
                             <div class="sidebar-item category">
@@ -20,13 +20,11 @@
                                 <div class="sidebar-info">
                                     <ul>
                                         <li>
-                                            <a href="#">Thông tin cá nhân</a>
+                                            <label for=""><a href="">Thông tin cá nhân</a></label>
+                                            
                                         </li>
                                         <li>
-                                            <a href="/khoa-hoc/ds-khoa-hoc-da-tao">Danh sách khoa học đã tạo</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Đăng xuất</a>
+                                            <label for=""><a href="/khoa-hoc/ds-khoa-hoc-da-tao">Danh sách khoa học đã tạo</a></label>
                                         </li>
                                     </ul>
                                 </div>

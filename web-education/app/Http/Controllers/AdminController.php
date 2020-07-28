@@ -27,7 +27,7 @@ class AdminController extends Controller
         $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
         $slHocVienThang = nguoidung::whereMonth('created_at', Carbon::now())->count();
         $tongHocVien = nguoidung::all();
-        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'))
+        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'));
           
         if(auth()->user()->loai_tk == 3)
         {
@@ -156,7 +156,7 @@ class AdminController extends Controller
     }
     public function khoaHocUpdate(Request $request,$id)
     {
-        if(auth()->user()->loai_tk == 3)
+        if(auth()->user()->loai_tk == 2)
         {
             $khoahocs=khoahoc::find($id);
             if($khoahocs->trang_thai==1)

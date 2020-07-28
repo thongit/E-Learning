@@ -92,6 +92,9 @@
                             @if(Session::get('loai_tk')==1)
                             <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
                             @endif
+                            @if(Session::get('loai_tk')==2)
+                            <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a></li>
+                            @endif
                             <li>
                             <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>
                             </li>

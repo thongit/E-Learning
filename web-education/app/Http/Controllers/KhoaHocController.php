@@ -236,6 +236,7 @@ class KhoaHocController extends Controller
                 'TieuDe.required'=>'Chưa nhập tên bài giảng',
                 'TaiLieu.mimes'=>'Đuôi file phải là doc,pdf,docx',
                 'TaiLieu.max'=>'Dung lượng tối đa 10M',
+                'Video.max'=>'Dung lượng tối đa 100M',
                 'Video.required'=>'Bạn chưa upload video'
             ]);
 

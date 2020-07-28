@@ -22,14 +22,19 @@
                 <div class="blog-items">
 
                     <div class="blog-content col-md-8">
-                    <h3>Danh sách khóa học đã tạo</h3>
-                            <div class="container-fluid adm-archivos">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a data-toggle="pill" href="#home">Tất cả khóa học đã tạo</a></li>
+                        <li><a data-toggle="pill" href="#menu1">Khóa học đang tạo</a></li>
+                        <li><a data-toggle="pill" href="#menu2">Khóa học đang chờ duyệt</a></li>
+                        <li><a data-toggle="pill" href="#menu3">Khóa học đã duyệt</a></li>
+                      </ul><br>
+                      
+                      <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                          <div class="container-fluid adm-archivos">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="panel panel-default">
-                                            <div class="panel-heading text-center">
-                                                <span><strong>Danh sách khóa học đã tạo</strong></span>
-                                            </div>
                                             <table class="table table-bordered table-hover vmiddle">
                                                 <thead>
                                                     <tr>
@@ -72,6 +77,134 @@
                                     </div>
                                 </div>
                             </div>  
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+                          <div class="container-fluid adm-archivos">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <table class="table table-bordered table-hover vmiddle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Hình ảnh khóa học</th>
+                                                        <th>Tên khóa học</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($khoahocs as $k)
+                                                    @if($k->trang_thai == 1)
+                                                    <tr>
+                                                        <td><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
+                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td class="text-center">
+                                                            <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
+                                                            <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
+                                                        </td>
+                                                        <td>
+                                                       <p class="btn btn-primary" onclick="update({{$k->id}})">Gửi kiểm duyệt</p>
+
+                                                         </td>
+                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                    </tr>
+                                                    @endif
+                                                        @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                          <div class="container-fluid adm-archivos">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <table class="table table-bordered table-hover vmiddle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Hình ảnh khóa học</th>
+                                                        <th>Tên khóa học</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($khoahocs as $k)
+                                                    @if($k->trang_thai == 2)
+                                                    <tr>
+                                                        <td><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
+                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td class="text-center">
+                                                            <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
+                                                            <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
+                                                        </td>
+                                                        <td>
+                                                       <p class="btn btn-warning" onclick="update({{$k->id}})">Đang chờ duyệt</p>
+
+                                                         </td>
+                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                    </tr>
+                                                    @endif
+                                                        @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu3" class="tab-pane fade">
+                          <div class="container-fluid adm-archivos">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <table class="table table-bordered table-hover vmiddle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Hình ảnh khóa học</th>
+                                                        <th>Tên khóa học</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($khoahocs as $k)
+                                                    @if($k->trang_thai == 3)
+                                                    <tr>
+                                                        <td><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
+                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td class="text-center">
+                                                            <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
+                                                            <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
+                                                        </td>
+                                                        <td>
+                                                       <p class="btn btn-success" onclick="update({{$k->id}})">Đã duyệt</p> 
+
+                                                         </td>
+                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                    </tr>
+                                                    @endif
+                                                        @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+
+                            
                     </div>
                    @include('panel')
                 </div>
