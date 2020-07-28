@@ -79,10 +79,6 @@ Route::get('/kich-hoat-khoa-hoc', function () {
     return view('kich-hoat-khoa-hoc');
 });
 
-// Route::get('/them-cau-hoi', function () {
-//     return view('them-cau-hoi');
-// })->name('them-cau-hoi');
-
 Route::get('/tao-bai-trac-nghiem', function () {
     return view('tao-bai-trac-nghiem');
 });
@@ -131,6 +127,9 @@ Route::get('admin/ds-khoa-hoc-da-duyet','AdminController@getKhoaHocDaDuyet');
 Route::get('admin/ds-khoa-hoc/{id}', 'AdminController@completedUpdate')->name('completedUpdate');
 
 Route::get('admin/thong-ke','AdminController@getThongKe');
+Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
+Route::get('admin/thong-ke-doanh-thu-kh','AdminController@thongKeDoanhThuKHMD');
+Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
 
 Route::get('khoa-hoc/ds-khoa-hoc-da-tao/{id}', 'AdminController@khoaHocUpdate')->name('khoaHocUpdate');
 
