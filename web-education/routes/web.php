@@ -19,6 +19,9 @@
 // Route::get('/chi-tiet-khoa-hoc', function () {
 //     return view('KhoaHoc.chi-tiet-khoa-hoc');
 // });
+Route::get('khoa-hoc/video', function () {
+    return view('video-khoa-hoc');
+});
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
 
