@@ -47,7 +47,9 @@ Route::middleware('auth')->group(function(){
     Route::get('khoa-hoc/sua-chuong/{idChuong}','CMSController@getSuaChuong');
     
     Route::post('khoa-hoc/sua-chuong/{idChuong}','CMSController@postSuaChuong');
-
+Route::get('/tao-bai-trac-nghiem', function () {
+    return view('tao-bai-trac-nghiem');
+});
     Route::get('khoa-hoc/xoa-bai-giang/{idBaiGiang}','CMSController@getXoaBaiGiang');
     
     Route::get('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@getSuaBaiGiang');
@@ -95,7 +97,10 @@ Route::middleware('auth')->group(function(){
 Route::get('giang-vien','KhoaHocController@getGiangVien');
 
 Route::get('giang-vien/{id}', 'KhoaHocController@chiTietGiangVien')->name('chi-tiet-giang-vien');
-
+Route::get('admin/thong-ke','AdminController@getThongKe');
+Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
+Route::get('admin/thong-ke-doanh-thu-kh','AdminController@thongKeDoanhThuKHMD');
+Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
 Route::get('thong-tin-giang-vien', function () {
     return view('thong-tin-giang-vien');
 });

@@ -15,6 +15,6 @@ class hoadon extends Model
 
      public function ctHoaDon()
      {
-          return $this->hasMany('App\cthoadon');
+          return $this->hasMany('App\cthoadon','hoa_don_id','id');
      }
 }

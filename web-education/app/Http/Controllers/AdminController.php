@@ -2,9 +2,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\khoahoc;
 use App\linhvuc;
 use App\chuong;
+use App\hoadon;
+use App\cthoadon;
 use App\nguoidung;
 use App\noidung;
 use Session;
@@ -19,6 +22,13 @@ class AdminController extends Controller
      */
     public function getThongKe()
     {
+        $danhSachKhoaHoc=khoahoc::count();
+        $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
+        $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
+        $slHocVienThang = nguoidung::whereMonth('created_at', Carbon::now())->count();
+        $tongHocVien = nguoidung::all();
+        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'))
+          
         if(auth()->user()->loai_tk == 3)
         {
             $danhSachKhoaHoc=khoahoc::count();
@@ -172,11 +182,36 @@ class AdminController extends Controller
         }
     }
 
+    public function thongKeDoanhThuKH($id)
+    {
+        $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
+        $khoHoID = $id;
+        $slHocVien = cthoadon::whereMonth('created_at', Carbon::now())->where('khoa_hoc_id',$khoHoID)->count();
+        $khoaHoc = khoahoc::find($khoHoID);
+
+        $doanhThu = ($slHocVien*$khoaHoc->gia)*0.9;
+
+      return view('thong-ke-doanh-thu-kh', compact('danhSachKhoaHoc', 'doanhThu'));
+
+    }
+    public function thongKeDoanhThuKHMD()
+    {
+        $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
+        $khoHoID = 1;
+        $slHocVien = cthoadon::whereMonth('created_at', Carbon::now())->where('khoa_hoc_id',$khoHoID)->count();
+        $khoaHoc = khoahoc::find($khoHoID);
+
+        $doanhThu = ($slHocVien*$khoaHoc->gia)*0.9;
+
+      return view('thong-ke-doanh-thu-kh', compact('danhSachKhoaHoc', 'doanhThu'));
+
+    }
+
     public function index()
     {
         //
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
