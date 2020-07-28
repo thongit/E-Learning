@@ -224,6 +224,25 @@ class KhoaHocController extends Controller
         $idKhoaHoc=$khoahocs->id;
         return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
     }
+    public function xuLyDanhGia(Request $request,$id)
+    {
+        if(!Auth::check())
+        {
+            return redirect('khoa-hoc/'.$id)->with('loi','Bạn chưa đăng nhập!');
+        }
+
+        else{
+            $nguoi_dung_ids=auth()->user()->id;
+        $danhgiakh= new danhgiakh();
+        $danhgiakh->nguoi_dung_id=$nguoi_dung_ids;
+        $danhgiakh->so_sao=$request->rating;
+        $danhgiakh->noi_dung=$request->binh_luan;
+        $danhgiakh->khoa_hoc_id=$id;
+        $danhgiakh->save();
+        return redirect('khoa-hoc/'.$id)->with('thongbao','Bạn đã gửi đánh giá cho khóa học!');
+        }
+        
+    }
 
 
 

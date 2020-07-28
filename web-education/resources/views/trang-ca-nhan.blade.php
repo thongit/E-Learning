@@ -96,6 +96,13 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
+                                    <div class="form-group">
+                                       Giới thiệu: <input class="form-control" id="gioi_thieu" name="gioi_thieu" value="{{$nguoidungs->gioi_thieu}}" placeholder="Giới thiệu" type="text" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
                                     <button type="submit">
                                         Cập nhật
                                     </button>

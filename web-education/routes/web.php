@@ -175,6 +175,7 @@ Route::name('trang-chu.')->group(function(){
     //Hiển thị chi tiết khóa  học
     Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
 });
+Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
 
 // Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');

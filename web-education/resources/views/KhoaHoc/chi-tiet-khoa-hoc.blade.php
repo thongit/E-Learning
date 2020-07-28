@@ -1,8 +1,28 @@
 @extends('layout')
 @section('content')
 @include('header')
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+
+<!-- Sweet alert init js-->
+<!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
 <!-- Start Breadcrumb
     ============================================= -->
+    @if (session('thongbao'))
+    <script>
+        swal.fire("{{ session('thongbao') }}","","success")
+    </script>
+    @endif
+    @if (session('loi'))
+    <script>
+        swal.fire("{{ session('loi') }}","","error")
+    </script>
+    @endif
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url({{asset('assets/img/banner/19.jpg')}});">
         <div class="container">
             <div class="row">
@@ -85,7 +105,12 @@
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#tab4" aria-expanded="false">
-                                        Đánh giá
+                                        Xem Đánh giá
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab5" aria-expanded="false">
+                                       Tạo Đánh giá
                                     </a>
                                 </li>
                             </ul>
@@ -250,7 +275,35 @@
                                     </div>
                                 </div>
                                 <!-- End Single Tab -->
-                            </div>
+                                <div id="tab5" class="tab-pane fade">
+<form action="{{ route('xu-ly-danh-gia',$dsKhoaHoc->id) }}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
+                    @csrf
+<div class="col-md-12">
+<div class="row">
+<div class="form-group">
+<div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+</div>
+</div>
+</div>
+<div class="col-md-12">
+<div class="row">
+
+<div class="form-group">
+<input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text" required>
+</div>
+</div>
+</div>
+<div class="col-md-12">
+<div class="row">
+<button type="submit">
+Gửi đánh giá
+</button>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
                             <!-- End Tab Content -->
                         </div>
                         <!-- End Tab Info -->
