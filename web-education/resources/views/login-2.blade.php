@@ -66,7 +66,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p class="link-bottom">Chưa có tài khoản? <a href="dang-ky">Đăng ký</a></p>
+                            <p class="link-bottom">Chưa có tài khoản? <a href="{{ route('dang-ky')}}">Đăng ký</a></p>
                             <div class="login-social">
                             <!-- <h3>Đăng nhập với</h3>
                             <ul>

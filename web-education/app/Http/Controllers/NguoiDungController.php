@@ -27,15 +27,22 @@ class NguoiDungController extends Controller
     private $e;
     public function dangNhap()
     {
-        return view('dang-nhap');
+        return view('login-2');
     }
     public function dangKy()
     {
-        return view('dang-ky');
+        return view('register');
     }
     public function getDangKyGiangVien()
     {
-        return view('dang-ky-giang-vien');
+        if(auth()->user())
+        {
+            return view('dang-ky-giang-vien');
+        }
+        else
+        {
+            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+        }
     }
     public function getQuanLyDonHang()
     {
@@ -174,9 +181,16 @@ class NguoiDungController extends Controller
     
     public function getSua()
     {
-        $nguoi_dung_ids=auth()->user()->id;
-        $nguoidungs=DB::table('nguoi_dung')->where('id','=', $nguoi_dung_ids)->first();
-        return view('trang-ca-nhan',compact('nguoidungs'));
+        if(auth()->user())
+        {
+            $nguoi_dung_ids=auth()->user()->id;
+            $nguoidungs=DB::table('nguoi_dung')->where('id','=', $nguoi_dung_ids)->first();
+            return view('trang-ca-nhan',compact('nguoidungs'));
+        }
+        else
+        {
+            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+        }
     }
 
     public function postSua(Request $request)

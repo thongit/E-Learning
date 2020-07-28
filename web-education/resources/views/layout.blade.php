@@ -78,10 +78,10 @@
                      <div class="col-md-6 link text-right">
                         <ul>
                             <li>
-                                <a href="dang-nhap">Đăng nhập</a>
+                                <a href="{{ route('dang-nhap')}}">Đăng nhập</a>
                             </li>
                             <li>
-                                <a id="myBtn" href="dang-ky">Đăng ký</a>
+                                <a id="myBtn" href="{{ route('dang-ky')}}">Đăng ký</a>
                             </li>
                         </ul>
                     </div>
@@ -90,10 +90,10 @@
                     <div class="col-md-8 link text-right">
                         <ul>
                             @if(Session::get('loai_tk')==1)
-                            <li><a class="btn-danger" href="/tro-thanh-giang-vien">Trở thành giảng viên</a></li>
+                            <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
                             @endif
                             <li>
-                            <a id="trang_cn" href="/trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
+                            <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>
                             </li>
                             <li>
                                 <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>
