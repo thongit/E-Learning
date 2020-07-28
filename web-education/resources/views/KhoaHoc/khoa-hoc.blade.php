@@ -47,8 +47,8 @@
                                 <div class="meta">
                                     <ul>
                                         <li>
-                                            <a href="#">{{ $khoaHoc->giangVien->ho_ten }}</a>
-                                            <a href="#"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
+                                            <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
                                         </li>
                                         <li>
                                             <i class="fas fa-star"></i>

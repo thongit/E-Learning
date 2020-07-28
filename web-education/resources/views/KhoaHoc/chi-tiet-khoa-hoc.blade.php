@@ -23,16 +23,11 @@
         swal.fire("{{ session('loi') }}","","error")
     </script>
     @endif
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url({{asset('assets/img/banner/19.jpg')}});">
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Chi tiết khóa học</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#">Page</a></li>
-                        <li class="active">Course Single</li>
-                    </ul>
                 </div>
             </div>
         </div>

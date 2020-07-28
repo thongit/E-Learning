@@ -39,7 +39,7 @@ class KhoaHocController extends Controller
 
     public function index()
     {
-        $dsLinhVuc = linhvuc::all();
+        $dsLinhVuc = linhvuc::whereIn('id',[1,2,3,4,5,6])->get();
         $dsKhoaHoc = khoahoc::whereIn('id',[1,2,3,4,5,6])->get();
         return view('index', compact('dsKhoaHoc','dsLinhVuc'));
     }

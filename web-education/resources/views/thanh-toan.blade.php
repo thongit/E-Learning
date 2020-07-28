@@ -4,15 +4,11 @@
 
     <!-- Start Breadcrumb
     ============================================= -->
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url({{ asset('assets/img/banner/19.jpg);') }}">
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Thanh toán</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i>Trang Chủ</a></li>
-                        <li><a href="#">Thanh toán</a></li>
-                    </ul>
                 </div>
             </div>
         </div>

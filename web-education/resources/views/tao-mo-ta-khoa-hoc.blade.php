@@ -3,16 +3,11 @@
 @include('header')
 <!-- Start Breadcrumb
     ============================================= -->
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url(assets/img/banner/19.jpg);">
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Tạo mô tả khóa học</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> ...</a></li>
-                        <li><a href="#">...</a></li>
-                        <li class="active">Tạo mô tả khóa học</li>
-                    </ul>
                 </div>
             </div>
         </div>

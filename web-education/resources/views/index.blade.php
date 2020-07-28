@@ -112,126 +112,21 @@
             </div>
             <div class="category-items">
                 <div class="row">
-                    <!-- Single Item -->
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item mariner">
-                            <a href="#">
-                                <div class="item-box">
-                                    <div class="icon">
-                                        <i class="ti-pulse"></i>
-                                    </div>
-                                    <div class="info">
-                                        <h5>Analysis of Algorithms</h5>
-                                        <p>
-                                            Current enrolled <strong>1278</strong>
-                                        </p>
-                                        <span>28 Courses</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
+                    @foreach($dsLinhVuc as $item)
                     <!-- Single Item -->
                     <div class="col-md-4 col-sm-6 equal-height">
                         <div class="item java">
-                            <a href="#">
+                            <a href="/linh-vuc/{{$item->id}}">
                                 <div class="item-box">
-                                    <div class="icon">
-                                        <i class="ti-desktop"></i>
-                                    </div>
                                     <div class="info">
-                                        <h5>Computer Science</h5>
-                                        <p>
-                                            Current enrolled <strong>9577</strong>
-                                        </p>
-                                        <span>56 Courses</span>
+                                        <h5>{{$item->ten_linh_vuc}}</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item malachite">
-                            <a href="#">
-                                <div class="item-box">
-                                    <div class="icon">
-                                        <i class="ti-server"></i>
-                                    </div>
-                                    <div class="info">
-                                        <h5>Data Science</h5>
-                                        <p>
-                                            Current enrolled <strong>2544</strong>
-                                        </p>
-                                        <span>29 Courses</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item brilliantrose">
-                            <a href="#">
-                                <div class="item-box">
-                                    <div class="icon">
-                                        <i class="ti-panel"></i>
-                                    </div>
-                                    <div class="info">
-                                        <h5>Engineering</h5>
-                                        <p>
-                                            Current enrolled <strong>6788</strong>
-                                        </p>
-                                        <span>87 Courses</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item casablanca">
-                            <a href="#">
-                                <div class="item-box">
-                                    <div class="icon">
-                                        <i class="ti-ruler-pencil"></i>
-                                    </div>
-                                    <div class="info">
-                                        <h5>Architecture</h5>
-                                        <p>
-                                            Current enrolled <strong>1766</strong>
-                                        </p>
-                                        <span>39 Courses</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item emerald">
-                            <a href="#">
-                                <div class="item-box">
-                                    <div class="icon">
-                                        <i class="ti-paint-bucket"></i>
-                                    </div>
-                                    <div class="info">
-                                        <h5>Art & Design</h5>
-                                        <p>
-                                            Current enrolled <strong>4355</strong>
-                                        </p>
-                                        <span>36 Courses</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -244,55 +139,56 @@
             <div class="container">
                 <div class="row">
                     <div class="top-course-items">
-                        <!-- Single Item -->
-                        @foreach($dsKhoaHoc as $khoaHoc)
-                        <div class="col-md-4 col-sm-6 equal-height">
-                            <div class="item">
-                                <div class="thumb">
-                                    <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
-                                    <div class="overlay">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
-                                        </a>
-                                        <ul>
-                                            <li><i class="fas fa-clock"></i> 04:15:38</li>
-                                            <li><i class="fas fa-list-ul"></i> 32</li>
-                                        </ul>
-                                    </div>
+                    <!-- Single Item -->
+                    @foreach($dsKhoaHoc as $khoaHoc)
+
+                    <div class="col-md-4 col-sm-6 equal-height">
+                        <div class="item">
+                            <div class="thumb">
+                                <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
+                                <div class="overlay">
+                                    <a href="#">
+                                        <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
+                                    </a>
+                                    <ul>
+                                        <li><i class="fas fa-clock"></i> 04:15:38</li>
+                                        <li><i class="fas fa-list-ul"></i> 32</li>
+                                    </ul>
                                 </div>
-                                <div class="info">
-                                    <div class="meta">
-                                        <ul>
-                                            <li>
-                                                <a href="#">{{ $khoaHoc->giangVien->ho_ten }}</a>
-                                                <a href="#"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
-                                            </li>
-                                            <li>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <span>(1k)</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <h4>
-                                        <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
-                                    </h4>
-                                    <p class="lam-gon-van-ban-mo-ta">
-                                        {{ $khoaHoc->mo_ta_ngan }}
-                                    </p>
-                                    <div class="footer-meta">
-                                        <a class="btn btn-theme effect btn-sm" href="#">Mua Ngay</a>
-                                        <h4>{{ number_format($khoaHoc->gia) }} VNĐ</h4>
-                                    </div>
+                            </div>
+                            <div class="info">
+                                <div class="meta">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <span>(1k)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h4>
+                                    <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
+                                </h4>
+                                <p class="lam-gon-van-ban-mo-ta">
+                                    {{ $khoaHoc->mo_ta_ngan }}
+                                </p>
+                                <div class="footer-meta">
+                                    <a class="btn btn-theme effect btn-sm" href="#">Mua Ngay</a>
+                                    <h4>{{ number_format($khoaHoc->gia) }} VNĐ</h4>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
-                        <!-- Single Item -->
                     </div>
+                    @endforeach
+                    <!-- Single Item -->
+                </div>
                 </div>
             </div>
         </div>

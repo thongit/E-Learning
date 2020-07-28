@@ -4,16 +4,11 @@
 
     <!-- Start Breadcrumb
     ============================================= -->
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url({{ asset('assets/img/banner/19.jpg);') }}">
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Khóa học</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i>Trang Chủ</a></li>
-                        <li><a href="#">Khóa Học</a></li>
-                        <li class="active">Grid</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -32,10 +27,10 @@
                     <div class="col-md-4 col-sm-6 equal-height">
                         <div class="item">
                             <div class="thumb">
-                                <img src="{{ asset('assets/img/courses/1.jpg') }}" alt="Thumb">
+                                <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
                                 <div class="overlay">
                                     <a href="#">
-                                        <img src="{{ asset('assets/img/team/1.jpg') }}" alt="Thumb">
+                                        <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                     </a>
                                     <ul>
                                         <li><i class="fas fa-clock"></i> 04:15:38</li>
@@ -47,8 +42,8 @@
                                 <div class="meta">
                                     <ul>
                                         <li>
-                                            <a href="#">Education</a>
-                                            <a href="#"> {{ $khoaHoc->linhVuc->ten_linh_vuc }}</a>
+                                            <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
                                         </li>
                                         <li>
                                             <i class="fas fa-star"></i>
