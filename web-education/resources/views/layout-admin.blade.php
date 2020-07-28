@@ -11,7 +11,7 @@
 
 <!-- Sweet alert init js-->
      <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
-     <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
+     <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets-admin/img/favicon.png') }}">
     <!-- Normalize CSS -->
@@ -76,7 +76,7 @@
                                 <span>Admin</span>
                             </div>
                             <div class="admin-img">
-                                <img src="{{ asset('assets/images/'.auth()->user()->anh_dai_dien) }}" width="50" height="50"> 
+                                <img src="{{ asset('assets/images/'.auth()->user()->anh_dai_dien) }}" width="50" height="50">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -100,7 +100,7 @@
                                         cancelButtonText:'Không'
                                         }).then((result) => {
                                         if (result.value) {
-                                            open("{{ route('dang-xuat') }}","_self") 
+                                            open("{{ route('dang-xuat') }}","_self")
                                         }
                                         })
                                     };
@@ -199,7 +199,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a href="class-routine.html" class="nav-link"><i class="flaticon-calendar"></i><span>Class
                                     Routine</span></a>
@@ -266,7 +266,7 @@
                 </div>
             </div>
             <!-- Sidebar Area End Here -->
-            
+
             <!-- Start Body -->
                 @yield('content-admin')
             <!-- End Body -->
