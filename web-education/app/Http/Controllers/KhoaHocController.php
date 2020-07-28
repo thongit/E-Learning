@@ -57,6 +57,14 @@ class KhoaHocController extends Controller
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
+    
+    public function chiTietGiangVien($id)
+    {
+        $nguoidungs=nguoidung::find($id);
+        $khoahocs= khoahoc::where('nguoi_dung_id',$id)->where('trang_thai',3)->get();
+        return view('thong-tin-giang-vien', compact('nguoidungs','khoahocs'));
+    }
+
     public function getGiangVien()
     {
         $giangviens= nguoidung::where('loai_tk',2)->get();

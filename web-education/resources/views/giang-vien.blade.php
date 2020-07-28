@@ -7,12 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h1>Giảng Viên</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#">Advisor</a></li>
-                        <li class="active">Grid</li>
-                    </ul>
+                    <h1>Danh sách giảng Viên</h1>
                 </div>
             </div>
         </div>
@@ -34,8 +29,7 @@
                                 <img src="{{ asset('assets/images/'.$gv->anh_dai_dien) }}" alt="Thumb">
                             </div>
                             <div class="info">
-                                <span>PHP Expert</span>
-                                <h4>{{$gv->ho_ten}}</h4>
+                                <h4><a href="{{ action('KhoaHocController@chiTietGiangVien' , $gv->id) }}">{{$gv->ho_ten}}</a></h4>
                             </div>
                         </div>
                     </div>

@@ -94,7 +94,9 @@ Route::middleware('auth')->group(function(){
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
 
-Route::get('/thong-tin-giang-vien', function () {
+Route::get('giang-vien/{id}', 'KhoaHocController@chiTietGiangVien')->name('chi-tiet-giang-vien');
+
+Route::get('thong-tin-giang-vien', function () {
     return view('thong-tin-giang-vien');
 });
 
