@@ -59,7 +59,7 @@ Table of contents
 ** General Styles for HTML tags
 */
 .rating {
-  display: flex;
+  display: flow-root;
   flex-direction: row-reverse;
   justify-content: center
 }
@@ -470,7 +470,7 @@ input {
 }
 
 .btn-sm {
-  padding: 8px 35px;
+  /*padding: 8px 35px;*/
   font-size: 12px;
 }
 
@@ -5757,6 +5757,7 @@ footer .footer-bottom .link li a {
 }
 
 .lam-gon-van-ban-mo-ta{
+    height: 45px;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

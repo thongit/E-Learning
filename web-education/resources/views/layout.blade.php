@@ -78,10 +78,10 @@
                      <div class="col-md-6 link text-right">
                         <ul>
                             <li>
-                                <a href="dang-nhap">Đăng nhập</a>
+                                <a href="{{ route('dang-nhap')}}">Đăng nhập</a>
                             </li>
                             <li>
-                                <a id="myBtn" href="dang-ky">Đăng ký</a>
+                                <a id="myBtn" href="{{ route('dang-ky')}}">Đăng ký</a>
                             </li>
                         </ul>
                     </div>
@@ -90,10 +90,10 @@
                     <div class="col-md-8 link text-right">
                         <ul>
                             @if(Session::get('loai_tk')==1)
-                            <li><a class="btn-danger" href="/tro-thanh-giang-vien">Trở thành giảng viên</a></li>
+                            <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
                             @endif
                             <li>
-                            <a id="trang_cn" href="/trang-ca-nhan">{{ Session::get('ho_ten') }}</a>
+                            <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>
                             </li>
                             <li>
                                 <a id="myBtn" onclick="logout()" href="#">Đăng Xuất</a>
@@ -131,117 +131,6 @@
     <!-- Start Footer -->
         <!-- ============================================= -->
         <footer class="bg-dark text-light top-padding">
-            <div class="container">
-                <div class="f-items default-padding">
-                    <div class="row">
-                        <!-- Single item -->
-                        <div class="col-md-4 col-sm-6 item equal-height">
-                            <div class="f-item about">
-                                <h4>Giới thiệu</h4>
-                                <p>
-                                    Xin chào
-                                </p>
-                                <ul>
-                                    <li>
-                                        <p>Email <span><a href="mailto:info@example.com">teamqttt@example.com</a></span></p>
-                                    </li>
-                                    <li>
-                                        <p>Office <span>Trường cao đẳng kỹ thuật Cao Thắng</span></p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Single item -->
-
-                        <!-- Single item -->
-                        <div class="col-md-4 col-sm-6 item equal-height">
-                            <div class="f-item link">
-                                <h4>Khóa học</h4>
-                                <ul>
-                                    <li><a href="">Ngoại ngữ</a></li>
-                                    <li><a href="">Công nghệ thông tin</a></li>
-                                    <li><a href="">Tin học văn phòng</a></li>
-                                    <li><a href="">Âm nhạc</a></li>
-                                    <li><a href="">Thể thao - Sức khỏe</a></li>
-                                    <li><a href="">Thiết kế</a></li>
-                                    <li><a href="">Phát triển bản thân</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Single item -->
-
-                        <!-- Single item -->
-                        <div class="col-md-4 col-sm-6 item equal-height">
-                            <div class="f-item popular-courses">
-                                <h4>Khóa học phổ biến</h4>
-                                <ul>
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src=" {{ asset ('assets/img/gallery/1.jpg') }}" alt="Thumb">
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <a href="#">Tiếng anh giao tiếp</a>
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                </li>
-                                                <li>(128) Đánh giá</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src=" {{ asset ('assets/img/gallery/3.jpg') }}" alt="Thumb">
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <a href="#">Photoshop cho người mới bắt đầu</a>
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </li>
-                                                <li>(98) Đánh giá</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="thumb">
-                                            <a href="#">
-                                                <img src=" {{ asset ('assets/img/gallery/4.jpg') }}" alt="Thumb">
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <a href="#">Phát triển kỹ năng giao tiếp</a>
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                </li>
-                                                <li>(688) Đánh giá</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Single item -->
-                    </div>
-                </div>
-            </div>
             <!-- Start Footer Bottom -->
             <div class="footer-bottom">
                 <div class="container">
@@ -252,10 +141,10 @@
                         <div class="col-md-6 text-right link">
                             <ul>
                                 <li>
-                                    <a href="#">Giới thiệu</a>
+                                    <a href="/gioi-thieu">Giới thiệu</a>
                                 </li>
                                 <li>
-                                    <a href="#">Liên hệ</a>
+                                    <a href="/lien-he">Liên hệ</a>
                                 </li>
                             </ul>
                         </div>

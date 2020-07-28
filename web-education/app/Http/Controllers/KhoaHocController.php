@@ -24,9 +24,16 @@ class KhoaHocController extends Controller
 
     public function getDanhSachKhoaHoc()
     {
-        $nguoi_dung_ids=auth()->user()->id;
-        $khoahocs=DB::table('khoa_hoc')->where('nguoi_dung_id', $nguoi_dung_ids)->get();
-        return view('ds-khoa-hoc-da-tao',compact('khoahocs'));
+        if(auth()->user()->loai_tk == 2)
+        {
+            $nguoi_dung_ids=auth()->user()->id;
+            $khoahocs=DB::table('khoa_hoc')->where('nguoi_dung_id', $nguoi_dung_ids)->get();
+            return view('ds-khoa-hoc-da-tao',compact('khoahocs'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
 
@@ -50,6 +57,14 @@ class KhoaHocController extends Controller
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
+    
+    public function chiTietGiangVien($id)
+    {
+        $nguoidungs=nguoidung::find($id);
+        $khoahocs= khoahoc::where('nguoi_dung_id',$id)->where('trang_thai',3)->get();
+        return view('thong-tin-giang-vien', compact('nguoidungs','khoahocs'));
+    }
+
     public function getGiangVien()
     {
         $giangviens= nguoidung::where('loai_tk',2)->get();
@@ -64,165 +79,206 @@ class KhoaHocController extends Controller
 
     public function getTaoMoTaKhoaHoc()
     {
-        $linhvucs= linhvuc::all();
-        return view('tao-mo-ta-khoa-hoc',['linhvucs'=>$linhvucs]);
-    }
-    public function postTaoMoTaKhoaHoc(Request $request)
-    {
-
-        $khoahocs= new khoahoc;
-        $this->validate($request,
-        [
-            'TenKhoaHoc'=>'required',
-            'MoTaKhoaHoc'=>'required',
-            'AnhKhoaHoc'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'LinhVuc'=>'required',
-            'Gia'=>'required',
-            'MoTaTongQuat'=>'required'
-
-        ],
-        [
-            'TenKhoaHoc.required'=>'Bạn chưa nhập tên khóa học',
-            'MoTaKhoaHoc.required'=>'Bạn chưa nhập mô tả khóa học',
-            'AnhKhoaHoc.required'=>'Bạn chưa upload hình khóa học',
-            'AnhKhoaHoc.image'=>'Định dạng phải là hình ảnh',
-            'AnhKhoaHoc.mimes'=>'Đuôi hình ảnh phải là:jpeg,png,jpg,gif,svg',
-            'AnhKhoaHoc.max'=>'Dung lượng tối đa 2048kb',
-            'LinhVuc.required'=>'Chọn lĩnh vực',
-            'Gia.required'=>'Bạn chưa nhập giá',
-            'MoTaTongQuat.required'=>'Bạn chưa nhập mô tả tổng quát'
-
-        ]);
-        $khoahocs->ten_khoa_hoc= $request->TenKhoaHoc;
-        $khoahocs->mo_ta_ngan= $request->MoTaKhoaHoc;
-        $khoahocs->gia= $request->Gia;
-        $khoahocs->mo_ta_chi_tiet= $request->MoTaTongQuat;
-        $khoahocs->linh_vuc_id=$request->LinhVuc;
-
-        if(!Auth::check())
+        if(auth()->user()->loai_tk == 2)
         {
             $linhvucs= linhvuc::all();
             return view('tao-mo-ta-khoa-hoc',['linhvucs'=>$linhvucs]);
         }
-
-        $khoahocs->nguoi_dung_id=auth()->user()->id;
-        $khoahocs->trang_thai=1;
-
-        if($request->hasFile('AnhKhoaHoc'))
+        else
         {
-          $file=$request->file('AnhKhoaHoc');
-          $filenameWithExt = $request->file('AnhKhoaHoc')->getClientOriginalName();
-          $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
-          $extension = $request->file('AnhKhoaHoc')->getClientOriginalExtension();
-          $fileNameToStore = $filename.'_'.time().'.'.$extension;
-          $destinationPath = 'assets/images';
-          $file->move($destinationPath,$fileNameToStore);
+            abort(401);
         }
-        $khoahocs->hinh_anh=$fileNameToStore;
-        $khoahocs->ngon_ngu=$request->NgonNgu;
-        $khoahocs->muc_do=$request->MucDo;
-
-        $khoahocs->save();
-        if($khoahocs->save())
+    }
+    public function postTaoMoTaKhoaHoc(Request $request)
+    {
+        if(auth()->user()->loai_tk == 2)
         {
-            $idKhoaHoc=$khoahocs->id;
-            return redirect('khoa-hoc/tao-chuong-cho-khoa-hoc/'.$idKhoaHoc);
+            $khoahocs= new khoahoc;
+            $this->validate($request,
+            [
+                'TenKhoaHoc'=>'required',
+                'MoTaKhoaHoc'=>'required',
+                'AnhKhoaHoc'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'LinhVuc'=>'required',
+                'Gia'=>'required',
+                'MoTaTongQuat'=>'required'
+
+            ],
+            [
+                'TenKhoaHoc.required'=>'Bạn chưa nhập tên khóa học',
+                'MoTaKhoaHoc.required'=>'Bạn chưa nhập mô tả khóa học',
+                'AnhKhoaHoc.required'=>'Bạn chưa upload hình khóa học',
+                'AnhKhoaHoc.image'=>'Định dạng phải là hình ảnh',
+                'AnhKhoaHoc.mimes'=>'Đuôi hình ảnh phải là:jpeg,png,jpg,gif,svg',
+                'AnhKhoaHoc.max'=>'Dung lượng tối đa 2048kb',
+                'LinhVuc.required'=>'Chọn lĩnh vực',
+                'Gia.required'=>'Bạn chưa nhập giá',
+                'MoTaTongQuat.required'=>'Bạn chưa nhập mô tả tổng quát'
+
+            ]);
+            $khoahocs->ten_khoa_hoc= $request->TenKhoaHoc;
+            $khoahocs->mo_ta_ngan= $request->MoTaKhoaHoc;
+            $khoahocs->gia= $request->Gia;
+            $khoahocs->mo_ta_chi_tiet= $request->MoTaTongQuat;
+            $khoahocs->linh_vuc_id=$request->LinhVuc;
+
+            if(!Auth::check())
+            {
+                $linhvucs= linhvuc::all();
+                return view('tao-mo-ta-khoa-hoc',['linhvucs'=>$linhvucs]);
+            }
+
+            $khoahocs->nguoi_dung_id=auth()->user()->id;
+            $khoahocs->trang_thai=1;
+
+            if($request->hasFile('AnhKhoaHoc'))
+            {
+            $file=$request->file('AnhKhoaHoc');
+            $filenameWithExt = $request->file('AnhKhoaHoc')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            $extension = $request->file('AnhKhoaHoc')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $destinationPath = 'assets/images';
+            $file->move($destinationPath,$fileNameToStore);
+            }
+            $khoahocs->hinh_anh=$fileNameToStore;
+            $khoahocs->ngon_ngu=$request->NgonNgu;
+            $khoahocs->muc_do=$request->MucDo;
+
+            $khoahocs->save();
+            if($khoahocs->save())
+            {
+                $idKhoaHoc=$khoahocs->id;
+                return redirect('khoa-hoc/tao-chuong-cho-khoa-hoc/'.$idKhoaHoc);
+            }
+            return redirect('khoa-hoc/tao-mo-ta-khoa-hoc')->back()->withInput(Input::all())->with('thongbao','Thêm thành công');
         }
-        return redirect('khoa-hoc/tao-mo-ta-khoa-hoc')->back()->withInput(Input::all())->with('thongbao','Thêm thành công');
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getTaoChuongChoKhoaHoc($idKhoahoc)
     {
-        $chuongs= chuong::all();
-        $khoahocs=khoahoc::find($idKhoahoc);
-        return view('tao-chuong-cho-khoa-hoc',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs]);
+        if(auth()->user()->loai_tk == 2)
+        {
+            $chuongs= chuong::all();
+            $khoahocs=khoahoc::find($idKhoahoc);
+            return view('tao-chuong-cho-khoa-hoc',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs]);
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function postTaoChuongChoKhoaHoc(Request $request,$idKhoahoc)
     {
-        $khoahocs=khoahoc::find($idKhoahoc);
-        $size = count($request->all())-1;
-        for ($i=1; $i <= $size; $i++) {
-        $chuongs= new chuong();
-            $c='chuong'.$i;
-            $chuongs->ten_chuong=$request->input($c);
-            $chuongs->khoa_hoc_id=$khoahocs->id;
-            $chuongs->thoi_gian=1;
-            $chuongs->trang_thai=1;
-            $chuongs->save();
+        if(auth()->user()->loai_tk == 2)
+        {
+            $khoahocs=khoahoc::find($idKhoahoc);
+            $size = count($request->all())-1;
+            for ($i=1; $i <= $size; $i++) {
+            $chuongs= new chuong();
+                $c='chuong'.$i;
+                $chuongs->ten_chuong=$request->input($c);
+                $chuongs->khoa_hoc_id=$khoahocs->id;
+                $chuongs->thoi_gian=1;
+                $chuongs->trang_thai=1;
+                $chuongs->save();
+            }
+            $idKhoaHoc=$khoahocs->id;
+            return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
         }
-        $idKhoaHoc=$khoahocs->id;
-        return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
+        else
+        {
+            abort(401);
+        }
     }
 
      public function getTaoBaiGiangChoChuong($idKhoahoc)
     {
-        $chuongs= chuong::all();
-        $noidungs= noidung::all();
-        $khoahocs=khoahoc::find($idKhoahoc);
-        return view('tao-bai-giang-cho-chuong',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs,'noidungs'=>$noidungs]);
+        if(auth()->user()->loai_tk == 2)
+        {
+            $chuongs= chuong::all();
+            $noidungs= noidung::all();
+            $khoahocs=khoahoc::find($idKhoahoc);
+            return view('tao-bai-giang-cho-chuong',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs,'noidungs'=>$noidungs]);
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function postTaoBaiGiangChoChuong(Request $request,$idKhoahoc)
     {
-        $khoahocs=khoahoc::find($idKhoahoc);
-        $noidungs= new noidung;
-        // if($request->hasFile('Video'))
-        // {
-        //     $file= $request->file('Video');
-        //     $name=$file->getClientOriginalName();
-        //     $file->move('assets/images/'.$name);
-        //     $noidungs->video=$name;
-        // }
-
-        $this->validate($request,
-        [
-            'TieuDe'=>'required',
-            'TaiLieu'=>'mimes:doc,pdf,docx|max:10000',
-            'Video'=>'required|mimes:mpeg,3gp,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|nullable|max:100040'
-        ],
-        [
-            'TieuDe.required'=>'Chưa nhập tên bài giảng',
-            'TaiLieu.mimes'=>'Đuôi file phải là doc,pdf,docx',
-            'TaiLieu.max'=>'Dung lượng tối đa 10M',
-            'Video.required'=>'Bạn chưa upload video'
-        ]);
-
-        if($request->hasFile('Video'))
+        if(auth()->user()->loai_tk == 2)
         {
-            $file=$request->file('Video');
-          $filenameWithExt = $request->file('Video')->getClientOriginalName();
-          $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
-          $extension = $request->file('Video')->getClientOriginalExtension();
-          $fileNameToStore = $filename.'_'.time().'.'.$extension;
-          $destinationPath = 'assets/video';
-            $file->move($destinationPath,$fileNameToStore);
-        }
-        $noidungs->video=$fileNameToStore;
+            $khoahocs=khoahoc::find($idKhoahoc);
+            $noidungs= new noidung;
+            // if($request->hasFile('Video'))
+            // {
+            //     $file= $request->file('Video');
+            //     $name=$file->getClientOriginalName();
+            //     $file->move('assets/images/'.$name);
+            //     $noidungs->video=$name;
+            // }
 
-        if($request->hasFile('TaiLieu'))
+            $this->validate($request,
+            [
+                'TieuDe'=>'required',
+                'TaiLieu'=>'mimes:doc,pdf,docx|max:10000',
+                'Video'=>'required|mimes:mpeg,3gp,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|nullable|max:100040'
+            ],
+            [
+                'TieuDe.required'=>'Chưa nhập tên bài giảng',
+                'TaiLieu.mimes'=>'Đuôi file phải là doc,pdf,docx',
+                'TaiLieu.max'=>'Dung lượng tối đa 10M',
+                'Video.required'=>'Bạn chưa upload video'
+            ]);
+
+            if($request->hasFile('Video'))
+            {
+                $file=$request->file('Video');
+            $filenameWithExt = $request->file('Video')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            $extension = $request->file('Video')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $destinationPath = 'assets/video';
+                $file->move($destinationPath,$fileNameToStore);
+            }
+            $noidungs->video=$fileNameToStore;
+
+            if($request->hasFile('TaiLieu'))
+            {
+                $file=$request->file('TaiLieu');
+            $filenameWithExt = $request->file('TaiLieu')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            $extension = $request->file('TaiLieu')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $destinationPath = 'assets/file';
+                $file->move($destinationPath,$fileNameToStore);
+            }
+            if($request->TaiLieu=="")
+            {
+                $noidungs->tai_lieu="_";
+            }
+            else{
+                $noidungs->tai_lieu=$fileNameToStore;
+            }
+            $noidungs->tieu_de= $request->TieuDe;
+            $noidungs->chuong_id= $request->Chuong;
+            $noidungs->trang_thai=1;
+            $noidungs->save();
+            $idKhoaHoc=$khoahocs->id;
+            return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
+        }
+        else
         {
-            $file=$request->file('TaiLieu');
-          $filenameWithExt = $request->file('TaiLieu')->getClientOriginalName();
-          $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
-          $extension = $request->file('TaiLieu')->getClientOriginalExtension();
-          $fileNameToStore = $filename.'_'.time().'.'.$extension;
-          $destinationPath = 'assets/file';
-            $file->move($destinationPath,$fileNameToStore);
+            abort(401);
         }
-        if($request->TaiLieu=="")
-        {
-            $noidungs->tai_lieu="_";
-        }
-        else{
-            $noidungs->tai_lieu=$fileNameToStore;
-        }
-        $noidungs->tieu_de= $request->TieuDe;
-        $noidungs->chuong_id= $request->Chuong;
-        $noidungs->trang_thai=1;
-        $noidungs->save();
-        $idKhoaHoc=$khoahocs->id;
-        return redirect('khoa-hoc/tao-bai-giang-cho-chuong/'.$idKhoaHoc)->with('thongbao','Thêm thành công');
     }
     public function xuLyDanhGia(Request $request,$id)
     {

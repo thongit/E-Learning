@@ -17,6 +17,4 @@ class cthoadon extends Model
     {
         return $this->belongsTo('App\khoahoc','khoa_hoc_id');
     }
-
-   
 }

@@ -27,84 +27,159 @@ class AdminController extends Controller
         $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
         $slHocVienThang = nguoidung::whereMonth('created_at', Carbon::now())->count();
         $tongHocVien = nguoidung::all();
-        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'));
+        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'))
+          
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachKhoaHoc=khoahoc::count();
+            $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
+            $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
+            return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
     public function getHocVien()
     {
-        $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get();
-        return view('ds-hoc-vien-admin',compact('danhSachNguoiDung'));
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get();
+            return view('ds-hoc-vien-admin',compact('danhSachNguoiDung'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getChuong($id)
     {
-        $chuongs=chuong::find($id);
-        return view('ds-chuong-admin',['chuongs'=>$chuongs]);
+        if(auth()->user()->loai_tk == 3)
+        {
+            $chuongs=chuong::find($id);
+            return view('ds-chuong-admin',['chuongs'=>$chuongs]);
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getGiangVien()
     {
-        $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get();
-        return view('ds-giang-vien-admin',compact('danhSachGiangVien'));
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get();
+            return view('ds-giang-vien-admin',compact('danhSachGiangVien'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getAdmin()
     {
-        $danhSachAdmin=DB::table('nguoi_dung')->where('loai_tk', 3)->get();
-        return view('ds-admin',compact('danhSachAdmin'));
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachAdmin=DB::table('nguoi_dung')->where('loai_tk', 3)->get();
+            return view('ds-admin',compact('danhSachAdmin'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getKhoaHoc()
     {
-        $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
-        return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
+            return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getKhoaHocChuaDuyet()
     {
+        if(auth()->user()->loai_tk == 3)
+        {
         $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',2)->get();
         return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function getKhoaHocDaDuyet()
     {
-        $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',3)->get();
-        return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',3)->get();
+            return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function completedUpdate(Request $request,$id)
     {
-        $khoahocs=khoahoc::find($id);
-        if($khoahocs->trang_thai==2)
+        if(auth()->user()->loai_tk == 3)
         {
-            $khoahocs->trang_thai=3;
-            $khoahocs->save();
+            $khoahocs=khoahoc::find($id);
+            if($khoahocs->trang_thai==2)
+            {
+                $khoahocs->trang_thai=3;
+                $khoahocs->save();
+            }
+            else
+            {
+                $khoahocs->trang_thai=2;
+                $khoahocs->save();
+            }
+            return redirect()->back()->with('message', 'Status changed!');
         }
         else
         {
-            $khoahocs->trang_thai=2;
-            $khoahocs->save();
+            abort(401);
         }
-        return redirect()->back()->with('message', 'Status changed!');
     }
     public function khoaHocUpdate(Request $request,$id)
     {
-        $khoahocs=khoahoc::find($id);
-        if($khoahocs->trang_thai==1)
+        if(auth()->user()->loai_tk == 3)
         {
-            $khoahocs->trang_thai=2;
-            $khoahocs->save();
-        }
-        else if($khoahocs->trang_thai==2)
-        {
-            $khoahocs->trang_thai=1;
-            $khoahocs->save();
+            $khoahocs=khoahoc::find($id);
+            if($khoahocs->trang_thai==1)
+            {
+                $khoahocs->trang_thai=2;
+                $khoahocs->save();
+            }
+            else if($khoahocs->trang_thai==2)
+            {
+                $khoahocs->trang_thai=1;
+                $khoahocs->save();
+            }
+            else
+            {
+                $khoahocs->trang_thai=1;
+                $khoahocs->save();
+            }
+            return redirect()->back()->with('message', 'Status changed!');
         }
         else
         {
-            $khoahocs->trang_thai=1;
-            $khoahocs->save();
+            abort(401);
         }
-        return redirect()->back()->with('message', 'Status changed!');
     }
 
     public function thongKeDoanhThuKH($id)
