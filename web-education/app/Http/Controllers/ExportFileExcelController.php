@@ -116,81 +116,124 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
 
    public function docDuLieu($tenFile)
     {
-        if(session()->has('id_nd'))
+        $id_nd = session()->get('id_nd');
+        $chuong = baikiemtra::where('file_de_kt','=',$tenFile)->first();
+        if($chuong != null)
         {
-            $id_nd = session()->get('id_nd');
-            $chuong = baikiemtra::where('file_de_kt','=',$tenFile)->first();
-            if($chuong != null)
+            $khoaHocID = $chuong->Chuong->khoa_hoc_id;
+            $hoaDon = hoadon::where('nguoi_dung_id','=',$id_nd)->get();
+            $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $chuong->id],])->first();
+            $lamlai = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $chuong->id],])->first();
+            foreach($hoaDon as $hd)
             {
-                $khoaHocID = $chuong->Chuong->khoa_hoc_id;
-                $hoaDon = hoadon::where('nguoi_dung_id','=',$id_nd)->get();
-                $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $chuong->id],])->first();
-                foreach($hoaDon as $hd)
+                $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
+            }
+            if($kiemtra == null)
+            {
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
                 {
-                    $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
-                }
-                if($kiemtra == null)
-                {
-                    if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                    setlocale(LC_TIME, 'vi_VN');
+                    Carbon::setLocale('vi');
+                    $now = Carbon::now();
+                    if($chuong->thoi_gian_mo != null)
                     {
-                        setlocale(LC_TIME, 'vi_VN');
-                        Carbon::setLocale('vi');
-                        $now = Carbon::now();
-                        if($chuong->thoi_gian_mo != null)
-                        {
-                            $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
-                        }
-                        else
-                        {
-                            $thoiGianCongBo = null;
-                        }
-                        if($chuong->thoi_gian_dong != null)
-                        {
-                            $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
-                        }
-                        else
-                        {
-                            $thoiGianKetThuc = null;
-                        }
-                        if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
-                        {
-                            echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p>';
-                        }
-                        else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
-                        {
-                            echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra đã kết thúc</p>';
-                        }
-                        else
-                        {
-                            $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
-                            foreach($CauHoi as $cauHoi){}
-                            array_splice($cauHoi,0,1);
-                            return view('tracnghiem',compact('cauHoi','chuong'));
-                        }
+                        $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
                     }
                     else
                     {
-                        abort(404);
+                        $thoiGianCongBo = null;
+                    }
+                    if($chuong->thoi_gian_dong != null)
+                    {
+                        $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
+                    }
+                    else
+                    {
+                        $thoiGianKetThuc = null;
+                    }
+                    if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
+                    {
+                        echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p>';
+                    }
+                    else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
+                    {
+                        echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra đã kết thúc</p>';
+                    }
+                    else
+                    {
+                        $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                        foreach($CauHoi as $cauHoi){}
+                        array_splice($cauHoi,0,1);
+                        return view('tracnghiem',compact('cauHoi','chuong'));
                     }
                 }
-                else{
-                    return redirect('/')->with('alerterror', 'Bạn đã hoàn thành bài kiểm tra!');
+                else
+                {
+                    abort(404);
                 }
             }
-            else
+            else if($chuong->lam_lai == 1 && $lamlai == null)
             {
-                abort(404);
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                {
+                    setlocale(LC_TIME, 'vi_VN');
+                    Carbon::setLocale('vi');
+                    $now = Carbon::now();
+                    if($chuong->thoi_gian_mo != null)
+                    {
+                        $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
+                    }
+                    else
+                    {
+                        $thoiGianCongBo = null;
+                    }
+                    if($chuong->thoi_gian_dong != null)
+                    {
+                        $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
+                    }
+                    else
+                    {
+                        $thoiGianKetThuc = null;
+                    }
+                    if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
+                    {
+                        echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p>';
+                    }
+                    else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
+                    {
+                        echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra đã kết thúc</p>';
+                    }
+                    else
+                    {
+                        $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                        foreach($CauHoi as $cauHoi){}
+                        array_splice($cauHoi,0,1);
+                        return view('tracnghiem',compact('cauHoi','chuong'));
+                    }
+                }
+                else
+                {
+                    abort(404);
+                }
+            }
+            else{
+                return redirect()->back()->with('alerterror', 'Bạn đã hoàn thành bài kiểm tra!');
             }
         }
         else
         {
-            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+            abort(404);
         }
     }
 
     public function luuBaiLam(Request $request) {
         $ketquakt = new ketquakt();
         $id_nd = session()->get('id_nd');
+        $baikt = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id','=',$request->baiktid],])->first();
+        if($baikt != null)
+        {
+            $baikt->delete();
+        }
         $ketquakt->nguoi_dung_id = $id_nd;
         $ketquakt->bai_kiem_tra_id = $request->baiktid;
         $ketquakt->diem = $request->diem;

@@ -11,6 +11,7 @@ use App\noidung;
 use App\danhgiakh;
 use App\tochuc;
 use App\cthoadon;
+use App\ketquakt;
 use Session;
 use Auth;
 
@@ -360,9 +361,26 @@ class KhoaHocController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function video($id)
     {
-        //
+        $video = noidung::find($id);
+        $id_nd = session()->get('id_nd');
+        if(sizeof($video->Chuong->baiKiemTra) >0)
+        {
+            $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+        $kiemtra1 = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+        }
+        else
+        {
+            $kiemtra = null;
+            $kiemtra1 = null;
+        }
+        return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
+    }
+
+    public function xemvideo($id)
+    {
+        
     }
 
 

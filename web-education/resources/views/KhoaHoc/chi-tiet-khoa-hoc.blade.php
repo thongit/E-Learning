@@ -171,7 +171,7 @@
                                                                             <p>
                                                                                 Duration: 1 hours 30 min
                                                                             </p>
-                                                                           <a href="#">Preview</a>
+                                                                           <a href="{{ route('video',$dsBai->id)}}">Bắt đầu</a>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -235,31 +235,31 @@
                                             <div class="rating-status">
                                                 <!-- Progress Bar Start -->
                                                 <div class="progress-box">
-                                                    <h5>5 Star <span class="pull-right">{{ $ctDanhGia[4] }}</span></h5>
+                                                    <h5>5 Sao <span class="pull-right">{{ $ctDanhGia[4] }}</span></h5>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" data-width="{{$ctDanhGia[10]}}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>4 Star <span class="pull-right">{{ $ctDanhGia[3] }}</span></h5>
+                                                    <h5>4 Sao <span class="pull-right">{{ $ctDanhGia[3] }}</span></h5>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[9] }}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>3 Star <span class="pull-right">{{ $ctDanhGia[2] }}</span></h5>
+                                                    <h5>3 Sao <span class="pull-right">{{ $ctDanhGia[2] }}</span></h5>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[8] }}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>2 Star <span class="pull-right">{{ $ctDanhGia[1] }}</span></h5>
+                                                    <h5>2 Sao <span class="pull-right">{{ $ctDanhGia[1] }}</span></h5>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[7] }}"></div>
                                                     </div>
                                                 </div>
                                                 <div class="progress-box">
-                                                    <h5>1 Star <span class="pull-right">{{ $ctDanhGia[0] }}</span></h5>
+                                                    <h5>1 Sao <span class="pull-right">{{ $ctDanhGia[0] }}</span></h5>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" data-width="{{ $ctDanhGia[6] }}"></div>
                                                     </div>
@@ -332,7 +332,7 @@
 <div class="row">
 
 <div class="form-group">
-<input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text" required>
+<input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text">
 </div>
 </div>
 </div>

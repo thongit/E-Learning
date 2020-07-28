@@ -49,6 +49,43 @@
                 font-size: 18px;
                 text-align: center;
             }
+
+            .bg-transparent {
+                background-color: transparent;
+            }
+
+            .text-grey-darkest {
+                color: #3d4852;
+            }
+
+            .font-bold {
+                font-weight: 700;
+            }
+
+            .uppercase {
+                text-transform: uppercase;
+            }
+
+            .px-6 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .border-2 {
+                border-width: 2px;
+            }
+
+            .border-grey-light {
+                border-color: #dae1e7;
+            }
+
+            .hover\:border-grey:hover {
+                border-color: #b8c2cc;
+            }
+
+            .rounded-lg {
+                border-radius: .5rem;
+            }
         </style>
     <!-- ========== Page Title ========== -->
     <title>Edocom - Education & LMS Template</title>
@@ -165,16 +202,26 @@
         </div>
     <!-- End Header Top -->
 
+        <div class="full-height" style="padding: 20%;">
+            <div class="flex-center">
+                <div class="code">
+                    @yield('code')
+                </div>
 
-        <div class="flex-center position-ref full-height">
-            <div class="code">
-                @yield('code')
+                <div class="message" style="padding: 10px;">
+                    @yield('message')
+                </div>
             </div>
-
-            <div class="message" style="padding: 10px;">
-                @yield('message')
+            <div class="flex-center">
+                <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
+                    <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                        {{ __('Về trang chủ') }}
+                    </button>
+                </a>
             </div>
         </div>
+        
+        
 
     <!-- Start Footer -->
         <!-- ============================================= -->

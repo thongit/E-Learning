@@ -266,7 +266,7 @@ $(document).ready(function(){
 	$("#bat-dau").click(function(){
 		$(".start-loader").show();
 		QUESTIONS = CAUHOI;
-		$(".user").text("Minh Tân");
+		$(".user").text("{{ Session::get('ho_ten') }}");
 		$(".login-section,.instruction-section").remove();
 		$(".question-section,.question-navigation").css("display","inline-block");
 		for(var i=0;i<QUESTIONS.length;i++){
@@ -497,7 +497,7 @@ $(document).ready(function(){
 			cancelButtonText:'Không'
 			}).then((result) => {
 			if (result.value) {
-				submitLamLai();
+				location.reload();
 			}
 		})
 	});

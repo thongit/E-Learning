@@ -14,11 +14,11 @@ class chuong extends Model
 
     public function noiDung()
     {
-        return $this->hasMany('App\noidung');
+        return $this->hasMany('App\noidung','chuong_id');
     }
 
     public function baiKiemTra()
     {
-        return $this->hasMany('App\baikiemtra');
+        return $this->hasMany('App\baikiemtra','chuong_id');
     }
 }

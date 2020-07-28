@@ -5,6 +5,10 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Kiểm tra</title>
 <style>
+	.instruction-section{
+		padding-left: 25%;
+    	padding-right: 25%;
+	}
 	.dq-test-outer-wrapper{
 		margin: 5%;
 		border: 1px solid #0F6190;
@@ -242,6 +246,8 @@
 		margin-top: 20px;
 	}
 </style>
+<link href=" {{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+<script src=" {{ asset ('assets/js/bootstrap.min.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -262,13 +268,20 @@ var TEST_DETAILS,CURRENT_QUES=1,SOCAU,SUBMITTED=false, THEMDAPAN = new Array();
 var CAUHOI, DAPANA, DAPANB, DAPANC = "", DAPAND = "", DAPANE = "", DAPANF = "", DAPANDUNG;
 var QUESTIONS = new Array();
 $(document).ready(function(){
-
 	$("#thoi-gian-cong-bo").click(function(){
 		$(".thoi-gian-hien-thi").css("display","inline-block");
 		$("#thoi-gian-cong-bo").hide();
 	});
 
 	$("#tao-cau-hoi").click(function(){
+		if(document.getElementById("batDauKT").value == '')
+		{
+			$('#batDauKT').val(null);
+		}
+		if(document.getElementById("ketThucKT").value == '')
+		{
+			$('#ketThucKT').val(null);
+		}
 		if(document.getElementById("TenBaiKT").value == '')
 		{
 			swal.fire("Bạn chưa nhập tên bài kiểm tra","" , "error")
@@ -292,7 +305,7 @@ $(document).ready(function(){
 		else
 		{
 			$(".start-loader").show();
-			$(".user").text("Minh Tân");
+			$(".user").text("Giảng viên: {{ Session::get('ho_ten') }}");
 			$(".login-section,.instruction-section").hide();
 			$(".question-section,.question-navigation").css("display","inline-block");
 			SOCAU = parseInt(document.getElementById("soCauHoi").value);
@@ -716,19 +729,12 @@ window.onbeforeunload = function(event){
 	<div class="dq-test-title">{{$khoaHoc->ten_khoa_hoc}}
 	</div>
 	<div id="testContent">
-		<!-- <div class="half-width instruction-section" style="margin:30px 0px;background:#f0f0f0;border-radius:5px;">
-			<div id="testMeta" class="chi-tiet-kt"></div>
-                <div class="half-width login-section">
-                <input type="button" id="bat-dau" value="Bắt đầu" class="btn btn-primary"/>
-                <img class="start-loader display-none" src="https://i.imgur.com/urJ99xr.gif"/>
-		    </div>
-		</div> -->
         <form method="post" action="{{ route('export') }}" role="form" id="formCauHoi">
             {!! csrf_field() !!}
-			<div class="instruction-section">
+			<div class="instruction-section" >
 				<div>
-					<label for="chuong">Chọn chương:</label>
-					<select id="chuong" name="chuong">
+					<label for="chuong"><h4><b>Chọn chương:</b></h4></label>
+					<select class="form-control" id="chuong" name="chuong">
 						@foreach($chuong as $Chuong)
 					  		<option value="{{$Chuong->id}}">{{$Chuong->ten_chuong}}</option>
 					  	@endforeach
@@ -736,25 +742,25 @@ window.onbeforeunload = function(event){
 					
 				</div>
 				<div>
-					<label for="TenBaiKT">Tên bài kiểm tra:</label>
-					<input type="text" name="TenBaiKT" id="TenBaiKT" class="form-control m-input" placeholder="Nhập ten bai kt" autocomplete="off" required>
+					<label for="TenBaiKT"><h4><b>Tên bài kiểm tra:</b></h4></label>
+					<input type="text" name="TenBaiKT" id="TenBaiKT" class="form-control" placeholder="Nhập tên bài kiểm tra" autocomplete="off" required>
 					<br/>
-					<label for="soCauHoi">Số câu hỏi:</label>
-					<input type="number" id="soCauHoi" name="soCauHoi" min="1" max="50" required>
+					<label for="soCauHoi"><h4><b>Số câu hỏi:</b></h4></label>
+					<input class="form-control" type="number" id="soCauHoi" name="soCauHoi" min="1" max="50" required placeholder="Nhập số câu hỏi">
 					<br/>
-					<label for="soCauHoi">Thời gian làm (phút):</label>
-					<input type="number" id="thoiGianLam" name="thoiGianLam" min="1" max="180" required>
+					<label for="soCauHoi"><h4><b>Thời gian làm (phút):</b></h4></label>
+					<input class="form-control" type="number" id="thoiGianLam" name="thoiGianLam" min="1" max="180" required placeholder="Nhập thời gian làm bài (phút)">
 				</div>
 				<br/>
 				<button type="button" id="thoi-gian-cong-bo" class="btn-primary">Thêm thời gian bắt đầu và kết thúc bài kiểm tra</button>
 				<div class="thoi-gian-hien-thi inline-block display-none">
-					<label for="birthdaytime">Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</label>
+					<label for="birthdaytime"><h4><b>Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input type="datetime-local" id="batDauKT" name="batDauKT">
+					<input class="form-control" type="date" id="batDauKT" name="batDauKT">
 					<br/>
-					<label for="birthdaytime">Thời gian kết thúc bài kiểm tra (bỏ trống nếu không sử dụng)</label>
+					<label for="birthdaytime"><h4><b>Thời gian kết thúc bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input type="datetime-local" id="ketThucKT" name="ketThucKT">
+					<input class="form-control" type="date" id="ketThucKT" name="ketThucKT">
 				</div>
 				<br/>
 				<input type="radio" id="hienthi" name="hienThiKQ" value="HienThi">

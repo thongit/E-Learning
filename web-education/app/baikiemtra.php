@@ -10,11 +10,11 @@ class baikiemtra extends Model
 
     public function Chuong()
     {
-        return $this->belongsTo('App\chuong');
+        return $this->belongsTo('App\chuong','chuong_id');
     }
 
     public function ketQuaKT()
     {
-        return $this->hasMany('App\ketquakt');
+        return $this->hasMany('App\ketquakt','bai_kiem_tra_id');
     }
 }

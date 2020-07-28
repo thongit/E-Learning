@@ -68,7 +68,7 @@
                                                         @endif
 
                                                          </td>
-                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                        <td><a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a></td>
                                                     </tr>
                                                         @endforeach
                                                 </tbody>
@@ -108,7 +108,7 @@
                                                        <p class="btn btn-primary" onclick="update({{$k->id}})">Gửi kiểm duyệt</p>
 
                                                          </td>
-                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                        <td><a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a></td>
                                                     </tr>
                                                     @endif
                                                         @endforeach
@@ -149,7 +149,7 @@
                                                        <p class="btn btn-warning" onclick="update({{$k->id}})">Đang chờ duyệt</p>
 
                                                          </td>
-                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                        <td><a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a></td>
                                                     </tr>
                                                     @endif
                                                         @endforeach
@@ -190,7 +190,7 @@
                                                        <p class="btn btn-success" onclick="update({{$k->id}})">Đã duyệt</p> 
 
                                                          </td>
-                                                        <td><a href="" class="btn btn-info">Tạo bài kiểm tra</a></td>
+                                                        <td><a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a></td>
                                                     </tr>
                                                     @endif
                                                         @endforeach

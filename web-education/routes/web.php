@@ -47,9 +47,7 @@ Route::middleware('auth')->group(function(){
     Route::get('khoa-hoc/sua-chuong/{idChuong}','CMSController@getSuaChuong');
     
     Route::post('khoa-hoc/sua-chuong/{idChuong}','CMSController@postSuaChuong');
-Route::get('/tao-bai-trac-nghiem', function () {
-    return view('tao-bai-trac-nghiem');
-});
+
     Route::get('khoa-hoc/xoa-bai-giang/{idBaiGiang}','CMSController@getXoaBaiGiang');
     
     Route::get('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@getSuaBaiGiang');
@@ -76,9 +74,7 @@ Route::get('/tao-bai-trac-nghiem', function () {
 
     Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');
 
-    Route::get('khoa-hoc/video', function () {
-        return view('video-khoa-hoc');
-    });
+    Route::get('khoa-hoc/video/{id}', 'KhoaHocController@video')->name('video');
     
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
@@ -92,15 +88,19 @@ Route::get('/tao-bai-trac-nghiem', function () {
 
     Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
 
+    Route::get('admin/thong-ke','AdminController@getThongKe');
+    
+    Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
+    
+    Route::get('admin/thong-ke-doanh-thu-kh','AdminController@thongKeDoanhThuKHMD');
+   
+    Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
 
 Route::get('giang-vien/{id}', 'KhoaHocController@chiTietGiangVien')->name('chi-tiet-giang-vien');
-Route::get('admin/thong-ke','AdminController@getThongKe');
-Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
-Route::get('admin/thong-ke-doanh-thu-kh','AdminController@thongKeDoanhThuKHMD');
-Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
+
 Route::get('thong-tin-giang-vien', function () {
     return view('thong-tin-giang-vien');
 });
@@ -126,13 +126,11 @@ Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
 
-
 Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc');
 
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
-
 
 Route::name('trang-chu.')->group(function(){
     //trang chủ

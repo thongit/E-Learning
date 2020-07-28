@@ -39,7 +39,7 @@
                                     </a>
                                     <ul>
                                         <li><i class="fas fa-clock"></i> 04:15:38</li>
-                                        <li><i class="fas fa-list-ul"></i> 32</li>
+                                        <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
-                                            <span>(1k)</span>
+                                            <span>({{$khoaHoc->danhGiaKH->count()}})</span>
                                         </li>
                                     </ul>
                                 </div>
