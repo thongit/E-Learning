@@ -41,13 +41,13 @@
                                 <td>{{$item->gia}}</td>
                                 <td>{{$item->muc_do}}</td>
                                 <td>{{$item->created_at}}</td>
-                                <td>@if($item->trang_thai == 3)            
-                                <button type="submit" class="btn btn-success" onclick="thongbaoxoa({{$item->id}})">Đã duyệt</button> 
-                                @endif   
-                                @if($item->trang_thai == 2)                           
+                                <td>@if($item->trang_thai == 3)
+                                <button type="submit" class="btn btn-success" onclick="thongbaoxoa({{$item->id}})">Đã duyệt</button>
+                                @endif
+                                @if($item->trang_thai == 2)
                                 <button type="submit" class="btn btn-danger" onclick="thongbaoxoa({{$item->id}})">Chưa duyệt</button>
                                 @endif
-                                @if($item->trang_thai == 1)                           
+                                @if($item->trang_thai == 1)
                                 <button type="submit" class="btn btn-info">Đang tạo</button>
                                 @endif
                                  </td>
@@ -65,7 +65,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -94,7 +94,7 @@ function thongbaoxoa($id) {
             'success'
             )
             $url='/admin/ds-khoa-hoc/'+$id;
-            open($url,"_self") 
+            open($url,"_self")
         }
     })
 }

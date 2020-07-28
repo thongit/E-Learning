@@ -322,10 +322,10 @@
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item">
                                 <div class="thumb">
-                                    <img src="assets/img/courses/1.jpg" alt="Thumb">
+                                    <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
                                     <div class="overlay">
                                         <a href="#">
-                                            <img src="assets/img/team/1.jpg" alt="Thumb">
+                                            <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                         </a>
                                         <ul>
                                             <li><i class="fas fa-clock"></i> 04:15:38</li>
@@ -337,8 +337,8 @@
                                     <div class="meta">
                                         <ul>
                                             <li>
-                                                <a href="#">Education</a>
-                                                <a href="#">Tech</a>
+                                                <a href="#">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                                <a href="#"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-star"></i>
@@ -351,7 +351,7 @@
                                         </ul>
                                     </div>
                                     <h4>
-                                        <a href="#" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
+                                        <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
                                     </h4>
                                     <p class="lam-gon-van-ban-mo-ta">
                                         {{ $khoaHoc->mo_ta_ngan }}
