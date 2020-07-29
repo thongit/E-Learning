@@ -273,7 +273,8 @@
                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                     <figure class="thumbnail">
                                         <img class="img-responsive" src="{{ asset('assets/images/'.$dg->nguoiDung->anh_dai_dien) }}" />
-                                        <figcaption class="text-center">{{$dg->nguoiDung->ho_ten}}</figcaption>
+                                        <label for="">{{$dg->nguoiDung->ho_ten}}</label>
+                                        
                                     </figure>
                                     </div>
                                     <div class="col-md-10 col-sm-10">

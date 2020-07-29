@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="blog-items">
-                    <div class="blog-content col-md-8">
+                    <div class="blog-content col-md-9">
                         @if(count($errors)>0)
                             <div class="alert alert-danger">
                                 @foreach($errors->all() as $err)

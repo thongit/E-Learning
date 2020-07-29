@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="blog-items">
 
-                    <div class="blog-content col-md-8">
+                    <div class="blog-content col-md-9">
                             <h3>Sửa mô tả khóa học</h3>
                             @if(count($errors)>0)
                                 <div class="alert alert-danger">

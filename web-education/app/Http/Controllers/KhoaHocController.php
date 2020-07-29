@@ -503,5 +503,9 @@ class KhoaHocController extends Controller
         $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
         return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia','listKH'));
     }
+    public function getBaiKiemTra()
+    {
+        return view('ql-bai-kiem-tra');
+    }
 
 }

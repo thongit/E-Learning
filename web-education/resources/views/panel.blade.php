@@ -1,5 +1,5 @@
 <!-- Start Sidebar -->
-                    <div class="sidebar col-md-4">
+                    <div class="sidebar col-md-3">
                         <aside>
                             <div class="single-item">
                                 <div class="item">

@@ -66,9 +66,9 @@ class NguoiDungController extends Controller
     {
         $nguoidungs=nguoidung::find(auth()->user()->id);
         $nguoidungs->gioi_thieu=$request->KinhNghiem;
-        $nguoidungs->loai_tk=2;
+        $nguoidungs->trang_thai=2;
         $nguoidungs->update();
-        return redirect()->back()->with('thongbao','Thêm thành công');
+        return redirect()->back()->with('thongbao','Đăng ký thành công,Đang chờ admin phê duyệt');
     }
     public function postTroThanhToChuc(Request $request)
     {
@@ -97,7 +97,7 @@ class NguoiDungController extends Controller
         $tochucs->trang_thai=1;
         $tochucs->nguoi_dung_id=auth()->user()->id;
         $nguoidungs=nguoidung::find(auth()->user()->id);
-        $nguoidungs->loai_tk=2;
+        $nguoidungs->trang_thai=2;
         $nguoidungs->update();
         $tochucs->save();
         return redirect()->back()->withInput(Input::all())->with('thongbao','Thêm thành công');

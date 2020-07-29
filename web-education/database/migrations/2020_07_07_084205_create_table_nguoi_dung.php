@@ -24,6 +24,7 @@ class CreateTableNguoiDung extends Migration
             $table->string("anh_dai_dien");
             $table->string("dia_chi");
             $table->text('gioi_thieu');
+            $table->integer('trang_thai');
             $table->timestamps();
             $table->softDeletes();
         });
