@@ -34,7 +34,7 @@
                                     </a>
                                     <ul>
                                         <li><i class="fas fa-clock"></i> 04:15:38</li>
-                                        <li><i class="fas fa-list-ul"></i> 32</li>
+                                        <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                                     <ul>
                                         <li>
                                             <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
-                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
+                                            
                                         </li>
                                         <li>
                                             <i class="fas fa-star"></i>
@@ -51,7 +51,16 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
-                                            <span>(1k)</span>
+                                            
+                                        </li>
+                                        
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
+                                        </li>
+                                        <li>
+                                            <span>({{$khoaHoc->danhGiaKH->count()}}) Đánh giá</span>
                                         </li>
                                     </ul>
                                 </div>

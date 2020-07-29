@@ -63,6 +63,50 @@ Table of contents
   flex-direction: row-reverse;
   justify-content: center
 }
+/*danh giá*/
+#show-danh-gia{
+  padding-bottom: 50px;
+}
+
+.rating-danhgia {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.rating-danhgia>input {
+  display: none
+}
+
+.rating-danhgia>label {
+  position: relative;
+  width: 1em;
+  font-size: 6vw;
+  color: #FFD600;
+  cursor: pointer
+}
+
+.rating-danhgia>label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0
+}
+
+.rating-danhgia>label:hover:before,
+.rating-danhgia>label:hover~label:before {
+  opacity: 1 !important
+}
+
+.rating-danhgia>input:checked~label:before {
+  opacity: 1
+}
+
+.rating-danhgia:hover>input:checked~label:before {
+  opacity: 0.4
+}
+
+/*end đánh giá*/
+
 
 .rating>input {
   display: none
@@ -153,7 +197,6 @@ html, body, .wrapper {
 
 h1, h2, h3, h4, h5, h6 {
   color: #002147;
-  font-weight: normal;
   line-height: 1.2;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 0;
@@ -161,7 +204,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1,h2,h3,h4 {
-  margin-bottom: 15px;
+/*  margin-bottom: 15px;*/
 }
 
 h5,h5 {
@@ -2019,7 +2062,7 @@ div#bootcarousel {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+/*  margin-bottom: 15px;*/
 }
 
 .top-course-items .info .meta ul li a {
@@ -5757,7 +5800,7 @@ footer .footer-bottom .link li a {
 }
 
 .lam-gon-van-ban-mo-ta{
-    height: 45px;
+    height: 47px;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

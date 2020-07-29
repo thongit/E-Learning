@@ -27,16 +27,11 @@
         swal.fire("{{ session('error') }}","","error")
     </script>
 @endif
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url(assets/img/banner/12.jpg);">
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Thông tin cá nhân</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#">Page</a></li>
-                        <li class="active">Advisor Single</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -55,21 +50,6 @@
                             <img src="{{ asset('assets/images/'.$nguoidungs->anh_dai_dien) }}" alt="Thumb">
                             <div class="info">
                                 <h4>{{$nguoidungs->ho_ten}}</h4>
-                                
-                                <ul>
-                                    <li class="facebook">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="twitter">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="dribbble">
-                                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a href="#"><i class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -293,13 +273,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                <div class="row">
-                                    <div class="form-group">
-                                    <h4>Chọn ảnh đại diện </h4>
-                                   <input type="file" class="form-control" id="anh-dai-dien" name="anh-dai-dien" aria-describedby="emailHelp" >
+                                    <div class="row">
+                                        <div class="form-group">
+                                        <h4>Chọn ảnh đại diện </h4>
+                                       <input type="file" class="form-control" id="anh-dai-dien" name="anh-dai-dien" aria-describedby="emailHelp" >
+                                        </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
                                             {{-- <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="form-group comments">
@@ -333,6 +313,7 @@
             </div>
         </div>
     </div>
+</div>
     </div>
     <!-- End Advisor Details -->
 @endsection

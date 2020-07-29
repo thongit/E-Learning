@@ -221,7 +221,7 @@
 
                                 <!-- Single Tab -->
                                 <div id="tab4" class="tab-pane fade">
-                                    <div class="info title">
+                                    <div class="info title " id="show-danh-gia">
                                         <div class="course-rating-list">
                                             <div class="average-rating">
                                                 <h2>{{ $ctDanhGia[5] }}</h2>
@@ -273,13 +273,14 @@
                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                     <figure class="thumbnail">
                                         <img class="img-responsive" src="{{ asset('assets/images/'.$dg->nguoiDung->anh_dai_dien) }}" />
-                                        <label for="">{{$dg->nguoiDung->ho_ten}}</label>
+                                        
                                         
                                     </figure>
                                     </div>
                                     <div class="col-md-10 col-sm-10">
                                     <div class="panel panel-default arrow left">
                                         <div class="panel-body">
+                                            <h4>{{$dg->nguoiDung->ho_ten}}</h4>
                                         <header class="text-left">
                                             <div class="average-rating" style="color: #ffb606">
                                                 @for($i = 0; $i< $dg->so_sao; $i++)
@@ -289,9 +290,7 @@
                                             <time class="comment-date">{{$dg->nguoiDung->created_at->diffForHumans()}}<i class="fa fa-clock-o"></i></time>
                                         </header>
                                         <div class="comment-post">
-                                            <p>
-                                                {{$dg->noi_dung}}
-                                            </p>
+                                            <label for="">{{$dg->noi_dung}}</label>
                                         </div>
                                         </div>
                                     </div>
@@ -300,35 +299,34 @@
                             @endforeach
                         </div>
                                 <!-- End Single Tab -->
-                                <div id="tab5" class="tab-pane fade">
-<form action="{{ route('xu-ly-danh-gia',$dsKhoaHoc->id) }}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
-                    @csrf
-<div class="col-md-12">
-<div class="row">
-<div class="form-group">
-<div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-</div>
-</div>
-</div>
-<div class="col-md-12">
-<div class="row">
-
-<div class="form-group">
-<input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text">
-</div>
-</div>
-</div>
-<div class="col-md-12">
-<div class="row">
-<button type="submit">
-Gửi đánh giá
-</button>
-</div>
-</div>
-</div>
-</form>
-</div>
-</div>
+                    <div id="tab5" class="tab-pane fade">
+                        <form action="{{ route('xu-ly-danh-gia',$dsKhoaHoc->id) }}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
+                            @csrf
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="rating-danhgia"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                            <div class="form-group">
+                                <input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text" required="">
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <button type="submit">
+                                Gửi đánh giá
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
                             <!-- End Tab Content -->
                         </div>
                         <!-- End Tab Info -->
@@ -382,8 +380,9 @@ Gửi đánh giá
                                     </div>
                                     <div class="info">
                                         <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">Subjects allied to Creative arts and design</a>
+                                        <label>{{number_format($kh->gia)}} VNĐ</label>
                                         <div class="meta">
-                                            <span>{{number_format($kh->gia)}} VNĐ</span>
+                                            
                                             <div class="rating">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
