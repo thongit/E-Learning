@@ -19,7 +19,7 @@
 
 <!-- Sweet alert init js-->
  <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
-<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href=" {{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href=" {{ asset ('assets/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href=" {{ asset ('assets/css/flaticon-set.css') }}" rel="stylesheet">
@@ -78,6 +78,9 @@
                      <div class="col-md-6 link text-right">
                         <ul>
                             <li>
+                                <a href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('dang-nhap')}}">Đăng nhập</a>
                             </li>
                             <li>
@@ -94,6 +97,8 @@
                             @endif
                             @if(Session::get('loai_tk')==2)
                             <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a></li>
+                            @if(Session::get('loai_tk')==1)
+                            <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
                             @endif
                             <li>
                             <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>
@@ -114,10 +119,10 @@
                                 cancelButtonText:'Không'
                                 }).then((result) => {
                                 if (result.value) {
-                                    open("{{ route('dang-xuat') }}","_self") 
+                                    open("{{ route('dang-xuat') }}","_self")
                                 }
-                        })
-                            };
+                            })
+                        };
                         </script>
                     </div>
                     @endif
@@ -178,9 +183,9 @@
         <script src=" {{ asset ('assets/js/jquery.nice-select.min.js') }}"></script>
         <script src=" {{ asset ('assets/js/bootsnav.js') }}"></script>
         <script src=" {{ asset ('assets/js/main.js') }}"></script>
-       
+
         @yield('js')
-        
+
 
     </body>
     </html>

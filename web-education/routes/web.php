@@ -31,53 +31,57 @@ Route::middleware('auth')->group(function(){
     Route::post('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@postTaoMoTaKhoaHoc');
 
     Route::get('khoa-hoc/tao-chuong-cho-khoa-hoc/{idKhoahoc}','KhoaHocController@getTaoChuongChoKhoaHoc');
-    
+
     Route::post('khoa-hoc/tao-chuong-cho-khoa-hoc/{idKhoahoc}','KhoaHocController@postTaoChuongChoKhoaHoc')->name('xl-tao-chuong');
 
     Route::get('khoa-hoc/tao-bai-giang-cho-chuong/{idKhoahoc}','KhoaHocController@getTaoBaiGiangChoChuong');
-    
+
     Route::post('khoa-hoc/tao-bai-giang-cho-chuong/{idKhoahoc}','KhoaHocController@postTaoBaiGiangChoChuong')->name('xl-tao-bai-giang');
 
     Route::get('khoa-hoc/xoa/{idKhoahoc}','CMSController@getXoaKhoahoc');
-    
+
     Route::get('khoa-hoc/sua/{idKhoahoc}','CMSController@getSuaKhoaHoc');
-    
+
     Route::post('khoa-hoc/sua/{idKhoahoc}','CMSController@postSuaKhoaHoc');
 
     Route::get('khoa-hoc/xoa-chuong/{idChuong}','CMSController@getXoaChuong');
-    
+
     Route::get('khoa-hoc/sua-chuong/{idChuong}','CMSController@getSuaChuong');
-    
+
     Route::post('khoa-hoc/sua-chuong/{idChuong}','CMSController@postSuaChuong');
 
     Route::get('khoa-hoc/xoa-bai-giang/{idBaiGiang}','CMSController@getXoaBaiGiang');
-    
+
     Route::get('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@getSuaBaiGiang');
-    
+
     Route::post('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@postSuaBaiGiang');
 
     // Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
-    
+
     // Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
-    
+
     Route::post('lam-lai','ExportFileExcelController@destroy')->name('lam-lai');
-    
+
     Route::post('luu-ket-qua','ExportFileExcelController@luuBaiLam')->name('luu-ket-qua');
 
     Route::get('trac-nghiem-excel/{tenFile}','ExportFileExcelController@docDuLieu')->name('trac-nghiem-excel');
-    
+
     Route::get('/them-cau-hoi-excel/{id}','ExportFileExcelController@index')->name('them-cau-hoi-excel');
-    
+
     Route::post('export', 'ExportFileExcelController@export')->name('export');
 
     Route::get('trang-ca-nhan','NguoiDungController@getSua')->name('sua');
-    
+
     Route::post('trang-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua');
 
     Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');
 
     Route::get('khoa-hoc/video/{id}', 'KhoaHocController@video')->name('video');
-    
+
+    Route::get('khoa-hoc/video', function () {
+        return view('video-khoa-hoc');
+    });
+
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
     Route::get('giang-vien/quan-ly-don-hang','NguoiDungController@getQuanLyDonHang');
@@ -91,15 +95,15 @@ Route::middleware('auth')->group(function(){
     Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
 
     Route::get('admin/thong-ke','AdminController@getThongKe');
-    
+
     Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
-    
+
     Route::get('admin/thong-ke-doanh-thu-kh','AdminController@thongKeDoanhThuKHMD');
-   
+
     Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
 
     Route::get('/download/{file}', 'DownloadsController@download')->name('download');
-    
+
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
@@ -167,5 +171,12 @@ Route::post('thong-tin-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua'
 Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
 Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->name('xu-ly-doi-mat-khau-trang-ca-nhan');
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
+
+Route::get('kich-hoat-khoa-hoc','CTHoaDonController@hienThiKichHoat')->name('form-kich-hoat');
+
+Route::post('kich-hoat-khoa-hoc','CTHoaDonController@postKichHoatKhoaHoc')->name('xu-ly-kich-hoat-kh');
+
+
+
 
 ?>

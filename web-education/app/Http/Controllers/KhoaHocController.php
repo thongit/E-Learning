@@ -58,7 +58,7 @@ class KhoaHocController extends Controller
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
-    
+
     public function chiTietGiangVien($id)
     {
         $nguoidungs=nguoidung::find($id);
@@ -303,7 +303,7 @@ class KhoaHocController extends Controller
         $danhgiakh->save();
         return redirect('khoa-hoc/'.$id)->with('thongbao','Bạn đã gửi đánh giá cho khóa học!');
         }
-        
+
     }
 
 
@@ -394,12 +394,7 @@ class KhoaHocController extends Controller
         $dsLinhVuc = linhvuc::all();
 
         $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
-        if(sizeOf($dsKhoaHoc) <= 0)
-        {
-            return abort(404);
-        }
-        $tuKhoa = $request->key_word_tenkh;
-       return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
+        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
     }
 
     // public function timKiemMucDo(Request $request)
@@ -502,7 +497,7 @@ class KhoaHocController extends Controller
                 '10' => 0,
             );
         }
-        
+
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
         $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
         return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia','listKH'));
