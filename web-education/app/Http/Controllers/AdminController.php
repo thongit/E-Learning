@@ -28,7 +28,7 @@ class AdminController extends Controller
         $slHocVienThang = nguoidung::whereMonth('created_at', Carbon::now())->count();
         $tongHocVien = nguoidung::all();
         return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'));
-          
+        
         if(auth()->user()->loai_tk == 3)
         {
             $danhSachKhoaHoc=khoahoc::count();
