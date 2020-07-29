@@ -126,7 +126,7 @@ Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
 
-Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc');
+Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc')->name('linh-vuc');
 
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
