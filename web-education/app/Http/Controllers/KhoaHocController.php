@@ -288,6 +288,10 @@ class KhoaHocController extends Controller
         {
             return redirect('khoa-hoc/'.$id)->with('loi','Bạn chưa đăng nhập!');
         }
+        if($request->rating=="")
+        {
+            return redirect('khoa-hoc/'.$id)->with('loi','Bạn chưa chọn số sao!');
+        }
 
         else{
             $nguoi_dung_ids=auth()->user()->id;

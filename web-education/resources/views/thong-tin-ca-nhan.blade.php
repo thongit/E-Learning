@@ -1,13 +1,42 @@
 @extends('layout')
 @section('content')
 @include('header')
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+<!-- Sweet alert init js-->
+<script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
+
 <!-- Start Breadcrumb
     ============================================= -->
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
+    @if (session('thongbao'))
+    <script>
+        swal.fire("{{ session('thongbao') }}","","success")
+    </script>
+@endif
+@if (session('error'))
+    <script>
+        swal.fire("{{ session('error') }}","","error")
+    </script>
+@endif
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light" style="background-image: url(assets/img/banner/12.jpg);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Thông tin cá nhân</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#">Page</a></li>
+                        <li class="active">Advisor Single</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -23,12 +52,10 @@
                     <!-- Start Thumbnail -->
                     <div class="col-md-5">
                         <div class="thumb">
-                            <img src="assets/img/advisor/22.jpg" alt="Thumb">
+                            <img src="{{ asset('assets/images/'.$nguoidungs->anh_dai_dien) }}" alt="Thumb">
                             <div class="info">
-                                <h4>Nguyễn văn A</h4>
-                                <p>
-                                    Sinh viên
-                                </p>
+                                <h4>{{$nguoidungs->ho_ten}}</h4>
+                                
                                 <ul>
                                     <li class="facebook">
                                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -54,15 +81,15 @@
                             <ul>
                                 <li>
                                     <h4>Họ và tên</h4>
-                                    <h5>Nguyễn Văn A</h5>
+                                    <h5>{{$nguoidungs->ho_ten}}</h5>
                                 </li>
                                 <li>
                                     <h4>Email</h4>
-                                    <h5>abc@gmail.com</h5>
+                                    <h5>{{$nguoidungs->email}}</h5>
                                 </li>
                                 <li>
                                     <h4>Số điện thoại</h4>
-                                    <h5>0987645678</h5>
+                                    <h5>{{$nguoidungs->sdt}}</h5>
                                 </li>
                             </ul>
                         </div>
@@ -70,12 +97,8 @@
                         <div class="tab-info">
                             <!-- Tab Nav -->
                             <ul class="nav nav-pills">
-                                <li class="active">
-                                    <a data-toggle="tab" href="#tab1" aria-expanded="true">
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li>
+                                
+                                <li class="active"  >
                                     <a data-toggle="tab" href="#tab2" aria-expanded="false">
                                         Đổi mật khẩu
                                     </a>
@@ -85,113 +108,114 @@
                                         Thông tin liên hệ
                                     </a>
                                 </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab4" aria-expanded="false">
+                                       Thêm tài khoản ngân hàng
+                                    </a>
+                                </li>
                             </ul>
                             <!-- End Tab Nav -->
                             <!-- Start Tab Content -->
                             <div class="tab-content tab-content-info">
                                 <!-- Single Tab -->
-                                <div id="tab1" class="tab-pane fade active in">
-                                    <div class="info title">
-                                        <p>
-                                            Calling nothing end fertile for venture way boy. Esteem spirit temper too say adieus who direct esteem. It esteems luckily mr or picture placing drawing no. Apartments frequently or motionless on reasonable projecting. earnestly advantage estimable extensive. Five settle education him departure any arranging one prevailed. Their end whole migh
-                                        </p>
-                                        <p>
-                                            Affixed civilly moments promise explain fertile in. Assurance advantage belonging happiness departure so of. Now improving and one sincerity intention allowance commanded not. Oh an am frankness be necessary earnestly advantage estimable extensive. Five settle genius excuse. Deal say over you age from. Comparison new ham melancholy son themselves.
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- End Single Tab -->
-
-                                <!-- Single Tab -->
-                                <div id="tab2" class="tab-pane fade">
-                                    {{-- <div class="info title">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>NO.</th>
-                                                        <th>Title</th>
-                                                        <th>Status</th>
-                                                        <th>Price</th>
-                                                        <th>Rating</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>01.</td>
-                                                        <td><a href="#">Basic Web Development</a></td>
-                                                        <td>Pending</td>
-                                                        <td>$23.00</td>
-                                                        <td>4.5</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>02.</td>
-                                                        <td><a href="#">Software Engineering</a></td>
-                                                        <td>Published</td>
-                                                        <td>$55.00</td>
-                                                        <td>4.5</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03.</td>
-                                                        <td><a href="#">Introduction of machine</a></td>
-                                                        <td>Pending</td>
-                                                        <td>$44.00</td>
-                                                        <td>4.5</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>04.</td>
-                                                        <td><a href="#">Hidden potential</a></td>
-                                                        <td>Published</td>
-                                                        <td>$54.00</td>
-                                                        <td>5.0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05.</td>
-                                                        <td><a href="#">Introduction of PHP</a></td>
-                                                        <td>Published</td>
-                                                        <td>$32.00</td>
-                                                        <td>4.9</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div> --}}
-                                    <div class="login-area default-padding-mk">
+                                <div id="tab2" class="tab-pane fade active in">
+                                  
+                                <div class="login-area default-padding-mk">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <form action="#" id="login-form" class="white-popup-block">
+                                                <form action="{{ route('xu-ly-doi-mat-khau-trang-ca-nhan')}}" id="login-form" method="POST" class="white-popup-block">
+                    @csrf
                                                         <div class="login-custom">
                                                             <div class="heading">
                                                                 <h4><i class="fas fa-edit"></i>Đổi mật khẩu</h4>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
+                                                                @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{session('error')}}
+                                </div>
+                                @endif
                                                                     <div class="form-group">
-                                                                        <input class="form-control" placeholder="Mật khẩu hiện tại*" type="password">
+                                                                        <input class="form-control" id="mat_khau_cu" name="mat_khau_cu"placeholder="Mật khẩu hiện tại*" type="password" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <div class="form-group">
-                                                                        <input class="form-control" placeholder="Mật khẩu mới*" type="password">
+                                                                    <input class="form-control" id="mat_khau" name="mat_khau" placeholder="Nhập mật khẩu mới" type="password" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <div class="form-group">
-                                                                        <input class="form-control" placeholder="Xác nhận mật khẩu mới*" type="password">
+                                                                    <input class="form-control" id="xac_nhan_mat_khau" name="xac_nhan_mat_khau" placeholder="Xác nhận mật khẩu" type="password" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
-                                                                    <button type="submit">
+                                                                    <button type="submit" id="xacnhan">
                                                                         Lưu mật khẩu
                                                                     </button>
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Tab -->
+
+                                <!-- Single Tab -->
+                                <div id="tab4" class="tab-pane fade">
+                                    <div class="login-area default-padding-mk">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                <form action="{{ route('xu-ly-them-tk')}}" id="login-form" method="POST" class="white-popup-block">
+                    @csrf
+                                                        <div class="login-custom">
+                                                            
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" id="so_tai_khoan" name="so_tai_khoan"placeholder="Số tài khoản*" type="number" required>
+                                                                    </div>
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                    <input class="form-control" id="ten_tren_the" name="ten_tren_the" placeholder="Tên trên thẻ*" type="text" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                    <input class="form-control" id="ten_ngan_hang" name="ten_ngan_hang" placeholder="Tên ngân hàng*" type="text" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                    <input class="form-control" id="chi_nhanh" name="chi_nhanh" placeholder="Địa chỉ chi nhánh*" type="text" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <button type="submit" id="xacnhan">
+                                                                        Lưu tài khoản
+                                                                    </button>
+                                                                </div>  
                                                             </div>
                                                         </div>
                                                     </form>
@@ -205,7 +229,8 @@
                                 <!-- Single Tab -->
                                 <div id="tab3" class="tab-pane">
                                     <div class="info title">
-                                        <form action="assets/mail/contact.php" method="POST" class="contact-form">
+                                         <form action="{{ route('xu-ly-sua')}}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
+                    @csrf
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     {{-- <div class="form-group">
@@ -216,21 +241,14 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
-                                                        <input class="form-control" id="name" name="name" type="text">
+                                                        <input class="form-control" id="ho_ten" name="ho_ten" value="{{$nguoidungs->ho_ten}}" placeholder="Họ và tên*" type="text" required>
                                                         <span class="alert-error"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-3">
-                                                    <h4>Email</h4>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div class="form-group">
-                                                        <input class="form-control" id="email" name="email" type="email">
-                                                        <span class="alert-error"></span>
-                                                    </div>
-                                                </div>
+                                                
+                                                
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
@@ -238,7 +256,7 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
-                                                        <input class="form-control" id="phone" name="phone"  type="text">
+                                                    <input class="form-control" id="so_dt" name="so_dt" value="{{$nguoidungs->sdt}}" placeholder="Số điện thoại*" type="number"  maxlength="10" required>
                                                         <span class="alert-error"></span>
                                                     </div>
                                                 </div>
@@ -249,7 +267,7 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
-                                                        <input class="form-control" id="phone" name="phone"  type="text">
+                                                    <input class="form-control" id="dia_chi" name="dia_chi" value="{{$nguoidungs->dia_chi}}" placeholder="Địa chỉ" type="text" required>
                                                         <span class="alert-error"></span>
                                                     </div>
                                                 </div>
@@ -260,10 +278,28 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
-                                                        <input class="form-control" id="phone" name="phone"  type="phone">
+                                                    <input class="form-control" id="so_cmnd" name="so_cmnd" value="{{$nguoidungs->cmnd}}" placeholder="Số CMND*" type="number" maxlength="9" required>
                                                         <span class="alert-error"></span>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                <div class="col-md-3">
+                                                    <h4>Giới thiệu</h4>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                    <input class="form-control" id="gioi_thieu" name="gioi_thieu" value="{{$nguoidungs->gioi_thieu}}" placeholder="" type="text" required>
+                                                        <span class="alert-error"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                    <h4>Chọn ảnh đại diện </h4>
+                                   <input type="file" class="form-control" id="anh-dai-dien" name="anh-dai-dien" aria-describedby="emailHelp" >
+                                    </div>
+                                </div>
+                            </div>
                                             {{-- <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="form-group comments">
@@ -297,43 +333,7 @@
             </div>
         </div>
     </div>
-    <!-- End Advisor Details -->
-
-    <div class="padding-tncn"></div>
-
-    <!-- Start Newsletter
-    ============================================= -->
-    <div class="newsletter-area fixed">
-        <div class="container">
-            <div class="subscribe-items shadow theme-hard default-padding bg-cover" style="background-image: url(assets/img/banner/11.jpg);">
-                <div class="row">
-                    <div class="col-md-7 left-info">
-                        <div class="info-box">
-                            <div class="icon">
-                                <i class="flaticon-email"></i>
-                            </div>
-                            <div class="info">
-                                <h3>Subscribe to our newsletter</h3>
-                                <p>
-                                    Prospect humoured mistress to by proposal marianne attended. Simplicity the far admiration preference everything.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <form action="#">
-                            <div class="input-group">
-                                <input type="email" placeholder="Enter your e-mail here" class="form-control" name="email">
-                                <button type="submit">
-                                    Subscribe <i class="fa fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <!-- End Newsletter -->
+    <!-- End Advisor Details -->
 @endsection
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\nguoidung;
 use App\tochuc;
 use App\cthoadon;
+use App\thenganhang;
 use App\Providers;
 use Session;
 use Auth;
@@ -144,39 +145,58 @@ class NguoiDungController extends Controller
     
     public function xuLyDangKy(Request $request)
     {
-        $this->validate($request,
-        [
-            'ho_ten'=>'required|min:3|',
-            'so_cmnd'=>'required|max:10|',
-            'so_dt'=>'required|max:10|',
-            'mat_khau'=>'required',
-            'mat_khau_nl'=>'required',
-            'mat_khau'=>'required|min:6|',
-            'mat_khau_nl'=>'required|same:mat_khau|',
-            'email'=>'required|email|unique:nguoi_dung,email'
-            
-        ],
-        [ 
-            'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
-            'so_dt.max'=>'Số điện thoại không hợp lệ!',
-            'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
-            'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
-            'mat_khau_nl.same'=>'Mật khẩu nhập lại không khớp!',
-            'email.unique'=>'Email đã được đăng ký tài khoản!',
+    //     $nd = nguoidung::where('email','=',$request->email )->first();
+    //     if(strlen($request->so_cmnd)>10){
+    //         return redirect('dang-ky')->with('alerterror','Số CMND không hợp lệ, vui lòng kiểm tra lại!');
+    //     }
+    //     else if(strlen($request->so_dt)>10){
+    //         return redirect('dang-ky')->with('alerterror','Số điện thoại không hợp lệ, vui lòng kiểm tra lại!');
+    //     }
+    //    else if ($nd->email == $request->email) {
+    //         return redirect('dang-ky')->with('alerterror','Email đã đăng ký tài khoản, vui lòng kiểm tra lại!');
+    //     }
+    //    else if(strlen($request->so_dt)<6){
+    //         return redirect('dang-ky')->with('alerterror','Mật khẩu phải trên 6 ký tự, vui lòng kiểm tra lại!');
+    //     }
+    //    else if($request->mat_khau != $request->mat_khau_nl){
+    //         return redirect('dang-ky')->with('alerterror','Mật khẩu nhập lại không trùng khớp, vui lòng kiểm tra lại!');
+    //     }
+    $this->validate($request,
+    [
+        'ho_ten'=>'required|min:3|',
+        'so_cmnd'=>'required|max:10|',
+        'so_dt'=>'required|max:10|',
+        'mat_khau'=>'required',
+        'mat_khau_nl'=>'required',
+        'mat_khau'=>'required|min:6|',
+        'mat_khau_nl'=>'required|same:mat_khau|',
+        'email'=>'required|email|unique:nguoi_dung,email'
+        
+    ],
+    [ 
+        'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
+        'so_dt.max'=>'Số điện thoại không hợp lệ!',
+        'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
+        'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
+        'mat_khau_nl.same'=>'Mật khẩu nhập lại không khớp!',
+        'email.unique'=>'Email đã được đăng ký tài khoản!',
 
-        ]);
+    ]);
+   
+    $nguoidung= new nguoidung;
+    $nguoidung->ho_ten= $request->ho_ten;
+    $nguoidung->email= $request->email;
+    $nguoidung->mat_khau= bcrypt($request->mat_khau);
+    $nguoidung->loai_tk= '1';
+    $nguoidung->cmnd= $request->so_cmnd;
+    $nguoidung->sdt= $request->so_dt;
+    $nguoidung->anh_dai_dien= 'null';
+    $nguoidung->dia_chi= 'null';
+    $nguoidung->save();
+    return redirect('dang-nhap')->with('thongbao','Đăng ký thành công');
+
        
-        $nguoidung= new nguoidung;
-        $nguoidung->ho_ten= $request->ho_ten;
-        $nguoidung->email= $request->email;
-        $nguoidung->mat_khau= bcrypt($request->mat_khau);
-        $nguoidung->loai_tk= '1';
-        $nguoidung->cmnd= $request->so_cmnd;
-        $nguoidung->sdt= $request->so_dt;
-        $nguoidung->anh_dai_dien= 'null';
-        $nguoidung->dia_chi= 'null';
-        $nguoidung->save();
-        return redirect('dang-nhap')->with('thongbao','Đăng ký thành công');
+        
     }
     
     public function getSua()
@@ -185,7 +205,7 @@ class NguoiDungController extends Controller
         {
             $nguoi_dung_ids=auth()->user()->id;
             $nguoidungs=DB::table('nguoi_dung')->where('id','=', $nguoi_dung_ids)->first();
-            return view('trang-ca-nhan',compact('nguoidungs'));
+            return view('thong-tin-ca-nhan',compact('nguoidungs'));
         }
         else
         {
@@ -216,7 +236,6 @@ class NguoiDungController extends Controller
             
         ]);
         $nguoidung->ho_ten= $request->ho_ten;
-        $nguoidung->email= $request->email;
         $nguoidung->cmnd= $request->so_cmnd;
         $nguoidung->sdt= $request->so_dt;
         if($request->hasFile('anh-dai-dien'))
@@ -230,10 +249,10 @@ class NguoiDungController extends Controller
           $file->move($destinationPath,$fileNameToStore);
           $nguoidung->anh_dai_dien=$fileNameToStore;
         }
-       
         $nguoidung->dia_chi= $request->dia_chi;
+        $nguoidung->gioi_thieu= $request->gioi_thieu;
         $nguoidung->update();
-        return redirect('trang-ca-nhan')->with('thongbao','Cập nhật thành công');
+        return redirect('thong-tin-ca-nhan')->with('thongbao','Cập nhật thành công');
     }
 
     /**
@@ -248,29 +267,6 @@ class NguoiDungController extends Controller
 
     public function xuLyQuenMatKhau(Request $request)
     {
-        
-    //     //$remember=$request->has('remember')? true:false;
-    //     $nguoidungs = nguoidung::where('email','=',$request->email )->first();
-    //     if ($nguoidungs == null || $nguoidungs->email != $request->email) {
-    //         Session::flash('error', 'Email không tồn tại, vui lòng nhập lại!');
-    //         return redirect('quen-mat-khau');
-    //     }
-    //     $nguoidungs = Sentinel::findById($nguoidungs->id);
-    //     $reminder = Reminder::exists($nguoidungs) ? : Reminder::create($nguoidungs);
-    //     $this->sendEmail($nguoidungs,$reminder->code);
-    //     return redirect('quen-mat-khau')->with('thongbao','Vui lòng kiểm tra email');
-    // }
-    // public function sendEmail($nguoidungs,$code)
-    // {
-    //     Mail::send(
-    //         'email.forgot',
-    //         ['nguoidungs'=>$nguoidungs,'code'=>$code],
-    //         function($message) use ($nguoidungs){
-    //             $message->to($nguoidungs->email);
-    //             $message->subject("$nguoidungs->ho_ten,Đặt lại mk");
-
-    //         }
-    //     );   
     $e=$request->email;
         $nguoidungs = nguoidung::where('email','=',$request->email )->first();
         if ($nguoidungs == null || $nguoidungs->email != $request->email) {
@@ -311,6 +307,48 @@ class NguoiDungController extends Controller
      return redirect('dang-nhap')->with('thongbao','Cập nhật thành công');
     
     }
+
+    public function xuLyDoiMatKhauTrangCaNhan(Request $request)
+    {
+        $nguoidung=nguoidung::find(auth()->user()->id);
+    //     $this->validate($request,
+    //  [
+    //     'mat_khau'=>'min:6',
+    //      'xac-nhan-mat-khau'=>'same:mat_khau'
+    //  ],
+    //  [ 
+    //      'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
+    //      'xac-nhan-mat-khau.same'=>'Mật khẩu nhập lại không khớp!'
+    //  ]);
+        if(!Hash::check($request->mat_khau_cu,$nguoidung->mat_khau)){
+            return redirect('thong-tin-ca-nhan')->with('error','Sai mật khẩu, vui lòng kiểm tra lại!');
+        }
+        if($request->mat_khau != $request->xac_nhan_mat_khau){
+            return redirect('thong-tin-ca-nhan')->with('error','Mật khẩu nhập lại không trùng khớp, vui lòng kiểm tra lại!');
+        }
+        else{
+            DB::table('nguoi_dung')
+     ->where('id', $nguoidung->id)
+     ->update(['mat_khau' =>bcrypt($request->mat_khau)]);
+     return redirect('thong-tin-ca-nhan')->with('thongbao','Đã đổi mật khẩu thành công');
+        }
+    
+    }
+
+    public function xuLyThemTaiKhoan(Request $request)
+    {
+        $nguoidung=nguoidung::find(auth()->user()->id);
+        
+        $thenganhang= new thenganhang;
+        $thenganhang->nguoi_dung_id= $nguoidung->id;
+        $thenganhang->so_tai_khoan= $request->so_tai_khoan;
+        $thenganhang->ten_tren_the= $request->ten_tren_the;
+        $thenganhang->ten_ngan_hang= $request->ten_ngan_hang;
+        $thenganhang->chi_nhanh= $request->chi_nhanh;
+        $thenganhang->save();
+        return redirect('thong-tin-ca-nhan')->with('thongbao','Thêm thành công');
+    }
+
 
     /**
      * Store a newly created resource in storage.

@@ -2,14 +2,32 @@
 @section( 'content')
 @include('header')
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
-<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 
 <!-- Sweet alert init js-->
-<script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
-<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
-<!-- Start Login
+<!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
-    ============================================= -->
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
+ <!-- Start Login
+    // ============================================= -->
+    @if (session('thongbao'))
+    <script>
+        swal.fire("{{ session('thongbao') }}","","success")
+    </script>
+    @endif
+    @if (session('loi'))
+    <script>
+        swal.fire("{{ session('loi') }}","","error")
+    </script>
+    @endif
+    @if (session('alerterror'))
+    <script>
+        swal.fire("{{ session('alerterror') }}","","error")
+    </script>
+    @endif
     <div class="login-area default-padding">
         <div class="container">
             <div class="row">
@@ -75,7 +93,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <button type="submit">
+                                    <button type="submit" id="dangky">
                                         Đăng ký
                                     </button>
                                 </div>
