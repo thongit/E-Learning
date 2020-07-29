@@ -54,7 +54,7 @@
                         @if($video->tai_lieu != '_')
                         <li class="list-group-item">
                             <label>Tài liệu</label>
-                            <h4>{{$video->tai_lieu}}</h4>
+                            <h4><a href="{{ route('download',$video->tai_lieu)}}">Tải file tài liệu về</a></h4>
                         </li>
                         @else
                         <li class="list-group-item">

@@ -97,6 +97,9 @@ Route::middleware('auth')->group(function(){
     Route::get('admin/thong-ke-doanh-thu-kh','AdminController@thongKeDoanhThuKHMD');
    
     Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
+
+    Route::get('/download/{file}', 'DownloadsController@download')->name('download');
+    
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
