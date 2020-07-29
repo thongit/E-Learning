@@ -457,7 +457,8 @@ class KhoaHocController extends Controller
     public function hienThiChiTietKhoaHoc($id)
     {
         $dsKhoaHoc = khoahoc::where('id', $id)->first();
-        $dsLinhVuc = linhvuc::all();
+        $listKH = khoahoc::where([['linh_vuc_id', $dsKhoaHoc->linh_vuc_id],['ngon_ngu','=',$dsKhoaHoc->ngon_ngu],])->paginate(3);
+        $dsLinhVuc = linhvuc::all()->random(5);
         if($dsKhoaHoc == null)
         {
             return abort(404);
@@ -504,7 +505,11 @@ class KhoaHocController extends Controller
         
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
         $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia'));
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia','listKH'));
+    }
+    public function getBaiKiemTra()
+    {
+        return view('ql-bai-kiem-tra');
     }
 
 }

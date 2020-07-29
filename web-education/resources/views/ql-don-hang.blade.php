@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="blog-items">
 
-                    <div class="blog-content col-md-8">
+                    <div class="blog-content col-md-9">
                      <table class="table table-striped">
                         <thead>
                             <tr>

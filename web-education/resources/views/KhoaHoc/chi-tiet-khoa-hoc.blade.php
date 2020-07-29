@@ -268,55 +268,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                <article class="row">
+                            @foreach($danhGia as $dg)
+                            <article class="row">
                                 <div class="col-md-2 col-sm-2 hidden-xs">
-                                  <figure class="thumbnail">
-                                    <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
-                                    <figcaption class="text-center">username</figcaption>
-                                  </figure>
-                                </div>
-                                <div class="col-md-10 col-sm-10">
-                                  <div class="panel panel-default arrow left">
-                                    <div class="panel-body">
-                                      <header class="text-left">
-                                        <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
-                                        <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                      </header>
-                                      <div class="comment-post">
-                                        <p>
-                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        </p>
-                                      </div>
+                                    <figure class="thumbnail">
+                                        <img class="img-responsive" src="{{ asset('assets/images/'.$dg->nguoiDung->anh_dai_dien) }}" />
+                                        <label for="">{{$dg->nguoiDung->ho_ten}}</label>
+                                        
+                                    </figure>
                                     </div>
-                                  </div>
-                                </div>
-                              </article>
-                              <article class="row">
-                                <div class="col-md-2 col-sm-2 hidden-xs">
-                                  <figure class="thumbnail">
-                                    <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
-                                    <figcaption class="text-center">username</figcaption>
-                                  </figure>
-                                </div>
-                                <div class="col-md-10 col-sm-10">
-                                  <div class="panel panel-default arrow left">
-                                    <div class="panel-body">
-                                      <header class="text-left">
-                                        <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
-                                        <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                      </header>
-                                      <div class="comment-post">
-                                        <p>
-                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-                                        </p>
-                                      </div>
+                                    <div class="col-md-10 col-sm-10">
+                                    <div class="panel panel-default arrow left">
+                                        <div class="panel-body">
+                                        <header class="text-left">
+                                            <div class="average-rating" style="color: #ffb606">
+                                                @for($i = 0; $i< $dg->so_sao; $i++)
+                                                <i class="fas fa-star"></i>
+                                                @endfor
+                                            </div>
+                                            <time class="comment-date">{{$dg->nguoiDung->created_at->diffForHumans()}}<i class="fa fa-clock-o"></i></time>
+                                        </header>
+                                        <div class="comment-post">
+                                            <p>
+                                                {{$dg->noi_dung}}
+                                            </p>
+                                        </div>
+                                        </div>
                                     </div>
-                                  </div>
                                 </div>
-                              </article>
-
-
-                                </div>
+                            </article>
+                            @endforeach
+                        </div>
                                 <!-- End Single Tab -->
                                 <div id="tab5" class="tab-pane fade">
 <form action="{{ route('xu-ly-danh-gia',$dsKhoaHoc->id) }}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
@@ -377,21 +359,11 @@ Gửi đánh giá
                                 <h4>Lĩnh vực</h4>
                             </div>
                             <ul>
+                                @foreach ($dsLinhVuc as $lv)
                                 <li>
-                                    <a href="#">Java Programming <span>23</span></a>
+                                    <a href="{{ route('linh-vuc',$lv->id) }}">{{$lv->ten_linh_vuc}} <span>{{$lv->khoaHoc->count()}}</span></a>
                                 </li>
-                                <li>
-                                    <a href="#">Social Science <span>0</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Business Management <span>12</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Online Learning <span>17</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Course Management <span>0</span></a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <!-- End Sidebar Item -->
@@ -401,16 +373,17 @@ Gửi đánh giá
                                 <h4>Khóa học tương tự</h4>
                             </div>
                             <ul>
+                                @foreach($listKH as $kh)
                                 <li>
                                     <div class="thumb">
-                                        <a href="#">
-                                            <img src="{{asset('assets/img/gallery/9.jpg')}}" alt="Thumb">
+                                        <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">
+                                            <img src="{{asset('assets/images/'.$kh->hinh_anh)}}" alt="Thumb">
                                         </a>
                                     </div>
                                     <div class="info">
-                                        <a href="#">Subjects allied to Creative arts and design</a>
+                                        <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">Subjects allied to Creative arts and design</a>
                                         <div class="meta">
-                                            <span>$29.00</span>
+                                            <span>{{number_format($kh->gia)}} VNĐ</span>
                                             <div class="rating">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
@@ -421,46 +394,7 @@ Gửi đánh giá
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="{{asset('assets/img/gallery/10.jpg')}}" alt="Thumb">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <a href="#">Business and administrative subjects</a>
-                                        <div class="meta">
-                                            <span>$26.00</span>
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="{{asset('assets/img/gallery/11.jpg')}}" alt="Thumb">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <a href="#">Business and administrative subjects</a>
-                                        <div class="meta">
-                                            <span>$18.00</span>
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <!-- End Sidebar Item -->
