@@ -200,7 +200,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 0;
-  margin: 0;
+ /* margin: 0;*/
 }
 
 h1,h2,h3,h4 {
@@ -505,7 +505,7 @@ input {
   transition: all 0.35s ease-in-out;
   font-weight: 700;
  /* letter-spacing: 1px;*/
-  overflow: hidden;
+/*  overflow: hidden;*/
 }
 
 .btn-md {

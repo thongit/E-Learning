@@ -372,7 +372,7 @@
                             </div>
                             <ul>
                                 @foreach($listKH as $kh)
-                                <li>
+                                <li style="border-bottom: 1px solid #e7e7e7;">
                                     <div class="thumb">
                                         <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">
                                             <img src="{{asset('assets/images/'.$kh->hinh_anh)}}" alt="Thumb">
