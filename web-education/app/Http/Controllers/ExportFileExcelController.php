@@ -48,10 +48,40 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         
     }
 
+    public function suaCauHoi($id)
+    {
+        if(session()->has('id_nd'))
+        {
+            $id_nd = session()->get('id_nd');
+            $bai = chuong::find($id);
+            $khoaHoc = khoahoc::where([['nguoi_dung_id','=',$id_nd],['id', '=', $bai->khoaHoc->id],])->first();
+            if($khoaHoc != null)
+            {
+                $tenFile = $bai->baiKiemTra[0]->file_de_kt;
+                $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                foreach($CauHoi as $cauHoi){}
+                array_splice($cauHoi,0,1);
+                $baiKT = baikiemtra::where('chuong_id','=',$bai->id)->first();
+                return view('suacauhoi', compact('khoaHoc', 'baiKT', 'cauHoi'));
+            }
+            else
+            {
+                abort(404);
+            }
+        }
+        else
+        {
+
+            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+        }
+        
+    }
+
     public function collection()
     {
-        $dem = $this->request->soCauHoi;
+        
         $cauhoi = $this->request->dscauhoi;
+        $dem = sizeof($cauhoi);
         for ($i = 0; $i< $dem; $i++)
         {
             $order[] = array(
@@ -113,6 +143,34 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $baiKiemTra->save();
         return redirect()->back()->with('success', 'Thêm thành công!');
    }
+
+   public function edit(Request $request){
+        $baiKiemTra = baikiemtra::find($request->bktid);
+        $ten_file_bai_kt = $baiKiemTra->file_de_kt;
+        Excel::store(new ExportFileExcelController($request), $ten_file_bai_kt);
+        $baiKiemTra->thoi_gian_lam = $request->thoiGianLam;
+        $baiKiemTra->ten_bai_kt = $request->TenBaiKT;
+        $baiKiemTra->trang_thai = 1;
+        if($request->hienThiKQ == "HienThi")
+        {
+            $baiKiemTra->hien_thi = 1;
+            $baiKiemTra->lam_lai = 0;
+        }
+        else if($request->hienThiKQ == "LamLai")
+        {
+            $baiKiemTra->hien_thi = 0;
+            $baiKiemTra->lam_lai = 1;
+        }
+        else
+        {
+            $baiKiemTra->hien_thi = 0;
+            $baiKiemTra->lam_lai = 0;
+        }
+        $baiKiemTra->thoi_gian_mo = $request->batDauKT;
+        $baiKiemTra->thoi_gian_dong = $request->ketThucKT;
+        $baiKiemTra->save();
+        return redirect()->back()->with('success', 'Sửa thành công!');
+    }
 
    public function docDuLieu($tenFile)
     {

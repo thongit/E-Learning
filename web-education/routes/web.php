@@ -22,9 +22,9 @@ Route::middleware('auth')->group(function(){
 
     Route::get('khoa-hoc/ds-khoa-hoc-da-tao/{id}', 'AdminController@khoaHocUpdate')->name('khoaHocUpdate');
 
-    Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc');
+    Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc')->name('dskhdt');
 
-    Route::get('khoa-hoc/quan-ly-bai-kiem-tra','KhoaHocController@getBaiKiemTra');
+    Route::get('khoa-hoc/quan-ly-bai-kiem-tra/{id}','KhoaHocController@getBaiKiemTra')->name('ql-bai-kt');
 
     Route::get('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@getTaoMoTaKhoaHoc');
 
@@ -70,6 +70,10 @@ Route::middleware('auth')->group(function(){
 
     Route::post('export', 'ExportFileExcelController@export')->name('export');
 
+    Route::get('/sua-cau-hoi-excel/{id}','ExportFileExcelController@suaCauHoi')->name('sua-cau-hoi-excel');
+
+    Route::post('sua-cau-hoi', 'ExportFileExcelController@edit')->name('sua-cau-hoi');
+
     Route::get('trang-ca-nhan','NguoiDungController@getSua')->name('sua');
 
     Route::post('trang-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua');
@@ -77,10 +81,6 @@ Route::middleware('auth')->group(function(){
     Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');
 
     Route::get('khoa-hoc/video/{id}', 'KhoaHocController@video')->name('video');
-
-    Route::get('khoa-hoc/video', function () {
-        return view('video-khoa-hoc');
-    });
 
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
@@ -146,6 +146,8 @@ Route::get('quen-mat-khau', function () {
 Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');
+    //Lấy lĩnh vực
+    Route::get('/linh-vuc/{id}', 'KhoaHocController@hienThiLinhVuc')->name('lay-linh-vuc');
     //trang khóa học
     Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
     //Hiển thị tìm kiếm
@@ -173,10 +175,5 @@ Route::post('thong-tin-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua'
 Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
 Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->name('xu-ly-doi-mat-khau-trang-ca-nhan');
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
-
-
-
-
-
 
 ?>

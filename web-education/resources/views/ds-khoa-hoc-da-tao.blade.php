@@ -1,13 +1,18 @@
 @extends('layout')
+<title>EDUQTTT - Quản lý khóa học</title>
 @section('content')
 @include('header')
     <!-- Start Breadcrumb
     ============================================= -->
+    <div class="container" style="font-size: large;">
+        <a href="/">Trang chủ</a>  <i class="fa fa-caret-right" aria-hidden="true"></i> 
+        <a href="{{ route('dskhdt') }}">Quản lý khóa học</a>
+    </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <h1>Danh sách khóa học đã tạo</h1>
+                <div class="col-lg-12 col-md-12" style="">
+                    <h2>Danh sách khóa học đã tạo</h2>
                 </div>
             </div>
         </div>
@@ -23,14 +28,14 @@
 
                     <div class="blog-content col-md-9">
                     <ul class="nav nav-pills">
-                        <li class="active"><a data-toggle="pill" href="#home">Tất cả khóa học đã tạo</a></li>
+                        <li class="active"><a data-toggle="pill" href="#home1">Tất cả khóa học đã tạo</a></li>
                         <li><a data-toggle="pill" href="#menu1">Khóa học đang tạo</a></li>
                         <li><a data-toggle="pill" href="#menu2">Khóa học đang chờ duyệt</a></li>
                         <li><a data-toggle="pill" href="#menu3">Khóa học đã duyệt</a></li>
                       </ul><br>
                       
                       <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active">
+                        <div id="home1" class="tab-pane fade in active">
                           <div class="container-fluid adm-archivos">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -59,7 +64,7 @@
                                                         
                                                         <td>
                                                             <a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a>
-                                                            <a href="" class="btn btn-danger">Quản lý bài kiểm tra</a>
+                                                            <a href="{{ route('ql-bai-kt',$k->id) }}" class="btn btn-danger">Quản lý bài kiểm tra</a>
                                                         </td>
 
                                                         <td>

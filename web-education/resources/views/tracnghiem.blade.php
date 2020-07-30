@@ -247,6 +247,11 @@
 		margin-top: 20px;
 	}
 </style>
+<link href=" {{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+<script src=" {{ asset ('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
@@ -567,14 +572,14 @@ window.onbeforeunload = function(event){
 		</div>
 		<div class="question-navigation inline-block display-none" style="width:30%;padding: 1% 2% 2% 2%;margin: 2% 0%;vertical-align:top;border-left: 1px solid #c0c0c0;">
 			<div class="user right"></div>
-			<div class="timer display-none">Time remaining: <span id="timeRemaining" style="font-weight:bold;"></span></div>
+			<div class="timer display-none">Thời gian còn lại: <span id="timeRemaining" style="font-weight:bold;"></span></div>
 			<div class="num-wrapper"></div>
 			<div class="left" style="margin-top: 20px;">
-				<input type="button" id="next" value="&#10137;" class="btn btn-primary next"/>
-				<input type="button" id="submit" value="Submit" class="btn btn-submit display-none"/>
+				<input type="button" id="next" value="&#10137;" class="btn btn-primary"/>
+				<input type="button" id="submit" value="Nộp bài" class="btn-primary btn-lg display-none"/>
 				<img id="submitLoader" src="https://i.imgur.com/urJ99xr.gif"/>
 			</div>
-			<div class="right" style="font-size:14px;margin: 10px 0px;"><a href="#" class="submit-answers">Làm thế nào để nộp bài</a></div>
+			<div class="right" style="font-size:16px;margin: 10px 0px;"><a href="#" class="btn-warning submit-answers">Làm thế nào để nộp bài</a></div>
 		</div>
 		</form>
 		<div class="test-finished no-score display-none">
@@ -584,7 +589,7 @@ window.onbeforeunload = function(event){
 		<form method="post" action="{{ route('lam-lai') }}" role="form">
 			{!! csrf_field() !!}
 			<div style="text-align:center" class="lam-lai display-none">
-				<input type="button" id="lamLai" class="btn btn-primary" value="Làm lại" />
+				<input type="button" id="lamLai" class="btn-primary btn-lg" value="Làm lại" />
 			</div>
 		</form>
 		<div class="with-ques display-none">

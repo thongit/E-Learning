@@ -45,6 +45,13 @@ class KhoaHocController extends Controller
         return view('index', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
+    public function hienThiLinhVuc($id)
+    {
+
+        $dsKhoaHoc = khoahoc::where('linh_vuc_id',$id)->get();
+        return view('index', compact('dsKhoaHoc'));
+    }
+
     public function getLinhVuc($id)
     {
         $khoaHoc_linhVuc= khoahoc::where('linh_vuc_id',$id)->get();
@@ -384,7 +391,7 @@ class KhoaHocController extends Controller
 
     public function xemvideo($id)
     {
-        
+
     }
 
 
@@ -452,12 +459,12 @@ class KhoaHocController extends Controller
     public function hienThiChiTietKhoaHoc($id)
     {
         $dsKhoaHoc = khoahoc::where('id', $id)->first();
-        $listKH = khoahoc::where([['linh_vuc_id', $dsKhoaHoc->linh_vuc_id],['ngon_ngu','=',$dsKhoaHoc->ngon_ngu],])->paginate(3);
-        $dsLinhVuc = linhvuc::all()->random(5);
         if($dsKhoaHoc == null)
         {
             return abort(404);
         }
+        $listKH = khoahoc::where([['linh_vuc_id', $dsKhoaHoc->linh_vuc_id],['ngon_ngu','=',$dsKhoaHoc->ngon_ngu],])->paginate(3);
+        $dsLinhVuc = linhvuc::all()->random(5);
         $danhGia = danhgiakh::where('khoa_hoc_id','=',$id)->get();
         $sao1 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',1],])->count();
         $sao2 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',2],])->count();
@@ -502,8 +509,9 @@ class KhoaHocController extends Controller
         $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
         return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia','listKH'));
     }
-    public function getBaiKiemTra()
+    public function getBaiKiemTra($id)
     {
+
         return view('ql-bai-kiem-tra');
     }
 
