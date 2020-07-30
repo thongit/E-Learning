@@ -54,6 +54,10 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         {
             $id_nd = session()->get('id_nd');
             $bai = chuong::find($id);
+            if($bai == null || sizeof($bai->baiKiemTra) <= 0)
+            {
+                abort(404);
+            }
             $khoaHoc = khoahoc::where([['nguoi_dung_id','=',$id_nd],['id', '=', $bai->khoaHoc->id],])->first();
             if($khoaHoc != null)
             {
@@ -146,6 +150,10 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
 
    public function edit(Request $request){
         $baiKiemTra = baikiemtra::find($request->bktid);
+        if($baiKiemTra == null)
+        {
+            abort(404);
+        }
         $ten_file_bai_kt = $baiKiemTra->file_de_kt;
         Excel::store(new ExportFileExcelController($request), $ten_file_bai_kt);
         $baiKiemTra->thoi_gian_lam = $request->thoiGianLam;
@@ -169,7 +177,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $baiKiemTra->thoi_gian_mo = $request->batDauKT;
         $baiKiemTra->thoi_gian_dong = $request->ketThucKT;
         $baiKiemTra->save();
-        return redirect()->back()->with('success', 'Sửa thành công!');
+        return redirect('/khoa-hoc/quan-ly-bai-kiem-tra/'.$baiKiemTra->Chuong->khoaHoc->id)->with('success', 'Sửa thành công!');
     }
 
    public function docDuLieu($tenFile)
@@ -314,5 +322,26 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $baikt = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id','=',$request->baiktid],])->first();
         $baikt->delete();
         return response()->json(array('msg'=> $request->baiktid), 200);
+    }
+
+    public function xoabaikt($id)
+    {
+        if(auth()->user()->loai_tk != 2)
+        {
+            abort(404);
+        }
+        $id_nd = auth()->user()->id; 
+        $file_name = baikiemtra::find($id);
+        if($file_name == null)
+        {
+            abort(404);
+        }
+        if($file_name->Chuong->khoaHoc->nguoi_dung_id != $id_nd)
+        {
+            abort(404);
+        }
+
+        $file_name->delete();
+        return redirect()->back()->with('success', 'Đã xóa bài kiểm tra!');
     }
 }

@@ -1,6 +1,11 @@
 @extends('layout')
 <title>EDUQTTT - Quản lý bài kiểm tra</title>
 @section('content')
+@if (session('success'))
+    <script>
+        swal.fire("{{ session('success') }}","","success")
+    </script>
+    @endif
 @include('header')
 <!-- Start Breadcrumb
     ============================================= -->
@@ -13,7 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12" style="color: white; font-size: x-large;">
-                    <h2>Khóa học: </h2>
+                    <h2>Khóa học: {{$khoahoc->ten_khoa_hoc}}</h2>
                 </div>
             </div>
         </div>
@@ -40,21 +45,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Chương ẻwerwerwerewrwerwer</td>
-                            <td>bài 2135475474574724</td>
-                            <td>
-                                <button type="submit" class="btn btn-danger">Xóa</button>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary">Sửa</button>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-info">Xuất file</button>
-                            </td>
-                        </tr>
-
+                            @foreach ($dsBaiKT as $baiKT)
+                            <tr>
+                                <td>{{$loop->index +1}}</td>
+                                <td>{{$baiKT->Chuong->ten_chuong}} </td>
+                                <td>{{$baiKT->ten_bai_kt}}</td>
+                                <td>
+                                    <button onclick="xoa({{$baiKT->id}})" type="button" class="btn btn-danger btn-sm">Xóa</button>
+                                </td>
+                                <td>
+                                    <button onclick="sua({{$baiKT->Chuong->id}})" type="button" class="btn btn-primary btn-sm">Sửa</button>
+                                </td>
+                                <td>
+                                    <button onclick="xuat({{ $baiKT->id }})" type="button" class="btn btn-info btn-sm" >Xuất file</button>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     </div>
@@ -65,6 +71,59 @@
     </div>
     <!-- End Blog -->
 @endsection
+
+<script>
+function xoa($id) {
+    Swal.fire({
+    title: 'Bạn có chắc muốn xóa?',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Có',
+    cancelButtonText:'Không'
+    }).then((result) => {
+        if (result.value) {
+            $url='/xoa-bai-kt/'+$id;
+            open($url,"_self")
+        }
+    })
+};
+
+function sua($id) {
+    Swal.fire({
+    title: 'Bạn có chắc muốn sửa?',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Có',
+    cancelButtonText:'Không'
+    }).then((result) => {
+        if (result.value) {
+            $url='/sua-cau-hoi-excel/'+$id;
+            open($url,"_self")
+        }
+    })
+};
+
+function xuat($id) {
+    Swal.fire({
+    title: 'Bạn có chắc muốn xuất file?',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Có',
+    cancelButtonText:'Không'
+    }).then((result) => {
+        if (result.value) {
+            $url='/export-file/'+$id;
+            open($url,"_self")
+        }
+    })
+};
+</script>
 
 @section('js')
 

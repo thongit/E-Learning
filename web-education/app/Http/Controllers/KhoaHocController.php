@@ -369,17 +369,28 @@ class KhoaHocController extends Controller
     {
         $video = noidung::find($id);
         $id_nd = session()->get('id_nd');
-        if(sizeof($video->Chuong->baiKiemTra) >0)
+        if($video == null)
         {
-            $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
-        $kiemtra1 = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+            abort(404);
         }
-        else
+        foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
         {
-            $kiemtra = null;
-            $kiemtra1 = null;
+            if( $dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
+            {
+                if(sizeof($video->Chuong->baiKiemTra) >0)
+                {
+                    $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+                $kiemtra1 = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+                }
+                else
+                {
+                    $kiemtra = null;
+                    $kiemtra1 = null;
+                }
+                return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
+            }
         }
-        return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
+        return abort(404);
     }
 
     public function xemvideo($id)
@@ -504,8 +515,27 @@ class KhoaHocController extends Controller
     }
     public function getBaiKiemTra($id)
     {
-
-        return view('ql-bai-kiem-tra');
+        $khoahoc = khoahoc::find($id);
+        if($khoahoc != null)
+        {
+            if(sizeof($khoahoc->Chuong) > 0)
+            {
+                foreach($khoahoc->Chuong as $baikt)
+                {
+                    $dsBaiKT = $baikt->baiKiemTra;
+                }
+                return view('ql-bai-kiem-tra', compact('dsBaiKT','khoahoc'));
+            }
+            else
+            {
+                return redirect('khoa-hoc/tao-chuong-cho-khoa-hoc/'.$id);
+            }
+        }
+        else
+        {
+            abort(404);
+        }
+        
     }
 
 }

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class baikiemtra extends Model
 {
+    use SoftDeletes;
+
     protected $table ="bai_kiem_tra";
 
     public function Chuong()

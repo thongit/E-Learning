@@ -56,7 +56,7 @@
                                                     @foreach ($khoahocs as $k)
                                                     <tr>
                                                         <td ><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
-                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td><a href="/khoa-hoc/{{$k->id}}">{{$k->ten_khoa_hoc}}</a></td>
                                                         <td class="text-center">
                                                             <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
                                                             <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
@@ -113,7 +113,7 @@
                                                     @if($k->trang_thai == 1)
                                                     <tr>
                                                         <td><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
-                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td><a href="/khoa-hoc/{{$k->id}}">{{$k->ten_khoa_hoc}}</a></td>
                                                         <td class="text-center">
                                                             <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
                                                             <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
@@ -121,7 +121,7 @@
                                                         
                                                         <td>
                                                             <a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a>
-                                                            <a href="" class="btn btn-danger">Quản lý bài kiểm tra</a>
+                                                            <a href="{{ route('ql-bai-kt',$k->id) }}" class="btn btn-danger">Quản lý bài kiểm tra</a>
                                                         </td>
 
                                                         <td>
@@ -159,7 +159,7 @@
                                                     @if($k->trang_thai == 2)
                                                     <tr>
                                                         <td><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
-                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td><a href="/khoa-hoc/{{$k->id}}">{{$k->ten_khoa_hoc}}</a></td>
                                                         <td class="text-center">
                                                             <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
                                                             <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
@@ -167,7 +167,7 @@
                                                         
                                                         <td>
                                                             <a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a>
-                                                            <a href="" class="btn btn-danger">Quản lý bài kiểm tra</a>
+                                                            <a href="{{ route('ql-bai-kt',$k->id) }}" class="btn btn-danger">Quản lý bài kiểm tra</a>
                                                         </td>
 
                                                         <td>
@@ -204,7 +204,7 @@
                                                     @if($k->trang_thai == 3)
                                                     <tr>
                                                         <td><img src="{{ asset('assets/images/'.$k->hinh_anh) }}" class="img-thumbnail" width="100" height="100"></td>
-                                                        <td>{{$k->ten_khoa_hoc}}</td>
+                                                        <td><a href="/khoa-hoc/{{$k->id}}">{{$k->ten_khoa_hoc}}</a></td>
                                                         <td class="text-center">
                                                             <a onclick="thongbaoxoa({{$k->id}})"><span class="btn btn-danger">Xóa</span></a>
                                                             <a href="/khoa-hoc/sua/{{$k->id}}"><span class="btn btn-primary">Sửa</span></a>
@@ -212,7 +212,7 @@
                                                         
                                                         <td>
                                                             <a href="{{ route('them-cau-hoi-excel',$k->id) }}" class="btn btn-info">Tạo bài kiểm tra</a>
-                                                            <a href="" class="btn btn-danger">Quản lý bài kiểm tra</a>
+                                                            <a href="{{ route('ql-bai-kt',$k->id) }}" class="btn btn-danger">Quản lý bài kiểm tra</a>
                                                         </td>
 
                                                         <td>

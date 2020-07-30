@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function(){
 
     Route::post('lam-lai','ExportFileExcelController@destroy')->name('lam-lai');
 
+    Route::get('xoa-bai-kt/{id}','ExportFileExcelController@xoabaikt')->name('xoa-bai-kt');
+
     Route::post('luu-ket-qua','ExportFileExcelController@luuBaiLam')->name('luu-ket-qua');
 
     Route::get('trac-nghiem-excel/{tenFile}','ExportFileExcelController@docDuLieu')->name('trac-nghiem-excel');
@@ -103,7 +105,9 @@ Route::middleware('auth')->group(function(){
 
     Route::get('admin/thong-ke-doanh-thu-kh/{id}','AdminController@thongKeDoanhThuKH');
 
-    Route::get('/download/{file}', 'DownloadsController@download')->name('download');
+    Route::get('/download/{id}', 'DownloadsController@download')->name('download');
+
+    Route::get('/export-file/{id}', 'DownloadsController@export')->name('export-file');
 
     Route::get('kich-hoat-khoa-hoc','CTHoaDonController@hienThiKichHoat')->name('form-kich-hoat');
 
