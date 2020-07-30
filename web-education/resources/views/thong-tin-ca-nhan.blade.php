@@ -1,4 +1,5 @@
 @extends('layout')
+<title>EDUQTTT - Thông tin cá nhân</title>
 @section('content')
 @include('header')
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
@@ -17,6 +18,20 @@
 
 <!-- Start Breadcrumb
     ============================================= -->
+    <div class="container" style="font-size: large;">
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="{{ route('sua') }}">Thông tin cá nhân</a>
+    </div>
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12" style="">
+                    <h2>Thông tin cá nhân</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @if (session('thongbao'))
     <script>
         swal.fire("{{ session('thongbao') }}","","success")
@@ -27,15 +42,7 @@
         swal.fire("{{ session('error') }}","","error")
     </script>
 @endif
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <h1>Thông tin cá nhân</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- End Breadcrumb -->
 
     <!-- Start Advisor Details

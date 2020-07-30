@@ -1,4 +1,5 @@
 @extends('layout')
+<title>EDUQTTT - Trang chủ</title>
 @section('content')
 
 @if (session('alerterror'))
