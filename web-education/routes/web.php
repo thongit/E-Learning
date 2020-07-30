@@ -22,9 +22,9 @@ Route::middleware('auth')->group(function(){
 
     Route::get('khoa-hoc/ds-khoa-hoc-da-tao/{id}', 'AdminController@khoaHocUpdate')->name('khoaHocUpdate');
 
-    Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc');
+    Route::get('khoa-hoc/ds-khoa-hoc-da-tao','KhoaHocController@getDanhSachKhoaHoc')->name('dskhdt');
 
-    Route::get('khoa-hoc/quan-ly-bai-kiem-tra','KhoaHocController@getBaiKiemTra');
+    Route::get('khoa-hoc/quan-ly-bai-kiem-tra/{id}','KhoaHocController@getBaiKiemTra')->name('ql-bai-kt');
 
     Route::get('khoa-hoc/tao-mo-ta-khoa-hoc','KhoaHocController@getTaoMoTaKhoaHoc');
 
