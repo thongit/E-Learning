@@ -264,15 +264,26 @@
 	</script>
 @endif
 <script>
-var TEST_DETAILS,CURRENT_QUES=1,SOCAU,SUBMITTED=false, THEMDAPAN = new Array();
-var CAUHOI, DAPANA, DAPANB, DAPANC = "", DAPAND = "", DAPANE = "", DAPANF = "", DAPANDUNG;
-var QUESTIONS = new Array();
+var TEST_DETAILS,CURRENT_QUES=1,SOCAU,SUBMITTED=false, THEMDAPAN;
+var DAPANA, DAPANB, DAPANC = "", DAPAND = "", DAPANE = "", DAPANF = "", DAPANDUNG;
+var CAUHOI = {!! json_encode($cauHoi) !!};
+var QUESTIONS = CAUHOI;
 $(document).ready(function(){
-	$("#thoi-gian-cong-bo").click(function(){
-		$(".thoi-gian-hien-thi").css("display","inline-block");
-		$("#thoi-gian-cong-bo").hide();
-	});
-
+	if({{$baiKT->hien_thi}} == 0 && {{$baiKT->lam_lai}} == 0)
+	{
+		var x = document.getElementById("khong");
+  		x.checked = true;
+	}
+	else if ({{$baiKT->hien_thi}} == 1 && {{$baiKT->lam_lai}} == 0)
+	{
+		var x = document.getElementById("hienthi");
+  		x.checked = true;
+	}
+	else
+	{
+		var x = document.getElementById("lamlai");
+  		x.checked = true;
+	}
 	$("#tao-cau-hoi").click(function(){
 		if(document.getElementById("batDauKT").value == '')
 		{
@@ -286,21 +297,13 @@ $(document).ready(function(){
 		{
 			swal.fire("Bạn chưa nhập tên bài kiểm tra","" , "error")
 		}
-		else if(document.getElementById("soCauHoi").value == '')
-		{
-			swal.fire("Bạn chưa nhập số câu hỏi","" , "error")
-		}
-		else if(document.getElementById("soCauHoi").value <10 || document.getElementById("soCauHoi").value>50)
-		{
-			swal.fire("Số câu hỏi phải trong khoảng 10 đến 50 câu!","" , "error")
-		}
 		else if(document.getElementById("thoiGianLam").value == '')
 		{
 			swal.fire("Bạn chưa nhập thời gian làm bài","" , "error")
 		}
-		else if(document.getElementById("thoiGianLam").value <1 || document.getElementById("thoiGianLam").value>180)
+		else if(document.getElementById("thoiGianLam").value <10 || document.getElementById("thoiGianLam").value>180)
 		{
-			swal.fire("Thời gian làm trong khoảng từ 1 đến 180 phút!","" , "error")
+			swal.fire("Thời gian làm trong khoảng từ 10 đến 180 phút!","" , "error")
 		}
 		else
 		{
@@ -308,20 +311,52 @@ $(document).ready(function(){
 			$(".user").text("Giảng viên: {{ Session::get('ho_ten') }}");
 			$(".login-section,.instruction-section").hide();
 			$(".question-section,.question-navigation").css("display","inline-block");
-			SOCAU = parseInt(document.getElementById("soCauHoi").value);
-			QUESTIONS = new Array(SOCAU);
+            SOCAU = QUESTIONS.length;
 			THEMDAPAN = new Array(SOCAU);
+			console.log(QUESTIONS);
 			for (var i = 0; i < SOCAU; i++) {
-				QUESTIONS[i] = new Array(8);
-				THEMDAPAN[i] = 0;
+                for(var j = 4; j < 8; j++)
+                {
+                    if(QUESTIONS[i][j] == null || QUESTIONS[i][j] == '')
+					{
+						THEMDAPAN[i] = (j-4);
+						break;
+					}
+                }
 			}
+			console.log(THEMDAPAN);
 			for(var i=0;i<SOCAU;i++){
 				$(".question-navigation .num-wrapper").append("<div class='inline-block q-num' index="+i+">"+(i+1)+"</div>");
 			}
-			$(".cau-hoi").html('<label for="tenchuong">Câu 1:</label> <input type="text" name="noiDung1" id="noiDung1" class="form-control m-input" placeholder="Nhập câu hỏi" autocomplete="off">');
-			$(".dap-an-a").html('<input type="text" id="dapAnA1" name="dapAnA1" class="form-control m-input" placeholder="Nhập Đáp Án A" autocomplete="off">');
-			$(".dap-an-b").html('<input type="text" id="dapAnB1" name="dapAnB1" class="form-control m-input" placeholder="Nhập Đáp Án B" autocomplete="off">');
+			$(".cau-hoi").html('<label for="tenchuong">Câu 1:</label> <input type="text" name="noiDung1" id="noiDung1" class="form-control m-input" placeholder="Nhập câu hỏi" autocomplete="off" value="'+QUESTIONS[0][0]+'">');
+			$(".dap-an-a").html('<input type="text" id="dapAnA1" name="dapAnA1" class="form-control m-input" placeholder="Nhập Đáp Án A" autocomplete="off" value="'+QUESTIONS[0][2]+'">');
+			$(".dap-an-b").html('<input type="text" id="dapAnB1" name="dapAnB1" class="form-control m-input" placeholder="Nhập Đáp Án B" autocomplete="off" value="'+QUESTIONS[0][3]+'">');
 			$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option></select>');
+			if(THEMDAPAN[0] >= 1)
+			{
+				$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option><option>C</option></select>');
+				$(".dap-an-c").html('<input type="text" id="dapAnC1" name="dapAnC1" class="form-control m-input" placeholder="Nhập Đáp Án C" autocomplete="off" value="'+QUESTIONS[0][4]+'">');
+			}
+			if(THEMDAPAN[0] >= 2)
+			{
+				$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option><option>C</option><option>D</option></select>');
+				$(".dap-an-d").html('<input type="text" id="dapAnD1" name="dapAnD1" class="form-control m-input" placeholder="Nhập Đáp Án D" autocomplete="off" value="'+QUESTIONS[0][5]+'">');
+			}
+			if(THEMDAPAN[0] >= 3)
+			{
+				$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>');
+				$(".dap-an-e").html('<input type="text" id="dapAnE1" name="dapAnE1" class="form-control m-input" placeholder="Nhập Đáp Án E" autocomplete="off" value="'+QUESTIONS[0][6]+'">');
+			}
+			if(THEMDAPAN[0] >= 4)
+			{
+				$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>');
+				$(".dap-an-f").html('<input type="text" id="dapAnF1" name="dapAnF1" class="form-control m-input" placeholder="Nhập Đáp Án F" autocomplete="off" value="'+QUESTIONS[0][7]+'">');
+			}
+			
+			if((QUESTIONS[index][1])!= null)
+			{
+				$('#dapAnDung1').val(QUESTIONS[0][1]);
+			}
 			$(".q-num[index='0']").trigger("click");
 		}
 	});
@@ -619,8 +654,53 @@ $(document).ready(function(){
 		}, 150);
 		return false;
 	});
-	
-	//nộp bài
+
+	$("#luu-lai").click(function(){
+		$("#formCauHoi").submit();
+		if(document.getElementById("batDauKT").value == '')
+		{
+			$('#batDauKT').val(null);
+		}
+		if(document.getElementById("ketThucKT").value == '')
+		{
+			$('#ketThucKT').val(null);
+		}
+		if(document.getElementById("TenBaiKT").value == '')
+		{
+			swal.fire("Bạn chưa nhập tên bài kiểm tra","" , "error")
+		}
+		else if(document.getElementById("thoiGianLam").value == '')
+		{
+			swal.fire("Bạn chưa nhập thời gian làm bài","" , "error")
+		}
+		else if(document.getElementById("thoiGianLam").value <10 || document.getElementById("thoiGianLam").value>180)
+		{
+			swal.fire("Thời gian làm trong khoảng từ 10 đến 180 phút!","" , "error")
+		}
+		else
+		{
+			SOCAU = QUESTIONS.length;
+			for(var j =0; j<SOCAU; j++)
+			{
+				for (var l = 0; l < 8; l++)
+				{
+					if(l<4 && QUESTIONS[j][l] == "")
+					{
+						swal.fire("Bạn chưa nhập đủ thông tin câu hỏi!","" , "error")
+						$(".list-cau-hoi").html('');
+						e.preventDefault();
+						break;
+					}
+					else if (QUESTIONS[j][l] == null)
+					{
+						QUESTIONS[j][l] = '';
+					}
+					$(".list-cau-hoi").append('<input type="hidden" id="dscauhoi" name="dscauhoi['+j+']['+l+']" value="'+ QUESTIONS[j][l] +'">');
+				}
+			}
+			$(".list-cau-hoi").append('<input type="hidden" id="bktid" name="bktid" value="{{$baiKT->id}}">');
+		}
+	});
 	
 	$("#submit").click(function(e){
 		CAUHOI = document.getElementById("noiDung"+CURRENT_QUES).value;
@@ -699,6 +779,8 @@ $(document).ready(function(){
 				$(".list-cau-hoi").append('<input type="hidden" id="dscauhoi" name="dscauhoi['+j+']['+l+']" value="'+ QUESTIONS[j][l] +'">');
 			}
 		}
+		$(".list-cau-hoi").append('<input type="hidden" id="bktid" name="bktid" value="{{$baiKT->id}}">');
+		$("#formCauHoi").submit();
 	});
 
 	function submitAnswers(){
@@ -729,38 +811,25 @@ window.onbeforeunload = function(event){
 	<div class="dq-test-title">{{$khoaHoc->ten_khoa_hoc}}
 	</div>
 	<div id="testContent">
-        <form method="post" action="{{ route('export') }}" role="form" id="formCauHoi">
+        <form method="post" action="{{ route('sua-cau-hoi') }}" role="form" id="formCauHoi">
             {!! csrf_field() !!}
 			<div class="instruction-section" >
 				<div>
-					<label for="chuong"><h4><b>Chọn chương:</b></h4></label>
-					<select class="form-control" id="chuong" name="chuong">
-						@foreach($chuong as $Chuong)
-					  		<option value="{{$Chuong->id}}">{{$Chuong->ten_chuong}}</option>
-					  	@endforeach
-					</select>
-					
-				</div>
-				<div>
 					<label for="TenBaiKT"><h4><b>Tên bài kiểm tra:</b></h4></label>
-					<input type="text" name="TenBaiKT" id="TenBaiKT" class="form-control" placeholder="Nhập tên bài kiểm tra" autocomplete="off" required>
+					<input type="text" name="TenBaiKT" id="TenBaiKT" class="form-control" placeholder="Nhập tên bài kiểm tra" autocomplete="off" required value="{{ $baiKT->ten_bai_kt }}">
 					<br/>
-					<label for="soCauHoi"><h4><b>Số câu hỏi:</b></h4></label>
-					<input class="form-control" type="number" id="soCauHoi" name="soCauHoi" min="1" max="50" required placeholder="Nhập số câu hỏi">
-					<br/>
-					<label for="soCauHoi"><h4><b>Thời gian làm (phút):</b></h4></label>
-					<input class="form-control" type="number" id="thoiGianLam" name="thoiGianLam" min="1" max="180" required placeholder="Nhập thời gian làm bài (phút)">
+					<label for="thoiGianLam"><h4><b>Thời gian làm (phút):</b></h4></label>
+					<input class="form-control" type="number" id="thoiGianLam" name="thoiGianLam" min="1" max="180" required placeholder="Nhập thời gian làm bài (phút)" value="{{ $baiKT->thoi_gian_lam }}">
 				</div>
 				<br/>
-				<button type="button" id="thoi-gian-cong-bo" class="btn-primary">Thêm thời gian bắt đầu và kết thúc bài kiểm tra</button>
-				<div class="thoi-gian-hien-thi inline-block display-none">
+				<div class="thoi-gian-hien-thi">
 					<label for="birthdaytime"><h4><b>Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input class="form-control" type="date" id="batDauKT" name="batDauKT">
+					<input value="{{ $baiKT->thoi_gian_mo }}" class="form-control" type="date" id="batDauKT" name="batDauKT">
 					<br/>
 					<label for="birthdaytime"><h4><b>Thời gian kết thúc bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input class="form-control" type="date" id="ketThucKT" name="ketThucKT">
+					<input value="{{ $baiKT->thoi_gian_dong }}" class="form-control" type="date" id="ketThucKT" name="ketThucKT">
 				</div>
 				<br/>
 				<input type="radio" id="hienthi" name="hienThiKQ" value="HienThi">
@@ -770,7 +839,10 @@ window.onbeforeunload = function(event){
 				<input type="radio" id="khong" name="hienThiKQ" value="0" checked>
 				<label for="khong">Không hiển thị và không cho phép làm lại</label><br>
 				<br/>
-				<button type="button" id="tao-cau-hoi" class="btn btn-primary">Tạo câu hỏi</button>
+				<div style="display: flex;justify-content: space-between;">
+					<button type="button" id="tao-cau-hoi" class="btn-primary btn-lg">Tiếp tục sửa câu hỏi</button>
+					<button type="submit" id="luu-lai" class="btn-submit btn-lg">Hoàn tất </button>
+				</div>
 			</div>
             <div class="question-section inline-block display-none">
                 <div class="row">
@@ -799,7 +871,7 @@ window.onbeforeunload = function(event){
                                 
                             </div>
 							<div>
-								<button type="button" id="them-dap-an" class="btn btn-primary">Thêm đáp án</button>
+								<button type="button" id="them-dap-an" class="btn-primary btn-lg">Thêm đáp án</button>
 							</div>
                             <div class="form-group dap-an-dung">
                                 
@@ -812,14 +884,14 @@ window.onbeforeunload = function(event){
                 </div>
             </div>
             <div class="question-navigation inline-block display-none" style="width:30%;padding: 1% 2% 2% 2%;margin: 2% 0%;vertical-align:top;border-left: 1px solid #c0c0c0;">
-                <div class="user right"></div>
+                <div class="user left"></div>
                 <div class="num-wrapper"></div>
                 <div class="left" style="margin-top: 20px;">
-                    <button type="button" id="next" class="btn btn-primary next">&#10137;</button>
-                    <button type="submit" id="submit" class="btn btn-submit display-none">Hoàn tất </button>
+                    <button type="button" id="next" class="btn btn-primary">&#10137;</button>
+                    <button type="submit" id="submit" class="btn-submit btn-lg display-none">Hoàn tất </button>
                     <img id="submitLoader" src="https://i.imgur.com/urJ99xr.gif"/>
                 </div>
-                <div class="right" style="font-size:16px;margin: 10px 0px;"><a href="#" class="btn-warning submit-answers">Làm thế nào để lưu bài</a></div>
+                <div class="right" style="font-size:16px;margin: 10px 0px;"><a href="#" class="btn-warning submit-answers">Làm thế nào để hoàn tất?</a></div>
             </div>           
         </form>
 		<div class="test-finished no-score display-none">

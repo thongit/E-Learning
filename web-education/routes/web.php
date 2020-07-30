@@ -70,6 +70,10 @@ Route::middleware('auth')->group(function(){
 
     Route::post('export', 'ExportFileExcelController@export')->name('export');
 
+    Route::get('/sua-cau-hoi-excel/{id}','ExportFileExcelController@suaCauHoi')->name('sua-cau-hoi-excel');
+
+    Route::post('sua-cau-hoi', 'ExportFileExcelController@edit')->name('sua-cau-hoi');
+
     Route::get('trang-ca-nhan','NguoiDungController@getSua')->name('sua');
 
     Route::post('trang-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua');
@@ -77,10 +81,6 @@ Route::middleware('auth')->group(function(){
     Route::get('dang-xuat','NguoiDungController@logout')->name('dang-xuat');
 
     Route::get('khoa-hoc/video/{id}', 'KhoaHocController@video')->name('video');
-
-    Route::get('khoa-hoc/video', function () {
-        return view('video-khoa-hoc');
-    });
 
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
@@ -174,10 +174,5 @@ Route::post('thong-tin-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua'
 Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
 Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->name('xu-ly-doi-mat-khau-trang-ca-nhan');
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
-
-
-
-
-
 
 ?>
