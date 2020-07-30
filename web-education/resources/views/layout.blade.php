@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="EDUQTTT - Education">
+    <meta name="description" content="EDUQTTT">
 
     <!-- ========== Page Title ========== -->
-    <title>EDUQTTT - Education</title>
+    <title>EDUQTTT</title>
 
     <!-- ========== Favicon Icon ========== -->
     <link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
@@ -59,7 +59,7 @@
         <div class="top-bar-area bg-dark inc-border text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 address-info text-left">
+                    <div class="col-md-2 address-info text-left">
                         <div class="info">
 <!--                             <ul>
                                 <li>
@@ -90,13 +90,18 @@
                     </div>
                     @endif
                     @if(Session::get('ho_ten')!= null)
-                    <div class="col-md-8 link text-right">
+                    <div class="col-md-10 link text-right">
                         <ul>
                             @if(Session::get('loai_tk')==1)
                             <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
+                            <li><a class="btn-danger" href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
+                            </li>
                             @endif
                             @if(Session::get('loai_tk')==2)
-                            <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a></li>
+                            <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a>
+                            </li>
+                            <li><a class="btn-danger" href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
+                            </li>
                             @endif
                             <li>
                             <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>

@@ -47,13 +47,22 @@ class NguoiDungController extends Controller
     }
     public function getQuanLyDonHang()
     {
+        if(auth()->user()->loai_tk == 2)
+        {
         $cthoadons= cthoadon::all();
         $giangviens=nguoidung::find(auth()->user()->id);
         return view('ql-don-hang',['cthoadons'=>$cthoadons,'giangviens'=>$giangviens]);
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function quanLyDonHangUpdate(Request $request,$id)
     {
+        if(auth()->user()->loai_tk == 2)
+        {
         $cthoadons=cthoadon::find($id);
         if($cthoadons->trang_thai==1)
         {
@@ -61,6 +70,11 @@ class NguoiDungController extends Controller
             $cthoadons->save();
         }
         return redirect()->back()->with('message', 'Status changed!');
+        }
+        else
+        {
+            abort(401);
+        }
     }
     
     public function postTroThanhGiangVien(Request $request)

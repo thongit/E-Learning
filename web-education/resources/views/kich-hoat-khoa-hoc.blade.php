@@ -1,6 +1,6 @@
 @extends('layout')
 @section( 'content')
-
+@include('header')
 @section( 'css')
 <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script>
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />

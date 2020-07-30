@@ -104,6 +104,10 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/download/{file}', 'DownloadsController@download')->name('download');
 
+    Route::get('kich-hoat-khoa-hoc','CTHoaDonController@hienThiKichHoat')->name('form-kich-hoat');
+
+    Route::post('kich-hoat-khoa-hoc','CTHoaDonController@postKichHoatKhoaHoc')->name('xu-ly-kich-hoat-kh');
+
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
@@ -127,9 +131,6 @@ Route::get('/thong-tin-ca-nhan', function () {
     return view('thong-tin-ca-nhan');
 });
 
-Route::get('/kich-hoat-khoa-hoc', function () {
-    return view('kich-hoat-khoa-hoc');
-}); //chưa
 
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
@@ -172,9 +173,7 @@ Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-do
 Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->name('xu-ly-doi-mat-khau-trang-ca-nhan');
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
 
-Route::get('kich-hoat-khoa-hoc','CTHoaDonController@hienThiKichHoat')->name('form-kich-hoat');
 
-Route::post('kich-hoat-khoa-hoc','CTHoaDonController@postKichHoatKhoaHoc')->name('xu-ly-kich-hoat-kh');
 
 
 
