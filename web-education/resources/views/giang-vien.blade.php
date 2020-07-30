@@ -1,13 +1,18 @@
 @extends('layout')
+<title>EDUQTTT - Giảng viên</title>
 @section('content')
 @include('header')
     <!-- Start Breadcrumb
     ============================================= -->
+    <div class="container" style="font-size: large;">
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="">Giảng viên</a>
+    </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <h1>Danh sách giảng Viên</h1>
+                <div class="col-lg-12 col-md-12" style="">
+                    <h2>Giảng viên</h2>
                 </div>
             </div>
         </div>

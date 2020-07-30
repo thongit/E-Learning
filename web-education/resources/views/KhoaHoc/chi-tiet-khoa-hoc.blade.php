@@ -1,4 +1,5 @@
 @extends('layout')
+<title>EDUQTTT - Chi tiết khóa học</title>
 @section('content')
 @include('header')
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
@@ -13,6 +14,22 @@
 <link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
 <!-- Start Breadcrumb
     ============================================= -->
+    <div class="container" style="font-size: large;">
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="">Chi tiết khóa học</a>
+    </div>
+    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12" style="">
+                    <h2>Chi tiết khóa học</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @if (session('thongbao'))
     <script>
         swal.fire("{{ session('thongbao') }}","","success")
@@ -23,15 +40,6 @@
         swal.fire("{{ session('loi') }}","","error")
     </script>
     @endif
-    <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <h1>Chi tiết khóa học</h1>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- End Breadcrumb -->
 
     <!-- Start Course Details
