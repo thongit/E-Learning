@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Edocom - Education & LMS Template">
+    <meta name="description" content="EDUQTTT - Education">
 
     <!-- ========== Page Title ========== -->
-    <title>Edocom - Education & LMS Template</title>
+    <title>EDUQTTT - Education</title>
 
     <!-- ========== Favicon Icon ========== -->
     <link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
@@ -97,8 +97,6 @@
                             @endif
                             @if(Session::get('loai_tk')==2)
                             <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a></li>
-                            @if(Session::get('loai_tk')==1)
-                            <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
                             @endif
                             <li>
                             <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>
