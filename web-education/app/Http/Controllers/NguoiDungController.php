@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use App\nguoidung;
+use App\khoahoc;
 use App\tochuc;
 use App\cthoadon;
 use App\thenganhang;
@@ -45,6 +46,37 @@ class NguoiDungController extends Controller
             return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
         }
     }
+    public function getThongKeKhoaHoc($idKhoaHoc)
+    {
+        if(auth()->user()->loai_tk == 2)
+        {
+        $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',3)->count();
+        $khoaHoc = khoahoc::find($idKhoaHoc);
+        $danhthu=($tonghocvien*$khoaHoc->gia)*0.9;
+        $dshocvien=$khoaHoc->ctHoaDon->where('trang_thai',3);
+        if(count($dshocvien)==0)
+        {
+            return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu])->with('thongbao',0);
+        }
+        else
+        {
+
+        foreach ($dshocvien as $key => $ct) {
+            $ds[$key] = array(
+                '0' => $ct->hoaDon->nguoiDung->anh_dai_dien,
+                '1' => $ct->hoaDon->nguoiDung->ho_ten,
+                '2' => $ct->hoaDon->nguoiDung->email
+            ) ;
+        }
+        return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu],['dsTenHocVien'=>$ds])->with('thongbao',1);;
+    }
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
     public function getQuanLyDonHang()
     {
         if(auth()->user()->loai_tk == 2)

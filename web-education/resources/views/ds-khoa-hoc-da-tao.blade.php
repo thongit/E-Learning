@@ -43,6 +43,7 @@
                                                         <th></th>
                                                         <th>Bài kiểm tra</th>
                                                         <th>Trạng thái</th>
+                                                        <th>Thống kê</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -73,6 +74,9 @@
                                                         @if($k->trang_thai==1)     <p class="btn btn-primary" onclick="update({{$k->id}})">Gửi kiểm duyệt</p>
                                                         @endif
 
+                                                         </td>
+                                                         <td>
+                                                             <a href="{{ route('thong-ke-khoa-hoc',$k->id) }}" class="btn btn-info">Xem thống kê</a>
                                                          </td>
                                                     </tr>
                                                         @endforeach

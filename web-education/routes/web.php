@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function(){
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
     Route::get('giang-vien/quan-ly-don-hang','NguoiDungController@getQuanLyDonHang');
+    Route::get('giang-vien/thong-ke/{idKhoaHoc}','NguoiDungController@getThongKeKhoaHoc')->name('thong-ke-khoa-hoc');
 
     Route::get('giang-vien/quan-ly-don-hang/{id}', 'NguoiDungController@quanLyDonHangUpdate')->name('DonHangUpdate');
 
