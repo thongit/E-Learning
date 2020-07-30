@@ -5,7 +5,7 @@
     <!-- Start Breadcrumb
     ============================================= -->
     <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a>  <i class="fa fa-caret-right" aria-hidden="true"></i> 
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
         <a href="{{ route('dskhdt') }}">Quản lý khóa học</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">

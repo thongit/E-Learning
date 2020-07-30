@@ -149,7 +149,7 @@
                         <!-- Single Item -->
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item mariner">
-                                <a href="{{ route('trang-chu.lay-linh-vuc', 1)}}">
+                                <a href="{{ route('linh-vuc', 1)}}">
                                     <div class="item-box">
                                         <div class="icon">
                                             <i class="fas fa-book"></i>
@@ -165,7 +165,7 @@
                         <!-- Single Item -->
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item java">
-                                <a href="{{ route('trang-chu.lay-linh-vuc', 2)}}">
+                                <a href="{{ route('linh-vuc', 2)}}">
                                     <div class="item-box">
                                         <div class="icon">
                                             <i class="ti-desktop"></i>
@@ -181,7 +181,7 @@
                         <!-- Single Item -->
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item malachite">
-                                <a href="{{ route('trang-chu.lay-linh-vuc', 8)}}">
+                                <a href="{{ route('linh-vuc', 8)}}">
                                     <div class="item-box">
                                         <div class="icon">
                                             <i class="ti-pulse"></i>
@@ -197,7 +197,7 @@
                         <!-- Single Item -->
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item brilliantrose">
-                                <a href="{{ route('trang-chu.lay-linh-vuc', 4)}}">
+                                <a href="{{ route('linh-vuc', 4)}}">
                                     <div class="item-box">
                                         <div class="icon">
                                             <i class="fas fa-music"></i>
@@ -213,7 +213,7 @@
                         <!-- Single Item -->
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item casablanca">
-                                <a href="{{ route('trang-chu.lay-linh-vuc', 6)}}">
+                                <a href="{{ route('linh-vuc', 6)}}">
                                     <div class="item-box">
                                         <div class="icon">
                                             <i class="ti-ruler-pencil"></i>
@@ -229,7 +229,7 @@
                         <!-- Single Item -->
                         <div class="col-md-4 col-sm-6 equal-height">
                             <div class="item emerald">
-                                <a href="{{ route('trang-chu.lay-linh-vuc', 5)}}">
+                                <a href="{{ route('linh-vuc', 5)}}">
                                     <div class="item-box">
                                         <div class="icon">
                                             <i class="fas fa-volleyball-ball"></i>
