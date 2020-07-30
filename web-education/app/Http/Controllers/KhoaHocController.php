@@ -45,6 +45,13 @@ class KhoaHocController extends Controller
         return view('index', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
+    public function hienThiLinhVuc($id)
+    {
+
+        $dsKhoaHoc = khoahoc::where('linh_vuc_id',$id)->get();
+        return view('index', compact('dsKhoaHoc'));
+    }
+
     public function getLinhVuc($id)
     {
         $khoaHoc_linhVuc= khoahoc::where('linh_vuc_id',$id)->get();
@@ -384,7 +391,7 @@ class KhoaHocController extends Controller
 
     public function xemvideo($id)
     {
-        
+
     }
 
 

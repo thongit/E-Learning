@@ -101,7 +101,7 @@
 
     <!-- Start Categories
     ============================================= -->
-    <div class="category-area bg-gray default-padding">
+    {{--  <div class="category-area bg-gray default-padding">
         <div class="container">
             <div class="row">
                 <div class="site-heading text-center">
@@ -130,18 +130,139 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  --}}
     <!-- End Categories -->
+
+    <!-- Start Categories
+        ============================================= -->
+        <div class="category-area bg-gray default-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="site-heading text-center">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h2>Lĩnh Vực Phổ Biến</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-items">
+                    <div class="row">
+                        <!-- Single Item -->
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item mariner">
+                                <a href="{{ route('trang-chu.lay-linh-vuc', 1)}}">
+                                    <div class="item-box">
+                                        <div class="icon">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <div class="info">
+                                            <h5>Ngoại Ngữ</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Item -->
+                        <!-- Single Item -->
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item java">
+                                <a href="{{ route('trang-chu.lay-linh-vuc', 2)}}">
+                                    <div class="item-box">
+                                        <div class="icon">
+                                            <i class="ti-desktop"></i>
+                                        </div>
+                                        <div class="info">
+                                            <h5>Công Nghệ Thông Tin</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Item -->
+                        <!-- Single Item -->
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item malachite">
+                                <a href="{{ route('trang-chu.lay-linh-vuc', 8)}}">
+                                    <div class="item-box">
+                                        <div class="icon">
+                                            <i class="ti-pulse"></i>
+                                        </div>
+                                        <div class="info">
+                                            <h5>Marketing</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Item -->
+                        <!-- Single Item -->
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item brilliantrose">
+                                <a href="{{ route('trang-chu.lay-linh-vuc', 4)}}">
+                                    <div class="item-box">
+                                        <div class="icon">
+                                            <i class="fas fa-music"></i>
+                                        </div>
+                                        <div class="info">
+                                            <h5>Âm Nhạc</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Item -->
+                        <!-- Single Item -->
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item casablanca">
+                                <a href="{{ route('trang-chu.lay-linh-vuc', 6)}}">
+                                    <div class="item-box">
+                                        <div class="icon">
+                                            <i class="ti-ruler-pencil"></i>
+                                        </div>
+                                        <div class="info">
+                                            <h5>Thiết Kế</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Item -->
+                        <!-- Single Item -->
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item emerald">
+                                <a href="{{ route('trang-chu.lay-linh-vuc', 5)}}">
+                                    <div class="item-box">
+                                        <div class="icon">
+                                            <i class="fas fa-volleyball-ball"></i>
+                                        </div>
+                                        <div class="info">
+                                            <h5>Thể Thao Sức Khỏe</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Item -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Categories -->
 
     <!-- Start Popular Courses
         ============================================= -->
         <div class="popular-courses-area weekly-top-items default-padding bottom-less">
             <div class="container">
                 <div class="row">
+                    <div class="site-heading text-center">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h2>Khóa Học Phổ Biến</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                 <div class="top-course-items">
-                    <!-- Single Item -->
                     @foreach($dsKhoaHoc as $khoaHoc)
-
                     <div class="col-md-4 col-sm-6 equal-height">
                         <div class="item">
                             <div class="thumb">
@@ -161,7 +282,7 @@
                                     <ul>
                                         <li>
                                             <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
-                                            
+
                                         </li>
                                         <li>
                                             <i class="fas fa-star"></i>
@@ -169,9 +290,9 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
-                                            
+
                                         </li>
-                                        
+
                                     </ul>
                                     <ul>
                                         <li>
