@@ -10,7 +10,7 @@ class cthoadon extends Model
     
      public function hoaDon()
     { 
-        return $this->belongsTo('App\hoadon');
+        return $this->belongsTo('App\hoadon','hoa_don_id');
     }
 
     public function khoaHoc()
