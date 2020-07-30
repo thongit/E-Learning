@@ -145,6 +145,8 @@ Route::get('quen-mat-khau', function () {
 Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');
+    //Lấy lĩnh vực
+    Route::get('/linh-vuc/{id}', 'KhoaHocController@hienThiLinhVuc')->name('lay-linh-vuc');
     //trang khóa học
     Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
     //Hiển thị tìm kiếm
