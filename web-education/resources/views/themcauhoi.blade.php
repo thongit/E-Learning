@@ -2,10 +2,14 @@
 <script>
 	var DEPLOYED_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGAOmLhCZNm4lSKif_u7jSXs3nwtaf7h6C4K9vchWkSCtiaGMr/exec";
 </script>
-<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <title>Kiểm tra</title>
 <style>
 	.instruction-section{
+		padding-left: 25%;
+    	padding-right: 25%;
+	}
+	.them-file-excel{
 		padding-left: 25%;
     	padding-right: 25%;
 	}
@@ -246,6 +250,7 @@
 		margin-top: 20px;
 	}
 </style>
+<link href=" {{ asset ('assets/css/font-awesome.min.css') }}" rel="stylesheet">
 <link href=" {{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 <script src=" {{ asset ('assets/js/bootstrap.min.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Dosis:500,700' rel='stylesheet' type='text/css'>
@@ -273,7 +278,23 @@ $(document).ready(function(){
 		$("#thoi-gian-cong-bo").hide();
 	});
 
+	$("#them-file").click(function(){
+		$(".them-file").css("display","inline-block");
+		$("#them-file").hide();
+	});
+
+	$("#xoa-file").click(function(){
+		document.getElementById('excel-file').value = '';
+	});
+
+	$("#trolai").click(function(){
+		$(".login-section,.instruction-section").show();
+		$(".them-file-excel").hide();
+		$(".hoiluu").html('');
+	});
+
 	$("#tao-cau-hoi").click(function(){
+		
 		if(document.getElementById("batDauKT").value == '')
 		{
 			$('#batDauKT').val(null);
@@ -304,25 +325,45 @@ $(document).ready(function(){
 		}
 		else
 		{
-			$(".start-loader").show();
-			$(".user").text("Giảng viên: {{ Session::get('ho_ten') }}");
-			$(".login-section,.instruction-section").hide();
-			$(".question-section,.question-navigation").css("display","inline-block");
-			SOCAU = parseInt(document.getElementById("soCauHoi").value);
-			QUESTIONS = new Array(SOCAU);
-			THEMDAPAN = new Array(SOCAU);
-			for (var i = 0; i < SOCAU; i++) {
-				QUESTIONS[i] = new Array(8);
-				THEMDAPAN[i] = 0;
+			if(document.getElementById('excel-file').value != '')
+			{
+				var fileInput = document.getElementById('excel-file');
+				var filePath = fileInput.value;
+				var allowedExtensions = /(\.xlsx|\.xls)$/i;
+				if(!allowedExtensions.exec(filePath)){
+					fileInput.value = '';
+					swal.fire("Vui lòng upload các file có định dạng: .xlsx/.xls","" , "error")
+				}
+				else
+				{
+					$(".login-section,.instruction-section").hide();
+					$(".them-file-excel").show();
+					$(".hoiluu").html('<lable><h2>Vui lòng kiểm tra lại định dạng file excel. Nếu sai định dạng thì khi học viên vào làm bài, bài kiểm tra không thể load lên!</h2></lable>');
+
+				}
 			}
-			for(var i=0;i<SOCAU;i++){
-				$(".question-navigation .num-wrapper").append("<div class='inline-block q-num' index="+i+">"+(i+1)+"</div>");
+			else
+			{
+				$(".start-loader").show();
+				$(".user").text("Giảng viên: {{ Session::get('ho_ten') }}");
+				$(".login-section,.instruction-section").hide();
+				$(".question-section,.question-navigation").css("display","inline-block");
+				SOCAU = parseInt(document.getElementById("soCauHoi").value);
+				QUESTIONS = new Array(SOCAU);
+				THEMDAPAN = new Array(SOCAU);
+				for (var i = 0; i < SOCAU; i++) {
+					QUESTIONS[i] = new Array(8);
+					THEMDAPAN[i] = 0;
+				}
+				for(var i=0;i<SOCAU;i++){
+					$(".question-navigation .num-wrapper").append("<div class='inline-block q-num' index="+i+">"+(i+1)+"</div>");
+				}
+				$(".cau-hoi").html('<label for="tenchuong">Câu 1:</label> <input type="text" name="noiDung1" id="noiDung1" class="form-control m-input" placeholder="Nhập câu hỏi" autocomplete="off">');
+				$(".dap-an-a").html('<input type="text" id="dapAnA1" name="dapAnA1" class="form-control m-input" placeholder="Nhập Đáp Án A" autocomplete="off">');
+				$(".dap-an-b").html('<input type="text" id="dapAnB1" name="dapAnB1" class="form-control m-input" placeholder="Nhập Đáp Án B" autocomplete="off">');
+				$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option></select>');
+				$(".q-num[index='0']").trigger("click");
 			}
-			$(".cau-hoi").html('<label for="tenchuong">Câu 1:</label> <input type="text" name="noiDung1" id="noiDung1" class="form-control m-input" placeholder="Nhập câu hỏi" autocomplete="off">');
-			$(".dap-an-a").html('<input type="text" id="dapAnA1" name="dapAnA1" class="form-control m-input" placeholder="Nhập Đáp Án A" autocomplete="off">');
-			$(".dap-an-b").html('<input type="text" id="dapAnB1" name="dapAnB1" class="form-control m-input" placeholder="Nhập Đáp Án B" autocomplete="off">');
-			$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung1" name="dapAnDung1">  <option>A</option><option>B</option></select>');
-			$(".q-num[index='0']").trigger("click");
 		}
 	});
 
@@ -729,7 +770,7 @@ window.onbeforeunload = function(event){
 	<div class="dq-test-title">{{$khoaHoc->ten_khoa_hoc}}
 	</div>
 	<div id="testContent">
-        <form method="post" action="{{ route('export') }}" role="form" id="formCauHoi">
+        <form method="post" action="{{ route('export') }}" role="form" id="formCauHoi" enctype="multipart/form-data">
             {!! csrf_field() !!}
 			<div class="instruction-section" >
 				<div>
@@ -752,7 +793,7 @@ window.onbeforeunload = function(event){
 					<input class="form-control" type="number" id="thoiGianLam" name="thoiGianLam" min="1" max="180" required placeholder="Nhập thời gian làm bài (phút)">
 				</div>
 				<br/>
-				<button type="button" id="thoi-gian-cong-bo" class="btn-primary">Thêm thời gian bắt đầu và kết thúc bài kiểm tra</button>
+				<button type="button" id="thoi-gian-cong-bo" class="btn-info">Thêm thời gian bắt đầu và kết thúc bài kiểm tra</button>
 				<div class="thoi-gian-hien-thi inline-block display-none">
 					<label for="birthdaytime"><h4><b>Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
@@ -770,7 +811,25 @@ window.onbeforeunload = function(event){
 				<input type="radio" id="khong" name="hienThiKQ" value="0" checked>
 				<label for="khong">Không hiển thị và không cho phép làm lại</label><br>
 				<br/>
+				<button type="button" id="them-file" class="btn-info">Thêm câu hỏi với file excel (nếu có)</button>
+				<div class="them-file inline-block display-none">
+					<div class="input-group-prepend">
+						<label class="input-group-text"><h4><b>Thêm câu hỏi bằng file excel theo định dạng</b></h4></label>
+					</div>
+					<div class="custom-file" style="display: flex">
+						<input type="file" name="fileExcel" accept=".xls ,.xlsx" class="custom-file-input" id="excel-file">
+						<button type="button" class="btn-link" id="xoa-file"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+					</div>
+				</div>
+				<br>
 				<button type="button" id="tao-cau-hoi" class="btn btn-primary">Tạo câu hỏi</button>
+			</div>
+			<div class="them-file-excel inline-block display-none">
+				<div class="hoiluu"></div>
+				<div class="button-them-excel" style="display: flex;justify-content: space-around;">
+					<button type="button" id="trolai" class="btn btn-primary display-none">Trở lại </button>
+					<button type="submit" id="nop" class="btn btn-submit display-none">Hoàn thành </button>
+				</div>
 			</div>
             <div class="question-section inline-block display-none">
                 <div class="row">
@@ -813,10 +872,10 @@ window.onbeforeunload = function(event){
             </div>
             <div class="question-navigation inline-block display-none" style="width:30%;padding: 1% 2% 2% 2%;margin: 2% 0%;vertical-align:top;border-left: 1px solid #c0c0c0;">
                 <div class="user right"></div>
-                <div class="num-wrapper"></div>
+				<div class="num-wrapper"></div>
                 <div class="left" style="margin-top: 20px;">
-                    <button type="button" id="next" class="btn btn-primary next">&#10137;</button>
-                    <button type="submit" id="submit" class="btn btn-submit display-none">Hoàn tất </button>
+					<button type="button" id="next" class="btn btn-primary next">&#10137;</button>
+					<button type="submit" id="submit" class="btn btn-submit display-none">Hoàn tất </button>
                     <img id="submitLoader" src="https://i.imgur.com/urJ99xr.gif"/>
                 </div>
                 <div class="right" style="font-size:16px;margin: 10px 0px;"><a href="#" class="btn-warning submit-answers">Làm thế nào để lưu bài</a></div>
