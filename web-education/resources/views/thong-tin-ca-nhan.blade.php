@@ -95,11 +95,13 @@
                                         Thông tin liên hệ
                                     </a>
                                 </li>
+                                @if(Session::get('loai_tk')==2)
                                 <li>
                                     <a data-toggle="tab" href="#tab4" aria-expanded="false">
                                        Thêm tài khoản ngân hàng
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                             <!-- End Tab Nav -->
                             <!-- Start Tab Content -->

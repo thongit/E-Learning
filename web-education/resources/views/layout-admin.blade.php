@@ -85,7 +85,7 @@
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
-                                    <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
+                                    <li><a href="{{ route('sua')}}"><i class="flaticon-user"></i>My Profile</a></li>
                                     <li><a onclick="logout()" href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                                 <script>
@@ -168,11 +168,11 @@
                             <a href="" class="nav-link"><i class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Đăng ký giảng dạy</span></a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i
+                                    <a href="/admin/ds-giang-vien-ca-nhan" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Danh sách đăng ký cá nhân</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fas fa-angle-right"></i>Danh sách đăng ký tổ chức</a>
+                                    <a href="/admin/ds-giang-vien-to-chuc" class="nav-link"><i class="fas fa-angle-right"></i>Danh sách đăng ký tổ chức</a>
                                 </li>
                             </ul>
                         </li>

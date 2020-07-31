@@ -11,7 +11,9 @@ Route::middleware('auth')->group(function(){
 
     Route::get('admin/ds-hoc-vien','AdminController@getHocVien')->name('admin-ds-hoc-vien');
 
-    Route::get('admin/khoa-hoc/{id}','AdminController@getChuong')->name('lay-chuong');
+    Route::get('admin/chuong/{id}','AdminController@getChuong')->name('lay-chuong');
+
+    Route::get('admin/bai-giang/{id}','AdminController@getBaiGiang')->name('lay-bai-giang');
 
     Route::get('admin/ds-giang-vien','AdminController@getGiangVien')->name('admin-ds-giang-vien');
 
@@ -92,6 +94,8 @@ Route::middleware('auth')->group(function(){
     Route::get('khoa-hoc/video/{id}', 'KhoaHocController@video')->name('video');
 
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
+
+    Route::post('khoa-hoc/video/{id}', 'KhoaHocController@xuLyBinhLuan')->name('xu-ly-binh-luan');
 
     Route::get('giang-vien/quan-ly-don-hang','NguoiDungController@getQuanLyDonHang');
     Route::get('giang-vien/thong-ke/{idKhoaHoc}','NguoiDungController@getThongKeKhoaHoc')->name('thong-ke-khoa-hoc');

@@ -12,6 +12,7 @@ use App\danhgiakh;
 use App\tochuc;
 use App\cthoadon;
 use App\ketquakt;
+use App\thaoluan;
 use Session;
 use Auth;
 
@@ -306,6 +307,20 @@ class KhoaHocController extends Controller
 
     }
 
+    public function xuLyBinhLuan(Request $request,$id)
+    {
+        $nguoi_dung_ids=auth()->user()->id;
+        $thaoluan= new thaoluan();
+        $thaoluan->nguoi_dung_id=$nguoi_dung_ids;
+        $thaoluan->noi_dung=$request->noi_dung;
+        $thaoluan->noi_dung_id=$id;
+
+        $thaoluan->save();
+        return redirect('/khoa-hoc/video/'.$id)->with('thongbao','Bạn đã gửi bình luận cho bài giảng này!');
+    }
+
+    
+
 
 
 
@@ -367,6 +382,8 @@ class KhoaHocController extends Controller
      */
     public function video($id)
     {
+        // $binhluan = thaoluan::where('noi_dung_id','=',$id)->get();
+        // dd($binhluan);
         $video = noidung::find($id);
         $id_nd = session()->get('id_nd');
         if($video == null)
