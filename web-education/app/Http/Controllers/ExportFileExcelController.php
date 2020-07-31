@@ -137,6 +137,42 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
     }
 
     public function export(Request $request){
+        if($request->file('fileExcel')!= null)
+        {
+            $file=$request->file('fileExcel');
+            $filenameWithExt = $request->file('fileExcel')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            $extension = $request->file('fileExcel')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $destinationPath = 'assets/file';
+            $file->move($destinationPath,$fileNameToStore);
+            $baiKiemTra = new baikiemtra();
+            $baiKiemTra->thoi_gian_lam = $request->thoiGianLam;
+            $baiKiemTra->chuong_id = $request->chuong;
+            $baiKiemTra->ten_bai_kt = $request->TenBaiKT;
+            $baiKiemTra->file_de_kt = $request->fileExcel;
+            $baiKiemTra->trang_thai = 1;
+            if($request->hienThiKQ == "HienThi")
+            {
+                $baiKiemTra->hien_thi = 1;
+                $baiKiemTra->lam_lai = 0;
+            }
+            else if($request->hienThiKQ == "LamLai")
+            {
+                $baiKiemTra->hien_thi = 0;
+                $baiKiemTra->lam_lai = 1;
+            }
+            else
+            {
+                $baiKiemTra->hien_thi = 0;
+                $baiKiemTra->lam_lai = 0;
+            }
+            $baiKiemTra->thoi_gian_mo = $request->batDauKT;
+            $baiKiemTra->thoi_gian_dong = $request->ketThucKT;
+            $baiKiemTra->save();
+            return redirect('/khoa-hoc/ds-khoa-hoc-da-tao')->with('success', 'Thêm thành công!');
+        }
+        dd(1);
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
         substr(str_shuffle($permitted_chars), 0, 6);
         $ten_file_bai_kt ='file-kiem-tra' . $request->chuong.substr(str_shuffle($permitted_chars), 0, 6).'.xlsx';
