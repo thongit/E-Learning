@@ -164,6 +164,18 @@
                             <a href="/admin/ds-giang-vien" class="nav-link"><i
                                     class="flaticon-multiple-users-silhouette"></i><span>Giáo Viên</span></a>
                         </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="" class="nav-link"><i class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Đăng ký giảng dạy</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Danh sách đăng ký cá nhân</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fas fa-angle-right"></i>Danh sách đăng ký tổ chức</a>
+                                </li>
+                            </ul>
+                        </li>
                         
                      <!--    <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Acconunt</span></a>

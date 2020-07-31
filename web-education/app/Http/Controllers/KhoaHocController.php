@@ -422,7 +422,11 @@ class KhoaHocController extends Controller
         $dsLinhVuc = linhvuc::all();
 
         $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
-        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
+        if(sizeOf($dsKhoaHoc) <= 0)
+        {
+            return abort('404');
+        }
+        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
     // public function timKiemMucDo(Request $request)
@@ -484,7 +488,8 @@ class KhoaHocController extends Controller
         {
             return abort(404);
         }
-        $listKH = khoahoc::where([['linh_vuc_id', $dsKhoaHoc->linh_vuc_id],['ngon_ngu','=',$dsKhoaHoc->ngon_ngu],])->paginate(3);
+        $listKH = khoahoc::where([['linh_vuc_id', $dsKhoaHoc->linh_vuc_id],['ngon_ngu','=',$dsKhoaHoc->ngon_ngu],])
+        ->whereNotIn('id',[$id])->paginate(3);
         $dsLinhVuc = linhvuc::all()->random(5);
         $danhGia = danhgiakh::where('khoa_hoc_id','=',$id)->get();
         $sao1 = danhgiakh::where([['khoa_hoc_id','=',$id],['so_sao','=',1],])->count();
@@ -525,41 +530,46 @@ class KhoaHocController extends Controller
                 '10' => 0,
             );
         }
-
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
         $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
         return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia','listKH'));
     }
     public function getBaiKiemTra($id)
     {
-        $khoahoc = khoahoc::find($id);
-        if($khoahoc != null)
+        if(auth()->user()->loai_tk == 2)
         {
-            
-            if(sizeof($khoahoc->Chuong) > 0)
+            $khoahoc = khoahoc::where([['id','=',$id],['nguoi_dung_id','=',auth()->user()->id],])->first();
+            if($khoahoc != null)
             {
-                $dsBaiKT[] = null;
-                $i = 0;
-                foreach($khoahoc->Chuong as $baikt)
+                
+                if(sizeof($khoahoc->Chuong) > 0)
                 {
-                    if(sizeof($baikt->baiKiemTra) >0)
+                    $dsBaiKT[] = null;
+                    $i = 0;
+                    foreach($khoahoc->Chuong as $baikt)
                     {
-                        $dsBaiKT[$i] = $baikt->baiKiemTra[0];
-                        $i++;
+                        if(sizeof($baikt->baiKiemTra) >0)
+                        {
+                            $dsBaiKT[$i] = $baikt->baiKiemTra[0];
+                            $i++;
+                        }
                     }
+                    return view('ql-bai-kiem-tra', compact('dsBaiKT','khoahoc'));
                 }
-                return view('ql-bai-kiem-tra', compact('dsBaiKT','khoahoc'));
+                else
+                {
+                    return redirect('khoa-hoc/tao-chuong-cho-khoa-hoc/'.$id);
+                }
             }
             else
             {
-                return redirect('khoa-hoc/tao-chuong-cho-khoa-hoc/'.$id);
+                abort(404);
             }
         }
         else
         {
             abort(404);
         }
-        
     }
 
 }

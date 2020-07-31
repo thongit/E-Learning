@@ -69,11 +69,8 @@
                             </div>
                             <div class="item rating">
                                 <h4>Đánh giá</h4>
+                                {{ $ctDanhGia[5] }}
                                 <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
                                 <span>({{ sizeof($danhGia) }} Đánh giá)</span>
                             </div>
                             <div class="item price">
@@ -144,10 +141,17 @@
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
                                                         <h4 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#ac{{$dschuong->id}}">
+                                                            <a style="display: flex;" data-toggle="collapse" data-parent="#accordion" href="#ac{{$dschuong->id}}">
                                                                 <strong>{{$loop->index +1}}</strong>
                                                                 {{ $dschuong->ten_chuong }}
+                                                                @if($dschuong->baiKiemTra->count() > 0 )
+                                                                <div class="access-type" style="display: flex; right: 40px; position: absolute;">
+                                                                    <img src="{{asset('assets/img/quiz.png')}}" alt="Kiểm tra" style="width:20px;height:20px;">&nbsp Có bài kiểm tra
+                                                                </div>
+                                                                @endif
                                                             </a>
+                                                                
+                                                
                                                         </h4>
                                                     </div>
 
@@ -163,11 +167,14 @@
                                                                             Bài {{$key +1}}.{{$loop->index +1}}
                                                                         </p>
                                                                         <h5>
-                                                                            <a href="#">{{ $dsBai->tieu_de }}</a>
+                                                                            <a href="{{ route('video',$dsBai->id)}}">{{ $dsBai->tieu_de }}</a>
                                                                         </h5>
-                                                                        <div class="access-type">
-                                                                            <img src="{{asset('assets/img/quiz.png')}}" alt="Kiểm tra" style="width:20px;height:20px;">
+                                                                        @if($loop->last && $dsBai->Chuong->baiKiemTra->count() > 0 )
+                                                                        <div class="access-type" style="display: flex;">
+                                                                           <img src="{{asset('assets/img/quiz.png')}}" alt="Kiểm tra" style="width:20px;height:20px;">
+                                                                        &nbsp<a class="lam-gon-ten" href="{{ route('trac-nghiem-excel',$dsBai->Chuong->baiKiemTra[0]->file_de_kt)}}">{{$dsBai->Chuong->baiKiemTra[0]->ten_bai_kt}}</a>
                                                                         </div>
+                                                                        @endif
                                                                     </div>
                                                                     <div class="intro">
                                                                         <div class="item">
@@ -232,12 +239,7 @@
                                     <div class="info title " id="show-danh-gia">
                                         <div class="course-rating-list">
                                             <div class="average-rating">
-                                                <h2>{{ $ctDanhGia[5] }}</h2>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
+                                                <h3 style="font-size: xxx-large; font-weight: 500;">{{ $ctDanhGia[5] }} <i class="fas fa-star"></i></h3>
                                                 <h4>{{ sizeof($danhGia) }} đánh giá</h4>
                                             </div>
                                             <div class="rating-status">
@@ -387,17 +389,19 @@
                                         </a>
                                     </div>
                                     <div class="info">
-                                        <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">Subjects allied to Creative arts and design</a>
+                                        <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">{{ $kh->ten_khoa_hoc }}</a>
                                         <label>{{number_format($kh->gia)}} VNĐ</label>
                                         <div class="meta">
                                             
                                             <div class="rating">
+                                            @if($kh->danhGiaKH->count() != 0)
+                                                {{ round( ($kh->danhGiaKH->sum('so_sao') / $kh->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
+                                            @else
+                                                0
+                                            @endif
                                                 <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
                                             </div>
+                                            ( {{$kh->danhGiaKH->count()}} đánh giá)
                                         </div>
                                     </div>
                                 </li>

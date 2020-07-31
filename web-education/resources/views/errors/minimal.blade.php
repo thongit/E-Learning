@@ -157,6 +157,9 @@
                      <div class="col-md-6 link text-right">
                         <ul>
                             <li>
+                                <a href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('dang-nhap')}}">Đăng nhập</a>
                             </li>
                             <li>
@@ -170,6 +173,9 @@
                         <ul>
                             @if(Session::get('loai_tk')==1)
                             <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
+                            @endif
+                            @if(Session::get('loai_tk')==2)
+                            <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a></li>
                             @endif
                             <li>
                             <a id="trang_cn" href="{{ route('sua')}}">{{ Session::get('ho_ten') }}</a>
@@ -190,10 +196,10 @@
                                 cancelButtonText:'Không'
                                 }).then((result) => {
                                 if (result.value) {
-                                    open("{{ route('dang-xuat') }}","_self") 
+                                    open("{{ route('dang-xuat') }}","_self")
                                 }
-                        })
-                            };
+                            })
+                        };
                         </script>
                     </div>
                     @endif

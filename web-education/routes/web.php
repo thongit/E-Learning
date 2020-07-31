@@ -1,6 +1,13 @@
 <?php
 
 Route::middleware('auth')->group(function(){
+    Route::get('admin/ds-giang-vien-ca-nhan','AdminController@getGiangVienCaNhan')->name('admin-ds-giang-vien-ca-nhan');
+
+    Route::get('admin/ds-giang-vien-ca-nhan/{id}','AdminController@postGiangVienCaNhan')->name('admin-duyet-giang-vien-ca-nhan');
+
+    Route::get('admin/ds-giang-vien-to-chuc','AdminController@getGiangVienToChuc')->name('admin-ds-giang-vien-to-chuc');
+
+    Route::get('admin/ds-giang-vien-to-chuc/{id}','AdminController@postGiangVienToChuc')->name('admin-duyet-giang-vien-to-chuc');
 
     Route::get('admin/ds-hoc-vien','AdminController@getHocVien')->name('admin-ds-hoc-vien');
 
@@ -99,7 +106,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
 
-    Route::get('admin/thong-ke','AdminController@getThongKe');
+    Route::get('admin/thong-ke','AdminController@getThongKe')->name('thong-ke');
 
     Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
 
@@ -114,6 +121,8 @@ Route::middleware('auth')->group(function(){
     Route::get('kich-hoat-khoa-hoc','CTHoaDonController@hienThiKichHoat')->name('form-kich-hoat');
 
     Route::post('kich-hoat-khoa-hoc','CTHoaDonController@postKichHoatKhoaHoc')->name('xu-ly-kich-hoat-kh');
+
+
 
 });
 
