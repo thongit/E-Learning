@@ -27,7 +27,7 @@ class CTHoaDonController extends Controller
         else
         {
             $updateTrangThai = cthoadon::where('ma_kich_hoat','=',$maKichHoat->ma_kich_hoat)->first();
-            $updateTrangThai->trang_thai=3;
+            $updateTrangThai->trang_thai = 2;
             $updateTrangThai->save();
             return redirect('kich-hoat-khoa-hoc')->with('success', 'Bạn đã Kích hoạt khóa học thành công!');
         }

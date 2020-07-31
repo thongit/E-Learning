@@ -59,7 +59,7 @@
         <div class="top-bar-area bg-dark inc-border text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 address-info text-left">
+                    <div class="col-md-2 address-info text-left">
                         <div class="info">
 <!--                             <ul>
                                 <li>
@@ -90,7 +90,7 @@
                     </div>
                     @endif
                     @if(Session::get('ho_ten')!= null)
-                    <div class="col-md-8 link text-right">
+                    <div class="col-md-10 col-xl-10 col-lg-10 link text-right">
                         <ul>
                             <li>
                                 <a href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
