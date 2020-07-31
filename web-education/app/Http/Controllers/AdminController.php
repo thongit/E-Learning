@@ -7,6 +7,7 @@ use App\khoahoc;
 use App\linhvuc;
 use App\chuong;
 use App\hoadon;
+use App\tochuc;
 use App\cthoadon;
 use App\nguoidung;
 use App\noidung;
@@ -84,6 +85,81 @@ class AdminController extends Controller
         {
             $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get();
             return view('ds-hoc-vien-admin',compact('danhSachNguoiDung'));
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function getGiangVienCaNhan()
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachGiangVienCaNhan=DB::table('nguoi_dung')->where('loai_tk',1)->where('trang_thai',2)->get();
+            return view('ds-dang-ky-giang-vien-ca-nhan',compact('danhSachGiangVienCaNhan'));
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+     public function postGiangVienCaNhan($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $nguoidungs=nguoidung::find($id);
+            if($nguoidungs->trang_thai==2)
+            {
+                $nguoidungs->trang_thai=1;
+                $nguoidungs->loai_tk=2;
+                $nguoidungs->save();
+            }
+            else
+            {
+                $nguoidungs->save();
+            }
+            return redirect()->back()->with('message', 'Status changed!');
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function getGiangVienToChuc()
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+        $danhSachGiangVienToChuc=DB::table('to_chuc')->where('trang_thai',2)->get();
+            return view('ds-dang-ky-giang-vien-to-chuc',compact('danhSachGiangVienToChuc'));
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function postGiangVienToChuc($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $tochucs=tochuc::find($id);
+            $nguoidungs=nguoidung::where('id',$tochucs->nguoi_dung_id)->first();
+            if($tochucs->trang_thai==2)
+            {
+                $nguoidungs->trang_thai=1;
+                $nguoidungs->loai_tk=2;
+                $nguoidungs->update();
+                $tochucs->trang_thai=1;
+                $tochucs->save();
+            }
+            else
+            {
+                $tochucs->save();
+            }
+            return redirect()->back()->with('message', 'Status changed!');
         }
         else
         {
