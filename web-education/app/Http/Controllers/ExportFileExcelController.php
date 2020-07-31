@@ -172,7 +172,6 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             $baiKiemTra->save();
             return redirect('/khoa-hoc/ds-khoa-hoc-da-tao')->with('success', 'Thêm thành công!');
         }
-        dd(1);
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
         substr(str_shuffle($permitted_chars), 0, 6);
         $ten_file_bai_kt ='file-kiem-tra' . $request->chuong.substr(str_shuffle($permitted_chars), 0, 6).'.xlsx';
@@ -239,6 +238,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
    public function docDuLieu($tenFile)
     {
         $id_nd = session()->get('id_nd');
+        
         $chuong = baikiemtra::where('file_de_kt','=',$tenFile)->first();
         if($chuong != null)
         {
@@ -249,11 +249,16 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             foreach($hoaDon as $hd)
             {
                 $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
+                if($ct_hoadon!=null)
+                {
+                    break;
+                }
             }
             if($kiemtra == null)
             {
-                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2)
                 {
+                    
                     setlocale(LC_TIME, 'vi_VN');
                     Carbon::setLocale('vi');
                     $now = Carbon::now();
@@ -296,7 +301,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             }
             else if($chuong->lam_lai == 1 && $lamlai == null)
             {
-                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2)
                 {
                     setlocale(LC_TIME, 'vi_VN');
                     Carbon::setLocale('vi');

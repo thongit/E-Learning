@@ -390,6 +390,10 @@ class KhoaHocController extends Controller
         {
             abort(404);
         }
+        if($video->Chuong->khoaHoc->ctHoaDon->count() == 0)
+        {
+            return abort(404);
+        }
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
         {
             if( $dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
