@@ -94,7 +94,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
 
-    Route::get('admin/thong-ke','AdminController@getThongKe');
+    Route::get('admin/thong-ke','AdminController@getThongKe')->name('thong-ke');
 
     Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
 
@@ -145,8 +145,6 @@ Route::get('quen-mat-khau', function () {
 Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');
-    //Lấy lĩnh vực
-    Route::get('/linh-vuc/{id}', 'KhoaHocController@hienThiLinhVuc')->name('lay-linh-vuc');
     //trang khóa học
     Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
     //Hiển thị tìm kiếm
