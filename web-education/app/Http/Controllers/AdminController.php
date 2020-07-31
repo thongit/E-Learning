@@ -20,15 +20,51 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getThongKe()
+    public function getThongKe(Request $request)
     {
         $danhSachKhoaHoc=khoahoc::count();
         $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
         $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
-        $slHocVienThang = nguoidung::whereMonth('created_at', Carbon::now())->count();
-        $tongHocVien = nguoidung::all();
-        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang','tongHocVien'));
-        
+
+        //Hiển thị tháng năm
+        $hienThiThang = $request->bdaymonth;
+
+        if($hienThiThang == null)
+        {
+    
+        //Thống kê học viên đăng kí trong tháng
+        $slHocVienThang = nguoidung::whereMonth('created_at',Carbon::now())
+                                    ->whereYear('created_at',Carbon::now())->where('loai_tk','=',1)->count();
+
+        //Thống kê giảng viên đăng kí trong tháng
+        $slGiangVienThang = nguoidung::whereMonth('created_at',Carbon::now())
+        ->whereYear('created_at',Carbon::now())->where('loai_tk','=',2)->count();
+
+        //Thống kê doanh thu theo tháng admin
+        $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
+
+        }
+        else{
+        //Thống kê học viên đăng kí trong tháng
+        $slHocVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',1]])->count();
+
+        //Thống kê giảng viên đăng kí trong tháng
+        $slGiangVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',2]])->count();
+
+        //Thống kê doanh thu theo tháng admin
+        $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
+
+
+        }
+
+        //THống kê tổng doanh thu admin
+        $tongDoanhThuAd = hoadon::sum('tong_tien')*0.1;
+
+        //Tổng số học viên
+        $tongHocVien = nguoidung::where('loai_tk','=',1)->count();;
+
+        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang', 'slGiangVienThang','tongHocVien','doanhThuThangAd','tongDoanhThuAd','hienThiThang'));
+
         if(auth()->user()->loai_tk == 3)
         {
             $danhSachKhoaHoc=khoahoc::count();
@@ -41,6 +77,7 @@ class AdminController extends Controller
             abort(401);
         }
     }
+
     public function getHocVien()
     {
         if(auth()->user()->loai_tk == 3)

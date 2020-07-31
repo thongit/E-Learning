@@ -405,7 +405,11 @@ class KhoaHocController extends Controller
         $dsLinhVuc = linhvuc::all();
 
         $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
-        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
+        if(sizeOf($dsKhoaHoc) <= 0)
+        {
+            return abort('404');
+        }
+        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
     // public function timKiemMucDo(Request $request)

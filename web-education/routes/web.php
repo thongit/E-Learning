@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('tro-thanh-to-chuc','NguoiDungController@postTroThanhToChuc')->name('thanh-to-chuc');
 
-    Route::get('admin/thong-ke','AdminController@getThongKe');
+    Route::get('admin/thong-ke','AdminController@getThongKe')->name('thong-ke');
 
     Route::get('admin/thong-ke-doanh-thu','AdminController@thongKeDoanhThuKH');
 
