@@ -85,7 +85,7 @@
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
-                                    <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
+                                    <li><a href="{{ route('sua')}}"><i class="flaticon-user"></i>My Profile</a></li>
                                     <li><a onclick="logout()" href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                                 <script>

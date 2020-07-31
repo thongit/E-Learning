@@ -282,7 +282,7 @@
                                     <figure class="thumbnail">
                                         <img class="img-responsive" src="{{ asset('assets/images/'.$dg->nguoiDung->anh_dai_dien) }}" />
                                         
-                                        
+
                                     </figure>
                                     </div>
                                     <div class="col-md-10 col-sm-10">
