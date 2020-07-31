@@ -47,16 +47,16 @@
                                 <div class="meta">
                                     <ul>
                                         <li>
-                                            <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                            <a class="lam-gon-ten" style="display: -webkit-box" href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">@if($khoaHoc->nguoiDung->toChuc->count() > 0) {{ $khoaHoc->nguoiDung->toChuc[0]->ten_to_chuc }} @else {{ $khoaHoc->giangVien->ho_ten }} @endif</a>
                                             
                                         </li>
                                         <li>
+                                            @if($khoaHoc->danhGiaKH->count() != 0)
+                                                {{ round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
+                                            @else
+                                                0
+                                            @endif
                                             <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            
                                         </li>
                                         
                                     </ul>
@@ -65,7 +65,7 @@
                                             <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
                                         </li>
                                         <li>
-                                            <span>({{$khoaHoc->danhGiaKH->count()}}) Đánh giá</span>
+                                            <span>({{$khoaHoc->danhGiaKH->count()}} đánh giá)</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -77,7 +77,7 @@
                                 </p>
                                 <div class="footer-meta">
                                     <a class="btn btn-theme effect btn-sm" href="#">Mua Ngay</a>
-                                    <h4>{{ number_format($khoaHoc->gia) }} VNĐ</h4>
+                                    <h4>@if($khoaHoc->gia != 0){{ number_format($khoaHoc->gia) }} VNĐ @else Miễn phí @endif</h4>
                                 </div>
                             </div>
                         </div>

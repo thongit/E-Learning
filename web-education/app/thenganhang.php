@@ -10,6 +10,6 @@ class thenganhang extends Model
 
      public function nguoiDung()
      {
-          return $this->belongsTo('App\nguoidung');
+          return $this->belongsTo('App\nguoidung','nguoi_dung_id');
      }
 }

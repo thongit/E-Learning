@@ -54,7 +54,7 @@ class KhoaHocController extends Controller
 
     public function hienThiKhoaHoc()
     {
-        $dsKhoaHoc = khoahoc::all();
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->get();
         $dsLinhVuc = linhvuc::all();
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
@@ -390,13 +390,9 @@ class KhoaHocController extends Controller
         {
             abort(404);
         }
-        if($video->Chuong->khoaHoc->ctHoaDon->count() == 0)
-        {
-            return abort(404);
-        }
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
         {
-            if( $dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
+            if( ($dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2) || $video->Chuong->khoaHoc->nguoi_dung_id == $id_nd)
             {
                 if(sizeof($video->Chuong->baiKiemTra) >0)
                 {
@@ -487,7 +483,7 @@ class KhoaHocController extends Controller
 
     public function hienThiChiTietKhoaHoc($id)
     {
-        $dsKhoaHoc = khoahoc::where('id', $id)->first();
+        $dsKhoaHoc = khoahoc::where([['id','=', $id],['trang_thai','=',3]])->first();
         if($dsKhoaHoc == null)
         {
             return abort(404);

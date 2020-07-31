@@ -75,7 +75,7 @@
                             </div>
                             <div class="item price">
                                 <h4>Giá</h4>
-                                <span>{{ number_format($dsKhoaHoc->gia) }} VNĐ</span>
+                                <span>@if($dsKhoaHoc->gia != 0) {{ number_format($dsKhoaHoc->gia) }} VNĐ @else Miễn phí @endif</span>
                             </div>
                             <div class="align-right">
                                 <a class="btn btn-theme effect btn-sm" href="#">
@@ -390,7 +390,7 @@
                                     </div>
                                     <div class="info">
                                         <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">{{ $kh->ten_khoa_hoc }}</a>
-                                        <label>{{number_format($kh->gia)}} VNĐ</label>
+                                        <label>@if($kh->gia != 0) {{ number_format($kh->gia) }} VNĐ @else Miễn phí @endif</label>
                                         <div class="meta">
                                             
                                             <div class="rating">

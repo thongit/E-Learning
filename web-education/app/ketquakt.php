@@ -12,11 +12,11 @@ class ketquakt extends Model
 
      public function baiKiemTra()
      {
-          return $this->belongsTo('App\baikiemtra');
+          return $this->belongsTo('App\baikiemtra','bai_kiem_tra_id');
      }
 
      public function nguoiDung()
      {
-          return $this->belongsTo('App\nguoidung');
+          return $this->belongsTo('App\nguoidung','nguoi_dung_id');
      }
 }
