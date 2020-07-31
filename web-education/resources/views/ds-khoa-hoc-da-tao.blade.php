@@ -1,7 +1,18 @@
 @extends('layout')
 <title>EDUQTTT - Quản lý khóa học</title>
 @section('content')
+@if (session('warning'))
+    <script>
+        swal.fire("{{ session('warning') }}","","warning")
+    </script>
+@endif
+@if (session('success'))
+    <script>
+        swal.fire("{{ session('success') }}","","success")
+    </script>
+@endif
 @include('header')
+
     <!-- Start Breadcrumb
     ============================================= -->
     <div class="container" style="font-size: large;">

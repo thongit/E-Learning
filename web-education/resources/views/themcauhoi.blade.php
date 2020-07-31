@@ -298,9 +298,9 @@ $(document).ready(function(){
 		{
 			swal.fire("Bạn chưa nhập thời gian làm bài","" , "error")
 		}
-		else if(document.getElementById("thoiGianLam").value <1 || document.getElementById("thoiGianLam").value>180)
+		else if(document.getElementById("thoiGianLam").value <10 || document.getElementById("thoiGianLam").value>180)
 		{
-			swal.fire("Thời gian làm trong khoảng từ 1 đến 180 phút!","" , "error")
+			swal.fire("Thời gian làm trong khoảng từ 10 đến 180 phút!","" , "error")
 		}
 		else
 		{

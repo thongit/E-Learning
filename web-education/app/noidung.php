@@ -11,4 +11,9 @@ class noidung extends Model
     {
         return $this->belongsTo('App\chuong','chuong_id');
     }
+
+    public function thaoLuan()
+   {
+      return $this->hasMany('App\thaoluan','noi_dung_id');
+   }
 }

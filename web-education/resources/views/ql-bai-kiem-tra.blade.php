@@ -5,7 +5,12 @@
     <script>
         swal.fire("{{ session('success') }}","","success")
     </script>
-    @endif
+@endif
+@if (session('success'))
+    <script>
+        swal.fire("{{ session('success') }}","","success")
+    </script>
+@endif
 @include('header')
 <!-- Start Breadcrumb
     ============================================= -->
@@ -45,22 +50,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dsBaiKT as $baiKT)
+                            @for ($i = 0; $i< sizeof($dsBaiKT); $i++)
                             <tr>
-                                <td>{{$loop->index +1}}</td>
-                                <td>{{$baiKT->Chuong->ten_chuong}} </td>
-                                <td>{{$baiKT->ten_bai_kt}}</td>
+                                <td>{{$i +1}}</td>
+                                <td> {{$dsBaiKT[$i]->Chuong->ten_chuong}} </td>
+                                <td>{{$dsBaiKT[$i]->ten_bai_kt}}</td>
                                 <td>
-                                    <button onclick="xoa({{$baiKT->id}})" type="button" class="btn btn-danger btn-sm">Xóa</button>
+                                    <button onclick="xoa({{$dsBaiKT[$i]->id}})" type="button" class="btn btn-danger btn-sm">Xóa</button>
                                 </td>
                                 <td>
-                                    <button onclick="sua({{$baiKT->Chuong->id}})" type="button" class="btn btn-primary btn-sm">Sửa</button>
+                                    <button onclick="sua({{$dsBaiKT[$i]->id }})" type="button" class="btn btn-primary btn-sm">Sửa</button>
                                 </td>
                                 <td>
-                                    <button onclick="xuat({{ $baiKT->id }})" type="button" class="btn btn-info btn-sm" >Xuất file</button>
+                                    <button onclick="xuat({{$dsBaiKT[$i]->id}})" type="button" class="btn btn-info btn-sm" >Xuất file</button>
                                 </td>
                             </tr>
-                            @endforeach
+                            @endfor
                         </tbody>
                     </table>
                     </div>
@@ -75,7 +80,7 @@
 <script>
 function xoa($id) {
     Swal.fire({
-    title: 'Bạn có chắc muốn xóa?',
+    title: 'Xóa bài kiểm tra sẽ xóa hết các bài làm của học viên trong bài kiểm tra này! Bạn có chắc chắn xóa?',
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',

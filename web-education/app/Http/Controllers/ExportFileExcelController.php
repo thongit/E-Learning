@@ -32,8 +32,28 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             $khoaHoc = khoahoc::where([['nguoi_dung_id','=',$id_nd],['id', '=', $id],])->first();
             if($khoaHoc != null)
             {
-                $chuong = chuong::where('khoa_hoc_id','=',$id)->get();
-                return view('themcauhoi', compact('khoaHoc', 'chuong'));
+                if(sizeof($khoaHoc->Chuong) > 0)
+                {
+                    $dsBaiKT[] = null;
+                    $i = 0;
+                    foreach($khoaHoc->Chuong as $baikt)
+                    {
+                        if(sizeof($baikt->baiKiemTra) >0)
+                        {
+                            $dsBaiKT[$i] = $baikt->baiKiemTra[0]->chuong_id;
+                            $i++;
+                        }
+                    }
+                    $chuong = DB::table('chuong')
+                        ->where('khoa_hoc_id', '=', $id)
+                        ->whereNotIn('id',$dsBaiKT)
+                        ->get();
+                    if(sizeof($chuong) == 0)
+                    {
+                        return redirect('/khoa-hoc/ds-khoa-hoc-da-tao')->with('warning', 'Không thể thêm bài kiểm tra. Mỗi chương trong khóa học này đều đã có bài kiểm tra!');
+                    }
+                    return view('themcauhoi', compact('khoaHoc', 'chuong'));
+                }
             }
             else
             {
@@ -145,7 +165,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $baiKiemTra->thoi_gian_mo = $request->batDauKT;
         $baiKiemTra->thoi_gian_dong = $request->ketThucKT;
         $baiKiemTra->save();
-        return redirect()->back()->with('success', 'Thêm thành công!');
+        return redirect('/khoa-hoc/ds-khoa-hoc-da-tao')->with('success', 'Thêm thành công!');
    }
 
    public function edit(Request $request){
@@ -340,7 +360,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         {
             abort(404);
         }
-
+        $kqkt = ketquakt::where('bai_kiem_tra_id','=',$id)->delete();
         $file_name->delete();
         return redirect()->back()->with('success', 'Đã xóa bài kiểm tra!');
     }

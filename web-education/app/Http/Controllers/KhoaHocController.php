@@ -518,11 +518,18 @@ class KhoaHocController extends Controller
         $khoahoc = khoahoc::find($id);
         if($khoahoc != null)
         {
+            
             if(sizeof($khoahoc->Chuong) > 0)
             {
+                $dsBaiKT[] = null;
+                $i = 0;
                 foreach($khoahoc->Chuong as $baikt)
                 {
-                    $dsBaiKT = $baikt->baiKiemTra;
+                    if(sizeof($baikt->baiKiemTra) >0)
+                    {
+                        $dsBaiKT[$i] = $baikt->baiKiemTra[0];
+                        $i++;
+                    }
                 }
                 return view('ql-bai-kiem-tra', compact('dsBaiKT','khoahoc'));
             }

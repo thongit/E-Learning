@@ -26,10 +26,10 @@
         <div class="row">
             <div class="about-items">
                 <div class="about-info">
-                    <h2>Xin Chào ! <span>Chúng tôi là Educom</span></h2>
+                    <h2>Xin Chào ! <span>Chúng tôi là EDUQTTT</span></h2>
                     <blockquote>
-                        Educom tự hào là "siêu thị" các khóa học trực tuyến ngắn hạn lớn nhất Đông Nam Á với hàng nghìn khóa học thuộc mọi lĩnh vực, đội ngũ giảng viên chuyên nghiệp, giàu kinh nghiệm và mạng lưới học viên rộng khắp cả nước. Educom - nơi bạn học mọi kĩ năng làm chủ tương <br>
-                        Educom - Sự lựa chọn cho mọi lứa tuổi, kỹ năng và trình độ<br>
+                        EDUQTTT tự hào là "siêu thị" các khóa học trực tuyến ngắn hạn lớn nhất Đông Nam Á với hàng nghìn khóa học thuộc mọi lĩnh vực, đội ngũ giảng viên chuyên nghiệp, giàu kinh nghiệm và mạng lưới học viên rộng khắp cả nước. Educom - nơi bạn học mọi kĩ năng làm chủ tương <br>
+                        EDUQTTT - Sự lựa chọn cho mọi lứa tuổi, kỹ năng và trình độ<br>
                         Phương pháp sư phạm LIPE<br>
                         Trải nghiệm học tập không giới hạn<br>
                         Mua một lần học trọn đời<br>
