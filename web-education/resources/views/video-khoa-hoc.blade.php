@@ -1,43 +1,15 @@
 @extends('layout')
-<title>EDUQTTT - Bài giảng</title>
 @section('content')
 @include('header')
-<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
-<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-
 @if (session('alerterror'))
     <script>
         swal.fire("{{ session('alerterror') }}","","error")
     </script>
 @endif
-@if (session('thongbao'))
-    <script>
-        swal.fire("{{ session('thongbao') }}","","success")
-    </script>
-    @endif
 
     <!-- Start Breadcrumb
     ============================================= -->
-    <!-- <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="{{ route('sua') }}">Thông tin cá nhân</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-    </div> -->
-    <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a  onclick="goBack()" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="">{{ $video->tieu_de }}</a>
-    </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12" style="">
-                    <h2>{{ $video->tieu_de }}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -45,12 +17,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
-    <script>
-function goBack() {
-  window.history.back()
-}
-</script>
+    </div>
     <!-- End Breadcrumb -->
 
     <!-- Start Blog
@@ -96,39 +63,34 @@ function goBack() {
                         @endif
                     </ul>
                     </div>
-                    <form action="{{ route('xu-ly-binh-luan',$video->id)}}" id="login-form" method="POST" class="white-popup-block">
-                    @csrf
                     <div class="form-group">
                       <label for="usr">Bình luận</label>
-                      <input type="text" class="form-control" id="noi_dung" name="noi_dung" required>
+                      <input type="text" class="form-control" id="usr">
                       <button type="submit" class="btn btn-primary">
                           Gửi bình luận
                       </button>
                     </div>
-                    </form>
-                    @foreach($video->thaoLuan as $bl)
                     <article class="row">
                         <div class="col-md-2 col-sm-2 hidden-xs">
                             <figure class="thumbnail">
-                                <img class="img-responsive" src="{{ asset('assets/images/'.$bl->nguoiDung->anh_dai_dien) }}" />
+                                <img class="img-responsive" src="https://hinhanhdephd.com/wp-content/uploads/2015/12/hinh-anh-dep-girl-xinh-hinh-nen-dep-gai-xinh.jpg" />
                             </figure>
                             </div>
                             <div class="col-md-10 col-sm-10">
                             <div class="panel panel-default arrow left">
                                 <div class="panel-body">
-                                    <h4>{{$bl->nguoiDung->ho_ten}}</h4>
+                                    <h4>Nguyễn văn a</h4>
                                 <header class="text-left">
-                                    <time class="comment-date">{{$bl->created_at->diffForHumans()}}
+                                    <time class="comment-date">2 ngày trước
                                         <i class="fa fa-clock-o"></i></time>
                                 </header>
                                 <div class="comment-post">
-                                    <label for="">{{$bl->noi_dung}}</label>
+                                    <label for="">Video quá hay</label>
                                 </div>
                                 </div>
                             </div>
                         </div>
                     </article>
-                    @endforeach
                 </div>
                 @foreach($video->Chuong->noiDung as $key => $chuong)
                 <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">

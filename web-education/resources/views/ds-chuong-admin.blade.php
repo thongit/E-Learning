@@ -20,25 +20,6 @@
                         <h3>Tất cả khóa học</h3>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table data-table text-nowrap">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Tên chương</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($chuongs as $item)
-                            <tr>
-                                <td></td>
-                                <td><a href="/admin/bai-giang/{{$item->id}}">{{$item->ten_chuong}}</a></td>
-                            </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
                 <div>
                 </div>
             </div>

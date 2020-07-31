@@ -6,11 +6,11 @@ use Carbon\Carbon;
 use App\khoahoc;
 use App\linhvuc;
 use App\chuong;
-use App\noidung;
 use App\hoadon;
 use App\tochuc;
 use App\cthoadon;
 use App\nguoidung;
+use App\noidung;
 use Session;
 use Auth;
 
@@ -172,21 +172,8 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $chuongs=chuong::where('khoa_hoc_id',$id)->get();
+            $chuongs=chuong::find($id);
             return view('ds-chuong-admin',['chuongs'=>$chuongs]);
-        }
-        else
-        {
-            abort(401);
-        }
-    }
-
-    public function getBaiGiang($id)
-    {
-        if(auth()->user()->loai_tk == 3)
-        {
-            $baigiangs=noidung::where('chuong_id',$id)->get();
-            return view('ds-bai-giang-admin',['baigiangs'=>$baigiangs]);
         }
         else
         {
