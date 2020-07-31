@@ -92,6 +92,9 @@
                     @if(Session::get('ho_ten')!= null)
                     <div class="col-md-8 link text-right">
                         <ul>
+                            <li>
+                                <a href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
+                            </li>
                             @if(Session::get('loai_tk')==1)
                             <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
                             @endif
