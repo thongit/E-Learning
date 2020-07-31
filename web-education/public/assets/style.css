@@ -5814,15 +5814,6 @@ footer .footer-bottom .link li a {
     overflow: visible;
 }
 
-.lam-gon-ten{
-  width: 170px;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  display: -webkit-box;
-}
-
 .mg-tim-kiem-nc{
     margin-top: 5%;
     margin-left: 24%;
