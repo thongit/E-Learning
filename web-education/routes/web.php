@@ -11,7 +11,9 @@ Route::middleware('auth')->group(function(){
 
     Route::get('admin/ds-hoc-vien','AdminController@getHocVien')->name('admin-ds-hoc-vien');
 
-    Route::get('admin/khoa-hoc/{id}','AdminController@getChuong')->name('lay-chuong');
+    Route::get('admin/chuong/{id}','AdminController@getChuong')->name('lay-chuong');
+
+    Route::get('admin/bai-giang/{id}','AdminController@getBaiGiang')->name('lay-bai-giang');
 
     Route::get('admin/ds-giang-vien','AdminController@getGiangVien')->name('admin-ds-giang-vien');
 
