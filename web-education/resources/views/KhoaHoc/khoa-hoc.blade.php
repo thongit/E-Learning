@@ -6,7 +6,7 @@
     <!-- Start Breadcrumb
     ============================================= -->
     <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
         <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
@@ -34,7 +34,7 @@
                             <div class="thumb">
                                 <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
                                 <div class="overlay">
-                                    <a href="#">
+                                    <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">
                                         <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                     </a>
                                     <ul>
@@ -48,7 +48,7 @@
                                     <ul>
                                         <li>
                                             <a class="lam-gon-ten" style="display: -webkit-box;" href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">@if($khoaHoc->nguoiDung->toChuc->count() > 0) {{ $khoaHoc->nguoiDung->toChuc[0]->ten_to_chuc }} @else {{ $khoaHoc->giangVien->ho_ten }} @endif</a>
-                                            
+
                                         </li>
                                         <li>
                                             @if($khoaHoc->danhGiaKH->count() != 0)
@@ -58,7 +58,7 @@
                                             @endif
                                             <i class="fas fa-star"></i>
                                         </li>
-                                        
+
                                     </ul>
                                     <ul>
                                         <li>
