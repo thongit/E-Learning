@@ -384,7 +384,7 @@ class KhoaHocController extends Controller
     {
         // $binhluan = thaoluan::where('noi_dung_id','=',$id)->get();
         // dd($binhluan);
-        $tienDo = 1;
+        $tienDo = 0;
         $video = noidung::find($id);
         $id_nd = session()->get('id_nd');
         if($video == null)
@@ -403,6 +403,7 @@ class KhoaHocController extends Controller
                 $kiemtra = null;
                 $kiemtra1 = null;
             }
+            $tienDo = 1;
             return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo'));
         }
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
@@ -410,9 +411,9 @@ class KhoaHocController extends Controller
             if($dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
             {
                 $td = explode('_', $dshv->tien_do);
-                if(($td[0] < $video->Chuong->id) || ($td[0] = $video->Chuong->id && $td[1] < $video->id))
+                if(($td[0] > $video->Chuong->id) || ($td[0] = $video->Chuong->id && $td[1] >= $video->id))
                 {
-                    $tienDo = 0;
+                    $tienDo = 1;
                 }
                 if(sizeof($video->Chuong->baiKiemTra) >0)
                 {
@@ -503,7 +504,6 @@ class KhoaHocController extends Controller
 
     public function hienThiChiTietKhoaHoc($id)
     {
-        $id_nd = auth()->user()->id;
         $dsKhoaHoc = khoahoc::where([['id','=', $id],['trang_thai','=',3]])->first();
         if($dsKhoaHoc == null)
         {
@@ -553,13 +553,17 @@ class KhoaHocController extends Controller
         }
         $kiemtra = 0;
         $td = null;
-        foreach($dsKhoaHoc->ctHoaDon as $ct)
+        if(auth()->user())
         {
-            if($ct->hoaDon->nguoi_dung_id == $id_nd)
+            $id_nd = auth()->user()->id;
+            foreach($dsKhoaHoc->ctHoaDon as $ct)
             {
-                $td = explode('_', $ct->tien_do);
-                $kiemtra = 1;
-                break;
+                if($ct->hoaDon->nguoi_dung_id == $id_nd && $ct->trang_thai == 2)
+                {
+                    $td = explode('_', $ct->tien_do);
+                    $kiemtra = 1;
+                    break;
+                }
             }
         }
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();

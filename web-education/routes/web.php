@@ -125,8 +125,11 @@ Route::middleware('auth')->group(function(){
 
     Route::post('kich-hoat-khoa-hoc','CTHoaDonController@postKichHoatKhoaHoc')->name('xu-ly-kich-hoat-kh');
 
+    Route::get('thanh-toan/{id}','CTHoaDonController@thanhToan')->name('thanh-toan');
 
+    Route::post('xu-ly-thanh-toan','CTHoaDonController@create')->name('xl-thanh-toan');
 
+    Route::get('return-vnpay','CTHoaDonController@return')->name('return-pay');
 });
 
 
@@ -136,10 +139,6 @@ Route::get('giang-vien/{id}', 'KhoaHocController@chiTietGiangVien')->name('chi-t
 
 Route::get('thong-tin-giang-vien', function () {
     return view('thong-tin-giang-vien');
-});
-
-Route::get('thanh-toan', function () {
-    return view('thanh-toan');
 });
 
 Route::get('/lien-he', function () {

@@ -28,8 +28,16 @@
             </div>
         </div>
     </div>
-
-
+    @if (session('success'))
+    <script>
+        swal.fire("{{ session('success') }}","","success")
+    </script>
+    @endif
+    @if (session('error'))
+    <script>
+        swal.fire("{{ session('error') }}","","error")
+    </script>
+    @endif
     @if (session('thongbao'))
     <script>
         swal.fire("{{ session('thongbao') }}","","success")
@@ -83,7 +91,7 @@
                             </div>
                            @if($kiemtra == 0)
                             <div class="align-right">
-                                <a class="btn btn-theme effect btn-sm" href="#">
+                                <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$dsKhoaHoc->id)}}">
                                 <i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh
                                 </a>
                             </div>

@@ -8,6 +8,12 @@
     </script>
 @endif
 
+@if (session('success'))
+    <script>
+        swal.fire("{{ session('success') }}","","success")
+    </script>
+@endif
+
 @include('header')
   <!-- Start Banner
     ============================================= -->
