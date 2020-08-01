@@ -1,4 +1,5 @@
 <?php
+Route::get('download/file-huong-dan', 'DownloadsController@downloadhd');
 
 Route::middleware('auth')->group(function(){
     Route::get('admin/ds-giang-vien-ca-nhan','AdminController@getGiangVienCaNhan')->name('admin-ds-giang-vien-ca-nhan');
@@ -140,7 +141,6 @@ Route::get('thanh-toan', function () {
     return view('thanh-toan');
 });
 
-
 Route::get('/lien-he', function () {
     return view('lien-he');
 });
@@ -148,7 +148,6 @@ Route::get('/lien-he', function () {
 Route::get('/thong-tin-ca-nhan', function () {
     return view('thong-tin-ca-nhan');
 });
-
 
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
@@ -184,11 +183,15 @@ Route::post('dang-ky','NguoiDungController@xuLyDangKy')->name('xu-ly-dang-ky');
 Route::post('mail/send','NguoiDungController@xuLyQuenMatKhau')->name('xu-ly-quen-mat-khau');
 
 Route::get('doi-mat-khau','NguoiDungController@doiMatKhau')->name('doi-mat-khau');
+
 Route::get('thong-tin-ca-nhan','NguoiDungController@getSua')->name('sua');
+
 Route::post('thong-tin-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua');
 
 Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
+
 Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->name('xu-ly-doi-mat-khau-trang-ca-nhan');
+
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
 
 ?>

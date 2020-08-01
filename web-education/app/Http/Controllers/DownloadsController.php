@@ -27,6 +27,11 @@ class DownloadsController extends Controller
         return abort(404);
     }
 
+    public function downloadhd() {
+        $file_path = public_path('assets\\file\\huong_dan_excel.xlsx');
+        return response()->download($file_path);
+    }
+
     public function export($id) {
         if(auth()->user()->loai_tk != 2)
         {

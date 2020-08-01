@@ -390,14 +390,28 @@ class KhoaHocController extends Controller
         {
             abort(404);
         }
+        if($video->Chuong->khoaHoc->nguoi_dung_id == $id_nd)
+        {
+            if(sizeof($video->Chuong->baiKiemTra) >0)
+            {
+                $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+                $kiemtra1 = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+            }
+            else
+            {
+                $kiemtra = null;
+                $kiemtra1 = null;
+            }
+            return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
+        }
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
         {
-            if( ($dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2) || $video->Chuong->khoaHoc->nguoi_dung_id == $id_nd)
+            if($dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
             {
                 if(sizeof($video->Chuong->baiKiemTra) >0)
                 {
                     $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
-                $kiemtra1 = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
+                    $kiemtra1 = ketquakt::onlyTrashed()->where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
                 }
                 else
                 {
@@ -407,7 +421,7 @@ class KhoaHocController extends Controller
                 return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
             }
         }
-        return abort(404);
+        return redirect()->back()->with('warning','Bạn chưa ghi danh vào khóa học!');
     }
 
     public function xemvideo($id)
@@ -483,6 +497,7 @@ class KhoaHocController extends Controller
 
     public function hienThiChiTietKhoaHoc($id)
     {
+        $id_nd = auth()->user()->id;
         $dsKhoaHoc = khoahoc::where([['id','=', $id],['trang_thai','=',3]])->first();
         if($dsKhoaHoc == null)
         {
@@ -530,9 +545,17 @@ class KhoaHocController extends Controller
                 '10' => 0,
             );
         }
+        $kiemtra = 0;
+        foreach($dsKhoaHoc->ctHoaDon as $ct)
+        {
+            if($ct->hoaDon->nguoi_dung_id == $id_nd)
+            {
+                $kiemtra = 1;
+                break;
+            }
+        }
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
-        $toChuc = tochuc::where('nguoi_dung_id','=',$dsKhoaHoc->nguoi_dung_id)->first();
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','danhGia','toChuc','dsChuong','ctDanhGia','listKH'));
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH'));
     }
     public function getBaiKiemTra($id)
     {

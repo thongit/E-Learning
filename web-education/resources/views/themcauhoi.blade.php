@@ -3,7 +3,7 @@
 	var DEPLOYED_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGAOmLhCZNm4lSKif_u7jSXs3nwtaf7h6C4K9vchWkSCtiaGMr/exec";
 </script>
 
-<title>Kiểm tra</title>
+<title>EDUQTT - Thêm bài kiểm tra</title>
 <style>
 	.instruction-section{
 		padding-left: 25%;
@@ -286,6 +286,19 @@ $(document).ready(function(){
 	$("#xoa-file").click(function(){
 		document.getElementById('excel-file').value = '';
 	});
+
+	$("#huongDan").click(function(){
+		Swal.fire({
+		title: 'Bắt đầu nhập từ ô số 2.<br> <br> Bạn có thể tải file mẫu dưới đây:',
+		html:'<h3><a href="/download/file-huong-dan" target="_blank">Tải file</a></h3> ',
+		imageUrl: '{{asset("assets/img/huong-dan-excel.png")}}',
+		imageWidth: 673,
+		imageHeight: 422,
+		width:740,
+		imageAlt: 'Custom image',
+		})
+	});
+
 
 	$("#trolai").click(function(){
 		$(".login-section,.instruction-section").show();
@@ -821,6 +834,8 @@ window.onbeforeunload = function(event){
 						<button type="button" class="btn-link" id="xoa-file"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
 					</div>
 				</div>
+				<br>
+				<button type="button" class="btn-info" id="huongDan">Hướng dẫn định dạng file excel</button>
 				<br>
 				<button type="button" id="tao-cau-hoi" class="btn btn-primary">Tạo câu hỏi</button>
 			</div>

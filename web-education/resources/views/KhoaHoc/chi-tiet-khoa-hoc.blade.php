@@ -40,6 +40,11 @@
         swal.fire("{{ session('loi') }}","","error")
     </script>
     @endif
+    @if (session('warning'))
+    <script>
+        swal.fire("{{ session('warning') }}","","warning")
+    </script>
+    @endif
     <!-- End Breadcrumb -->
 
     <!-- Start Course Details
@@ -56,12 +61,11 @@
                         <div class="course-meta">
                             <div class="item author">
                                 <div class="thumb">
-                                    <a href="#"><img alt="Thumb" src="{{ asset('assets/images/'.$dsKhoaHoc->giangVien->anh_dai_dien) }}"></a>
+                                    <a href="{{route('chi-tiet-giang-vien',$dsKhoaHoc->nguoi_dung_id)}}"><img alt="Thumb" src="{{ asset('assets/images/'.$dsKhoaHoc->giangVien->anh_dai_dien) }}"></a>
                                 </div>
-                                {{--  <div class="desc">
-                                    <h4>{{ $dsKhoaHoc->giangVien->ho_ten }}</h4>
-                                    <a href="#">{{ $dsKhoaHoc->giangVien->email }}</a>
-                                </div>  --}}
+                               <div class="desc">
+                                    <h4><a class="lam-gon-ten" style="width: 150px" href="{{route('chi-tiet-giang-vien',$dsKhoaHoc->nguoi_dung_id)}}">@if($dsKhoaHoc->nguoiDung->toChuc->count() > 0) {{ $dsKhoaHoc->nguoiDung->toChuc[0]->ten_to_chuc }} @else {{ $dsKhoaHoc->giangVien->ho_ten }} @endif</a></h4>
+                                </div>
                             </div>
                             <div class="item category">
                                 <h4>Mức Độ</h4>
@@ -71,17 +75,25 @@
                                 <h4>Đánh giá</h4>
                                 {{ $ctDanhGia[5] }}
                                 <i class="fas fa-star"></i>
-                                <span>({{ sizeof($danhGia) }} Đánh giá)</span>
+                                <span>({{ sizeof($dsKhoaHoc->danhGiaKH) }} Đánh giá)</span>
                             </div>
                             <div class="item price">
                                 <h4>Giá</h4>
                                 <span>@if($dsKhoaHoc->gia != 0) {{ number_format($dsKhoaHoc->gia) }} VNĐ @else Miễn phí @endif</span>
                             </div>
+                           @if($kiemtra == 0)
                             <div class="align-right">
                                 <a class="btn btn-theme effect btn-sm" href="#">
-                                    <i class="fas fa-chart-bar"></i> Ghi danh
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh
                                 </a>
                             </div>
+                            @else
+                            <div class="align-right">
+                                <a class="btn btn-theme effect btn-sm">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i> Đã ghi danh
+                                </a>
+                            </div>
+                            @endif
                         </div>
                         <img class="img-ct-khoa-hoc" src="{{asset('assets/images/'.$dsKhoaHoc->hinh_anh)}}" alt="Thumb">
                         <!-- Star Tab Info -->
@@ -108,11 +120,13 @@
                                         Xem Đánh giá
                                     </a>
                                 </li>
+                                @if($kiemtra == 1)
                                 <li>
                                     <a data-toggle="tab" href="#tab5" aria-expanded="false">
                                        Tạo Đánh giá
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                             <!-- End Tab Nav -->
                             <!-- Start Tab Content -->
@@ -217,15 +231,16 @@
                                                 </div>
                                                 <div class="info">
                                                     <div class="author">
-                                                        <h4>@if($toChuc) {{ $toChuc->ten_to_chuc }} @else {{ $dsKhoaHoc->giangVien->ho_ten }} @endif</h4>
+                                                        <h4><a href="{{route('chi-tiet-giang-vien',$dsKhoaHoc->nguoi_dung_id)}}">@if($dsKhoaHoc->nguoiDung->toChuc->count() > 0) {{ $dsKhoaHoc->nguoiDung->toChuc[0]->ten_to_chuc }} @else {{ $dsKhoaHoc->giangVien->ho_ten }} @endif</a></h4>
                                                     </div>
-                                                    <span class="designation">@if($toChuc) {{ $toChuc->emal_nlh }} @else {{ $dsKhoaHoc->giangVien->email }} @endif</span>
-                                                    <p>
-                                                    {{$dsKhoaHoc->giangVien->gioi_thieu}}
-                                                    </p>
-                                                    <p>
+                                                    <span class="designation">Email: @if($dsKhoaHoc->nguoiDung->toChuc->count() > 0) {{ $dsKhoaHoc->nguoiDung->toChuc[0]->emal_nlh }} @else {{ $dsKhoaHoc->giangVien->email }} @endif</span>
+                                                    <br>
+                                                    <span>
                                                     Số khóa học: {{$dsKhoaHoc->giangVien->khoaHoc->count()}}
-                                                    </p>
+                                                    </span>
+                                                    <h5>
+                                                    {{$dsKhoaHoc->giangVien->gioi_thieu}}
+                                                    </h5>
                                                 </div>
                                             </div>
                                             <!-- End Advisor Item -->
@@ -240,7 +255,7 @@
                                         <div class="course-rating-list">
                                             <div class="average-rating">
                                                 <h3 style="font-size: xxx-large; font-weight: 500;">{{ $ctDanhGia[5] }} <i class="fas fa-star"></i></h3>
-                                                <h4>{{ sizeof($danhGia) }} đánh giá</h4>
+                                                <h4>{{ sizeof($dsKhoaHoc->danhGiaKH) }} đánh giá</h4>
                                             </div>
                                             <div class="rating-status">
                                                 <!-- Progress Bar Start -->
@@ -278,7 +293,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            @foreach($danhGia as $dg)
+                            @foreach($dsKhoaHoc->danhGiaKH as $dg)
                             <article class="row">
                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                     <figure class="thumbnail">
@@ -306,37 +321,53 @@
                                     </div>
                                 </div>
                             </article>
+                            @if($loop->index == 2)
+                                @break;
+                            @endif
                             @endforeach
                         </div>
                                 <!-- End Single Tab -->
+                    @if($kiemtra == 1)
                     <div id="tab5" class="tab-pane fade">
                         <form action="{{ route('xu-ly-danh-gia',$dsKhoaHoc->id) }}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
                             @csrf
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="rating-danhgia"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="rating-danhgia">
+                                                <input type="radio" name="rating" value="5" id="5">
+                                                <label for="5">☆</label> 
+                                                <input type="radio" name="rating" value="4" id="4">
+                                                <label for="4">☆</label> 
+                                                <input type="radio" name="rating" value="3" id="3">
+                                                <label for="3">☆</label> 
+                                                <input type="radio" name="rating" value="2" id="2">
+                                                <label for="2">☆</label> 
+                                                <input type="radio" name="rating" value="1" id="1">
+                                                <label for="1">☆
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <button type="submit">
+                                        Gửi đánh giá
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                            <div class="form-group">
-                                <input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text" required="">
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <button type="submit">
-                                Gửi đánh giá
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </div>
+                    @endif
+                </div>
                             <!-- End Tab Content -->
                         </div>
                         <!-- End Tab Info -->
