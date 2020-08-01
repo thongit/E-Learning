@@ -50,6 +50,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @if($dsBaiKT[0] != null)
                             @for ($i = 0; $i< sizeof($dsBaiKT); $i++)
                             <tr>
                                 <td>{{$i +1}}</td>
@@ -66,6 +67,9 @@
                                 </td>
                             </tr>
                             @endfor
+                        @else
+                        <tr><td>không có bài kiểm tra</td></tr>
+                        @endif
                         </tbody>
                     </table>
                     </div>

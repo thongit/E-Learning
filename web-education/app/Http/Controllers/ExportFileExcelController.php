@@ -73,19 +73,18 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         if(session()->has('id_nd'))
         {
             $id_nd = session()->get('id_nd');
-            $bai = chuong::find($id);
-            if($bai == null || sizeof($bai->baiKiemTra) <= 0)
+            $baiKT = baikiemtra::find($id);
+            if($baiKT == null)
             {
                 abort(404);
             }
-            $khoaHoc = khoahoc::where([['nguoi_dung_id','=',$id_nd],['id', '=', $bai->khoaHoc->id],])->first();
+            $khoaHoc = khoahoc::where([['nguoi_dung_id','=',$id_nd],['id', '=', $baiKT->Chuong->khoaHoc->id],])->first();
             if($khoaHoc != null)
             {
-                $tenFile = $bai->baiKiemTra[0]->file_de_kt;
+                $tenFile = $baiKT->file_de_kt;
                 $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
                 foreach($CauHoi as $cauHoi){}
                 array_splice($cauHoi,0,1);
-                $baiKT = baikiemtra::where('chuong_id','=',$bai->id)->first();
                 return view('suacauhoi', compact('khoaHoc', 'baiKT', 'cauHoi'));
             }
             else
@@ -137,6 +136,41 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
     }
 
     public function export(Request $request){
+        if($request->hasFile('fileExcel'))
+        {
+            $file=$request->file('fileExcel');
+            $extension = $request->file('fileExcel')->getClientOriginalExtension();
+            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+            substr(str_shuffle($permitted_chars), 0, 6);
+            $fileNameToStore ='file-kiem-tra' . $request->chuong.substr(str_shuffle($permitted_chars), 0, 6).'.'.$extension;
+            $destinationPath = storage_path('app');
+            $file->move($destinationPath,$fileNameToStore);
+            $baiKiemTra = new baikiemtra();
+            $baiKiemTra->thoi_gian_lam = $request->thoiGianLam;
+            $baiKiemTra->chuong_id = $request->chuong;
+            $baiKiemTra->ten_bai_kt = $request->TenBaiKT;
+            $baiKiemTra->file_de_kt = $fileNameToStore;
+            $baiKiemTra->trang_thai = 1;
+            if($request->hienThiKQ == "HienThi")
+            {
+                $baiKiemTra->hien_thi = 1;
+                $baiKiemTra->lam_lai = 0;
+            }
+            else if($request->hienThiKQ == "LamLai")
+            {
+                $baiKiemTra->hien_thi = 0;
+                $baiKiemTra->lam_lai = 1;
+            }
+            else
+            {
+                $baiKiemTra->hien_thi = 0;
+                $baiKiemTra->lam_lai = 0;
+            }
+            $baiKiemTra->thoi_gian_mo = $request->batDauKT;
+            $baiKiemTra->thoi_gian_dong = $request->ketThucKT;
+            $baiKiemTra->save();
+            return redirect('/khoa-hoc/ds-khoa-hoc-da-tao')->with('success', 'Thêm thành công!');
+        }
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
         substr(str_shuffle($permitted_chars), 0, 6);
         $ten_file_bai_kt ='file-kiem-tra' . $request->chuong.substr(str_shuffle($permitted_chars), 0, 6).'.xlsx';
@@ -203,6 +237,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
    public function docDuLieu($tenFile)
     {
         $id_nd = session()->get('id_nd');
+        
         $chuong = baikiemtra::where('file_de_kt','=',$tenFile)->first();
         if($chuong != null)
         {
@@ -213,11 +248,16 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             foreach($hoaDon as $hd)
             {
                 $ct_hoadon = cthoadon::where([['hoa_don_id','=',$hd->id],['khoa_hoc_id','=',$khoaHocID],])->first();
+                if($ct_hoadon!=null)
+                {
+                    break;
+                }
             }
             if($kiemtra == null)
             {
-                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                if($id_nd == $chuong->Chuong->khoaHoc->nguoi_dung_id || (sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2))
                 {
+                    
                     setlocale(LC_TIME, 'vi_VN');
                     Carbon::setLocale('vi');
                     $now = Carbon::now();
@@ -260,7 +300,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             }
             else if($chuong->lam_lai == 1 && $lamlai == null)
             {
-                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 1)
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2)
                 {
                     setlocale(LC_TIME, 'vi_VN');
                     Carbon::setLocale('vi');

@@ -112,6 +112,10 @@ class NguoiDungController extends Controller
     public function postTroThanhGiangVien(Request $request)
     {
         $nguoidungs=nguoidung::find(auth()->user()->id);
+        if($nguoidungs->trang_thai==2)
+        {
+            return redirect()->back()->with('thongbao','Bạn đã đăng ký thành giảng viên rồi');
+        }
         $nguoidungs->gioi_thieu=$request->KinhNghiem;
         $nguoidungs->trang_thai=2;
         $nguoidungs->update();
@@ -135,19 +139,19 @@ class NguoiDungController extends Controller
             'TenNguoiLienHe.required'=>'Bạn chưa nhận tên người liên hệ',
             'Email.unique'=>'Email đã tồn tại'
         ]);
+        $nguoidungs=nguoidung::find(auth()->user()->id);
         $tochucs->ten_to_chuc=$request->TenToChuc;
         $tochucs->ma_so_thue=$request->MaSoThue;
         $tochucs->dia_chi=$request->DiaChi;
         $tochucs->nguoi_lien_he=$request->TenNguoiLienHe;
         $tochucs->emal_nlh=$request->Email;
         $tochucs->sdt_nlh=$request->SoDienThoai;
-        $tochucs->trang_thai=1;
+        $tochucs->trang_thai=2;
         $tochucs->nguoi_dung_id=auth()->user()->id;
-        $nguoidungs=nguoidung::find(auth()->user()->id);
         $nguoidungs->trang_thai=2;
         $nguoidungs->update();
         $tochucs->save();
-        return redirect()->back()->withInput(Input::all())->with('thongbao','Thêm thành công');
+        return redirect()->back()->withInput(Input::all())->with('thongbao','Đăng ký thành công,Đang chờ admin phê duyệt');
     }
 
     public function xuLyDangNhap(Request $request)

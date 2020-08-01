@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use App\khoahoc;
 use App\linhvuc;
 use App\chuong;
+use App\noidung;
 use App\hoadon;
+use App\tochuc;
 use App\cthoadon;
 use App\nguoidung;
-use App\noidung;
 use Session;
 use Auth;
 
@@ -22,51 +23,52 @@ class AdminController extends Controller
      */
     public function getThongKe(Request $request)
     {
-        $danhSachKhoaHoc=khoahoc::count();
-        $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
-        $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
-
-        //Hiển thị tháng năm
-        $hienThiThang = $request->bdaymonth;
-
-        if($hienThiThang == null)
-        {
-    
-        //Thống kê học viên đăng kí trong tháng
-        $slHocVienThang = nguoidung::whereMonth('created_at',Carbon::now())
-                                    ->whereYear('created_at',Carbon::now())->where('loai_tk','=',1)->count();
-
-        //Thống kê giảng viên đăng kí trong tháng
-        $slGiangVienThang = nguoidung::whereMonth('created_at',Carbon::now())
-        ->whereYear('created_at',Carbon::now())->where('loai_tk','=',2)->count();
-
-        //Thống kê doanh thu theo tháng admin
-        $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
-
-        }
-        else{
-        //Thống kê học viên đăng kí trong tháng
-        $slHocVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',1]])->count();
-
-        //Thống kê giảng viên đăng kí trong tháng
-        $slGiangVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',2]])->count();
-
-        //Thống kê doanh thu theo tháng admin
-        $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
-
-
-        }
-
-        //THống kê tổng doanh thu admin
-        $tongDoanhThuAd = hoadon::sum('tong_tien')*0.1;
-
-        //Tổng số học viên
-        $tongHocVien = nguoidung::where('loai_tk','=',1)->count();;
-
-        return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang', 'slGiangVienThang','tongHocVien','doanhThuThangAd','tongDoanhThuAd','hienThiThang'));
-
         if(auth()->user()->loai_tk == 3)
         {
+            $danhSachKhoaHoc=khoahoc::count();
+            $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
+            $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
+
+            //Hiển thị tháng năm
+            $hienThiThang = $request->bdaymonth;
+
+            if($hienThiThang == null)
+            {
+        
+            //Thống kê học viên đăng kí trong tháng
+            $slHocVienThang = nguoidung::whereMonth('created_at',Carbon::now())
+                                        ->whereYear('created_at',Carbon::now())->where('loai_tk','=',1)->count();
+
+            //Thống kê giảng viên đăng kí trong tháng
+            $slGiangVienThang = nguoidung::whereMonth('created_at',Carbon::now())
+            ->whereYear('created_at',Carbon::now())->where('loai_tk','=',2)->count();
+
+            //Thống kê doanh thu theo tháng admin
+            $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
+
+            }
+            else{
+            //Thống kê học viên đăng kí trong tháng
+            $slHocVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',1]])->count();
+
+            //Thống kê giảng viên đăng kí trong tháng
+            $slGiangVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',2]])->count();
+
+            //Thống kê doanh thu theo tháng admin
+            $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
+
+
+            }
+
+            //THống kê tổng doanh thu admin
+            $tongDoanhThuAd = hoadon::sum('tong_tien')*0.1;
+
+            //Tổng số học viên
+            $tongHocVien = nguoidung::where('loai_tk','=',1)->count();;
+
+            return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang', 'slGiangVienThang','tongHocVien','doanhThuThangAd','tongDoanhThuAd','hienThiThang'));
+
+        
             $danhSachKhoaHoc=khoahoc::count();
             $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
             $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
@@ -91,12 +93,100 @@ class AdminController extends Controller
         }
     }
 
+    public function getGiangVienCaNhan()
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachGiangVienCaNhan=DB::table('nguoi_dung')->where('loai_tk',1)->where('trang_thai',2)->get();
+            return view('ds-dang-ky-giang-vien-ca-nhan',compact('danhSachGiangVienCaNhan'));
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+     public function postGiangVienCaNhan($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $nguoidungs=nguoidung::find($id);
+            if($nguoidungs->trang_thai==2)
+            {
+                $nguoidungs->trang_thai=1;
+                $nguoidungs->loai_tk=2;
+                $nguoidungs->save();
+            }
+            else
+            {
+                $nguoidungs->save();
+            }
+            return redirect()->back()->with('message', 'Status changed!');
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function getGiangVienToChuc()
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+        $danhSachGiangVienToChuc=DB::table('to_chuc')->where('trang_thai',2)->get();
+            return view('ds-dang-ky-giang-vien-to-chuc',compact('danhSachGiangVienToChuc'));
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function postGiangVienToChuc($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $tochucs=tochuc::find($id);
+            $nguoidungs=nguoidung::where('id',$tochucs->nguoi_dung_id)->first();
+            if($tochucs->trang_thai==2)
+            {
+                $nguoidungs->trang_thai=1;
+                $nguoidungs->loai_tk=2;
+                $nguoidungs->update();
+                $tochucs->trang_thai=1;
+                $tochucs->save();
+            }
+            else
+            {
+                $tochucs->save();
+            }
+            return redirect()->back()->with('message', 'Status changed!');
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
     public function getChuong($id)
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $chuongs=chuong::find($id);
+            $chuongs=chuong::where('khoa_hoc_id',$id)->get();
             return view('ds-chuong-admin',['chuongs'=>$chuongs]);
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function getBaiGiang($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $baigiangs=noidung::where('chuong_id',$id)->get();
+            return view('ds-bai-giang-admin',['baigiangs'=>$baigiangs]);
         }
         else
         {
@@ -221,27 +311,39 @@ class AdminController extends Controller
 
     public function thongKeDoanhThuKH($id)
     {
-        $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
-        $khoHoID = $id;
-        $slHocVien = cthoadon::whereMonth('created_at', Carbon::now())->where('khoa_hoc_id',$khoHoID)->count();
-        $khoaHoc = khoahoc::find($khoHoID);
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
+            $khoHoID = $id;
+            $slHocVien = cthoadon::whereMonth('created_at', Carbon::now())->where('khoa_hoc_id',$khoHoID)->count();
+            $khoaHoc = khoahoc::find($khoHoID);
 
-        $doanhThu = ($slHocVien*$khoaHoc->gia)*0.9;
+            $doanhThu = ($slHocVien*$khoaHoc->gia)*0.9;
 
-      return view('thong-ke-doanh-thu-kh', compact('danhSachKhoaHoc', 'doanhThu'));
-
+            return view('thong-ke-doanh-thu-kh', compact('danhSachKhoaHoc', 'doanhThu'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
     public function thongKeDoanhThuKHMD()
     {
-        $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
-        $khoHoID = 1;
-        $slHocVien = cthoadon::whereMonth('created_at', Carbon::now())->where('khoa_hoc_id',$khoHoID)->count();
-        $khoaHoc = khoahoc::find($khoHoID);
+        if(auth()->user()->loai_tk == 3)
+        {
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
+            $khoHoID = 1;
+            $slHocVien = cthoadon::whereMonth('created_at', Carbon::now())->where('khoa_hoc_id',$khoHoID)->count();
+            $khoaHoc = khoahoc::find($khoHoID);
 
-        $doanhThu = ($slHocVien*$khoaHoc->gia)*0.9;
+            $doanhThu = ($slHocVien*$khoaHoc->gia)*0.9;
 
-      return view('thong-ke-doanh-thu-kh', compact('danhSachKhoaHoc', 'doanhThu'));
-
+            return view('thong-ke-doanh-thu-kh', compact('danhSachKhoaHoc', 'doanhThu'));
+        }
+        else
+        {
+            abort(401);
+        }
     }
 
     public function index()

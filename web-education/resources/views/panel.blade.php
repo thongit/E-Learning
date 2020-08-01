@@ -20,7 +20,7 @@
                                 <div class="sidebar-info">
                                     <ul>
                                         <li>
-                                            <label for=""><a href="">Thông tin cá nhân</a></label>
+                                            <label for=""><a href="{{ route('sua')}}">Thông tin cá nhân</a></label>
                                             
                                         </li>
                                         <li>

@@ -16,17 +16,17 @@ class nguoidung extends Authenticatable
 
     public function ketQuaKT()
     {
-        return $this->hasMany('App\ketquakt');
+        return $this->hasMany('App\ketquakt','nguoi_dung_id');
     }
 
     public function nhanTin()
     {
-        return $this->hasMany('App\nhantin');
+        return $this->hasMany('App\nhantin','nguoi_dung_id');
     }
 
     public function danhGiaKH()
     {
-        return $this->hasMany('App\danhgiakh');
+        return $this->hasMany('App\danhgiakh','nguoi_dung_id');
     }
 
     public function khoaHoc()
@@ -41,11 +41,11 @@ class nguoidung extends Authenticatable
 
     public function toChuc()
     {
-        return $this->hasMany('App\tochuc');
+        return $this->hasMany('App\tochuc','nguoi_dung_id');
     }
 
     public function theNganHang()
     {
-        return $this->hasMany('App\thenganhang');
+        return $this->hasMany('App\thenganhang','nguoi_dung_id');
     }
 }
