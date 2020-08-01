@@ -384,6 +384,7 @@ class KhoaHocController extends Controller
     {
         // $binhluan = thaoluan::where('noi_dung_id','=',$id)->get();
         // dd($binhluan);
+        $tienDo = 1;
         $video = noidung::find($id);
         $id_nd = session()->get('id_nd');
         if($video == null)
@@ -402,12 +403,17 @@ class KhoaHocController extends Controller
                 $kiemtra = null;
                 $kiemtra1 = null;
             }
-            return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
+            return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo'));
         }
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
         {
             if($dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
             {
+                $td = explode('_', $dshv->tien_do);
+                if(($td[0] < $video->Chuong->id) || ($td[0] = $video->Chuong->id && $td[1] < $video->id))
+                {
+                    $tienDo = 0;
+                }
                 if(sizeof($video->Chuong->baiKiemTra) >0)
                 {
                     $kiemtra = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id', '=', $video->Chuong->baiKiemTra[0]->id],])->first();
@@ -418,7 +424,7 @@ class KhoaHocController extends Controller
                     $kiemtra = null;
                     $kiemtra1 = null;
                 }
-                return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1'));
+                return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo'));
             }
         }
         return redirect()->back()->with('warning','Bạn chưa ghi danh vào khóa học!');
@@ -546,16 +552,18 @@ class KhoaHocController extends Controller
             );
         }
         $kiemtra = 0;
+        $td = null;
         foreach($dsKhoaHoc->ctHoaDon as $ct)
         {
             if($ct->hoaDon->nguoi_dung_id == $id_nd)
             {
+                $td = explode('_', $ct->tien_do);
                 $kiemtra = 1;
                 break;
             }
         }
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH'));
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH','td'));
     }
     public function getBaiKiemTra($id)
     {

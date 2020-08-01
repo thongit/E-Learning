@@ -174,15 +174,21 @@
                                                             <ul>
                                                                 @foreach($dschuong->noiDung as $dsBai)
                                                                 <li>
-                                                                    <div class="title">
-                                                                        <i class="fas fa-play-circle"></i>
-                                                                        <!-- <i class="fas fa-file"></i> -->
-                                                                        <p>
-                                                                            Bài {{$key +1}}.{{$loop->index +1}}
-                                                                        </p>
-                                                                        <h5>
-                                                                            <a href="{{ route('video',$dsBai->id)}}">{{ $dsBai->tieu_de }}</a>
-                                                                        </h5>
+                                                                    <div class="title" >
+                                                                        <div class="asdas" style="display: contents;">
+                                                                            <i class="fas fa-play-circle"></i>
+                                                                            <!-- <i class="fas fa-file"></i> -->
+                                                                            <p>
+                                                                                Bài {{$key +1}}.{{$loop->index +1}}
+                                                                            </p>
+                                                                            <h5>
+                                                                                <a class="lam-gon-ten" style="display: contents;" href="{{ route('video',$dsBai->id)}}">{{ $dsBai->tieu_de }}</a>
+                                                                                @if($kiemtra==1 && (($td[0] > $dsBai->Chuong->id) || ($td[0] = $dsBai->Chuong->id && $td[1] >= $dsBai->id )))
+                                                                                &nbsp&nbsp&nbsp
+                                                                                <a class="btn btn-success">Đã học!</a>
+                                                                                @endif
+                                                                            </h5>
+                                                                        </div>
                                                                         @if($loop->last && $dsBai->Chuong->baiKiemTra->count() > 0 )
                                                                         <div class="access-type" style="display: flex;">
                                                                            <img src="{{asset('assets/img/quiz.png')}}" alt="Kiểm tra" style="width:20px;height:20px;">

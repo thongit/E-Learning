@@ -19,7 +19,7 @@ class CreateTableCtHoaDon extends Migration
             $table->integer('hoa_don_id');
             $table->integer('ma_kich_hoat');
             $table->integer('trang_thai');
-            $table->integer('tien_do');
+            $table->string('tien_do');
             $table->timestamps();
             $table->softDeletes();
         });

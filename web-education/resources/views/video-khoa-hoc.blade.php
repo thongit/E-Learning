@@ -25,14 +25,14 @@
     <div class="container" style="font-size: large;">
         <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
         <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a  onclick="goBack()" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="">{{ $video->tieu_de }}</a>
+        <a href="#" onclick="goBack()" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="">Bài: {{ $video->tieu_de }}</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12" style="">
-                    <h2>{{ $video->tieu_de }}</h2>
+                    <h2>{{ $video->Chuong->khoaHoc->ten_khoa_hoc }}</h2>
                 </div>
             </div>
         </div>
@@ -58,20 +58,34 @@ function goBack() {
     <div class="blog-area single full-blog left-sidebar full-blog default-padding">
         <div class="container">
             <div class="row">
+                <h3>Chương:  {{$video->Chuong->ten_chuong}}</h3>
                 <div class="col-md-8">
                     <div class="embed-responsive embed-responsive-16by9">
                       <iframe class="embed-responsive-item" src="{{ asset('assets/video/'.$video->video)}}" allowfullscreen></iframe>
                     </div>
-                    <h4><a>{{$video->tieu_de}}</a></h4><hr>
+                    <div>
+                        <h4><a>Bài:  @foreach($video->Chuong->noiDung as $key => $chuong) @if($chuong->id == $video->id) {{$key+1}} @endif @endforeach {{$video->tieu_de}}</a></h4>
+                        @if($tienDo == 0)
+                        <button type="button" class="btn btn-primary">
+                          Hoàn thành bài giảng
+                        </button>
+                        @else
+                        <a class="btn btn-success">
+                          Đã học!
+                        </a>
+                        @endif
+                    </div>
+                    <br>
                     <div class="panel panel-primary">
+                        <div class="panel-heading">NỘI DUNG</div>
                       <ul class="list-group">
                         @if($video->Chuong->baiKiemTra->count() >0)
                         <li class="list-group-item">
-                            <label>Bài kiểm tra: {{ $video->Chuong->baiKiemTra[0]->ten_bai_kt }}</label>
+                            <h4>Bài kiểm tra: {{ $video->Chuong->baiKiemTra[0]->ten_bai_kt }}</h4>
                             @if($kiemtra == null && $kiemtra1 == null)
                             <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-info">Làm kiểm tra</a>                            
                             @else
-                            <h4>Kết quả kiểm tra của bạn: {{$kiemtra->diem}}</h4>
+                            <h4 style="color: green;">Kết quả kiểm tra của bạn: {{$kiemtra->diem}}</h4>
                             @endif
                             @if($video->Chuong->baiKiemTra[0]->lam_lai == 1 && $kiemtra1 == null && $kiemtra != null)
                             <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-warning">Làm lại bài kiểm tra</a>
@@ -79,19 +93,19 @@ function goBack() {
                         </li>
                         @else
                         <li class="list-group-item">
-                            <label>Bài kiểm tra: </label>
-                            <h4>Không có bài kiểm tra</h4>
+                            <h4>Bài kiểm tra: </h4>
+                            <h5>Không có bài kiểm tra</h5>
                         </li>
                         @endif
                         @if($video->tai_lieu != '_')
                         <li class="list-group-item">
-                            <label>Tài liệu</label>
-                            <h4><a href="{{ route('download',$video->id)}}">Tải file tài liệu về</a></h4>
+                            <h4>Tài liệu</h4>
+                            <h5><a href="{{ route('download',$video->id)}}">Tải file tài liệu về</a></h5>
                         </li>
                         @else
                         <li class="list-group-item">
-                            <label>Tài liệu: </label>
-                            <h4>Không có tài liệu</h4>
+                            <h4>Tài liệu: </h4>
+                            <h5>Không có tài liệu</h5>
                         </li>
                         @endif
                     </ul>
@@ -130,8 +144,9 @@ function goBack() {
                     </article>
                     @endforeach
                 </div>
-                @foreach($video->Chuong->noiDung as $key => $chuong)
                 <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">
+                @foreach($video->Chuong->noiDung as $key => $chuong)
+                <div class="col-md-12" style="border-left: 1px solid #e7e7e7;">
                     <br>
                     <a href="{{ route('video',$chuong->id)}}">
                         <div id="video-click">
@@ -139,12 +154,12 @@ function goBack() {
                             <iframe class="embed-responsive-item" src="{{ asset('assets/video/'.$chuong->video)}}" allowfullscreen></iframe>
                                 
                             </div>
-                            <label for=""><a href="{{ route('video',$chuong->id)}}">{{$chuong->tieu_de}}</a></label>
+                            <h4 for=""><a href="{{ route('video',$chuong->id)}}">Bài {{$loop->index +1}}: {{$chuong->tieu_de}}</a></h4>
                         </div>
                     </a>
                 </div>
                 @endforeach
-                
+                </div>
             </div>
             </div>
         </div>

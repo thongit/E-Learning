@@ -8,7 +8,7 @@
 <!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
 
-<title>Kiểm tra</title>
+<title>EDUQTTT - Kiểm tra</title>
 <style>
 	.dq-test-outer-wrapper{
 		margin: 5%;

@@ -833,9 +833,10 @@ window.onbeforeunload = function(event){
 						<input type="file" name="fileExcel" accept=".xls ,.xlsx" class="custom-file-input" id="excel-file">
 						<button type="button" class="btn-link" id="xoa-file"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
 					</div>
+					<br>
+					<button type="button" class="btn-info" id="huongDan">Hướng dẫn định dạng file excel</button>
 				</div>
-				<br>
-				<button type="button" class="btn-info" id="huongDan">Hướng dẫn định dạng file excel</button>
+				
 				<br>
 				<button type="button" id="tao-cau-hoi" class="btn btn-primary">Tạo câu hỏi</button>
 			</div>

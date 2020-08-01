@@ -3,7 +3,7 @@
 	var DEPLOYED_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGAOmLhCZNm4lSKif_u7jSXs3nwtaf7h6C4K9vchWkSCtiaGMr/exec";
 </script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Kiểm tra</title>
+<title>EDUQTTT - Sửa bài kiểm tra</title>
 <style>
 	.instruction-section{
 		padding-left: 25%;
