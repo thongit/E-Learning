@@ -31,12 +31,12 @@ class nguoidung extends Authenticatable
 
     public function khoaHoc()
     {
-        return $this->hasMany('App\khoahoc','nguoi_dung_id');
+        return $this->hasMany('App\khoahoc','nguoi_dung_id','id');
     }
 
     public function hoaDon()
     {
-        return $this->hasMany('App\hoadon','nguoi_dung_id');
+        return $this->hasMany('App\hoadon','nguoi_dung_id','id');
     }
 
     public function toChuc()

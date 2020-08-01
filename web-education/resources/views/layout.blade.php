@@ -59,23 +59,8 @@
         <div class="top-bar-area bg-dark inc-border text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2 address-info text-left">
-                        <div class="info">
-<!--                             <ul>
-                                <li>
-                                    <i class="fas fa-copy"></i> Tổng khóa học: <strong>23400</strong>
-                                </li>
-                                <li>
-                                    <i class="fas fa-user-shield"></i> Giáo viên <strong>655</strong>
-                                </li>
-                                <li>
-                                    <i class="fas fa-phone"></i> Liên hệ <a >0123456789</a>
-                                </li>
-                            </ul> -->
-                        </div>
-                    </div>
                     @if(Session::get('ho_ten')== null)
-                     <div class="col-md-6 link text-right">
+                     <div class="col-md-12 col-xl-12 col-lg-12 link text-right">
                         <ul>
                             <li>
                                 <a href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
@@ -90,10 +75,13 @@
                     </div>
                     @endif
                     @if(Session::get('ho_ten')!= null)
-                    <div class="col-md-10 col-xl-10 col-lg-10 link text-right">
+                    <div class="col-md-12 col-xl-12 col-lg-12 link text-right">
                         <ul>
                             <li>
                                 <a href="{{ route('form-kich-hoat')}}">Kích hoạt khóa học</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('khoa-hoc-cua-toi')}}">Khóa học của tôi</a>
                             </li>
                             @if(Session::get('loai_tk')==1)
                             <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>

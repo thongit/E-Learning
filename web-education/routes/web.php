@@ -129,6 +129,7 @@ Route::middleware('auth')->group(function(){
 
 });
 
+
 Route::get('giang-vien','KhoaHocController@getGiangVien');
 
 Route::get('giang-vien/{id}', 'KhoaHocController@chiTietGiangVien')->name('chi-tiet-giang-vien');
@@ -152,6 +153,9 @@ Route::get('/thong-tin-ca-nhan', function () {
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
 });
+
+//Xử lý khóa học của tôi
+Route::get('/khoa-hoc-cua-toi', 'NguoiDungController@khoaHocCuaToi')->name('khoa-hoc-cua-toi');
 
 Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc')->name('linh-vuc');
 

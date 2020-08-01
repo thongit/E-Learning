@@ -108,7 +108,7 @@ class NguoiDungController extends Controller
             abort(401);
         }
     }
-    
+
     public function postTroThanhGiangVien(Request $request)
     {
         $nguoidungs=nguoidung::find(auth()->user()->id);
@@ -153,10 +153,10 @@ class NguoiDungController extends Controller
         $tochucs->save();
         return redirect()->back()->withInput(Input::all())->with('thongbao','Đăng ký thành công,Đang chờ admin phê duyệt');
     }
-    
+
     public function xuLyDangNhap(Request $request)
     {
-        
+
         $email=$request->email;
         $mat_khau=$request->mat_khau;
         //$remember=$request->has('remember')? true:false;
@@ -183,7 +183,7 @@ class NguoiDungController extends Controller
         session()->put('ho_ten', $nd->ho_ten);
         session()->put('id_nd', $nd->id);
         return redirect('admin/thong-ke');
-        
+
     }
     public function logout()
     {
@@ -192,7 +192,7 @@ class NguoiDungController extends Controller
         return redirect('dang-nhap');
     }
 
-    
+
     public function xuLyDangKy(Request $request)
     {
     //     $nd = nguoidung::where('email','=',$request->email )->first();
@@ -221,9 +221,9 @@ class NguoiDungController extends Controller
         'mat_khau'=>'required|min:6|',
         'mat_khau_nl'=>'required|same:mat_khau|',
         'email'=>'required|email|unique:nguoi_dung,email'
-        
+
     ],
-    [ 
+    [
         'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
         'so_dt.max'=>'Số điện thoại không hợp lệ!',
         'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
@@ -232,7 +232,7 @@ class NguoiDungController extends Controller
         'email.unique'=>'Email đã được đăng ký tài khoản!',
 
     ]);
-   
+
     $nguoidung= new nguoidung;
     $nguoidung->ho_ten= $request->ho_ten;
     $nguoidung->email= $request->email;
@@ -245,10 +245,10 @@ class NguoiDungController extends Controller
     $nguoidung->save();
     return redirect('dang-nhap')->with('thongbao','Đăng ký thành công');
 
-       
-        
+
+
     }
-    
+
     public function getSua()
     {
         if(auth()->user())
@@ -264,18 +264,18 @@ class NguoiDungController extends Controller
     }
 
     public function postSua(Request $request)
-    {  
+    {
         $nguoidung=nguoidung::find(auth()->user()->id);
-       
+
         $this->validate($request,
         [
             'ho_ten'=>'required|min:3|',
             'so_cmnd'=>'required|max:10|',
             'so_dt'=>'required|max:10|',
             'anh-dai-dien'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-    
+
         ],
-        [ 
+        [
             'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
             'so_dt.max'=>'Số điện thoại không hợp lệ!',
             'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
@@ -283,13 +283,13 @@ class NguoiDungController extends Controller
             'anh-dai-dien.mimes'=>'Đuôi hình ảnh phải là:jpeg, png, jpg, gif, svg',
             'anh-dai-dien.max'=>'Dung lượng tối đa 2048kb'
 
-            
+
         ]);
         $nguoidung->ho_ten= $request->ho_ten;
         $nguoidung->cmnd= $request->so_cmnd;
         $nguoidung->sdt= $request->so_dt;
         if($request->hasFile('anh-dai-dien'))
-        {   
+        {
           $file=$request->file('anh-dai-dien');
           $filenameWithExt = $request->file('anh-dai-dien')->getClientOriginalName();
           $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
@@ -340,13 +340,13 @@ class NguoiDungController extends Controller
     {
      $email = session()->get('email_qmk');
      $nguoidung=DB::table('nguoi_dung')->where('email','=', $email)->first();
-  
+
      $this->validate($request,
      [
         'mat_khau'=>'min:6',
          'xac-nhan-mat-khau'=>'same:mat_khau'
      ],
-     [ 
+     [
          'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
          'xac-nhan-mat-khau.same'=>'Mật khẩu nhập lại không khớp!'
 
@@ -355,7 +355,7 @@ class NguoiDungController extends Controller
      ->where('id', $nguoidung->id)
      ->update(['mat_khau' =>bcrypt($request->mat_khau)]);
      return redirect('dang-nhap')->with('thongbao','Cập nhật thành công');
-    
+
     }
 
     public function xuLyDoiMatKhauTrangCaNhan(Request $request)
@@ -366,7 +366,7 @@ class NguoiDungController extends Controller
     //     'mat_khau'=>'min:6',
     //      'xac-nhan-mat-khau'=>'same:mat_khau'
     //  ],
-    //  [ 
+    //  [
     //      'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
     //      'xac-nhan-mat-khau.same'=>'Mật khẩu nhập lại không khớp!'
     //  ]);
@@ -382,13 +382,13 @@ class NguoiDungController extends Controller
      ->update(['mat_khau' =>bcrypt($request->mat_khau)]);
      return redirect('thong-tin-ca-nhan')->with('thongbao','Đã đổi mật khẩu thành công');
         }
-    
+
     }
 
     public function xuLyThemTaiKhoan(Request $request)
     {
         $nguoidung=nguoidung::find(auth()->user()->id);
-        
+
         $thenganhang= new thenganhang;
         $thenganhang->nguoi_dung_id= $nguoidung->id;
         $thenganhang->so_tai_khoan= $request->so_tai_khoan;
@@ -399,6 +399,22 @@ class NguoiDungController extends Controller
         return redirect('thong-tin-ca-nhan')->with('thongbao','Thêm thành công');
     }
 
+    public function khoaHocCuaToi()
+    {
+        if(auth()->user())
+        {
+            $nguoi_dung_ids=auth()->user()->id;
+            $hocVien = nguoidung::find($nguoi_dung_ids);
+            //dd($hocVien);
+            return view('KhoaHoc.khoa-hoc-cua-toi',compact('hocVien'));
+            
+        }
+        else
+        {
+            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+        }
+        // return view('KhoaHoc.khoa-hoc-cua-toi');
+    }
 
     /**
      * Store a newly created resource in storage.
