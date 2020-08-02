@@ -319,7 +319,7 @@ class KhoaHocController extends Controller
         return redirect('/khoa-hoc/video/'.$id)->with('thongbao','Bạn đã gửi bình luận cho bài giảng này!');
     }
 
-    
+
 
 
 
@@ -441,13 +441,13 @@ class KhoaHocController extends Controller
     {
         //$dsSanPham = SanPham::paginate(12);
         $dsLinhVuc = linhvuc::all();
-
+        $tuKhoa = $request->key_word_tenkh;
         $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
         if(sizeOf($dsKhoaHoc) <= 0)
         {
             return abort('404');
         }
-        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
+        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
     }
 
     // public function timKiemMucDo(Request $request)
@@ -473,12 +473,19 @@ class KhoaHocController extends Controller
         $input = $request->get('input');
         $value = $request->get('value');
         $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%' . $input . '%'],
-        ['muc_do', 'like', '%' . $value . '%',]])->get();
-        //$thutimkiem = $dsKhoaHoc[0]->id;
-        foreach($dsKhoaHoc as $ds)
-        {
+        ['muc_do', 'like', '%' . $value . '%',]])->get()->toArray();
 
+
+        foreach($dsKhoaHoc as $khoaHoc)
+        {
+            
         }
+
+        //$thutimkiem = $dsKhoaHoc[0]->id;
+        // foreach($dsKhoaHoc as $ds)
+        // {
+
+        // }
         // $dsTimKiem = khoahoc::query();
 
         // if ($request->has('muc_do')) {
@@ -498,7 +505,9 @@ class KhoaHocController extends Controller
 
         // $dsKhoaHoc =  $dsTimKiem->get();
         //eturn view('tim-kiem',compact('dsKhoaHoc','dsLinhVuc'));
-        return response()->json(array('sds' => $dsKhoaHoc), 200);
+        //return response()->json(array('sds' => $dsKhoaHoc), 200);
+        //return json_encode($dsKhoaHoc);
+        //return response( $outPut );
 
     }
 
@@ -576,7 +585,7 @@ class KhoaHocController extends Controller
             $khoahoc = khoahoc::where([['id','=',$id],['nguoi_dung_id','=',auth()->user()->id],])->first();
             if($khoahoc != null)
             {
-                
+
                 if(sizeof($khoahoc->Chuong) > 0)
                 {
                     $dsBaiKT[] = null;
