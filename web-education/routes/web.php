@@ -1,6 +1,5 @@
 <?php
 Route::get('download/file-huong-dan', 'DownloadsController@downloadhd');
-
 Route::middleware('auth')->group(function(){
     Route::get('admin/ds-giang-vien-ca-nhan','AdminController@getGiangVienCaNhan')->name('admin-ds-giang-vien-ca-nhan');
 
@@ -66,9 +65,11 @@ Route::middleware('auth')->group(function(){
 
     Route::post('khoa-hoc/sua-bai-giang/{idBaiGiang}','CMSController@postSuaBaiGiang');
 
+    Route::get('them-cau-hoi-xml/{id}','GhiFileXmlController@index')->name('them-cau-hoi-xml');
+
     // Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
 
-    // Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
+    Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
 
     Route::post('lam-lai','ExportFileExcelController@destroy')->name('lam-lai');
 
@@ -130,8 +131,9 @@ Route::middleware('auth')->group(function(){
     Route::post('xu-ly-thanh-toan','CTHoaDonController@create')->name('xl-thanh-toan');
 
     Route::get('return-vnpay','CTHoaDonController@return')->name('return-pay');
-});
 
+    
+});
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
 

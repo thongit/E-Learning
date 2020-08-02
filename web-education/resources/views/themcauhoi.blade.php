@@ -2,7 +2,7 @@
 <script>
 	var DEPLOYED_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGAOmLhCZNm4lSKif_u7jSXs3nwtaf7h6C4K9vchWkSCtiaGMr/exec";
 </script>
-
+<link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
 <title>EDUQTT - Thêm bài kiểm tra</title>
 <style>
 	.instruction-section{

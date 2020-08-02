@@ -7,7 +7,7 @@
 <!-- Sweet alert init js-->
 <!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
-
+<link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
 <title>EDUQTTT - Kiểm tra</title>
 <style>
 	.dq-test-outer-wrapper{
