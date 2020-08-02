@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('them-cau-hoi-xml/{id}','GhiFileXmlController@index')->name('them-cau-hoi-xml');
 
-    // Route::get('trac-nghiem','GhiFileXmlController@docDuLieu')->name('trac-nghiem');
+    Route::get('trac-nghiem-xml/{tenFile}','GhiFileXmlController@docDuLieu')->name('trac-nghiem-xml');
 
     Route::post('ghi-file','GhiFileXmlController@ghiDuLieu')->name('ghi-file');
 
