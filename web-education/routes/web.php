@@ -132,7 +132,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('return-vnpay','CTHoaDonController@return')->name('return-pay');
 
-    
+
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
@@ -157,6 +157,10 @@ Route::get('/gioi-thieu', function () {
 
 //Xử lý khóa học của tôi
 Route::get('/khoa-hoc-cua-toi', 'NguoiDungController@khoaHocCuaToi')->name('khoa-hoc-cua-toi');
+
+//Danh sách các đơn hàng
+Route::get('/ds-don-hang', 'NguoiDungController@quanLyDonHang')->name('ds-don-hang');
+
 
 Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc')->name('linh-vuc');
 

@@ -407,7 +407,24 @@ class NguoiDungController extends Controller
             $hocVien = nguoidung::find($nguoi_dung_ids);
             //dd($hocVien);
             return view('KhoaHoc.khoa-hoc-cua-toi',compact('hocVien'));
-            
+
+        }
+        else
+        {
+            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+        }
+        // return view('KhoaHoc.khoa-hoc-cua-toi');
+    }
+
+    public function quanLyDonHang()
+    {
+        if(auth()->user())
+        {
+            $nguoi_dung_ids=auth()->user()->id;
+            $hocVien = nguoidung::find($nguoi_dung_ids);
+            //dd($hocVien);
+            return view('ds-don-hang',compact('hocVien'));
+
         }
         else
         {
