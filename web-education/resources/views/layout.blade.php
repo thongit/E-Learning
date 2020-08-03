@@ -83,8 +83,10 @@
                             <li>
                                 <a href="{{ route('khoa-hoc-cua-toi')}}">Khóa học của tôi</a>
                             </li>
+                            <li><a class="btn-danger" href="{{ route('ds-don-hang')}}">Quản lý đơn hàng</a></li>
                             @if(Session::get('loai_tk')==1)
                             <li><a class="btn-danger" href="{{ route('tro-thanh-giang-vien')}}">Trở thành giảng viên</a></li>
+
                             @endif
                             @if(Session::get('loai_tk')==2)
                             <li><a class="btn-danger" href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học</a></li>
