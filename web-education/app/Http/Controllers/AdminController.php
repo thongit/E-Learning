@@ -15,6 +15,7 @@ use Session;
 use Auth;
 use Mail;
 use App\Mail\ThongBaoTroThanhGiangVien;
+use App\Mail\ThongBaoDuyetKhoaHoc;
 
 class AdminController extends Controller
 {
@@ -271,6 +272,8 @@ class AdminController extends Controller
             $khoahocs=khoahoc::find($id);
             if($khoahocs->trang_thai==2)
             {
+                $nguoidungs = nguoidung::where('id','=', $khoahocs->nguoi_dung_id )->first();
+                Mail::to( $nguoidungs->email)->send(new ThongBaoDuyetKhoaHoc($nguoidungs->email));
                 $khoahocs->trang_thai=3;
                 $khoahocs->save();
             }
