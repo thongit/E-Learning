@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Alert;
 
 use Mail;
-use App\Mail\DemoMail;
+use App\Mail\DoiMatKhau;
 
 class NguoiDungController extends Controller
 {
@@ -324,7 +324,7 @@ class NguoiDungController extends Controller
             return redirect('quen-mat-khau');
         }
         else{
-    Mail::to($e)->send(new DemoMail($e));
+    Mail::to($e)->send(new DoiMatKhau($e));
     session()->put('email_qmk', $e);
     return redirect('quen-mat-khau')->with('thongbao','Đã gửi yêu cầu lấy lại mật khẩu, vui lòng kiểm tra email!');
 

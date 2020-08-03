@@ -6,6 +6,10 @@ use App\khoahoc;
 use App\hoadon;
 use App\nguoidung;
 use Illuminate\Http\Request;
+use Mail;
+use App\Mail\ThongBaoKichHoatKhoaHocThanhCong;
+use App\Mail\ThanhToanVNP;
+
 
 class CTHoaDonController extends Controller
 {
@@ -21,6 +25,7 @@ class CTHoaDonController extends Controller
 
     public function postKichHoatKhoaHoc(Request $request)
     {
+        $nguoidung=nguoidung::find(auth()->user()->id);
         $maKichHoat = cthoadon::where('ma_kich_hoat','=' ,$request->nhap_ma)->first();
 
         if($maKichHoat == null)
@@ -32,6 +37,7 @@ class CTHoaDonController extends Controller
             $updateTrangThai = cthoadon::where('ma_kich_hoat','=',$maKichHoat->ma_kich_hoat)->first();
             $updateTrangThai->trang_thai = 2;
             $updateTrangThai->save();
+            Mail::to($nguoidung->email)->send(new ThongBaoKichHoatKhoaHocThanhCong($nguoidung->email));
             return redirect('kich-hoat-khoa-hoc')->with('success', 'Bạn đã Kích hoạt khóa học thành công!');
         }
     }
@@ -217,7 +223,9 @@ class CTHoaDonController extends Controller
             $ctHoaDon->trang_thai = 2;
             $ctHoaDon->save();
             $u = '/khoa-hoc/'.$ctHoaDon->khoa_hoc_id;
+            Mail::to($nd->email)->send(new ThanhToanVNP($nd->email));
             return redirect($u)->with('success' ,'Đã thanh toán phí dịch vụ');
+            
         }
         $ctHoaDon->delete();
         $hoaDon->delete();

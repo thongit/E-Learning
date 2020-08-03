@@ -13,6 +13,8 @@ use App\cthoadon;
 use App\nguoidung;
 use Session;
 use Auth;
+use Mail;
+use App\Mail\ThongBaoTroThanhGiangVien;
 
 class AdminController extends Controller
 {
@@ -116,10 +118,12 @@ class AdminController extends Controller
                 $nguoidungs->trang_thai=1;
                 $nguoidungs->loai_tk=2;
                 $nguoidungs->save();
+                Mail::to($nguoidungs->email)->send(new ThongBaoTroThanhGiangVien($nguoidungs->email));
             }
             else
             {
                 $nguoidungs->save();
+                
             }
             return redirect()->back()->with('message', 'Status changed!');
         }
@@ -155,6 +159,7 @@ class AdminController extends Controller
                 $nguoidungs->update();
                 $tochucs->trang_thai=1;
                 $tochucs->save();
+                Mail::to($nguoidungs->email)->send(new ThongBaoTroThanhGiangVien($nguoidungs->email));
             }
             else
             {
