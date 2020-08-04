@@ -60,6 +60,11 @@ $(document).ready(function(){
         swal.fire("{{ session('alerterror') }}","","error")
     </script>
 @endif
+@if (session('error'))
+    <script>
+        swal.fire("{{ session('error') }}","","error")
+    </script>
+@endif
 @if (session('thongbao'))
     <script>
         swal.fire("{{ session('thongbao') }}","","success")
@@ -75,7 +80,7 @@ $(document).ready(function(){
     <div class="container" style="font-size: large;">
         <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
         <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="#" onclick="goBack()" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="/khoa-hoc/{{ $video->Chuong->khoa_hoc_id }}" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
         <a href="">Bài: {{ $video->tieu_de }}</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
@@ -135,23 +140,25 @@ $(document).ready(function(){
                     <div class="panel panel-primary">
                         <div class="panel-heading">NỘI DUNG</div>
                       <ul class="list-group">
-                        @if($video->Chuong->baiKiemTra->count() >0)
-                        <li class="list-group-item">
-                            <h4>Bài kiểm tra: {{ $video->Chuong->baiKiemTra[0]->ten_bai_kt }}</h4>
-                            @if($kiemtra == null && $kiemtra1 == null)
-                            <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-info">Làm kiểm tra</a>                            
+                        @if($tienDo == 2 || $tienDo == 1)
+                            @if($video->Chuong->baiKiemTra->count() >0)
+                            <li class="list-group-item">
+                                <h4>Bài kiểm tra cuối chương: {{ $video->Chuong->baiKiemTra[0]->ten_bai_kt }}</h4>
+                                @if($kiemtra == null && $kiemtra1 == null)
+                                <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-info">Làm kiểm tra</a>                            
+                                @else
+                                <h4 style="color: green;">Kết quả kiểm tra của bạn: {{$kiemtra->diem}}</h4>
+                                @endif
+                                @if($video->Chuong->baiKiemTra[0]->lam_lai == 1 && $kiemtra1 == null && $kiemtra != null)
+                                <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-warning">Làm lại bài kiểm tra</a>
+                                @endif
+                            </li>
                             @else
-                            <h4 style="color: green;">Kết quả kiểm tra của bạn: {{$kiemtra->diem}}</h4>
+                            <li class="list-group-item">
+                                <h4>Bài kiểm tra cuối chương: </h4>
+                                <h5>Không có bài kiểm tra</h5>
+                            </li>
                             @endif
-                            @if($video->Chuong->baiKiemTra[0]->lam_lai == 1 && $kiemtra1 == null && $kiemtra != null)
-                            <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-warning">Làm lại bài kiểm tra</a>
-                            @endif
-                        </li>
-                        @else
-                        <li class="list-group-item">
-                            <h4>Bài kiểm tra: </h4>
-                            <h5>Không có bài kiểm tra</h5>
-                        </li>
                         @endif
                         @if($video->tai_lieu != '_')
                         <li class="list-group-item">

@@ -143,7 +143,7 @@ class CTHoaDonController extends Controller
         $cthd->hoa_don_id = $hd->id;
         $cthd->ma_kich_hoat = $makh;
         $cthd->trang_thai = 1;
-        $cthd->tien_do = '0_0';
+        $cthd->tien_do = $kh->Chuong[0]->id.'_'.$kh->Chuong[0]->noiDung[0]->id;
         $cthd->save();
         if($request->thanhtoan == "thuong")
         {

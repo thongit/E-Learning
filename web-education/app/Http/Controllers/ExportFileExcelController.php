@@ -255,42 +255,73 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             }
             if($kiemtra == null || ($chuong->lam_lai == 1 && $lamlai == null))
             {
+                $cothelam = 0;
+                $dem = 0;
                 if($id_nd == $chuong->Chuong->khoaHoc->nguoi_dung_id || (sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2))
                 {
-                    
-                    setlocale(LC_TIME, 'vi_VN');
-                    Carbon::setLocale('vi');
-                    $now = Carbon::now();
-                    if($chuong->thoi_gian_mo != null)
+                    $td = explode('_', $ct_hoadon->tien_do);
+                    if($td[0] == $chuong->chuong_id)
                     {
-                        $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
+                        foreach($chuong->Chuong->noiDung as $key => $ndb)
+                        {
+                            if($td[1] >= $ndb->id)
+                            {
+                                $dem++;
+                            }
+                        }
+                        if($dem == $chuong->Chuong->noiDung->count())
+                        {
+                            $cothelam = 1;
+                        }
+                    }
+                    else if ($td[0] > $chuong->chuong_id)
+                    {
+                        $cothelam = 1;
                     }
                     else
                     {
-                        $thoiGianCongBo = null;
+                        return redirect()->back()->with('error', 'Bạn chưa học đến chương này!');
                     }
-                    if($chuong->thoi_gian_dong != null)
+                    if($cothelam == 1)
                     {
-                        $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
+                        setlocale(LC_TIME, 'vi_VN');
+                        Carbon::setLocale('vi');
+                        $now = Carbon::now();
+                        if($chuong->thoi_gian_mo != null)
+                        {
+                            $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
+                        }
+                        else
+                        {
+                            $thoiGianCongBo = null;
+                        }
+                        if($chuong->thoi_gian_dong != null)
+                        {
+                            $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
+                        }
+                        else
+                        {
+                            $thoiGianKetThuc = null;
+                        }
+                        if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
+                        {
+                            echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p>';
+                        }
+                        else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
+                        {
+                            echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra đã kết thúc</p>';
+                        }
+                        else
+                        {
+                            $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                            foreach($CauHoi as $cauHoi){}
+                            array_splice($cauHoi,0,1);
+                            return view('tracnghiem',compact('cauHoi','chuong'));
+                        }
                     }
                     else
                     {
-                        $thoiGianKetThuc = null;
-                    }
-                    if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
-                    {
-                        echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p>';
-                    }
-                    else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
-                    {
-                        echo '<p style="text-align: center;font-size: x-large;content: initial;">Bài kiểm tra đã kết thúc</p>';
-                    }
-                    else
-                    {
-                        $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
-                        foreach($CauHoi as $cauHoi){}
-                        array_splice($cauHoi,0,1);
-                        return view('tracnghiem',compact('cauHoi','chuong'));
+                        return redirect()->back()->with('error', 'Bạn chưa học xong chương này!');
                     }
                 }
                 else
