@@ -20,11 +20,14 @@
                                 <div class="sidebar-info">
                                     <ul>
                                         <li>
-                                            <label for=""><a href="{{ route('sua')}}">Thông tin cá nhân</a></label>
+                                            <label for=""><a href="{{ route('sua')}}">Thông tin cá nhân giảng viên</a></label>
                                             
                                         </li>
                                         <li>
-                                            <label for=""><a href="/khoa-hoc/ds-khoa-hoc-da-tao">Danh sách khoa học đã tạo</a></label>
+                                            <label for=""><a href="/khoa-hoc/ds-khoa-hoc-da-tao">Quản lý khóa học giảng viên</a></label>
+                                        </li>
+                                        <li>
+                                            <label for=""><a href="/giang-vien/quan-ly-don-hang-giang-vien">Quản lý đơn hàng giảng viên</a></label>
                                         </li>
                                     </ul>
                                 </div>

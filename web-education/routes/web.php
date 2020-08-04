@@ -99,7 +99,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('khoa-hoc/video/{id}', 'KhoaHocController@xuLyBinhLuan')->name('xu-ly-binh-luan');
 
-    Route::get('giang-vien/quan-ly-don-hang','NguoiDungController@getQuanLyDonHang');
+    Route::get('giang-vien/quan-ly-don-hang-giang-vien','NguoiDungController@getQuanLyDonHang');
     Route::get('giang-vien/thong-ke/{idKhoaHoc}','NguoiDungController@getThongKeKhoaHoc')->name('thong-ke-khoa-hoc');
 
     Route::get('giang-vien/quan-ly-don-hang/{id}', 'NguoiDungController@quanLyDonHangUpdate')->name('DonHangUpdate');
@@ -153,6 +153,10 @@ Route::get('/thong-tin-ca-nhan', function () {
 
 Route::get('/gioi-thieu', function () {
     return view('gioi-thieu');
+});
+
+Route::get('/cong-bo', function () {
+    return view('countdown-timer');
 });
 
 //Xử lý khóa học của tôi
