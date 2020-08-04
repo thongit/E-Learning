@@ -403,10 +403,49 @@ class NguoiDungController extends Controller
     {
         if(auth()->user())
         {
-            $nguoi_dung_ids=auth()->user()->id;
-            $hocVien = nguoidung::find($nguoi_dung_ids);
-            //dd($hocVien);
-            return view('KhoaHoc.khoa-hoc-cua-toi',compact('hocVien'));
+            $id_nd=auth()->user()->id;
+            $hocVien = nguoidung::find($id_nd);
+            $listKH[] = null;
+            $listTD[] = null;
+            $i = 0;
+            foreach($hocVien->hoaDon as $hd)
+            {
+                if($hd->trang_thai == 3 && $hd->ctHoaDon[0]->trang_thai == 2)
+                {
+                    $listKH[$i] = $hd->ctHoaDon[0]->khoa_hoc_id;
+                    $listTD[$hd->ctHoaDon[0]->khoa_hoc_id] = $hd->ctHoaDon[0]->tien_do;
+                    $i++;
+                }
+            }
+            $dsKhoaHoc = khoahoc::whereIn('id',$listKH)->get();
+            $tienDo[] = null;
+            foreach($dsKhoaHoc as $key => $kh)
+            {
+                $tien_do = explode('_', $listTD[$kh->id]);
+                $tienDo[$key] = 0;
+                foreach ($kh->Chuong as $c)
+                {
+                    if($c->id < $tien_do[0])
+                    {
+                        $tienDo[$key] += $c->noiDung->count();
+                    }
+                    else if ($c->id == $tien_do[0])
+                    {
+                        foreach($c->noiDung as $nd)
+                        {
+                            if($nd->id <= $tien_do[1])
+                            {
+                                $tienDo[$key] += 1;
+                            }
+                        }
+                    }
+                }
+                if($tienDo[$key] != 0)
+                {
+                    $tienDo[$key] = round(($tienDo[$key] / $kh->dsChuongBai->count())*100 , 1);
+                }
+            }
+            return view('KhoaHoc.khoa-hoc-cua-toi',compact('dsKhoaHoc','tienDo'));
 
         }
         else

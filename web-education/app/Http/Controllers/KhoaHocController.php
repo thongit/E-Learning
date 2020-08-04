@@ -406,14 +406,30 @@ class KhoaHocController extends Controller
             $tienDo = 1;
             return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo'));
         }
+        $dem = 0;
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
         {
             if($dshv->hoaDon->nguoiDung->id == $id_nd && $dshv->trang_thai == 2)
             {
                 $td = explode('_', $dshv->tien_do);
-                if(($td[0] > $video->Chuong->id) || ($td[0] = $video->Chuong->id && $td[1] >= $video->id))
+                if(($td[0] > $video->Chuong->id) || ($td[0] == $video->Chuong->id && $td[1] >= $video->id))
                 {
                     $tienDo = 1;
+                }
+                else
+                {
+                    foreach($video->Chuong->khoaHoc->dsChuongBai as $key => $bai)
+                    {
+                        if($bai->chuong_id < $td[0] ||  ($bai->chuong_id == $td[0] && $bai->id <= $td[1]))
+                        {
+                            $dem++;
+                        }
+                        else if($video->id == $bai->id && $key == $dem)
+                        {
+                            $tienDo = 2;
+                            break;
+                        }
+                    }
                 }
                 if(sizeof($video->Chuong->baiKiemTra) >0)
                 {
@@ -431,9 +447,22 @@ class KhoaHocController extends Controller
         return redirect()->back()->with('warning','Bạn chưa ghi danh vào khóa học!');
     }
 
-    public function xemvideo($id)
+    public function hoanThanh(Request $request)
     {
-
+        $nd = nguoidung::find(auth()->user()->id);
+        $noiDung = noidung::find($request->idND);
+        $kq = 0;
+        foreach($nd->hoaDon as $hd)
+        {
+            if($hd->ctHoaDon[0]->khoa_hoc_id == $noiDung->Chuong->khoa_hoc_id)
+            {
+                $cthd = cthoadon::find($hd->ctHoaDon[0]->id);
+                $cthd->tien_do = $noiDung->chuong_id.'_'.$noiDung->id;
+                $cthd->save();
+                $kq = 1;
+            }
+        }
+        return response()->json(array('msg'=> $kq), 200);
     }
 
 

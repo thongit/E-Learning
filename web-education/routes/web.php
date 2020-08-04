@@ -132,7 +132,13 @@ Route::middleware('auth')->group(function(){
 
     Route::get('return-vnpay','CTHoaDonController@return')->name('return-pay');
 
+    //Xử lý khóa học của tôi
+    Route::get('/khoa-hoc-cua-toi', 'NguoiDungController@khoaHocCuaToi')->name('khoa-hoc-cua-toi');
 
+    //Danh sách các đơn hàng
+    Route::get('/ds-don-hang', 'NguoiDungController@quanLyDonHang')->name('ds-don-hang');
+
+    Route::post('hoan-thanh','KhoaHocController@hoanThanh')->name('hoan-thanh');
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
@@ -159,11 +165,6 @@ Route::get('/cong-bo', function () {
     return view('countdown-timer');
 });
 
-//Xử lý khóa học của tôi
-Route::get('/khoa-hoc-cua-toi', 'NguoiDungController@khoaHocCuaToi')->name('khoa-hoc-cua-toi');
-
-//Danh sách các đơn hàng
-Route::get('/ds-don-hang', 'NguoiDungController@quanLyDonHang')->name('ds-don-hang');
 
 
 Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc')->name('linh-vuc');

@@ -1,10 +1,60 @@
 @extends('layout')
 <title>EDUQTTT - Bài giảng</title>
+
 @section('content')
 @include('header')
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    function hoanThanh(){
+        $.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+        $.ajax({
+            type:'POST',
+            url:'{{ route("hoan-thanh") }}',
+            data:
+            {
+            _token : '<?php echo csrf_token() ?>',
+            idND: {{$video->id}}
+            },
+            success:function(data) {
+                if(data.msg == 1 )
+                {
+                    swal.fire("Hoàn tất","","success");
+                    $("#hoanThanh").remove();
+                    $(".da-hoc").show();
+                }
+                else
+                {
+                    swal.fire("Vui lòng hoàn thành bài trước!","","error")
+                }
+            }
+        });
+    }
 
+    $("#hoanThanh").click(function (){
+        Swal.fire({
+			title: 'Bạn đã hoàn thành bài giảng?',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Hoàn thành!',
+			cancelButtonText:'Chưa'
+			}).then((result) => {
+			if (result.value) {
+				hoanThanh();
+			}
+		})
+		
+	});
+});
+</script>
 @if (session('alerterror'))
     <script>
         swal.fire("{{ session('alerterror') }}","","error")
@@ -47,10 +97,10 @@
         </div>
     </div> -->
     <script>
-function goBack() {
-  window.history.back()
-}
-</script>
+    function goBack() {
+    window.history.back()
+    }
+    </script>
     <!-- End Breadcrumb -->
 
     <!-- Start Blog
@@ -64,12 +114,18 @@ function goBack() {
                       <iframe class="embed-responsive-item" src="{{ asset('assets/video/'.$video->video)}}" allowfullscreen></iframe>
                     </div>
                     <div>
-                        <h4><a>Bài:  @foreach($video->Chuong->noiDung as $key => $chuong) @if($chuong->id == $video->id) {{$key+1}} @endif @endforeach {{$video->tieu_de}}</a></h4>
-                        @if($tienDo == 0)
-                        <button type="button" class="btn btn-primary">
-                          Hoàn thành bài giảng
-                        </button>
-                        @else
+                        <h4><a>Bài @foreach($video->Chuong->noiDung as $key => $chuong) @if($chuong->id == $video->id) {{$key+1}} @endif @endforeach: {{$video->tieu_de}}</a></h4>
+                        @if($tienDo == 2)
+                        <form method="post" action="{{ route('hoan-thanh') }}" role="form">
+                            {!! csrf_field() !!}
+                            <a class="btn btn-success da-hoc" style="display:none">
+                            Đã học!
+                            </a>
+                            <button id="hoanThanh" type="button" class="btn btn-primary">
+                                Hoàn thành bài giảng
+                            </button>
+                        </form>
+                        @elseif ($tienDo == 1)
                         <a class="btn btn-success">
                           Đã học!
                         </a>

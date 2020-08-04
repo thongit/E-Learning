@@ -8,10 +8,20 @@
 <!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
 <link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <title>EDUQTTT - Kiểm tra</title>
 <style>
+	.title-kh{
+		text-align: center;
+    	color: #002147;
+    	font-family: 'Poppins', sans-serif;
+    	letter-spacing: 0;
+	}
+
 	.dq-test-outer-wrapper{
 		margin: 5%;
+		margin-top: 0;
 		border: 1px solid #0F6190;
 		border-radius: 10px;
 		font-family: 'Dosis', sans-serif;
@@ -546,6 +556,10 @@ window.onbeforeunload = function(event){
 	return "All your answers will be reset. Are you sure to refresh the page ?";
 };
 </script>
+<div class="title-kh">
+	<h2>Khóa học: {{$chuong->Chuong->khoaHoc->ten_khoa_hoc}}</h2>
+	<h3>Chương: {{$chuong->Chuong->ten_chuong}}</h3>
+</div>
 <div class="dq-test-outer-wrapper">
 	<div class="dq-test-title">
 	</div>
