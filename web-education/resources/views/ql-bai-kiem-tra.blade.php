@@ -67,6 +67,9 @@
                                 <td>
                                     <button onclick="xuat({{$dsBaiKT[$i]->id}})" type="button" class="btn btn-info btn-sm" >Xuất file</button>
                                 </td>
+                                <td>
+                                    <a href="{{ route('bang-diem-kt',$dsBaiKT[$i]->id )}}" class="btn btn-success btn-sm" >Bảng điểm</a>
+                                </td>
                             </tr>
                             @endfor
                         @else

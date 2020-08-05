@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\DB;
 use App\Imports\CauHoiImport;
+use App\Exports\BangDiemExport;
 use App\khoahoc;
 use App\chuong;
 use App\baikiemtra;
@@ -434,5 +435,19 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         $kqkt = ketquakt::where('bai_kiem_tra_id','=',$id)->delete();
         $file_name->delete();
         return redirect()->back()->with('success', 'Đã xóa bài kiểm tra!');
+    }
+
+    public function exportBangDiem($id) 
+    {
+        $baikt = baikiemtra::find($id);
+        if($baikt == null)
+        {
+            abort(404);
+        }
+        if(auth()->user()->id != $baikt->Chuong->khoaHoc->nguoi_dung_id)
+        {
+            abort(401);
+        }
+        return Excel::download(new BangDiemExport($id), $baikt->ten_bai_kt.$baikt->chuong_id.$baikt->Chuong->khoaHoc->nguoi_dung_id.time().'.xlsx');
     }
 }

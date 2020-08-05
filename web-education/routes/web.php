@@ -139,6 +139,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/ds-don-hang', 'NguoiDungController@quanLyDonHang')->name('ds-don-hang');
 
     Route::post('hoan-thanh','KhoaHocController@hoanThanh')->name('hoan-thanh');
+
+    Route::get('giang-vien/bang-diem/{id}', 'KhoaHocController@bangDiem')->name('bang-diem-kt');
+
+    Route::get('export-bang-diem/{id}', 'ExportFileExcelController@exportBangDiem')->name('export-bang-diem');
 });
 
 Route::get('giang-vien','KhoaHocController@getGiangVien');
@@ -184,6 +188,7 @@ Route::name('trang-chu.')->group(function(){
     Route::get('tim-kiem-nc', 'KhoaHocController@timKiemNangCao')->name('xu-ly-tim-kiem-nc');
     //Hiển thị chi tiết khóa  học
     Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
+
 });
 
 Route::get('dang-nhap','NguoiDungController@dangNhap')->name('dang-nhap')->middleware('guest:web');

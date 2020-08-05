@@ -13,6 +13,7 @@ use App\tochuc;
 use App\cthoadon;
 use App\ketquakt;
 use App\thaoluan;
+use App\baikiemtra;
 use Session;
 use Auth;
 
@@ -63,6 +64,10 @@ class KhoaHocController extends Controller
     public function chiTietGiangVien($id)
     {
         $nguoidungs=nguoidung::find($id);
+        if($nguoidungs == null)
+        {
+            abort(404);
+        }
         $khoahocs= khoahoc::where('nguoi_dung_id',$id)->where('trang_thai',3)->get();
         return view('thong-tin-giang-vien', compact('nguoidungs','khoahocs'));
     }
@@ -696,6 +701,21 @@ class KhoaHocController extends Controller
         {
             abort(404);
         }
+    }
+
+    public function bangDiem($id)
+    {
+        $baikt = baikiemtra::find($id);
+        if($baikt == null)
+        {
+            abort(404);
+        }
+        if(auth()->user()->id != $baikt->Chuong->khoaHoc->nguoi_dung_id)
+        {
+            abort(401);
+        }
+        $list = ketquakt::where('bai_kiem_tra_id','=', $id)->get();
+        return view('bang-diem',compact('list','baikt'));
     }
 
 }

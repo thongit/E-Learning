@@ -39,7 +39,7 @@
                             @foreach($cthoadons as $item)
                             @if($item->khoaHoc->nguoi_dung_id==$giangviens->id)
                         <tr>
-                            <td class="text-center"><img src="{{ asset('assets/images/'.$item->hinh_anh) }}" class="thumbnail" width="60px" height="50px"></td>
+                            <td class="text-center"><img src="{{ asset('assets/images/'.$item->khoaHoc->hinh_anh) }}" class="thumbnail" width="60px" height="50px"></td>
                             <td>{{$item->khoaHoc->ten_khoa_hoc}}</td>
                             <td>{{$item->hoaDon->nguoiDung->ho_ten}}</td>
                             <td>{{$item->hoaDon->nguoiDung->dia_chi}}</td>
