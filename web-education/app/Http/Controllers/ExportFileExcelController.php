@@ -34,7 +34,7 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             {
                 if(sizeof($khoaHoc->Chuong) > 0)
                 {
-                    $dsBaiKT[] = null;
+                    $dsBaiKT = null;
                     $i = 0;
                     foreach($khoaHoc->Chuong as $baikt)
                     {
@@ -44,10 +44,17 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
                             $i++;
                         }
                     }
-                    $chuong = DB::table('chuong')
+                    if ($dsBaiKT != null)
+                    {
+                         $chuong = DB::table('chuong')
                         ->where('khoa_hoc_id', '=', $id)
                         ->whereNotIn('id',$dsBaiKT)
                         ->get();
+                    }
+                    else
+                    {
+                        $chuong = chuong::where('khoa_hoc_id', $id)->get();
+                    }
                     if(sizeof($chuong) == 0)
                     {
                         return redirect('/khoa-hoc/ds-khoa-hoc-da-tao')->with('warning', 'Không thể thêm bài kiểm tra. Mỗi chương trong khóa học này đều đã có bài kiểm tra!');
@@ -257,7 +264,44 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
             {
                 $cothelam = 0;
                 $dem = 0;
-                if($id_nd == $chuong->Chuong->khoaHoc->nguoi_dung_id || (sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2))
+                if($id_nd == $chuong->Chuong->khoaHoc->nguoi_dung_id)
+                {
+                    setlocale(LC_TIME, 'vi_VN');
+                        Carbon::setLocale('vi');
+                        $now = Carbon::now();
+                        if($chuong->thoi_gian_mo != null)
+                        {
+                            $thoiGianCongBo = Carbon::create($chuong->thoi_gian_mo);
+                        }
+                        else
+                        {
+                            $thoiGianCongBo = null;
+                        }
+                        if($chuong->thoi_gian_dong != null)
+                        {
+                            $thoiGianKetThuc = Carbon::create($chuong->thoi_gian_dong);
+                        }
+                        else
+                        {
+                            $thoiGianKetThuc = null;
+                        }
+                        if($thoiGianCongBo != null && $thoiGianCongBo >= $now)
+                        {
+                            return '<h1><p style="text-align: center; content: initial;">Bài kiểm tra sẽ bắt đầu vào lúc: '.$thoiGianCongBo->diffForHumans().'</p></h1>';
+                        }
+                        else if($thoiGianKetThuc != null && $thoiGianKetThuc <= $now)
+                        {
+                            return '<h1><p style="text-align: center; content: initial;">Bài kiểm tra đã kết thúc</p></h1>';
+                        }
+                        else
+                        {
+                            $CauHoi = Excel::toArray(new CauHoiImport,$tenFile);
+                            foreach($CauHoi as $cauHoi){}
+                            array_splice($cauHoi,0,1);
+                            return view('tracnghiem',compact('cauHoi','chuong'));
+                        }
+                }
+                if(sizeof($hoaDon) > 0 && $ct_hoadon != null && $ct_hoadon->trang_thai == 2)
                 {
                     $td = explode('_', $ct_hoadon->tien_do);
                     if($td[0] == $chuong->chuong_id)

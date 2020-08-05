@@ -307,22 +307,17 @@ class KhoaHocController extends Controller
 
     }
 
-    public function xuLyBinhLuan(Request $request,$id)
+    public function xuLyBinhLuan(Request $request)
     {
         $nguoi_dung_ids=auth()->user()->id;
         $thaoluan= new thaoluan();
         $thaoluan->nguoi_dung_id=$nguoi_dung_ids;
         $thaoluan->noi_dung=$request->noi_dung;
-        $thaoluan->noi_dung_id=$id;
-
+        $thaoluan->noi_dung_id=$request->idND;
         $thaoluan->save();
-        return redirect('/khoa-hoc/video/'.$id)->with('thongbao','Bạn đã gửi bình luận cho bài giảng này!');
+        $bl = thaoluan::where('noi_dung_id','=',$request->idND)->orderBy('id','desc')->get()->load('nguoiDung');
+        return response()->json(array('msg'=> $bl), 200);
     }
-
-
-
-
-
 
     public function create()
     {

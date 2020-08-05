@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('khoa-hoc/danh-gia/{id}', 'KhoaHocController@xuLyDanhGia')->name('xu-ly-danh-gia');
 
-    Route::post('khoa-hoc/video/{id}', 'KhoaHocController@xuLyBinhLuan')->name('xu-ly-binh-luan');
+    Route::post('xu-ly-binh-luan', 'KhoaHocController@xuLyBinhLuan')->name('xu-ly-binh-luan');
 
     Route::get('giang-vien/quan-ly-don-hang-giang-vien','NguoiDungController@getQuanLyDonHang');
     Route::get('giang-vien/thong-ke/{idKhoaHoc}','NguoiDungController@getThongKeKhoaHoc')->name('thong-ke-khoa-hoc');

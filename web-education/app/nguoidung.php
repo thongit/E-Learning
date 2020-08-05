@@ -48,4 +48,9 @@ class nguoidung extends Authenticatable
     {
         return $this->hasMany('App\thenganhang','nguoi_dung_id');
     }
+
+    public function thaoLuan()
+    {
+        return $this->hasMany('App\thaoluan','nguoi_dung_id');
+    }
 }

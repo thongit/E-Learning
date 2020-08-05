@@ -37,6 +37,49 @@ $(document).ready(function(){
         });
     }
 
+    function binhLuan($nd){
+        $.ajax({
+            type:'POST',
+            url:'{{ route("xu-ly-binh-luan") }}',
+            data:
+            {
+            _token : '<?php echo csrf_token() ?>',
+            idND: {{$video->id}},
+            noi_dung: $nd
+            },
+            success:function(data) {
+                var html = '';
+                console.log(data.msg);
+                for(var i = 0; i<data.msg.length; i++)
+                {
+                    html += '<article class="row">';
+                    html += '<div class="col-md-2 col-sm-2 hidden-xs">';
+                    html += '<figure class="thumbnail">';
+                    html += '<img class="img-responsive" src="/assets/images/' + data.msg[i].nguoi_dung.anh_dai_dien + '" />';
+                    html += '</figure>';
+                    html += '</div>';
+                    html += '<div class="col-md-10 col-sm-10">';
+                    html += '<div class="panel panel-default arrow left">';
+                    html += '<div class="panel-body">';
+                    html += '<h4>'+data.msg[i].nguoi_dung.ho_ten +'</h4>';
+                    html += '<header class="text-left">';
+                    html += '<time class="comment-date">'+ new Date(data.msg[i].created_at).toLocaleString() +'';
+                    html += '<i class="fa fa-clock-o"></i></time>';
+                    html += '</header>';
+                    html += '<div class="comment-post">';
+                    html += '<label for="">'+data.msg[i].noi_dung +'</label>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</article>';
+                }
+                $(".thao-luan").html(html);
+                $('#noi_dung').val("");
+            }
+        });
+    }
+
     $("#hoanThanh").click(function (){
         Swal.fire({
 			title: 'Bạn đã hoàn thành bài giảng?',
@@ -52,6 +95,17 @@ $(document).ready(function(){
 			}
 		})
 		
+	});
+
+    $("#binhluan").click(function (){
+        if(document.getElementById("noi_dung").value == '')
+		{
+			swal.fire("Bạn chưa nhập nội dung bình luận","" , "error")
+		}
+		else
+        {
+            binhLuan(document.getElementById("noi_dung").value);
+        }
 	});
 });
 </script>
@@ -173,39 +227,41 @@ $(document).ready(function(){
                         @endif
                     </ul>
                     </div>
-                    <form action="{{ route('xu-ly-binh-luan',$video->id)}}" id="login-form" method="POST" class="white-popup-block">
-                    @csrf
-                    <div class="form-group">
-                      <label for="usr">Bình luận</label>
-                      <input type="text" class="form-control" id="noi_dung" name="noi_dung" required>
-                      <button type="submit" class="btn btn-primary">
-                          Gửi bình luận
-                      </button>
-                    </div>
-                    </form>
-                    @foreach($video->thaoLuan as $bl)
-                    <article class="row">
-                        <div class="col-md-2 col-sm-2 hidden-xs">
-                            <figure class="thumbnail">
-                                <img class="img-responsive" src="{{ asset('assets/images/'.$bl->nguoiDung->anh_dai_dien) }}" />
-                            </figure>
-                            </div>
-                            <div class="col-md-10 col-sm-10">
-                            <div class="panel panel-default arrow left">
-                                <div class="panel-body">
-                                    <h4>{{$bl->nguoiDung->ho_ten}}</h4>
-                                <header class="text-left">
-                                    <time class="comment-date">{{$bl->created_at->diffForHumans()}}
-                                        <i class="fa fa-clock-o"></i></time>
-                                </header>
-                                <div class="comment-post">
-                                    <label for="">{{$bl->noi_dung}}</label>
-                                </div>
-                                </div>
-                            </div>
+                    <form action="{{ route('xu-ly-binh-luan')}}" role="form" id="login-form" method="POST" class="white-popup-block">
+                        {!! csrf_field() !!}
+                        <div class="form-group">
+                        <label for="usr">Bình luận</label>
+                        <input type="text" class="form-control" id="noi_dung" name="noi_dung" required>
+                        <button id="binhluan" type="button" class="btn btn-primary">
+                            Bình luận
+                        </button>
                         </div>
-                    </article>
-                    @endforeach
+                    </form>
+                    <div class="thao-luan">
+                        @foreach($video->thaoLuan->reverse() as $bl)
+                        <article class="row">
+                            <div class="col-md-2 col-sm-2 hidden-xs">
+                                <figure class="thumbnail">
+                                    <img class="img-responsive" src="{{ asset('assets/images/'.$bl->nguoiDung->anh_dai_dien) }}" />
+                                </figure>
+                                </div>
+                                <div class="col-md-10 col-sm-10">
+                                <div class="panel panel-default arrow left">
+                                    <div class="panel-body">
+                                        <h4>{{$bl->nguoiDung->ho_ten}}</h4>
+                                    <header class="text-left">
+                                        <time class="comment-date">{{date_format($bl->created_at, 'H:i:s, d/m/Y')}}
+                                            <i class="fa fa-clock-o"></i></time>
+                                    </header>
+                                    <div class="comment-post">
+                                        <label for="">{{$bl->noi_dung}}</label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">
                 @foreach($video->Chuong->noiDung as $key => $chuong)

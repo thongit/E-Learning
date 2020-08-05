@@ -35,8 +35,10 @@
     <div class="blog-area single full-blog left-sidebar full-blog default-padding">
         <div class="container">
             <div class="row">
+                <div style="display: flex; justify-content: flex-end;">
+                    <a href="{{ route('them-cau-hoi-excel',$khoahoc->id) }}" class="btn btn-info btn-sm">Tạo bài kiểm tra</a>
+                </div>
                 <div class="blog-items">
-
                     <div class="blog-content col-md-9">
                      <table class="table table-striped">
                         <thead>
