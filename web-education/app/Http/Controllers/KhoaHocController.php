@@ -466,7 +466,16 @@ class KhoaHocController extends Controller
         //$dsSanPham = SanPham::paginate(12);
         $dsLinhVuc = linhvuc::all();
         $tuKhoa = $request->key_word_tenkh;
-        $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
+        $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$request->key_word_tenkh.'%')->get('nguoi_dung_id');
+        $dsgv = nguoidung::where([['ho_ten', 'like', '%'.$request->key_word_tenkh.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->get('id');
+        if($dsgv != null)
+        {
+            $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->orWhereIn('nguoi_dung_id',$dsgv)->where('trang_thai','=',3)->get();
+        }
+        else
+        {
+            $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->get();
+        }
         if(sizeOf($dsKhoaHoc) <= 0)
         {
             return abort('404');
