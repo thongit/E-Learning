@@ -345,24 +345,24 @@
                     <div id="tab5" class="tab-pane fade">
                         <form action="{{ route('xu-ly-danh-gia',$dsKhoaHoc->id) }}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
                             @csrf
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="rating-danhgia">
-                                                <input type="radio" name="rating" value="5" id="5">
-                                                <label for="5">☆</label> 
-                                                <input type="radio" name="rating" value="4" id="4">
-                                                <label for="4">☆</label> 
-                                                <input type="radio" name="rating" value="3" id="3">
-                                                <label for="3">☆</label> 
-                                                <input type="radio" name="rating" value="2" id="2">
-                                                <label for="2">☆</label> 
-                                                <input type="radio" name="rating" value="1" id="1">
-                                                <label for="1">☆
-                                                </label>
-                                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="rating-danhgia">
+                                            <input type="radio" name="rating" value="5" id="5">
+                                            <label for="5">☆</label> 
+                                            <input type="radio" name="rating" value="4" id="4">
+                                            <label for="4">☆</label> 
+                                            <input type="radio" name="rating" value="3" id="3">
+                                            <label for="3">☆</label> 
+                                            <input type="radio" name="rating" value="2" id="2">
+                                            <label for="2">☆</label> 
+                                            <input type="radio" name="rating" value="1" id="1">
+                                            <label for="1">☆
+                                            </label>
                                         </div>
                                     </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="form-group">

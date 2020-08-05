@@ -319,18 +319,31 @@ class KhoaHocController extends Controller
         {
             return redirect('khoa-hoc/'.$id)->with('loi','Bạn chưa chọn số sao!');
         }
-
-        else{
-            $nguoi_dung_ids=auth()->user()->id;
-        $danhgiakh= new danhgiakh();
-        $danhgiakh->nguoi_dung_id=$nguoi_dung_ids;
-        $danhgiakh->so_sao=$request->rating;
-        $danhgiakh->noi_dung=$request->binh_luan;
-        $danhgiakh->khoa_hoc_id=$id;
-        $danhgiakh->save();
-        return redirect('khoa-hoc/'.$id)->with('thongbao','Bạn đã gửi đánh giá cho khóa học!');
+        $khoaHoc = khoahoc::where([['id','=',$id],['trang_thai','=',3],])->first();
+        if($khoaHoc == null)
+        {
+            abort(404);
         }
-
+        $nguoi_dung_ids=auth()->user()->id;
+        foreach($khoaHoc->ctHoaDon as $ct)
+        {
+            if($ct->hoaDon->nguoi_dung_id == $nguoi_dung_ids && $ct->trang_thai == 2)
+            {
+                $kiemtra = danhgiakh::where([['khoa_hoc_id','=',$id],['nguoi_dung_id','=',$nguoi_dung_ids],])->first();
+                if($kiemtra != null)
+                {
+                    return redirect()->back()->with('error','Bạn đánh giá cho khóa học rồi!');
+                }
+                $danhgiakh= new danhgiakh();
+                $danhgiakh->nguoi_dung_id=$nguoi_dung_ids;
+                $danhgiakh->so_sao=$request->rating;
+                $danhgiakh->noi_dung=$request->binh_luan;
+                $danhgiakh->khoa_hoc_id=$id;
+                $danhgiakh->save();
+                return redirect('khoa-hoc/'.$id)->with('thongbao','Bạn đã gửi đánh giá cho khóa học!');
+            }
+        }
+        abort(404);
     }
 
     public function xuLyBinhLuan(Request $request)
