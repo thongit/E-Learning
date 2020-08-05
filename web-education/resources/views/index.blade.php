@@ -323,7 +323,7 @@
                                     {{ $khoaHoc->mo_ta_ngan }}
                                 </p>
                                 <div class="footer-meta">
-                                    <a class="btn btn-theme effect btn-sm" href="#">Mua Ngay</a>
+                                    <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>
                                     <h4>{{ number_format($khoaHoc->gia) }} VNĐ</h4>
                                 </div>
                             </div>

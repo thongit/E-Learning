@@ -634,9 +634,11 @@ class KhoaHocController extends Controller
         }
         $kiemtra = 0;
         $td = null;
+        $ktdgkh = null;
         if(auth()->user())
         {
             $id_nd = auth()->user()->id;
+            $ktdgkh = danhgiakh::where([['khoa_hoc_id','=',$id],['nguoi_dung_id','=',$id_nd],])->first();
             foreach($dsKhoaHoc->ctHoaDon as $ct)
             {
                 if($ct->hoaDon->nguoi_dung_id == $id_nd && $ct->trang_thai == 2)
@@ -656,7 +658,7 @@ class KhoaHocController extends Controller
             $time += ceil($file['playtime_seconds']);
         }
         $time = gmdate("H:i:s", $time);
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH','td','time'));
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH','td','time','ktdgkh'));
     }
     public function getBaiKiemTra($id)
     {

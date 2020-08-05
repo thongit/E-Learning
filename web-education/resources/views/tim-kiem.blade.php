@@ -126,7 +126,7 @@
                                     {{ $khoaHoc->mo_ta_ngan }}
                                 </p>
                                 <div class="footer-meta">
-                                    <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}">Ghi danh</a>
+                                    <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>
                                     <h4>@if($khoaHoc->gia != 0){{ number_format($khoaHoc->gia) }} VNĐ @else Miễn phí @endif</h4>
                                 </div>
                             </div>

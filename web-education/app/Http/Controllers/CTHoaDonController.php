@@ -121,9 +121,13 @@ class CTHoaDonController extends Controller
         }
         foreach($khoaHoc->ctHoaDon as $dshv)
         {
-            if($dshv->hoaDon->nguoiDung->id == auth()->user()->id)
+            if($dshv->hoaDon->nguoiDung->id == auth()->user()->id && ($dshv->hoaDon->trang_thai == 3 || $dshv->trang_thai == 2))
             {
-                return redirect()->back()->with('error' ,'Bạn đã mua khóa học này!');
+                return redirect('/khoa-hoc/'.$khoaHoc->id)->with('damua' ,'Bạn đã mua khóa học này!');
+            }
+            else if ($dshv->hoaDon->nguoiDung->id == auth()->user()->id)
+            {
+                return redirect('/ds-don-hang')->with('warning' ,'Bạn đã mua khóa học này! Vui lòng chờ giao hàng.');
             }
         }
         return view('thanh-toan',compact('khoaHoc'));

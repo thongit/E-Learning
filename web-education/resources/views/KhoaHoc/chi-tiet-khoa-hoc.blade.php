@@ -12,6 +12,20 @@
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
+<script>
+    var DanhGia = {!! json_encode($ktdgkh) !!};
+    $(document).ready(function(){
+        if(DanhGia != null)
+        {
+            var $radios = $('input:radio[name=rating]');
+            if($radios.is(':checked') === false) {
+                $radios.filter('[value='+DanhGia.so_sao+']').prop('checked', true);
+            }
+            $('#binh_luan').val(DanhGia.noi_dung);
+            $('#binh_luan').prop("readonly",true);
+        }
+    });
+</script>
 <!-- Start Breadcrumb
     ============================================= -->
     <div class="container" style="font-size: large;">
@@ -51,6 +65,11 @@
     @if (session('warning'))
     <script>
         swal.fire("{{ session('warning') }}","","warning")
+    </script>
+    @endif
+    @if (session('damua'))
+    <script>
+        Swal.fire('{{ session("damua") }}')
     </script>
     @endif
     <!-- End Breadcrumb -->
