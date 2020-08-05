@@ -279,7 +279,7 @@
                                         <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                     </a>
                                     <ul>
-                                        <li><i class="fas fa-clock"></i> 04:15:38</li>
+                                        <li></li>
                                         <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
                                     </ul>
                                 </div>

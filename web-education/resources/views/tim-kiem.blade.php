@@ -88,7 +88,7 @@
                                         <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
                                     </a>
                                     <ul>
-                                        <li><i class="fas fa-clock"></i> 04:15:38</li>
+                                        <li></li>
                                         <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
                                     </ul>
                                 </div>
@@ -126,7 +126,7 @@
                                     {{ $khoaHoc->mo_ta_ngan }}
                                 </p>
                                 <div class="footer-meta">
-                                    <a class="btn btn-theme effect btn-sm" href="#">Mua Ngay</a>
+                                    <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}">Ghi danh</a>
                                     <h4>@if($khoaHoc->gia != 0){{ number_format($khoaHoc->gia) }} VNĐ @else Miễn phí @endif</h4>
                                 </div>
                             </div>

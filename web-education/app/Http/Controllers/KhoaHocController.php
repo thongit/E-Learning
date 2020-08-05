@@ -42,19 +42,19 @@ class KhoaHocController extends Controller
     public function index()
     {
         $dsLinhVuc = linhvuc::whereIn('id',[1,2,3,4,5,6])->get();
-        $dsKhoaHoc = khoahoc::whereIn('id',[1,2,3,4,5,6])->get();
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->paginate(6);
         return view('index', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
     public function getLinhVuc($id)
     {
-        $khoaHoc_linhVuc= khoahoc::where('linh_vuc_id',$id)->get();
+        $khoaHoc_linhVuc= khoahoc::where([['linh_vuc_id',$id],['trang_thai','=',3],])->inRandomOrder()->get();
         return view('linh-vuc-khoa-hoc',compact('khoaHoc_linhVuc'));
     }
 
     public function hienThiKhoaHoc()
     {
-        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->get();
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->get();
         $dsLinhVuc = linhvuc::all();
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
@@ -609,7 +609,15 @@ class KhoaHocController extends Controller
             }
         }
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH','td'));
+        $time = 0;
+        foreach($dsKhoaHoc->dsChuongBai as $bai)
+        {
+            $getID3 = new \getID3;
+            $file = $getID3->analyze(public_path('assets/video/'.$bai->video));
+            $time += ceil($file['playtime_seconds']);
+        }
+        $time = gmdate("H:i:s", $time);
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH','td','time'));
     }
     public function getBaiKiemTra($id)
     {
