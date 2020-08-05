@@ -21,8 +21,17 @@
             if($radios.is(':checked') === false) {
                 $radios.filter('[value='+DanhGia.so_sao+']').prop('checked', true);
             }
-            $('#binh_luan').val(DanhGia.noi_dung);
+            if(DanhGia.noi_dung == "")
+            {
+                $('#binh_luan').val(" ");
+            }
+            else
+            {
+                $('#binh_luan').val(DanhGia.noi_dung);
+            }
             $('#binh_luan').prop("readonly",true);
+            $('#guidanhgia').val("Bạn đã đánh giá cho khóa học này rồi!");
+            $('#guidanhgia').prop("type","button");
         }
     });
 </script>
@@ -385,15 +394,13 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="form-group">
-                                            <input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text" required="">
+                                            <input class="form-control" id="binh_luan" name="binh_luan" value="" placeholder="Bạn nghĩ thế nào về khóa học này?" type="text">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <button type="submit">
-                                        Gửi đánh giá
-                                        </button>
+                                        <input id="guidanhgia" class="btn btn-theme effect btn-sm" value="Gửi đánh giá" type="submit"/>
                                     </div>
                                 </div>
                             </div>

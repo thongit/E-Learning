@@ -58,7 +58,7 @@
                           </div>
                           <div class="form-group">
                             <label for="">Ghi chú</label>
-                            <input type="text" class="form-control" name="GhiChu" required>
+                            <input type="text" class="form-control" name="GhiChu">
                           </div>
                           <div class="vnpay-tt">
                             <input value="{{$khoaHoc->id}}" type="hidden" class="form-control" name="khoaHocID" required readonly>
@@ -131,7 +131,7 @@
                           </div>
                           <div class="form-group">
                             <label for="">Ghi chú</label>
-                            <input type="text" class="form-control" name="GhiChu" required="">
+                            <input type="text" class="form-control" name="GhiChu" >
                           </div>
                           <button value="vnp" name="thanh_toan_vnpay" type="submit" class="btn btn-primary">
                               Xác nhận thanh toán VNPAY

@@ -342,7 +342,14 @@ class KhoaHocController extends Controller
                 $danhgiakh= new danhgiakh();
                 $danhgiakh->nguoi_dung_id=$nguoi_dung_ids;
                 $danhgiakh->so_sao=$request->rating;
-                $danhgiakh->noi_dung=$request->binh_luan;
+                if($request->binh_luan == null)
+                {
+                    $danhgiakh->noi_dung="";
+                }
+                else
+                {
+                    $danhgiakh->noi_dung=$request->binh_luan;
+                }
                 $danhgiakh->khoa_hoc_id=$id;
                 $danhgiakh->save();
                 return redirect('khoa-hoc/'.$id)->with('thongbao','Bạn đã gửi đánh giá cho khóa học!');
