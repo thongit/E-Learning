@@ -15,7 +15,7 @@ use Session;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Alert;
-
+use App\linhvuc;
 use Mail;
 use App\Mail\DoiMatKhau;
 

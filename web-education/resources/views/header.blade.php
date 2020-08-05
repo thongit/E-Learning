@@ -13,7 +13,7 @@
                         <div class="input-group">
                             <form action="{{ route('trang-chu.xu-ly-tim-kiem') }}" method="GET">
                                 @csrf
-                                <input type="text" name="key_word_tenkh" class="form-control" placeholder="Search">
+                                <input type="text" name="key_word_tenkh" class="form-control" placeholder="Search" required>
                                 <button type="submit">
                                     <i class="ti-search"></i>
                                 </button>

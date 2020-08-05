@@ -443,11 +443,13 @@ class KhoaHocController extends Controller
         $dsLinhVuc = linhvuc::all();
         $tuKhoa = $request->key_word_tenkh;
         $dsKhoaHoc = khoahoc::where('ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%')->get();
-        if(sizeOf($dsKhoaHoc) <= 0)
+        $dsNguoiDung = nguoidung::where([['ho_ten', 'like', '%'.$request->key_word_tenkh.'%'],['loai_tk','=',2]])->get();
+
+        if(sizeOf($dsKhoaHoc)  <= 0 && sizeOf($dsNguoiDung) <= 0)
         {
             return abort('404');
         }
-        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
+        return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa','dsNguoiDung'));
     }
 
     // public function timKiemMucDo(Request $request)
@@ -473,13 +475,12 @@ class KhoaHocController extends Controller
         $input = $request->get('input');
         $value = $request->get('value');
         $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%' . $input . '%'],
-        ['muc_do', 'like', '%' . $value . '%',]])->get()->toArray();
+        ['muc_do', 'like', '%' . $value . '%',]])->get();
 
+        // foreach($dsKhoaHoc as $khoaHoc)
+        // {
 
-        foreach($dsKhoaHoc as $khoaHoc)
-        {
-            
-        }
+        // }
 
         //$thutimkiem = $dsKhoaHoc[0]->id;
         // foreach($dsKhoaHoc as $ds)
@@ -506,7 +507,8 @@ class KhoaHocController extends Controller
         // $dsKhoaHoc =  $dsTimKiem->get();
         //eturn view('tim-kiem',compact('dsKhoaHoc','dsLinhVuc'));
         //return response()->json(array('sds' => $dsKhoaHoc), 200);
-        //return json_encode($dsKhoaHoc);
+        return  json_encode($dsKhoaHoc);
+
         //return response( $outPut );
 
     }
