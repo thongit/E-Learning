@@ -37,8 +37,11 @@ class CTHoaDonController extends Controller
             $updateTrangThai = cthoadon::where('ma_kich_hoat','=',$maKichHoat->ma_kich_hoat)->first();
             $updateTrangThai->trang_thai = 2;
             $updateTrangThai->save();
+            $hd = hoadon::find($updateTrangThai->hoa_don_id);
+            $hd->trang_thai = 3;
+            $hd->save();
             Mail::to($nguoidung->email)->send(new ThongBaoKichHoatKhoaHocThanhCong($nguoidung->email));
-            return redirect('kich-hoat-khoa-hoc')->with('success', 'Bạn đã Kích hoạt khóa học thành công!');
+            return redirect('/khoa-hoc/'.$updateTrangThai->khoa_hoc_id)->with('success', 'Bạn đã Kích hoạt khóa học thành công!');
         }
     }
 
@@ -132,26 +135,40 @@ class CTHoaDonController extends Controller
         substr(str_shuffle($permitted_chars), 0, 6);
         $kh = khoahoc::find($request->khoaHocID);
         $makh = auth()->user()->id.$request->khoaHocID.substr(str_shuffle($permitted_chars), 0, 6);
-        $hd = new hoadon;
-        $hd->tong_tien = $kh->gia;
-        $hd->nguoi_dung_id = auth()->user()->id;
-        $hd->dia_chi = $request->DiaChi;
-        $hd->trang_thai = 1;
-        $hd->save();
-        $cthd = new cthoadon;
-        $cthd->khoa_hoc_id = $request->khoaHocID;
-        $cthd->hoa_don_id = $hd->id;
-        $cthd->ma_kich_hoat = $makh;
-        $cthd->trang_thai = 1;
-        $cthd->tien_do = $kh->Chuong[0]->id.'_'.$kh->Chuong[0]->noiDung[0]->id;
-        $cthd->save();
         if($request->thanhtoan == "thuong")
         {
+            $hd = new hoadon;
+            $hd->tong_tien = $kh->gia;
+            $hd->nguoi_dung_id = auth()->user()->id;
+            $hd->dia_chi = $request->DiaChi;
+            $hd->trang_thai = 1;
+            $hd->loai_thanh_toan = 1;
+            $hd->save();
+            $cthd = new cthoadon;
+            $cthd->khoa_hoc_id = $request->khoaHocID;
+            $cthd->hoa_don_id = $hd->id;
+            $cthd->ma_kich_hoat = $makh;
+            $cthd->trang_thai = 1;
+            $cthd->tien_do = $kh->Chuong[0]->id.'_0';
+            $cthd->save();
             return redirect('/')->with('success','Đặt mua thành công! Chờ nhận mã và nhập mã vào trang kích hoạt mã');
         }
         else
         {
-            
+            $hd = new hoadon;
+            $hd->tong_tien = $kh->gia;
+            $hd->nguoi_dung_id = auth()->user()->id;
+            $hd->dia_chi = $request->DiaChi;
+            $hd->loai_thanh_toan = 2;
+            $hd->trang_thai = 1;
+            $hd->save();
+            $cthd = new cthoadon;
+            $cthd->khoa_hoc_id = $request->khoaHocID;
+            $cthd->hoa_don_id = $hd->id;
+            $cthd->ma_kich_hoat = $makh;
+            $cthd->trang_thai = 1;
+            $cthd->tien_do = $kh->Chuong[0]->id.'_'.$kh->Chuong[0]->noiDung[0]->id;
+            $cthd->save();
             session(['cost_id' => $request->id]);
             session(['url_prev' => url()->previous()]);
             $vnp_TmnCode = "182NL75Y"; //Mã website tại VNPAY 

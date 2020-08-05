@@ -14,6 +14,12 @@
     </script>
 @endif
 
+@if (session('error'))
+    <script>
+        swal.fire("{{ session('error') }}","","error")
+    </script>
+@endif
+
 @include('header')
   <!-- Start Banner
     ============================================= -->

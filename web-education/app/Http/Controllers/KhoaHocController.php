@@ -203,10 +203,36 @@ class KhoaHocController extends Controller
     {
         if(auth()->user()->loai_tk == 2)
         {
-            $chuongs= chuong::all();
+            $chuongs= chuong::where('khoa_hoc_id','=',$idKhoahoc)->get();
             $noidungs= noidung::all();
             $khoahocs=khoahoc::find($idKhoahoc);
-            return view('tao-bai-giang-cho-chuong',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs,'noidungs'=>$noidungs]);
+            if($khoahocs == null)
+            {
+                abort(404);
+            }
+            if($khoahocs->ctHoaDon == null)
+            {
+                return view('tao-bai-giang-cho-chuong',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs,'noidungs'=>$noidungs]);
+            }
+            $tdC = 0;
+            foreach($khoahocs->ctHoaDon as $ct)
+            {
+                $td = explode('_', $ct->tien_do);
+                if($tdC < $td[0])
+                {
+                    $tdC = $td[0];
+                }
+            }
+            
+            $chuongs = chuong::where([['id','>=',$tdC],['khoa_hoc_id','=',$idKhoahoc],])->get();
+            if(sizeof($chuongs) == 0)
+            {
+                return redirect()->back()->with('error','Không thể tạo bài giảng! Tạo chương mới để tạo thêm bài giảng.');
+            }
+            else
+            {
+                return view('tao-bai-giang-cho-chuong',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs,'noidungs'=>$noidungs]);
+            }
         }
         else
         {

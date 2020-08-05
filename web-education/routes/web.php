@@ -186,7 +186,7 @@ Route::name('trang-chu.')->group(function(){
     Route::get('khoa-hoc/{id}', 'KhoaHocController@hienThiChiTietKhoaHoc')->name('chi-tiet-khoa-hoc');
 });
 
-Route::get('dang-nhap','NguoiDungController@dangNhap')->name('dang-nhap');
+Route::get('dang-nhap','NguoiDungController@dangNhap')->name('dang-nhap')->middleware('guest:web');
 
 Route::post('dang-nhap','NguoiDungController@xuLyDangNhap')->name('xu-ly-dang-nhap');
 

@@ -44,11 +44,9 @@
                                 <label>Danh sách chương đã tạo</label>
                                 <select class="form-control" id="" name="Chuong">
                                     @foreach ($chuongs as $c)
-                                    @if($khoahocs->id==$c->khoa_hoc_id)
                                     <option value="{{$c->id}}">
                                         {{$c->ten_chuong}}
                                     </option>
-                                    @endif
                                     @endforeach
                                 </select>
                             </div>
