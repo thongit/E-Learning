@@ -18,6 +18,7 @@ use Alert;
 
 use Mail;
 use App\Mail\DoiMatKhau;
+use App\Mail\XacMinhTaiKhoan;
 
 class NguoiDungController extends Controller
 {
@@ -26,7 +27,8 @@ class NguoiDungController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private $e;
+    // private $e;
+    
     public function dangNhap()
     {
         return view('login-2');
@@ -169,6 +171,11 @@ class NguoiDungController extends Controller
             Session::flash('error', 'Sai mật khẩu, vui lòng nhập lại!');
             return redirect('dang-nhap');
         }
+        else if($nd->email = $request->email && Hash::check($request->mat_khau,$nd->mat_khau) && $nd->trang_thai!=1)
+        {
+            Session::flash('error', 'Tài khoản hợp lệ!');
+            return redirect('dang-nhap');
+        }
         else if($nd->email = $request->email && Hash::check($request->mat_khau,$nd->mat_khau) && ($nd->loai_tk==1 || $nd->loai_tk ==2 ))
         {
         Auth::login($nd);
@@ -195,22 +202,7 @@ class NguoiDungController extends Controller
 
     public function xuLyDangKy(Request $request)
     {
-    //     $nd = nguoidung::where('email','=',$request->email )->first();
-    //     if(strlen($request->so_cmnd)>10){
-    //         return redirect('dang-ky')->with('alerterror','Số CMND không hợp lệ, vui lòng kiểm tra lại!');
-    //     }
-    //     else if(strlen($request->so_dt)>10){
-    //         return redirect('dang-ky')->with('alerterror','Số điện thoại không hợp lệ, vui lòng kiểm tra lại!');
-    //     }
-    //    else if ($nd->email == $request->email) {
-    //         return redirect('dang-ky')->with('alerterror','Email đã đăng ký tài khoản, vui lòng kiểm tra lại!');
-    //     }
-    //    else if(strlen($request->so_dt)<6){
-    //         return redirect('dang-ky')->with('alerterror','Mật khẩu phải trên 6 ký tự, vui lòng kiểm tra lại!');
-    //     }
-    //    else if($request->mat_khau != $request->mat_khau_nl){
-    //         return redirect('dang-ky')->with('alerterror','Mật khẩu nhập lại không trùng khớp, vui lòng kiểm tra lại!');
-    //     }
+    
     $this->validate($request,
     [
         'ho_ten'=>'required|min:3|',
@@ -232,7 +224,7 @@ class NguoiDungController extends Controller
         'email.unique'=>'Email đã được đăng ký tài khoản!',
 
     ]);
-
+    $trangthai=mt_rand(100000, 999999);
     $nguoidung= new nguoidung;
     $nguoidung->ho_ten= $request->ho_ten;
     $nguoidung->email= $request->email;
@@ -243,12 +235,42 @@ class NguoiDungController extends Controller
     $nguoidung->anh_dai_dien= 'null';
     $nguoidung->dia_chi= 'null';
     $nguoidung->gioi_thieu= 'null';
-    $nguoidung->trang_thai= '1';
+    $nguoidung->trang_thai= $trangthai;
     $nguoidung->save();
-    return redirect('dang-nhap')->with('thongbao','Đăng ký thành công');
+    session()->put('email', $request->email);
+    session()->put('ma', $trangthai);
+    Mail::to($request->email)->send(new XacMinhTaiKhoan($request->email));
+    return redirect('xac-minh-tai-khoan');
 
+    }
 
+    public function getxacMinhTaiKhoan()
+    {
+        return view('xac-minh-tai-khoan');
+    }
 
+    public function postxacMinhTaiKhoan(Request $request)
+    {
+        $email_xn = Session::get('email');
+        $nguoidungs=DB::table('nguoi_dung')->where('email','=', $email_xn)->first();
+        if($request->ma_xac_minh == $nguoidungs->trang_thai)
+        {
+            DB::table('nguoi_dung')
+     ->where('email',  $email_xn)
+     ->update(['trang_thai' =>'1']);
+            return redirect('dang-nhap')->with('thongbao','Đăng ký thành công!');
+
+        }
+
+        else if($request->ma_xac_minh != $nguoidungs->trang_thai)
+        {
+            
+            return redirect('xac-minh-tai-khoan')->with('loi','Mã xác minh không đúng, Vui lòng nhập lại!');
+        }
+        // else if($dem==3)
+        // {
+        //     return "ok";
+        // }
     }
 
     public function getSua()

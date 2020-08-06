@@ -1,0 +1,1 @@
+EDUQTTT - Mã xác minh của bạn là: {{ Session::get('ma') }}

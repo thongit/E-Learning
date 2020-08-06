@@ -215,4 +215,8 @@ Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->na
 
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
 
+Route::get('xac-minh-tai-khoan','NguoiDungController@getxacMinhTaiKhoan')->name('xac-minh-tai-khoan');
+
+Route::post('xac-minh-tai-khoan','NguoiDungController@postxacMinhTaiKhoan')->name('xu-ly-xac-minh-tai-khoan');
+
 ?>
