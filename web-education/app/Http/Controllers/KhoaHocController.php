@@ -42,9 +42,14 @@ class KhoaHocController extends Controller
 
     public function index()
     {
-        // DS kh HOT
+        $ketqua=DB::table('ct_hoa_don')->select('khoa_hoc_id',DB::raw('count(id) as total_sales'))->where('ct_hoa_don.trang_thai','=',2)->whereNull('ct_hoa_don.deleted_at')->groupBy('khoa_hoc_id')->orderBy('total_sales','desc')->paginate(6);
+        $list=null;
+        foreach($ketqua as $key => $kq)
+        {
+            $list[$key] = $kq->khoa_hoc_id;
+        }
         $dsLinhVuc = linhvuc::whereIn('id',[1,2,3,4,5,6])->get();
-        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->paginate(3);
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->whereIn('id',$list)->paginate(6);
         return view('index', compact('dsKhoaHoc'));
     }
 

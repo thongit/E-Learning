@@ -235,7 +235,7 @@
                 <div class="row">
                     <div class="site-heading text-center">
                         <div class="col-md-8 col-md-offset-2">
-                            <h2>Khóa Học Phổ Biến</h2>
+                            <h2>Top bán chạy</h2>
                         </div>
                     </div>
                 </div>
