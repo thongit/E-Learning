@@ -55,12 +55,12 @@
                                             
                                         </li>
                                         <li>
+                                            @if($khoaHoc->danhGiaKH->count() != 0)
+                                                {{ round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
+                                            @else
+                                                0
+                                            @endif
                                             <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            
                                         </li>
                                         
                                     </ul>
@@ -69,7 +69,7 @@
                                             <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
                                         </li>
                                         <li>
-                                            <span>({{$khoaHoc->danhGiaKH->count()}}) Đánh giá</span>
+                                            <span>({{$khoaHoc->danhGiaKH->count()}} đánh giá)</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -89,6 +89,9 @@
                     @endforeach
                     <!-- Single Item -->
                 </div>
+            </div>
+            <div style="display: flex;justify-content: center;">
+                <?php echo $khoaHoc_linhVuc->render(); ?>
             </div>
         </div>
     </div>

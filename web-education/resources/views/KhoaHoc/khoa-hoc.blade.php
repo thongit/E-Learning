@@ -86,6 +86,9 @@
                     <!-- Single Item -->
                 </div>
             </div>
+            <div style="display: flex;justify-content: center;">
+                <?php echo $dsKhoaHoc->render(); ?>
+            </div>
         </div>
     </div>
     <!-- End Popular Courses -->

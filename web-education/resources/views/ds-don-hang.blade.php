@@ -17,7 +17,7 @@
     ============================================= -->
     <div class="container" style="font-size: large;">
         <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
-        <a href="{{ route('dskhdt') }}">Danh sách đơn hàng</a>
+        <a href="">Danh sách đơn hàng</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
         <div class="container">
@@ -69,7 +69,7 @@
                                                        <td>
                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
                                                        </td>
-                                                       <td>{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</td>
+                                                       <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
                                                        <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
                                                        <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
                                                        <td>
@@ -122,7 +122,7 @@
                                                         <td>
                                                          <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
                                                         </td>
-                                                        <td>{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</td>
+                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
                                                         <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
                                                         <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
                                                         <td>
@@ -169,7 +169,7 @@
                                                         <td>
                                                          <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
                                                         </td>
-                                                        <td>{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</td>
+                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
                                                         <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
                                                         <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
                                                         <td>
@@ -216,7 +216,7 @@
                                                         <td>
                                                          <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
                                                         </td>
-                                                        <td>{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</td>
+                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
                                                         <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
                                                         <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
                                                         <td>

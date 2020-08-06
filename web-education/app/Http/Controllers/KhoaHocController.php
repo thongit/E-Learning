@@ -42,20 +42,21 @@ class KhoaHocController extends Controller
 
     public function index()
     {
+        // DS kh HOT
         $dsLinhVuc = linhvuc::whereIn('id',[1,2,3,4,5,6])->get();
-        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->paginate(6);
-        return view('index', compact('dsKhoaHoc','dsLinhVuc'));
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->paginate(3);
+        return view('index', compact('dsKhoaHoc'));
     }
 
     public function getLinhVuc($id)
     {
-        $khoaHoc_linhVuc= khoahoc::where([['linh_vuc_id',$id],['trang_thai','=',3],])->inRandomOrder()->get();
+        $khoaHoc_linhVuc= khoahoc::where([['linh_vuc_id',$id],['trang_thai','=',3],])->inRandomOrder()->paginate(6);
         return view('linh-vuc-khoa-hoc',compact('khoaHoc_linhVuc'));
     }
 
     public function hienThiKhoaHoc()
     {
-        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->get();
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->paginate(6);
         $dsLinhVuc = linhvuc::all();
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
@@ -521,11 +522,11 @@ class KhoaHocController extends Controller
         $dsgv = nguoidung::where([['ho_ten', 'like', '%'.$request->key_word_tenkh.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->get('id');
         if($dsgv != null)
         {
-            $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->orWhereIn('nguoi_dung_id',$dsgv)->where('trang_thai','=',3)->get();
+            $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->orWhereIn('nguoi_dung_id',$dsgv)->where('trang_thai','=',3)->paginate(6);
         }
         else
         {
-            $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->get();
+            $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->paginate(6);
         }
         if(sizeOf($dsKhoaHoc) <= 0)
         {
@@ -662,15 +663,15 @@ class KhoaHocController extends Controller
             }
         }
         $dsChuong = chuong::where('khoa_hoc_id','=',$id)->get();
-        $time = 0;
+        $time[0] = 0;
         foreach($dsKhoaHoc->dsChuongBai as $bai)
         {
             $getID3 = new \getID3;
             $file = $getID3->analyze(public_path('assets/video/'.$bai->video));
-            $time += ceil($file['playtime_seconds']);
+            $time[$bai->id] = $file['playtime_seconds'];
         }
-        $time = gmdate("H:i:s", $time);
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','dsChuong','ctDanhGia','listKH','td','time','ktdgkh'));
+        $time[0] = gmdate("H:i:s", array_sum($time));
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','ctDanhGia','listKH','td','time','ktdgkh'));
     }
     public function getBaiKiemTra($id)
     {
