@@ -3,12 +3,9 @@
 <div class="dashboard-content-one">
                 <!-- Breadcubs Area Start Here -->
                 <div class="breadcrumbs-area">
-                    <h3>Students</h3>
+                    <h3>Giảng viên</h3>
                     <ul>
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>All Students</li>
+                        <li>Tất cả giảng viên</li>
                     </ul>
                 </div>
                 <!-- Breadcubs Area End Here -->
@@ -40,20 +37,7 @@
                                         <td>{{$item->dia_chi}}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <span class="flaticon-more-button-of-three-dots"></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-times text-orange-red"></i>Close</a>
-                                                    <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                                    <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                                </div>
-                                            </div>
+                                            <button class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -64,8 +48,8 @@
                 </div>
                 <!-- Student Table Area End Here -->
                 <footer class="footer-wrap-layout1">
-                    <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a
-                            href="#">PsdBosS</a></div>
+                    <div class="copyright">© Copyrights <a href="#">QTTT</a>
+                    </div>
                 </footer>
             </div>
 @endsection
