@@ -240,7 +240,7 @@
                                                                         </div>
                                                                         <div class="item">
                                                                             <p>
-                                                                                Duration: 1 hours 30 min
+                                                                                Thời gian: {{ gmdate("H:i:s", $time[$dsBai->id])}}
                                                                             </p>
                                                                            <a href="{{ route('video',$dsBai->id)}}">Bắt đầu</a>
                                                                         </div>
@@ -426,7 +426,7 @@
                             <ul>
                                 <li><i class="flaticon-translation"></i> Ngôn Ngữ  <span class="pull-right">{{ $dsKhoaHoc->ngon_ngu }}</span></li>
                                 <li><i class="flaticon-faculty-shield"></i> Bài giảng  <span class="pull-right">{{ $dsKhoaHoc->dsChuongBai->count() }}</span></li>
-                                <li><i class="flaticon-film"></i> Video  <span class="pull-right">{{$time}}</span></li>
+                                <li><i class="flaticon-film"></i> Video  <span class="pull-right">{{$time[0]}}</span></li>
                                 <li><i class="flaticon-levels"></i> Mức độ  <span class="pull-right">{{ $dsKhoaHoc->muc_do }}</span></li>
                                 <li><i class="flaticon-group-of-students"></i> Học viên  <span class="pull-right">{{ sizeof($dsKhoaHoc->ctHoaDon) }}</span></li>
                             </ul>

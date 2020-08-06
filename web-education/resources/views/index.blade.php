@@ -113,40 +113,6 @@
     <!-- End About -->
 
     <!-- Start Categories
-    ============================================= -->
-    {{--  <div class="category-area bg-gray default-padding">
-        <div class="container">
-            <div class="row">
-                <div class="site-heading text-center">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h2>Lĩnh vực phổ biến</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="category-items">
-                <div class="row">
-                    @foreach($dsLinhVuc as $item)
-                    <!-- Single Item -->
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item java">
-                            <a href="/linh-vuc/{{$item->id}}">
-                                <div class="item-box">
-                                    <div class="info">
-                                        <h5>{{$item->ten_linh_vuc}}</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>  --}}
-    <!-- End Categories -->
-
-    <!-- Start Categories
         ============================================= -->
         <div class="category-area bg-gray default-padding">
             <div class="container">
@@ -274,64 +240,67 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="top-course-items">
-                    @foreach($dsKhoaHoc as $khoaHoc)
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item">
-                            <div class="thumb">
-                                <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
-                                <div class="overlay">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
-                                    </a>
-                                    <ul>
-                                        <li></li>
-                                        <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
-                                    </ul>
+                    <div class="top-course-items">
+                        @foreach($dsKhoaHoc as $khoaHoc)
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item">
+                                <div class="thumb">
+                                    <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
+                                    <div class="overlay">
+                                        <a href="#">
+                                            <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
+                                        </a>
+                                        <ul>
+                                            <li></li>
+                                            <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="info">
-                                <div class="meta">
-                                    <ul>
-                                        <li>
-                                            <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
+                                <div class="info">
+                                    <div class="meta">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">{{ $khoaHoc->giangVien->ho_ten }}</a>
 
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
+                                            </li>
+                                            <li>
+                                                @if($khoaHoc->danhGiaKH->count() != 0)
+                                                    {{ round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
+                                                @else
+                                                    0
+                                                @endif
+                                                <i class="fas fa-star"></i>
+                                            </li>
 
-                                        </li>
-
-                                    </ul>
-                                    <ul>
-                                        <li>
-                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
-                                        </li>
-                                        <li>
-                                            <span>({{$khoaHoc->danhGiaKH->count()}}) Đánh giá</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h4>
-                                    <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
-                                </h4>
-                                <p class="lam-gon-van-ban-mo-ta">
-                                    {{ $khoaHoc->mo_ta_ngan }}
-                                </p>
-                                <div class="footer-meta">
-                                    <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>
-                                    <h4>{{ number_format($khoaHoc->gia) }} VNĐ</h4>
+                                        </ul>
+                                        <ul>
+                                            <li>
+                                                <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
+                                            </li>
+                                            <li>
+                                                <span>({{$khoaHoc->danhGiaKH->count()}} đánh giá)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>
+                                        <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
+                                    </h4>
+                                    <p class="lam-gon-van-ban-mo-ta">
+                                        {{ $khoaHoc->mo_ta_ngan }}
+                                    </p>
+                                    <div class="footer-meta">
+                                        <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>
+                                        <h4>{{ number_format($khoaHoc->gia) }} VNĐ</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        <!-- Single Item -->
                     </div>
-                    @endforeach
-                    <!-- Single Item -->
                 </div>
+                <div style="display: flex;justify-content: center;">
+                    <?php echo $dsKhoaHoc->render(); ?>
                 </div>
             </div>
         </div>
