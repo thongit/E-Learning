@@ -44,7 +44,7 @@
                                 @endif
                                  </td>
                                  <td>
-                                    <button type="submit" class="btn btn-danger">xóa</button>
+                                    <button onclick="xoa({{$item->id}})" class="btn btn-danger">xóa</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -79,6 +79,29 @@ function thongbaoxoa($id) {
             )
             $url='/admin/ds-khoa-hoc/'+$id;
             open($url,"_self")
+        }
+    })
+}
+</script>
+<script>
+function xoa($id) {
+    Swal.fire({
+        title: 'Bạn có Muốn Xóa Không?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok. Xóa nó!',
+        cancelButtonText:'Không'
+        }).then((result) => {
+        if (result.value) {
+            Swal.fire(
+            'Đã Xóa!',
+            'Bạn đã xóa thành công.',
+            'success'
+            )
+            $url='/khoa-hoc/xoa/'+$id;
+            open($url,"_self") 
         }
     })
 }

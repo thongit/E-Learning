@@ -43,9 +43,6 @@
                                             onclick="thongbaoduyet({{$item->id}})">Phê duyệt
                                             </button>
                                         </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-danger">xóa</button>
-                                        </td>
                                     </tr>
                                     @endforeach
                                     </tbody>

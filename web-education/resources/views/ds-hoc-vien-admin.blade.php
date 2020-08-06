@@ -37,7 +37,7 @@
                                         <td>{{$item->dia_chi}}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <button class="btn btn-danger">Xóa</button>
+                                            <button onclick="xoa({{$item->id}})" class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -52,4 +52,27 @@
                     </div>
                 </footer>
             </div>
+<script>
+function xoa($id) {
+    Swal.fire({
+        title: 'Bạn có Muốn Xóa Không?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok. Xóa nó!',
+        cancelButtonText:'Không'
+        }).then((result) => {
+        if (result.value) {
+            Swal.fire(
+            'Đã Xóa!',
+            'Bạn đã xóa thành công.',
+            'success'
+            )
+            $url='/admin/tai-khoan/'+$id;
+            open($url,"_self") 
+        }
+    })
+}
+</script>
 @endsection

@@ -26,6 +26,26 @@ class CMSController extends Controller
             $khoahocs->delete();
             return redirect('khoa-hoc/ds-khoa-hoc-da-tao')->with('thongbao','Xóa thành công');
         }
+        if(auth()->user()->loai_tk == 3)
+        {
+            $khoahocs=khoahoc::find($idKhoaHoc);
+            $khoahocs->delete();
+            return redirect()->back()->with('thongbao','Xóa thành công');
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
+    public function getXoaTaiKhoan($idKhoaHoc)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $nguoidung=nguoidung::find($idKhoaHoc);
+            $nguoidung->delete();
+            return redirect()->back()->with('thongbao','Xóa thành công');
+        }
         else
         {
             abort(401);
