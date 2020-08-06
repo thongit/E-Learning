@@ -3,23 +3,15 @@
 <div class="dashboard-content-one">
         <!-- Breadcubs Area Start Here -->
         <div class="breadcrumbs-area">
-            <h3>Accounts</h3>
+            <h3>Khóa học</h3>
             <ul>
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>Fees Collection</li>
+                <li>Danh sách khóa học</li>
             </ul>
         </div>
         <!-- Breadcubs Area End Here -->
         <!-- Fees Table Area Start Here -->
         <div class="card height-auto">
             <div class="card-body">
-                <div class="heading-layout1">
-                    <div class="item-title">
-                        <h3>Tất cả khóa học</h3>
-                    </div>
-                </div>
                 <div class="table-responsive">
                     <table class="table data-table text-nowrap">
                         <thead>
@@ -52,16 +44,7 @@
                                 @endif
                                  </td>
                                  <td>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <span class="flaticon-more-button-of-three-dots"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                            <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                            <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                        </div>
-                                    </div>
+                                    <button onclick="xoa({{$item->id}})" class="btn btn-danger">xóa</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -73,7 +56,8 @@
         </div>
         <!-- Fees Table Area End Here -->
         <footer class="footer-wrap-layout1">
-            <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
+            <div class="copyright">© Copyrights <a href="#">QTTT</a>
+            </div>
         </footer>
     </div>
 <script>
@@ -95,6 +79,29 @@ function thongbaoxoa($id) {
             )
             $url='/admin/ds-khoa-hoc/'+$id;
             open($url,"_self")
+        }
+    })
+}
+</script>
+<script>
+function xoa($id) {
+    Swal.fire({
+        title: 'Bạn có Muốn Xóa Không?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok. Xóa nó!',
+        cancelButtonText:'Không'
+        }).then((result) => {
+        if (result.value) {
+            Swal.fire(
+            'Đã Xóa!',
+            'Bạn đã xóa thành công.',
+            'success'
+            )
+            $url='/khoa-hoc/xoa/'+$id;
+            open($url,"_self") 
         }
     })
 }
