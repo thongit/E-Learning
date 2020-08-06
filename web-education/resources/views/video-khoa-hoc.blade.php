@@ -6,6 +6,20 @@
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+.blog-area .pagination li a{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-right: 1px;
+}
+</style>
 <script>
 $(document).ready(function(){
     function hoanThanh(){
@@ -74,6 +88,9 @@ $(document).ready(function(){
                     html += '</div>';
                     html += '</article>';
                 }
+                html += '<div style="display: flex;justify-content: center;">';
+                html += '<?php echo $binhLuan->render(); ?>';
+                html += '</div>';
                 $(".thao-luan").html(html);
                 $('#noi_dung').val("");
             }
@@ -238,7 +255,7 @@ $(document).ready(function(){
                         </div>
                     </form>
                     <div class="thao-luan">
-                        @foreach($video->thaoLuan->reverse() as $bl)
+                        @foreach($binhLuan as $bl)
                         <article class="row">
                             <div class="col-md-2 col-sm-2 hidden-xs">
                                 <figure class="thumbnail">
@@ -261,6 +278,9 @@ $(document).ready(function(){
                             </div>
                         </article>
                         @endforeach
+                        <div style="display: flex;justify-content: center;">
+                            <?php echo $binhLuan->render(); ?>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">

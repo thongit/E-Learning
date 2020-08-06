@@ -335,7 +335,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            @foreach($dsKhoaHoc->danhGiaKH as $dg)
+                            @foreach($danhGia as $dg)
                             <article class="row">
                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                     <figure class="thumbnail">
@@ -363,10 +363,10 @@
                                     </div>
                                 </div>
                             </article>
-                            @if($loop->index == 2)
-                                @break;
-                            @endif
                             @endforeach
+                            <div style="display: flex;justify-content: center;">
+                                <?php echo $danhGia->render(); ?>
+                            </div>
                         </div>
                                 <!-- End Single Tab -->
                     @if($kiemtra == 1)

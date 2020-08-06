@@ -372,7 +372,7 @@ class KhoaHocController extends Controller
         $thaoluan->noi_dung=$request->noi_dung;
         $thaoluan->noi_dung_id=$request->idND;
         $thaoluan->save();
-        $bl = thaoluan::where('noi_dung_id','=',$request->idND)->orderBy('id','desc')->get()->load('nguoiDung');
+        $bl = thaoluan::where('noi_dung_id','=',$request->idND)->orderBy('id','desc')->paginate(4)->load('nguoiDung');
         return response()->json(array('msg'=> $bl), 200);
     }
 
@@ -443,6 +443,7 @@ class KhoaHocController extends Controller
         {
             abort(404);
         }
+        $binhLuan = thaoluan::where('noi_dung_id','=',$video->id)->orderBy('id','desc')->paginate(4);
         if($video->Chuong->khoaHoc->nguoi_dung_id == $id_nd)
         {
             if(sizeof($video->Chuong->baiKiemTra) >0)
@@ -456,7 +457,7 @@ class KhoaHocController extends Controller
                 $kiemtra1 = null;
             }
             $tienDo = 1;
-            return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo'));
+            return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo','binhLuan'));
         }
         $dem = 0;
         foreach($video->Chuong->khoaHoc->ctHoaDon as $dshv)
@@ -493,7 +494,7 @@ class KhoaHocController extends Controller
                     $kiemtra = null;
                     $kiemtra1 = null;
                 }
-                return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo'));
+                return view('video-khoa-hoc',compact('video','kiemtra','kiemtra1','tienDo','binhLuan'));
             }
         }
         return redirect()->back()->with('warning','Bạn chưa ghi danh vào khóa học!');
@@ -676,7 +677,8 @@ class KhoaHocController extends Controller
             $time[$bai->id] = $file['playtime_seconds'];
         }
         $time[0] = gmdate("H:i:s", array_sum($time));
-        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','ctDanhGia','listKH','td','time','ktdgkh'));
+        $danhGia = danhgiakh::where('khoa_hoc_id','=',$id)->paginate(3);
+        return view('KhoaHoc.chi-tiet-khoa-hoc', compact('dsKhoaHoc','dsLinhVuc','kiemtra','ctDanhGia','listKH','td','time','ktdgkh','danhGia'));
     }
     public function getBaiKiemTra($id)
     {
