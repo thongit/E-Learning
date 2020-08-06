@@ -262,11 +262,6 @@ function thongbaoxoa($id) {
         cancelButtonText:'Không'
         }).then((result) => {
         if (result.value) {
-            Swal.fire(
-            'Đã Xóa!',
-            'Bạn đã xóa thành công.',
-            'success'
-            )
             $url='/khoa-hoc/xoa/'+$id;
             open($url,"_self") 
         }

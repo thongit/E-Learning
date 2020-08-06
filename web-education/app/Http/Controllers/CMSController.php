@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -8,6 +7,7 @@ use App\linhvuc;
 use App\chuong;
 use App\nguoidung;
 use App\noidung;
+use App\cthoadon;
 use Session;
 use Auth;
 
@@ -22,15 +22,20 @@ class CMSController extends Controller
     {
         if(auth()->user()->loai_tk == 2)
         {
+            $ktTonTai=cthoadon::where('khoa_hoc_id',$idKhoaHoc)->first();
+            if($ktTonTai)
+            {
+                return redirect()->back()->with('warning','Không thể xóa. Khóa học đang có học viên');
+            }
             $khoahocs=khoahoc::find($idKhoaHoc);
+            $chuongs=$khoahocs->Chuong;
+            foreach ($chuongs as $item) {
+                $noidungs=noidung::where('chuong_id',$item->id);
+                $noidungs->delete();
+            }
+            $khoahocs->Chuong()->delete();
             $khoahocs->delete();
             return redirect('khoa-hoc/ds-khoa-hoc-da-tao')->with('thongbao','Xóa thành công');
-        }
-        if(auth()->user()->loai_tk == 3)
-        {
-            $khoahocs=khoahoc::find($idKhoaHoc);
-            $khoahocs->delete();
-            return redirect()->back()->with('thongbao','Xóa thành công');
         }
         else
         {
@@ -38,19 +43,6 @@ class CMSController extends Controller
         }
     }
 
-    public function getXoaTaiKhoan($idKhoaHoc)
-    {
-        if(auth()->user()->loai_tk == 3)
-        {
-            $nguoidung=nguoidung::find($idKhoaHoc);
-            $nguoidung->delete();
-            return redirect()->back()->with('thongbao','Xóa thành công');
-        }
-        else
-        {
-            abort(401);
-        }
-    }
 
     public function getSuaKhoaHoc($idKhoaHoc)
     {
