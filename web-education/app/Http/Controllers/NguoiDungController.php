@@ -242,6 +242,8 @@ class NguoiDungController extends Controller
     $nguoidung->sdt= $request->so_dt;
     $nguoidung->anh_dai_dien= 'null';
     $nguoidung->dia_chi= 'null';
+    $nguoidung->gioi_thieu= 'null';
+    $nguoidung->trang_thai= '1';
     $nguoidung->save();
     return redirect('dang-nhap')->with('thongbao','Đăng ký thành công');
 
