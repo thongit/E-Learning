@@ -353,6 +353,28 @@ class AdminController extends Controller
             abort(401);
         }
     }
+    public function getHuyDuyetKhoaHoc($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $khoahocs=khoahoc::find($id);
+            if($khoahocs->trang_thai==2)
+            {
+                $khoahocs->trang_thai=1;
+                $khoahocs->save();
+            }
+            else
+            {
+                $khoahocs->save();
+            }
+            return redirect()->back()->with('thongbao', 'đã hủy duyệt thành công');
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+    
 
     public function index()
     {

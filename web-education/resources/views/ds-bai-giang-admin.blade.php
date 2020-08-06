@@ -3,26 +3,16 @@
 <div class="dashboard-content-one">
         <!-- Breadcubs Area Start Here -->
         <div class="breadcrumbs-area">
-            <h3>Accounts</h3>
+            <h3>Khóa học</h3>
             <ul>
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>Fees Collection</li>
+                <li>Danh sách bài giảng</li>
             </ul>
         </div>
         <!-- Breadcubs Area End Here -->
         <!-- Fees Table Area Start Here -->
         <div class="card height-auto">
             <div class="card-body">
-                <div class="heading-layout1">
-                    <div class="item-title">
-                        <h3>Danh sách bài giảng của chương</h3>
-                    </div>
-                </div>
-                <div>
                 <div class="row">
-                    
                 @foreach($baigiangs as $item)
                 <div class="col-md-4">
                     <div class="embed-responsive embed-responsive-16by9">
@@ -31,14 +21,12 @@
                     <label for="">{{$item->tieu_de}}</label>
                 </div>
                 @endforeach
-
-                <div>
-                </div>
             </div>
         </div>
         <!-- Fees Table Area End Here -->
         <footer class="footer-wrap-layout1">
-            <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
+            <div class="copyright">© Copyrights <a href="#">QTTT</a>
+            </div>
         </footer>
     </div>
 <script>

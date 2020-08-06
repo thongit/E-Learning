@@ -37,15 +37,17 @@
                                 <button type="submit" class="btn btn-success" onclick="thongbaoxoa({{$item->id}})">Đã duyệt</button>
                                 @endif
                                 @if($item->trang_thai == 2)
-                                <button type="submit" class="btn btn-danger" onclick="thongbaoxoa({{$item->id}})">Chưa duyệt</button>
+                                <button type="submit" class="btn btn-danger" onclick="thongbaoxoa({{$item->id}})">Duyệt</button>
                                 @endif
                                 @if($item->trang_thai == 1)
                                 <button type="submit" class="btn btn-info">Đang tạo</button>
                                 @endif
                                  </td>
+                                @if($item->trang_thai == 2))
                                  <td>
-                                    <button onclick="xoa({{$item->id}})" class="btn btn-danger">xóa</button>
+                                    <button onclick="huyDuyetKH({{$item->id}})" class="btn btn-danger">Không duyệt</button>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
 
@@ -84,23 +86,23 @@ function thongbaoxoa($id) {
 }
 </script>
 <script>
-function xoa($id) {
+function huyDuyetKH($id) {
     Swal.fire({
-        title: 'Bạn có Muốn Xóa Không?',
+        title: 'Bạn có muốn hủy duyệt khóa học?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ok. Xóa nó!',
+        confirmButtonText: 'Ok. Hủy!',
         cancelButtonText:'Không'
         }).then((result) => {
         if (result.value) {
             Swal.fire(
-            'Đã Xóa!',
-            'Bạn đã xóa thành công.',
+            'Đã hủy!',
+            'Bạn đã hủy thành công.',
             'success'
             )
-            $url='/khoa-hoc/xoa/'+$id;
+            $url='/admin/huy-khoa-hoc/'+$id;
             open($url,"_self") 
         }
     })
