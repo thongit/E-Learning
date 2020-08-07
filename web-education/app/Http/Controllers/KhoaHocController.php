@@ -534,72 +534,133 @@ class KhoaHocController extends Controller
         {
             $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$request->key_word_tenkh.'%'],['trang_thai','=',3],])->paginate(6);
         }
-        if(sizeOf($dsKhoaHoc) <= 0)
-        {
-            return abort('404');
-        }
         return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc','tuKhoa'));
     }
 
-    // public function timKiemMucDo(Request $request)
-    // {
-    //     //$dsSanPham = SanPham::paginate(12);
-    //     $dsLinhVuc = linhvuc::all();
-
-    //     $dsKhoaHoc = khoahoc::where('muc_do', 'like', '%'.$request->tk_trung_cap.'%')
-    //                             ->where('muc_do', 'like', '%'.$request->tk_so_cap.'%')
-    //                             ->where('muc_do', 'like', '%'.$request->tk_chuyen_sau.'%')
-    //     ->get();
-    //     if(sizeOf($dsKhoaHoc) <= 0)
-    //     {
-    //         return abort(404);
-    //     }
-    //    return view('tim-kiem', compact('dsKhoaHoc','dsLinhVuc'));
-    // }
-
-
     public function timKiemNangCao(Request $request)
     {
-        $dsLinhVuc = linhvuc::all();
         $input = $request->get('input');
-        $value = $request->get('value');
-        $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%' . $input . '%'],
-        ['muc_do', 'like', '%' . $value . '%',]])->get()->toArray();
-
-
-        foreach($dsKhoaHoc as $khoaHoc)
+        $mucdo = $request->get('mucdo');
+        $linhvuc = $request->get('linhvuc');
+        $sapxep = $request->get('sapxep');
+        $ngonngu = $request->get('ngonngu');
+        if($mucdo == "Mức độ")
         {
-
+            $mucdo = '';
         }
-
-        //$thutimkiem = $dsKhoaHoc[0]->id;
-        // foreach($dsKhoaHoc as $ds)
-        // {
-
-        // }
-        // $dsTimKiem = khoahoc::query();
-
-        // if ($request->has('muc_do')) {
-        //     $dsTimKiem->where('muc_do', 'LIKE', '%' . $request->muc_do . '%');
-        // }
-
-        // if ($request->has('status')) {
-        //     $dsKhoaHoc->where('status', $request->status);
-        // }
-        // if ($request->has('type')) {
-        //     $dsKhoaHoc->where('type', $request->type);
-        // }
-
-        // if ($request->has('price')) {
-        //     $dsKhoaHoc->where('price', $request->price);
-        // }
-
-        // $dsKhoaHoc =  $dsTimKiem->get();
-        //eturn view('tim-kiem',compact('dsKhoaHoc','dsLinhVuc'));
-        //return response()->json(array('sds' => $dsKhoaHoc), 200);
-        //return json_encode($dsKhoaHoc);
-        //return response( $outPut );
-
+        if($ngonngu == "Ngôn ngữ")
+        {
+            $ngonngu = '';
+        }
+        $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
+        $dsgv = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->get('id');
+        if($dsgv != null)
+        {
+            if($linhvuc == "0")
+            {
+                if($sapxep == "1")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orWhereIn('nguoi_dung_id',$dsgv)->where([['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','desc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else if ($sapxep == "2")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orWhereIn('nguoi_dung_id',$dsgv)->where([['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','asc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orWhereIn('nguoi_dung_id',$dsgv)->where([['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+            }
+            else
+            {
+                if($sapxep == "1")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orWhereIn('nguoi_dung_id',$dsgv)->where([['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','desc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else if ($sapxep == "2")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orWhereIn('nguoi_dung_id',$dsgv)->where([['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','asc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orWhereIn('nguoi_dung_id',$dsgv)->where([['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+            }
+        }
+        else
+        {
+            if($linhvuc == "0")
+            {
+                if($sapxep == "1")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','desc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else if ($sapxep == "2")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','asc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['ngon_ngu','like', '%' . $ngonngu . '%'],])->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+            }
+            else
+            {
+                if($sapxep == "1")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','desc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else if ($sapxep == "2")
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->orderBy('gia','asc')->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+                else
+                {
+                    $dsKhoaHoc = khoahoc::where([['ten_khoa_hoc', 'like', '%'.$input.'%'],['trang_thai','=',3],['muc_do', 'like', '%' . $mucdo . '%'],['linh_vuc_id','=',$linhvuc],['ngon_ngu','like', '%' . $ngonngu . '%'],])->paginate(9)->load('nguoiDung','linhVuc','danhGiaKH','ctHoaDon','dsChuongBai');
+                }
+            }
+        }
+        foreach($dsKhoaHoc as $key => $khoaHoc)
+        {
+            if($khoaHoc->danhGiaKH->count() != 0)
+            {
+                if($khoaHoc->nguoiDung->toChuc->count() > 0)
+                {
+                    $dulieu[$key] = array(
+                        '0' => round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN),
+                        '1' => $khoaHoc->nguoiDung->toChuc[0]->ten_to_chuc,
+                    );
+                } 
+                else 
+                { 
+                    $dulieu[$key] = array(
+                        '0' => round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN),
+                        '1' => $khoaHoc->giangVien->ho_ten,
+                    );
+                    
+                }
+            }
+            else
+            {
+                if($khoaHoc->nguoiDung->toChuc->count() > 0)
+                {
+                    $dulieu[$key] = array(
+                        '0' => 0,
+                        '1' => $khoaHoc->nguoiDung->toChuc[0]->ten_to_chuc,
+                    );
+                } 
+                else 
+                { 
+                    $dulieu[$key] = array(
+                        '0' => 0,
+                        '1' => $khoaHoc->giangVien->ho_ten,
+                    );
+                    
+                }
+            }
+            
+        }
+        return response()->json(array('msg' => $dsKhoaHoc, 'dulieu' => $dulieu), 200);
     }
 
     public function hienThiChiTietKhoaHoc($id)

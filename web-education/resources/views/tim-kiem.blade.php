@@ -28,47 +28,48 @@
         <div class="mg-tim-kiem-nc">
             <div class="row">
                 <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2 dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Lĩnh Vực
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
+                    <div class="form-group">
+                        <select class="form-control" id="linhVuc" data-dependent="linhVuc" name="linhVuc">
+                        <option value="0">Lĩnh vực</option>
                         @foreach($dsLinhVuc as $linhVuc)
-                            <li><a href="#">{{ $linhVuc->ten_linh_vuc }}</a></li>
+                            <option value ="{{$linhVuc->id}}">{{ $linhVuc->ten_linh_vuc }}</option>
                         @endforeach
-                    </ul>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2">
                     <div class="form-group">
-                        {{--  <label for="sel1">Mức D(o</label>  --}}
-                        <select class="form-control" id="chon" data-dependent="mucdo" name="chon">
-                        <option>Mức Độ</option>
-                        <a href="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}"><option> Sơ Cấp</option></a>
-                        <option>Trung Cấp </option>
-                        <option>Chuyên Sâu</option>
+                        <select class="form-control" id="mucDo" data-dependent="mucdo" name="chon">
+                        <option>Mức độ</option>
+                        <option>Sơ cấp</option>
+                        <option>Trung cấp</option>
+                        <option>Chuyên sâu</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2 dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ngôn Ngữ
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                    <li><a href="#">Tiếng Anh</a></li>
-                    <li><a href="#">Tiếng Việt</a></li>
-                    </ul>
+                    <div class="form-group">
+                        <select class="form-control" id="ngonNgu" data-dependent="ngonNgu" name="ngonNgu">
+                        <option>Ngôn ngữ</option>
+                        <option> Tiếng Anh</option>
+                        <option>Tiếng Việt</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2 dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Giá Giảm Dần
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                    <li><a href="#">Giá Giảm Dần</a></li>
-                    <li><a href="#">Giá Tăng Dần</a></li>
-                    </ul>
+                    <div class="form-group">
+                        <select class="form-control" id="sapXep" data-dependent="sapXep" name="sapXep">
+                        <option>Sắp xếp</option>
+                        <option value="1">Giá Giảm Dần</option>
+                        <option value="2">Giá Tăng Dần</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
     </div>
 </div>
-{{-- End tìm kiếm nâng cao --}}
 
 <!-- Start Popular Courses
     ============================================= -->
@@ -77,66 +78,71 @@
             <div class="row">
                 <div class="top-course-items">
                     <!-- Single Item -->
-                    @foreach($dsKhoaHoc as $khoaHoc)
-
-                    <div class="col-md-4 col-sm-6 equal-height">
-                        <div class="item">
-                            <div class="thumb">
-                                <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
-                                <div class="overlay">
-                                    <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">
-                                        <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
-                                    </a>
-                                    <ul>
-                                        <li></li>
-                                        <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
-                                    </ul>
+                    <div class="dskh">
+                        @if($dsKhoaHoc->count() == 0)
+                            <h4 style="text-align:center">Không tìm thấy</h4> 
+                        @else
+                        @foreach($dsKhoaHoc as $khoaHoc)
+                        <div class="col-md-4 col-sm-6 equal-height">
+                            <div class="item">
+                                <div class="thumb">
+                                    <img class="img-khoa-hoc" src="{{ asset('assets/images/'.$khoaHoc->hinh_anh) }}" alt="Thumb">
+                                    <div class="overlay">
+                                        <a href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">
+                                            <img src="{{ asset('assets/images/'.$khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb">
+                                        </a>
+                                        <ul>
+                                            <li></li>
+                                            <li><i class="fas fa-list-ul"></i> {{$khoaHoc->dsChuongBai->count()}}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="info">
-                                <div class="meta">
-                                    <ul>
-                                        <li>
-                                            <a class="lam-gon-ten" style="display: -webkit-box;" href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">@if($khoaHoc->nguoiDung->toChuc->count() > 0) {{ $khoaHoc->nguoiDung->toChuc[0]->ten_to_chuc }} @else {{ $khoaHoc->giangVien->ho_ten }} @endif</a>
+                                <div class="info">
+                                    <div class="meta">
+                                        <ul>
+                                            <li>
+                                                <a class="lam-gon-ten" style="display: -webkit-box;" href="{{ action('KhoaHocController@chiTietGiangVien' , $khoaHoc->giangVien->id) }}">@if($khoaHoc->nguoiDung->toChuc->count() > 0) {{ $khoaHoc->nguoiDung->toChuc[0]->ten_to_chuc }} @else {{ $khoaHoc->giangVien->ho_ten }} @endif</a>
 
-                                        </li>
-                                        <li>
-                                            @if($khoaHoc->danhGiaKH->count() != 0)
-                                                {{ round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
-                                            @else
-                                                0
-                                            @endif
-                                            <i class="fas fa-star"></i>
-                                        </li>
+                                            </li>
+                                            <li>
+                                                @if($khoaHoc->danhGiaKH->count() != 0)
+                                                    {{ round( ($khoaHoc->danhGiaKH->sum('so_sao') / $khoaHoc->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
+                                                @else
+                                                    0
+                                                @endif
+                                                <i class="fas fa-star"></i>
+                                            </li>
 
-                                    </ul>
-                                    <ul>
-                                        <li>
-                                            <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
-                                        </li>
-                                        <li>
-                                            <span>({{$khoaHoc->danhGiaKH->count()}} đánh giá)</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h4>
-                                    <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
-                                </h4>
-                                <p class="lam-gon-van-ban-mo-ta">
-                                    {{ $khoaHoc->mo_ta_ngan }}
-                                </p>
-                                <div class="footer-meta">
-                                    <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>
-                                    <h4>@if($khoaHoc->gia != 0){{ number_format($khoaHoc->gia) }} VNĐ @else Miễn phí @endif</h4>
+                                        </ul>
+                                        <ul>
+                                            <li>
+                                                <a href="/linh-vuc/{{$khoaHoc->LinhVuc->id}}"> {{ $khoaHoc->LinhVuc->ten_linh_vuc }}</a>
+                                            </li>
+                                            <li>
+                                                <span>({{$khoaHoc->danhGiaKH->count()}} đánh giá)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>
+                                        <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $khoaHoc->id) }}" class="lam-gon-van-ban-mo-ta"> {{ $khoaHoc->ten_khoa_hoc }}</a>
+                                    </h4>
+                                    <p class="lam-gon-van-ban-mo-ta">
+                                        {{ $khoaHoc->mo_ta_ngan }}
+                                    </p>
+                                    <div class="footer-meta">
+                                        <a class="btn btn-theme effect btn-sm" href="{{route('thanh-toan',$khoaHoc->id)}}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>
+                                        <h4>@if($khoaHoc->gia != 0){{ number_format($khoaHoc->gia) }} VNĐ @else Miễn phí @endif</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        @endif
                     </div>
-                    @endforeach
                     <!-- Single Item -->
                 </div>
             </div>
-            <div style="display: flex;justify-content: center;">
+            <div class="pagin" style="display: flex;justify-content: center;">
                 <?php echo $dsKhoaHoc->render(); ?>
             </div>
         </div>
@@ -147,32 +153,109 @@
 @section('js')
 <script>
   $(document).ready(function(){
-        $("#chon").change(function(){
-            var value = $(this).val();
+        $("#mucDo").change(function(){
+            timkiem();
+        });
+        $("#ngonNgu").change(function(){
+            timkiem();
+        });
+        $("#sapXep").change(function(){
+            timkiem();
+        });
+        $("#linhVuc").change(function(){
+            timkiem();
+        });
+
+        function timkiem(){
+            var mucdo = $("#mucDo").val();
+            var ngonngu = $("#ngonNgu").val();
+            var sapxep = $("#sapXep").val();
+            var linhvuc = $("#linhVuc").val();
             var input = {!!json_encode($tuKhoa)!!};
             var _token = $('input[name = "_token"]').val();
-            //var kh;
             $.ajax({
                 url:"{{ route('trang-chu.xu-ly-tim-kiem-nc') }}",
-
                 method:"GET",
-                data:{value:value, input:input,  _token: _token},
+                data:{
+                    mucdo:mucdo,
+                    ngonngu:ngonngu,
+                    sapxep:sapxep,
+                    linhvuc:linhvuc,
+                    input:input,  
+                    _token: _token
+                },
                 success:function(data){
-                    //kh = data;
-                    //$("#foreach").html('');
-                    $("#course").html(data);
-                    //console.log(data);
-                    //$("#AnKhoaHoc").hidden();
-                    //$("#HienKhoaHoc").html(data);
-
-            //console.log(data);
-
-
-
-
+                    console.log(data.msg);
+                    var html = '';
+                    if(data.msg.length == 0)
+                    {
+                        html += '<h4 style="text-align:center">Không tìm thấy</h4>';
+                    }
+                    else
+                    {
+                        for(var i = 0; i<data.msg.length; i++)
+                        {
+                            html += '<div class="col-md-4 col-sm-6 equal-height">';
+                            html += '<div class="item">';
+                            html += '<div class="thumb">';
+                            html += '<img class="img-khoa-hoc" src="/assets/images/'+ data.msg[i].hinh_anh + '" alt="Thumb">';
+                            html += '<div class="overlay">';
+                            html += '<a href="/giang-vien/'+data.msg[i].nguoi_dung_id+'">';
+                            html += '<img src="/assets/images/'+data.msg[i].nguoi_dung["anh_dai_dien"]+'" alt="Thumb">';
+                            html += '</a>';
+                            html += '<ul>';
+                            html += '<li></li>';
+                            html += '<li><i class="fas fa-list-ul"></i> '+data.msg[i].ds_chuong_bai.length +'';
+                            html +='</li>';
+                            html += '</ul>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<div class="info">';
+                            html += '<div class="meta">';
+                            html += '<ul>';
+                            html += '<li>';
+                            html += '<a class="lam-gon-ten" style="display: -webkit-box;" href="/giang-vien/'+data.msg[i].nguoi_dung_id+'">'+data.dulieu[i][1]+'</a>';
+                            html += '</li>';
+                            html += '<li>';
+                            html += ''+data.dulieu[i][0]+' <i class="fas fa-star"></i>';
+                            html += '</li>';
+                            html += '</ul>';
+                            html += '<ul>';
+                            html += '<li>';
+                            html += '<a href="/linh-vuc/'+data.msg[i].linh_vuc_id+'">'+data.msg[i].linh_vuc['ten_linh_vuc'] +'</a>';
+                            html += '</li>';
+                            html += '<li>';
+                            html += '<span>('+ data.msg[i].danh_gia_k_h.length +' đánh giá)</span>';
+                            html += '</li>';
+                            html += '</ul>';
+                            html += '</div>';
+                            html += '<h4>';
+                            html += '<a href="/khoa-hoc/'+data.msg[i].id+'" class="lam-gon-van-ban-mo-ta">'+data.msg[i].ten_khoa_hoc+'</a>';
+                            html += '</h4>';
+                            html += '<p class="lam-gon-van-ban-mo-ta">'+ data.msg[i].mo_ta_ngan +'</p>';
+                            html += '<div class="footer-meta">';
+                            html += '<a class="btn btn-theme effect btn-sm" href="/thanhtoan/'+data.msg[i].id+'"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Ghi danh</a>';
+                            html += '<h4>';
+                            if(data.msg[i].gia  != 0)
+                            {
+                               html+= new Intl.NumberFormat('ja-JP').format(data.msg[i].gia)+' VNĐ';
+                            }
+                            else
+                            {
+                                html += 'Miễn phí';
+                            }
+                            html +='</h4>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                    }
+                    $(".dskh").html(html);
+                    $(".pagin").html('');
                 }
             });
-        });
+        }
   });
 </script>
 @endsection
