@@ -47,10 +47,15 @@
                                             <td>{{$dsKetQua->diem}}</td>
                                             @break;
                                         @endif
+                                        @if($loop->last && ($dsKetQua->nguoi_dung_id != $idNguoiDung))
+                                            <td>Chưa làm</td>
+                                            <td>Chưa làm</td>
+                                         @endif
                                     @endforeach
+
                                 @else
                                     <td>Chưa làm</td>
-                                    <td>Chưa làm bài</td>
+                                    <td>Chưa làm</td>
                                 @endif
                             </tr>
                         @endforeach
