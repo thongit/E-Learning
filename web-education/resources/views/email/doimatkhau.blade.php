@@ -1,3 +1,3 @@
-<form method="get" action="{{ route('xu-ly-doi-mat-khau')}}">
-    <button type="submit">Tạo mật khẩu mới</button>
-</form>
+Vui lòng bấm vào
+    <a href="{{ route('doi-mat-khau', bcrypt(session()->get('email_qmk')))}}"> đây</a>
+   Để tạo mật khẩu mới
