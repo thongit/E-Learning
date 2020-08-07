@@ -234,7 +234,7 @@ class KhoaHocController extends Controller
                     $tdC = $td[0];
                 }
             }
-            
+
             $chuongs = chuong::where([['id','>=',$tdC],['khoa_hoc_id','=',$idKhoahoc],])->get();
             if(sizeof($chuongs) == 0)
             {
@@ -569,7 +569,7 @@ class KhoaHocController extends Controller
 
         foreach($dsKhoaHoc as $khoaHoc)
         {
-            
+
         }
 
         //$thutimkiem = $dsKhoaHoc[0]->id;
@@ -731,6 +731,13 @@ class KhoaHocController extends Controller
         }
         $list = ketquakt::where('bai_kiem_tra_id','=', $id)->get();
         return view('bang-diem',compact('list','baikt'));
+    }
+
+    public function hienThiDanhSachBaiKTra($id)
+    {
+        $khoaHoc = khoahoc::find($id);
+        $idNguoiDung=auth()->user()->id;
+        return view('ds-bai-kiem-tra', compact('khoaHoc','idNguoiDung'));
     }
 
 }
