@@ -21,7 +21,7 @@
                     @csrf
                         <div class="login-custom">
                             <div class="heading">
-                                <h4><i class="fas fa-edit"></i>Quên mật khẩu</h4>
+                                <h4><i class="fas fa-edit"></i>Quên mật khẩu </h4>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">

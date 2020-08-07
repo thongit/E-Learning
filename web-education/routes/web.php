@@ -203,13 +203,13 @@ Route::post('dang-ky','NguoiDungController@xuLyDangKy')->name('xu-ly-dang-ky');
 
 Route::post('mail/send','NguoiDungController@xuLyQuenMatKhau')->name('xu-ly-quen-mat-khau');
 
-Route::get('doi-mat-khau','NguoiDungController@doiMatKhau')->name('doi-mat-khau')->middleware('guest:web');;
+Route::get('doi-mat-khau/{ma}','NguoiDungController@doiMatKhau')->name('doi-mat-khau')->middleware('guest:web');;
 
 Route::get('thong-tin-ca-nhan','NguoiDungController@getSua')->name('sua');
 
 Route::post('thong-tin-ca-nhan','NguoiDungController@postSua')->name('xu-ly-sua');
 
-Route::post('doi-mat-khau','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
+Route::post('doi-mat-khau1','NguoiDungController@xuLyDoiMatKhau')->name('xu-ly-doi-mat-khau');
 
 Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->name('xu-ly-doi-mat-khau-trang-ca-nhan');
 

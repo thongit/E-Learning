@@ -355,9 +355,14 @@ class NguoiDungController extends Controller
         }
     }
 
-    public function doiMatKhau()
+    public function doiMatKhau($ma)
     {
-      return view('doi-mat-khau');
+        $email = session()->get('email_qmk');
+        if(!Hash::check($email,$ma))
+        {
+            abort(404);
+        }
+        return view('doi-mat-khau');
     }
 
     public function xuLyDoiMatKhau(Request $request)
