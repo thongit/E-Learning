@@ -169,7 +169,7 @@ Route::get('/cong-bo', function () {
     return view('countdown-timer');
 });
 
-
+Route::get('ds-bai-kiem-tra/{id}','KhoaHocController@hienThiDanhSachBaiKTra')->name('ds-bai-kiem-tra');
 
 Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc')->name('linh-vuc');
 

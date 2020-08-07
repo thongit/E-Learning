@@ -38,8 +38,8 @@
 <!-- Start Breadcrumb
     ============================================= -->
     <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
+        <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
         <a href="">Chi tiết khóa học</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
@@ -181,8 +181,15 @@
 
                                 <div id="tab2" class="tab-pane fade">
                                     <div class="info title">
-                                        <p>
-                                        </p>
+                                        @if($kiemtra != 0)
+                                        <div class=" ds-kiem-tra">
+                                        <div class="align-right">
+                                            <a class="btn btn-theme effect btn-sm" href="{{route('ds-bai-kiem-tra',$dsKhoaHoc->id)}}">
+                                                <i class="fas fa-list"></i> Danh Sách Bài Kiểm Tra
+                                            </a>
+                                        </div>
+                                        </div>
+                                        @endif
                                         <h4>Danh Sách Bài Học</h4>
                                         @foreach($dsKhoaHoc->Chuong as $key => $dschuong)
                                         <!-- Start Course List -->
@@ -200,8 +207,8 @@
                                                                 </div>
                                                                 @endif
                                                             </a>
-                                                                
-                                                
+
+
                                                         </h4>
                                                     </div>
 
@@ -340,7 +347,7 @@
                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                     <figure class="thumbnail">
                                         <img class="img-responsive" src="{{ asset('assets/images/'.$dg->nguoiDung->anh_dai_dien) }}" />
-                                        
+
 
                                     </figure>
                                     </div>
@@ -378,13 +385,13 @@
                                     <div class="form-group">
                                         <div class="rating-danhgia">
                                             <input type="radio" name="rating" value="5" id="5">
-                                            <label for="5">☆</label> 
+                                            <label for="5">☆</label>
                                             <input type="radio" name="rating" value="4" id="4">
-                                            <label for="4">☆</label> 
+                                            <label for="4">☆</label>
                                             <input type="radio" name="rating" value="3" id="3">
-                                            <label for="3">☆</label> 
+                                            <label for="3">☆</label>
                                             <input type="radio" name="rating" value="2" id="2">
-                                            <label for="2">☆</label> 
+                                            <label for="2">☆</label>
                                             <input type="radio" name="rating" value="1" id="1">
                                             <label for="1">☆
                                             </label>
@@ -463,7 +470,7 @@
                                         <a href="{{ route('trang-chu.chi-tiet-khoa-hoc',$kh->id) }}">{{ $kh->ten_khoa_hoc }}</a>
                                         <label>@if($kh->gia != 0) {{ number_format($kh->gia) }} VNĐ @else Miễn phí @endif</label>
                                         <div class="meta">
-                                            
+
                                             <div class="rating">
                                             @if($kh->danhGiaKH->count() != 0)
                                                 {{ round( ($kh->danhGiaKH->sum('so_sao') / $kh->danhGiaKH->count()), 1, PHP_ROUND_HALF_EVEN)}}
