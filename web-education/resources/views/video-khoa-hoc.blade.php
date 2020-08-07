@@ -88,9 +88,6 @@ $(document).ready(function(){
                     html += '</div>';
                     html += '</article>';
                 }
-                html += '<div style="display: flex;justify-content: center;">';
-                html += '<?php echo $binhLuan->render(); ?>';
-                html += '</div>';
                 $(".thao-luan").html(html);
                 $('#noi_dung').val("");
             }
@@ -278,9 +275,9 @@ $(document).ready(function(){
                             </div>
                         </article>
                         @endforeach
-                        <div style="display: flex;justify-content: center;">
-                            <?php echo $binhLuan->render(); ?>
-                        </div>
+                    </div>
+                    <div style="display: flex;justify-content: center;">
+                        <?php echo $binhLuan->render(); ?>
                     </div>
                 </div>
                 <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">

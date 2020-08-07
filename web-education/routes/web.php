@@ -197,13 +197,13 @@ Route::get('dang-nhap','NguoiDungController@dangNhap')->name('dang-nhap')->middl
 
 Route::post('dang-nhap','NguoiDungController@xuLyDangNhap')->name('xu-ly-dang-nhap');
 
-Route::get('dang-ky','NguoiDungController@dangKy')->name('dang-ky');
+Route::get('dang-ky','NguoiDungController@dangKy')->name('dang-ky')->middleware('guest:web');;
 
 Route::post('dang-ky','NguoiDungController@xuLyDangKy')->name('xu-ly-dang-ky');
 
 Route::post('mail/send','NguoiDungController@xuLyQuenMatKhau')->name('xu-ly-quen-mat-khau');
 
-Route::get('doi-mat-khau','NguoiDungController@doiMatKhau')->name('doi-mat-khau');
+Route::get('doi-mat-khau','NguoiDungController@doiMatKhau')->name('doi-mat-khau')->middleware('guest:web');;
 
 Route::get('thong-tin-ca-nhan','NguoiDungController@getSua')->name('sua');
 
@@ -215,7 +215,7 @@ Route::post('trang-ca-nhan','NguoiDungController@xuLyDoiMatKhauTrangCaNhan')->na
 
 Route::post('trang-ca-nhan1','NguoiDungController@xuLyThemTaiKhoan')->name('xu-ly-them-tk');
 
-Route::get('xac-minh-tai-khoan','NguoiDungController@getxacMinhTaiKhoan')->name('xac-minh-tai-khoan');
+Route::get('xac-minh-tai-khoan','NguoiDungController@getxacMinhTaiKhoan')->name('xac-minh-tai-khoan')->middleware('guest:web');;
 
 Route::post('xac-minh-tai-khoan','NguoiDungController@postxacMinhTaiKhoan')->name('xu-ly-xac-minh-tai-khoan');
 
