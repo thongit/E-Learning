@@ -274,6 +274,7 @@ class AdminController extends Controller
             if($khoahocs->trang_thai==2)
             {
                 $nguoidungs = nguoidung::where('id','=', $khoahocs->nguoi_dung_id )->first();
+                session()->put('tkh', $khoahocs->ten_khoa_hoc);
                 Mail::to( $nguoidungs->email)->send(new ThongBaoDuyetKhoaHoc($nguoidungs->email));
                 $khoahocs->trang_thai=3;
                 $khoahocs->save();
@@ -364,6 +365,7 @@ class AdminController extends Controller
                 $nguoidungs = nguoidung::where('id','=', $khoahocs->nguoi_dung_id )->first();
                 $khoahocs->trang_thai=1;
                 $khoahocs->save();
+                session()->put('tenkh_huy', $khoahocs->ten_khoa_hoc);
                 Mail::to($nguoidungs->email)->send(new ThongBaoKhongDuyetKhoaHoc($nguoidungs->email));
             }
             else

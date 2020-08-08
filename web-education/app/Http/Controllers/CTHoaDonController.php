@@ -8,7 +8,7 @@ use App\nguoidung;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ThongBaoKichHoatKhoaHocThanhCong;
-use App\Mail\ThanhToanVNP;
+use App\Mail\ThanhToanVNPay;
 
 
 class CTHoaDonController extends Controller
@@ -38,8 +38,11 @@ class CTHoaDonController extends Controller
             $updateTrangThai->trang_thai = 2;
             $updateTrangThai->save();
             $hd = hoadon::find($updateTrangThai->hoa_don_id);
+            
             $hd->trang_thai = 3;
             $hd->save();
+            $tenkh = khoahoc::find($updateTrangThai->khoa_hoc_id);
+            session()->put('tenkh_email', $tenkh->ten_khoa_hoc);
             Mail::to($nguoidung->email)->send(new ThongBaoKichHoatKhoaHocThanhCong($nguoidung->email));
             return redirect('/khoa-hoc/'.$updateTrangThai->khoa_hoc_id)->with('success', 'Bạn đã Kích hoạt khóa học thành công!');
         }
@@ -244,7 +247,10 @@ class CTHoaDonController extends Controller
             $ctHoaDon->trang_thai = 2;
             $ctHoaDon->save();
             $u = '/khoa-hoc/'.$ctHoaDon->khoa_hoc_id;
-            Mail::to($nd->email)->send(new ThanhToanVNP($nd->email));
+           
+            session()->put('tenkh_emailVnp', $ctHoaDon->khoaHoc->ten_khoa_hoc);
+            
+            Mail::to($nd->email)->send(new ThanhToanVNPay($nd->email));
             return redirect($u)->with('success' ,'Đã thanh toán phí dịch vụ');
             
         }

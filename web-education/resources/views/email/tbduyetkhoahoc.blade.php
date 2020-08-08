@@ -1,1 +1,1 @@
-Khóa học của bạn đã được duyệt. Hãy nhanh chóng vào <a href="{{ route('dskhdt')}}" target="_blank" title="">EDUQTTT- Quản lý khóa học</a> để kiểm tra!
+EDUQTT- Khóa học {{ Session::get('tkh') }} của bạn đã được phê duyệt. Hãy nhanh chóng vào <a href="{{ route('dskhdt')}}" target="_blank" title="">EDUQTTT- Quản lý khóa học</a> để kiểm tra!

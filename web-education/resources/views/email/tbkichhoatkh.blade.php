@@ -1,1 +1,1 @@
-Bạn vừa kích hoạt khóa học thành công. Hãy nhanh chóng vào <a href="{{ route('khoa-hoc-cua-toi')}}" target="_blank" title="">EDUQTTT-Khóa học của bạn</a> để trải nghiệm khóa học!
+EDUQTTT- Bạn vừa kích hoạt khóa học {{ Session::get('tenkh_email') }} thành công. Hãy nhanh chóng vào <a href="{{ route('khoa-hoc-cua-toi')}}" target="_blank" title="">EDUQTTT-Khóa học của bạn</a> để trải nghiệm khóa học!
