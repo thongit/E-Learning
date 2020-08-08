@@ -62,37 +62,34 @@ $(document).ready(function(){
             noi_dung: $nd
             },
             success:function(data) {
-                var html = '';
-                console.log(data.msg);
-                for(var i = 0; i<data.msg.length; i++)
-                {
-                    html += '<article class="row">';
-                    html += '<div class="col-md-2 col-sm-2 hidden-xs">';
-                    html += '<figure class="thumbnail">';
-                    html += '<img class="img-responsive" src="/assets/images/' + data.msg[i].nguoi_dung.anh_dai_dien + '" />';
-                    html += '</figure>';
-                    html += '</div>';
-                    html += '<div class="col-md-10 col-sm-10">';
-                    html += '<div class="panel panel-default arrow left">';
-                    html += '<div class="panel-body">';
-                    html += '<h4>'+data.msg[i].nguoi_dung.ho_ten +'</h4>';
-                    html += '<header class="text-left">';
-                    html += '<time class="comment-date">'+ new Date(data.msg[i].created_at).toLocaleString() +'';
-                    html += '<i class="fa fa-clock-o"></i></time>';
-                    html += '</header>';
-                    html += '<div class="comment-post">';
-                    html += '<label for="">'+data.msg[i].noi_dung +'</label>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</article>';
-                }
-                $(".thao-luan").html(html);
+                console.log(data);
+                $(".dsbl").html(data);
                 $('#noi_dung').val("");
             }
         });
     }
+
+    function laydl(page)
+    {
+        $.ajax({
+            url: '/lay-binh-luan?page='+page,
+            method:"GET",
+            data:{
+                idND: {{$video->id}},
+                _token : '<?php echo csrf_token() ?>'
+            },
+            success:function(data){
+                console.log(data);
+                $(".dsbl").html(data);
+            }
+        });
+    }
+
+    $(document).on('click','.pagination a', function(e){
+        e.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        laydl(page);
+    });
 
     $("#hoanThanh").click(function (){
         Swal.fire({
@@ -251,33 +248,8 @@ $(document).ready(function(){
                         </button>
                         </div>
                     </form>
-                    <div class="thao-luan">
-                        @foreach($binhLuan as $bl)
-                        <article class="row">
-                            <div class="col-md-2 col-sm-2 hidden-xs">
-                                <figure class="thumbnail">
-                                    <img class="img-responsive" src="{{ asset('assets/images/'.$bl->nguoiDung->anh_dai_dien) }}" />
-                                </figure>
-                                </div>
-                                <div class="col-md-10 col-sm-10">
-                                <div class="panel panel-default arrow left">
-                                    <div class="panel-body">
-                                        <h4>{{$bl->nguoiDung->ho_ten}}</h4>
-                                    <header class="text-left">
-                                        <time class="comment-date">{{date_format($bl->created_at, 'H:i:s, d/m/Y')}}
-                                            <i class="fa fa-clock-o"></i></time>
-                                    </header>
-                                    <div class="comment-post">
-                                        <label for="">{{$bl->noi_dung}}</label>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        @endforeach
-                    </div>
-                    <div style="display: flex;justify-content: center;">
-                        <?php echo $binhLuan->render(); ?>
+                    <div class="dsbl">
+                        @include('binh-luan')
                     </div>
                 </div>
                 <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">

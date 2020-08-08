@@ -372,13 +372,14 @@ class KhoaHocController extends Controller
         $thaoluan->noi_dung=$request->noi_dung;
         $thaoluan->noi_dung_id=$request->idND;
         $thaoluan->save();
-        $bl = thaoluan::where('noi_dung_id','=',$request->idND)->orderBy('id','desc')->paginate(4)->load('nguoiDung');
-        return response()->json(array('msg'=> $bl), 200);
+        $binhLuan = thaoluan::where('noi_dung_id','=',$request->idND)->orderBy('id','desc')->paginate(4);
+        return view('binh-luan', compact('binhLuan'));
     }
 
-    public function create()
+    public function layBinhLuan(Request $request)
     {
-        //
+        $binhLuan = thaoluan::where('noi_dung_id','=',$request->idND)->orderBy('id','desc')->paginate(4);
+        return view('binh-luan', compact('binhLuan'))->render();
     }
 
     /**

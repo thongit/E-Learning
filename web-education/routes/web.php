@@ -101,7 +101,10 @@ Route::middleware('auth')->group(function(){
 
     Route::post('xu-ly-binh-luan', 'KhoaHocController@xuLyBinhLuan')->name('xu-ly-binh-luan');
 
+    Route::get('lay-binh-luan', 'KhoaHocController@layBinhLuan')->name('lay-binh-luan');
+
     Route::get('giang-vien/quan-ly-don-hang-giang-vien','NguoiDungController@getQuanLyDonHang');
+
     Route::get('giang-vien/thong-ke/{idKhoaHoc}','NguoiDungController@getThongKeKhoaHoc')->name('thong-ke-khoa-hoc');
 
     Route::get('giang-vien/quan-ly-don-hang/{id}', 'NguoiDungController@quanLyDonHangUpdate')->name('DonHangUpdate');
