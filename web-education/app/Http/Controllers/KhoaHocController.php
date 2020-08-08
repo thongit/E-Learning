@@ -620,6 +620,7 @@ class KhoaHocController extends Controller
                 }
             }
         }
+        $dulieu=null;
         foreach($dsKhoaHoc as $key => $khoaHoc)
         {
             if($khoaHoc->danhGiaKH->count() != 0)

@@ -22,12 +22,10 @@
 
     {{-- Start tìm kiếm nâng cao --}}
 <div class="container">
-    <div class="bg-tim-kiem-nc" id="course">
     <form id="search-form" class="new-added-form" action="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}" method="GET">
         @csrf
-        <div class="mg-tim-kiem-nc">
             <div class="row">
-                <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2 dropdown">
+                <div class="col-md-3">
                     <div class="form-group">
                         <select class="form-control" id="linhVuc" data-dependent="linhVuc" name="linhVuc">
                         <option value="0">Lĩnh vực</option>
@@ -37,7 +35,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <select class="form-control" id="mucDo" data-dependent="mucdo" name="chon">
                         <option>Mức độ</option>
@@ -47,7 +45,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2 dropdown">
+                <div class="col-md-3">
                     <div class="form-group">
                         <select class="form-control" id="ngonNgu" data-dependent="ngonNgu" name="ngonNgu">
                         <option>Ngôn ngữ</option>
@@ -56,7 +54,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-xs-2 col-sm-2 col-md-2 dropdown">
+                <div class="col-md-3">
                     <div class="form-group">
                         <select class="form-control" id="sapXep" data-dependent="sapXep" name="sapXep">
                         <option>Sắp xếp</option>
@@ -66,9 +64,7 @@
                     </div>
                 </div>
             </div>
-        </div>
     </form>
-    </div>
 </div>
 
 <!-- Start Popular Courses
