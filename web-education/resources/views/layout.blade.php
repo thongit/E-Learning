@@ -129,7 +129,7 @@
 
     <!-- Start Footer -->
         <!-- ============================================= -->
-        <footer class="bg-dark text-light top-padding">
+        <footer class="bg-dark text-light">
             <!-- Start Footer Bottom -->
             <div class="footer-bottom">
                 <div class="container">
