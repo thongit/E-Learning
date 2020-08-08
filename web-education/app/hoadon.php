@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class hoadon extends Model
 {
      protected $table ="hoa_don";
+     use SoftDeletes;
 
      public function nguoiDung()
      {

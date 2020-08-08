@@ -111,6 +111,7 @@
                                                         <th style="text-align: center;">Tên giảng viên</th>
                                                         <th style="text-align: center;">Hìnhảnh giảng viên</th>
                                                         <th style="text-align: center;">Trạng thái</th>
+                                                        <th class="text-center">Hủy đơn hàng</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -133,6 +134,11 @@
                                                              Đang Mua
                                                              @endif
                                                          </td>
+                                                         <td class="text-center">
+                                                            <a onclick="thongbaoxoa({{$dsHocVien->id}})"><span class="btn btn-danger">
+                                                                <i class="fas fa-trash-alt" style="font-size: 30px;padding: 10px;"></i>
+                                                            </span></a>
+                                                        </td>
                                                     </tr>
                                                     @endif
                                                         @endforeach
@@ -156,8 +162,9 @@
                                                         <th style="text-align: center;">Tên khóa học</th>
                                                         <th style="text-align: center;">Giá</th>
                                                         <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Hìnhảnh giảng viên</th>
+                                                        <th style="text-align: center;">Hình ảnh giảng viên</th>
                                                         <th style="text-align: center;">Trạng thái</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -246,3 +253,21 @@
     </div>
     <!-- End Blog -->
 @endsection
+<script>
+    function thongbaoxoa($id) {
+        Swal.fire({
+            title: 'Bạn có Muốn Xóa Không?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ok. Xóa nó!',
+            cancelButtonText:'Không'
+            }).then((result) => {
+            if (result.value) {
+                $url='/don-hang/xoa/'+$id;
+                open($url,"_self")
+            }
+        })
+    }
+    </script>
