@@ -5,6 +5,7 @@ use App\cthoadon;
 use App\khoahoc;
 use App\hoadon;
 use App\nguoidung;
+use App\thenganhang;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ThongBaoKichHoatKhoaHocThanhCong;
@@ -23,6 +24,21 @@ class CTHoaDonController extends Controller
         return view('kich-hoat-khoa-hoc');
     }
 
+    public function thanhToanGV(Request $request)
+    {
+        $thenh = thenganhang::where('nguoi_dung_id','=',$request->ng_id)->first();
+        $thenh->tong_tien = 0;
+        $thenh->save();
+        return response()->json(array('msg'=> 1), 200);
+    }
+
+    public function nhacNhoThanhToan(Request $request)
+    {
+        $ng_id = $request->ng_id;
+        //mail
+        return response()->json(array('msg'=> 1), 200);
+    }
+
     public function postKichHoatKhoaHoc(Request $request)
     {
         $nguoidung=nguoidung::find(auth()->user()->id);
@@ -32,16 +48,22 @@ class CTHoaDonController extends Controller
         {
             return redirect('kich-hoat-khoa-hoc')->with('error', 'Mã kích hoạt sai');
         }
+        else if($maKichHoat->trang_thai == 2)
+        {
+            return redirect('kich-hoat-khoa-hoc')->with('warning', 'Mã kích hoạt đã sử dụng!');
+        }
         else
         {
             $updateTrangThai = cthoadon::where('ma_kich_hoat','=',$maKichHoat->ma_kich_hoat)->first();
             $updateTrangThai->trang_thai = 2;
             $updateTrangThai->save();
             $hd = hoadon::find($updateTrangThai->hoa_don_id);
-            
             $hd->trang_thai = 3;
             $hd->save();
             $tenkh = khoahoc::find($updateTrangThai->khoa_hoc_id);
+            $thenh = thenganhang::where('nguoi_dung_id','=',$updateTrangThai->khoaHoc->nguoi_dung_id)->first();
+            $thenh->tong_tien = ($thenh->tong_tien - ($hd->tong_tien*0.1));
+            $thenh->save();
             session()->put('tenkh_email', $tenkh->ten_khoa_hoc);
             Mail::to($nguoidung->email)->send(new ThongBaoKichHoatKhoaHocThanhCong($nguoidung->email));
             return redirect('/khoa-hoc/'.$updateTrangThai->khoa_hoc_id)->with('success', 'Bạn đã Kích hoạt khóa học thành công!');
@@ -174,7 +196,7 @@ class CTHoaDonController extends Controller
             $cthd->hoa_don_id = $hd->id;
             $cthd->ma_kich_hoat = $makh;
             $cthd->trang_thai = 1;
-            $cthd->tien_do = $kh->Chuong[0]->id.'_'.$kh->Chuong[0]->noiDung[0]->id;
+            $cthd->tien_do = $kh->Chuong[0]->id.'_0';
             $cthd->save();
             session(['cost_id' => $request->id]);
             session(['url_prev' => url()->previous()]);
@@ -247,12 +269,12 @@ class CTHoaDonController extends Controller
             $ctHoaDon->trang_thai = 2;
             $ctHoaDon->save();
             $u = '/khoa-hoc/'.$ctHoaDon->khoa_hoc_id;
-           
+            $thenh = thenganhang::where('nguoi_dung_id','=',$ctHoaDon->khoaHoc->nguoi_dung_id)->first();
+            $thenh->tong_tien = ($thenh->tong_tien + ($hoaDon->tong_tien*0.9));
+            $thenh->save();
             session()->put('tenkh_emailVnp', $ctHoaDon->khoaHoc->ten_khoa_hoc);
-            
             Mail::to($nd->email)->send(new ThanhToanVNPay($nd->email));
             return redirect($u)->with('success' ,'Đã thanh toán phí dịch vụ');
-            
         }
         $ctHoaDon->delete();
         $hoaDon->delete();

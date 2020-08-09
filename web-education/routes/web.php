@@ -135,6 +135,10 @@ Route::middleware('auth')->group(function(){
 
     Route::post('xu-ly-thanh-toan','CTHoaDonController@create')->name('xl-thanh-toan');
 
+    Route::get('thanh-toan-gv','CTHoaDonController@thanhToanGV')->name('thanh-toan-gv');
+
+    Route::get('nhac-nho-thanh-toan','CTHoaDonController@nhacNhoThanhToan')->name('nhac-nho-thanh-toan');
+
     Route::get('return-vnpay','CTHoaDonController@return')->name('return-pay');
 
     //Xử lý khóa học của tôi
@@ -144,6 +148,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/ds-don-hang', 'NguoiDungController@quanLyDonHang')->name('ds-don-hang');
     //Xóa đơn hàng
     Route::get('don-hang/xoa/{idDonHang}', 'HoaDonController@huyDonHang')->name('huy-don-hang');
+
     Route::post('hoan-thanh','KhoaHocController@hoanThanh')->name('hoan-thanh');
 
     Route::get('giang-vien/bang-diem/{id}', 'KhoaHocController@bangDiem')->name('bang-diem-kt');

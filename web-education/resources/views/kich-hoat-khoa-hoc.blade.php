@@ -15,6 +15,11 @@
         swal.fire("{{ session('success') }}","","success")
     </script>
 @endif
+@if (session('warning'))
+    <script>
+        swal.fire("{{ session('warning') }}","","warning")
+    </script>
+@endif
 <!-- Start Login
     ============================================= -->
     <div class="login-area default-padding">

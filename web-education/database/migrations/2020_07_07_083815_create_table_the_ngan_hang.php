@@ -16,10 +16,11 @@ class CreateTableTheNganHang extends Migration
         Schema::create('the_ngan_hang', function (Blueprint $table) {
            $table->increments('id');
             $table->integer('nguoi_dung_id');
-            $table->integer('so_tai_khoan');
+            $table->string('so_tai_khoan');
             $table->string('ten_tren_the');
             $table->string('ten_ngan_hang');
             $table->string('chi_nhanh');
+            $table->bigInteger('tong_tien');
             $table->timestamps();
             $table->softDeletes();
         });

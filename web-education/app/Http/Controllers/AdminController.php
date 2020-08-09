@@ -11,6 +11,7 @@ use App\hoadon;
 use App\tochuc;
 use App\cthoadon;
 use App\nguoidung;
+use App\thenganhang;
 use Session;
 use Auth;
 use Mail;
@@ -120,6 +121,10 @@ class AdminController extends Controller
                 $nguoidungs->trang_thai=1;
                 $nguoidungs->loai_tk=2;
                 $nguoidungs->save();
+                $thenh = new thenganhang;
+                $thenh->nguoi_dung_id = $nguoidungs->id;
+                $thenh->tong_tien = 0;
+                $thenh->save();
                 Mail::to($nguoidungs->email)->send(new ThongBaoTroThanhGiangVien($nguoidungs->email));
             }
             else
@@ -161,6 +166,10 @@ class AdminController extends Controller
                 $nguoidungs->update();
                 $tochucs->trang_thai=1;
                 $tochucs->save();
+                $thenh = new thenganhang;
+                $thenh->nguoi_dung_id = $nguoidungs->id;
+                $thenh->tong_tien = 0;
+                $thenh->save();
                 Mail::to($nguoidungs->email)->send(new ThongBaoTroThanhGiangVien($nguoidungs->email));
             }
             else
