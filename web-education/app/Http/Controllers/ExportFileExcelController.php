@@ -448,6 +448,6 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         {
             abort(401);
         }
-        return Excel::download(new BangDiemExport($id), $baikt->ten_bai_kt.$baikt->chuong_id.$baikt->Chuong->khoaHoc->nguoi_dung_id.time().'.xlsx');
+        return Excel::download(new BangDiemExport($id), 'bang-diem_'.$baikt->ten_bai_kt.$baikt->chuong_id.$baikt->Chuong->khoaHoc->nguoi_dung_id.time().'.xlsx');
     }
 }

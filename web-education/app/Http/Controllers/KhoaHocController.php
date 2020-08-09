@@ -61,11 +61,17 @@ class KhoaHocController extends Controller
 
     public function hienThiKhoaHoc()
     {
-        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->inRandomOrder()->paginate(6);
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->paginate(6);
         $dsLinhVuc = linhvuc::all();
         return view('KhoaHoc.khoa-hoc', compact('dsKhoaHoc','dsLinhVuc'));
     }
 
+    public function hienThiKhoaHocPagin()
+    {
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->paginate(6);
+        $dsLinhVuc = linhvuc::all();
+        return view('KhoaHoc.khoahoc', compact('dsKhoaHoc','dsLinhVuc'))->render();
+    }
 
     public function chiTietGiangVien($id)
     {

@@ -188,6 +188,8 @@ Route::name('trang-chu.')->group(function(){
     Route::get('/', 'KhoaHocController@index')->name('index');
     //trang khóa học
     Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
+    
+    Route::get('khoa-hoc-pagin', 'KhoaHocController@hienThiKhoaHocPagin')->name('khoa-hoc-pagin');
     //Hiển thị tìm kiếm
     Route::get('tim-kiem', 'KhoaHocController@timKiem')->name('xu-ly-tim-kiem');
     //Hiển thị tìm kiếm nâng cao

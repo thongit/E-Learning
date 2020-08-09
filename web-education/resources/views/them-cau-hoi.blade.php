@@ -751,11 +751,11 @@ window.onbeforeunload = function(event){
 				<div class="thoi-gian-hien-thi inline-block display-none">
 					<label for="birthdaytime"><h4><b>Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input class="form-control" type="date" id="batDauKT" name="batDauKT">
+					<input class="form-control" type="datetime-local" id="batDauKT" name="batDauKT">
 					<br/>
 					<label for="birthdaytime"><h4><b>Thời gian kết thúc bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input class="form-control" type="date" id="ketThucKT" name="ketThucKT">
+					<input class="form-control" type="datetime-local" id="ketThucKT" name="ketThucKT">
 				</div>
 				<br/>
 				<input type="radio" id="hienthi" name="hienThiKQ" value="HienThi">
