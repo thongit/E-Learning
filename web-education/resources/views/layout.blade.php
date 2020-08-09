@@ -56,7 +56,7 @@
     <!-- Preloader Ends -->
     <!-- Start Header Top
         ============================================= -->
-        <div class="top-bar-area bg-dark inc-border text-light">
+        <div class="top-bar-area bg-dark inc-border text-light ">
             <div class="container">
                 <div class="row">
                     @if(Session::get('ho_ten')== null)

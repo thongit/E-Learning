@@ -54,6 +54,7 @@
                         </form>
                             <br>
                             <h3>Danh sách bài giảng</h3>
+                            <a href="/khoa-hoc/tao-bai-giang-cho-chuong/{{$chuongs->KhoaHoc->id}}"><span class="btn btn-sm btn-primary">Thêm bài giảng</span></a>
                             <table class="table table-bordered table-hover vmiddle">
                                 <thead>
                                     <tr>

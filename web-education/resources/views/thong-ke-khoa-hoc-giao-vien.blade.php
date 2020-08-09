@@ -24,7 +24,7 @@
                         <div class="panel panel-primary">
                           <div class="panel-heading">Danh thu</div>
                           <div class="panel-body">
-                              <label for="">Tổng danh thu tất cả khóa học</label>
+                              <label for="">Tổng danh thu của khóa học</label>
                               <p>{{number_format($danhthu)}}</p>
                           </div>
                         </div>
