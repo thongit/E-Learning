@@ -171,9 +171,9 @@ class NguoiDungController extends Controller
             Session::flash('error', 'Sai mật khẩu, vui lòng nhập lại!');
             return redirect('dang-nhap');
         }
-        else if($nd->email = $request->email && Hash::check($request->mat_khau,$nd->mat_khau) && $nd->trang_thai!=1)
+        else if($nd->email = $request->email && Hash::check($request->mat_khau,$nd->mat_khau) && $nd->trang_thai!=1 && $nd->trang_thai!=2)
         {
-            Session::flash('error', 'Tài khoản hợp lệ!');
+            Session::flash('error', 'Tài khoản không hợp lệ!');
             return redirect('dang-nhap');
         }
         else if($nd->email = $request->email && Hash::check($request->mat_khau,$nd->mat_khau) && ($nd->loai_tk==1 || $nd->loai_tk ==2 ))
