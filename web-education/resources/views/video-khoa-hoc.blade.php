@@ -4,6 +4,8 @@
 @section('content')
 @include('header')
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<link href="http://vjs.zencdn.net/5.7.1/video-js.css" rel="stylesheet">
+<link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <style>
@@ -181,7 +183,15 @@ $(document).ready(function(){
                 <h3>Chương:  {{$video->Chuong->ten_chuong}}</h3>
                 <div class="col-md-8">
                     <div class="embed-responsive embed-responsive-16by9">
-                      <iframe class="embed-responsive-item" src="{{ asset('assets/video/'.$video->video)}}" allowfullscreen></iframe>
+                        <video id="my-video" class="video-js vjs vjs-big-play-centered AdvancedExample__Video-sc-1x7qqz9-7 dVCxLk" crossorigin="anonymous" controls preload="auto" width="765" height="429" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+
+                            <source src="{{ asset('assets/video/'.$video->video)}}" type='video/mp4'>
+
+                            <p class="vjs-no-js">Bạn phải bật javascript để xem video này, và nâng cấp trình duyệt <a href="http://videojs.com/html5-video-support/" target="_blank">hỗ trợ HTML5 video</a></p>
+
+                        </video>
+                        <script src="http://vjs.zencdn.net/5.7.1/video.js"></script>
+                        
                     </div>
                     <div>
                         <h4><a>Bài @foreach($video->Chuong->noiDung as $key => $chuong) @if($chuong->id == $video->id) {{$key+1}} @endif @endforeach: {{$video->tieu_de}}</a></h4>
@@ -252,15 +262,20 @@ $(document).ready(function(){
                         @include('binh-luan')
                     </div>
                 </div>
-                <div class="col-md-4" style="border-left: 1px solid #e7e7e7;">
+                <div class="col-md-4 container" style="border-left: 1px solid #e7e7e7;">
                 @foreach($video->Chuong->noiDung as $key => $chuong)
-                <div class="col-md-12" style="border-left: 1px solid #e7e7e7;">
+                <div class="col-md-12" style="border-bottom: 1px solid #e7e7e7;">
                     <br>
                     <a href="{{ route('video',$chuong->id)}}">
                         <div id="video-click">
                             <div class="embed-responsive embed-responsive-16by9"> 
-                            <iframe class="embed-responsive-item" src="{{ asset('assets/video/'.$chuong->video)}}" allowfullscreen></iframe>
-                                
+                            <video id="my-video" class="video-js vjs-big-play-centered AdvancedExample__Video-sc-1x7qqz9-7 dVCxLk vjs-paused preview-player-dimensions vjs-workinghover vjs-v7 vjs-user-active vjs-mux vjs-fluid vjs-controls-disabled" crossorigin="anonymous" controls="" preload="auto" width="640" height="360" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+
+                                <source src="{{ asset('assets/video/'.$chuong->video)}}" type='video/mp4'>
+
+                                <p class="vjs-no-js">Bạn phải bật javascript để xem video này, và nâng cấp trình duyệt <a href="http://videojs.com/html5-video-support/" target="_blank">hỗ trợ HTML5 video</a></p>
+
+                            </video>
                             </div>
                             <h4 for=""><a href="{{ route('video',$chuong->id)}}">Bài {{$loop->index +1}}: {{$chuong->tieu_de}}</a></h4>
                         </div>
