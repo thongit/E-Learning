@@ -179,6 +179,8 @@ Route::get('ds-bai-kiem-tra/{id}','KhoaHocController@hienThiDanhSachBaiKTra')->n
 
 Route::get('linh-vuc/{id}','KhoaHocController@getLinhVuc')->name('linh-vuc');
 
+Route::get('linh-vuc-pagin','KhoaHocController@getLinhVucPagin')->name('linh-vuc-pagin');
+
 Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
@@ -188,7 +190,7 @@ Route::name('trang-chu.')->group(function(){
     Route::get('/', 'KhoaHocController@index')->name('index');
     //trang khóa học
     Route::get('khoa-hoc', 'KhoaHocController@hienThiKhoaHoc')->name('khoa-hoc');
-    
+
     Route::get('khoa-hoc-pagin', 'KhoaHocController@hienThiKhoaHocPagin')->name('khoa-hoc-pagin');
     //Hiển thị tìm kiếm
     Route::get('tim-kiem', 'KhoaHocController@timKiem')->name('xu-ly-tim-kiem');

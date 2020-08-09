@@ -55,8 +55,14 @@ class KhoaHocController extends Controller
 
     public function getLinhVuc($id)
     {
-        $khoaHoc_linhVuc= khoahoc::where([['linh_vuc_id',$id],['trang_thai','=',3],])->inRandomOrder()->paginate(6);
-        return view('linh-vuc-khoa-hoc',compact('khoaHoc_linhVuc'));
+        $dsKhoaHoc= khoahoc::where([['linh_vuc_id',$id],['trang_thai','=',3],])->paginate(6);
+        return view('linh-vuc-khoa-hoc',compact('dsKhoaHoc'));
+    }
+
+    public function getLinhVucPagin(Request $request)
+    {
+        $dsKhoaHoc= khoahoc::where([['linh_vuc_id',$request->id],['trang_thai','=',3],])->paginate(6);
+        return view('KhoaHoc.khoahoc',compact('dsKhoaHoc'))->render();
     }
 
     public function hienThiKhoaHoc()
