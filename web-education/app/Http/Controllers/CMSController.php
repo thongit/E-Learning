@@ -22,12 +22,16 @@ class CMSController extends Controller
     {
         if(auth()->user()->loai_tk == 2)
         {
+            $khoahocs=khoahoc::find($idKhoaHoc);
+            if($khoahocs->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $ktTonTai=cthoadon::where('khoa_hoc_id',$idKhoaHoc)->first();
             if($ktTonTai)
             {
                 return redirect()->back()->with('warning','Không thể xóa. Khóa học đang có học viên');
             }
-            $khoahocs=khoahoc::find($idKhoaHoc);
             $chuongs=$khoahocs->Chuong;
             foreach ($chuongs as $item) {
                 $noidungs=noidung::where('chuong_id',$item->id);
@@ -48,9 +52,13 @@ class CMSController extends Controller
     {
         if(auth()->user()->loai_tk == 2)
         {
+            $khoahocs=khoahoc::find($idKhoaHoc);
+            if($khoahocs->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $linhvucs= linhvuc::all();
             $chuongs= chuong::all();
-            $khoahocs=khoahoc::find($idKhoaHoc);
             return view('sua-mo-ta-khoa-hoc',['khoahocs'=>$khoahocs,'linhvucs'=>$linhvucs,'chuongs'=>$chuongs]);
         }
         else
@@ -128,6 +136,10 @@ class CMSController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $chuongs=chuong::find($idChuong);
+            if($chuongs->khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $chuongs->delete();
             return redirect()->back()->with('thongbao','Xóa chương thành công');
         }
@@ -143,6 +155,10 @@ class CMSController extends Controller
         {
             $noidungs=noidung::all();
             $chuongs=chuong::find($idChuong);
+            if($chuongs->khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             return view('sua-chuong-khoa-hoc',['chuongs'=>$chuongs,'noidungs'=>$noidungs]);
         }
         else
@@ -156,6 +172,10 @@ class CMSController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $chuongs=chuong::find($idChuong);
+            if($chuongs->khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $this->validate($request,
             [
                 'TenChuong'=>'required'
@@ -178,6 +198,10 @@ class CMSController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $noidungs=noidung::find($idBaiGiang);
+            if($noidungs->Chuong->khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $noidungs->delete();
             return redirect()->back()->with('thongbao','Xóa Bài giảng thành công');
         }
@@ -191,6 +215,10 @@ class CMSController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $noidungs=noidung::find($idBaiGiang);
+            if($noidungs->Chuong->khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             return view('sua-bai-giang-khoa-hoc',['noidungs'=>$noidungs]);
         }
         else
@@ -203,6 +231,10 @@ class CMSController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $noidungs=noidung::find($idBaiGiang);
+            if($noidungs->Chuong->khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $this->validate($request,
             [
                 'TieuDe'=>'required',

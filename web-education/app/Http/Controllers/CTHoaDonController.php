@@ -26,6 +26,10 @@ class CTHoaDonController extends Controller
 
     public function thanhToanGV(Request $request)
     {
+        if(auth()->user()->loai_tk != 3)
+        {
+            abort(401);
+        }
         $thenh = thenganhang::where('nguoi_dung_id','=',$request->ng_id)->first();
         $thenh->tong_tien = 0;
         $thenh->save();
@@ -34,6 +38,10 @@ class CTHoaDonController extends Controller
 
     public function nhacNhoThanhToan(Request $request)
     {
+        if(auth()->user()->loai_tk != 3)
+        {
+            abort(401);
+        }
         $ng_id = $request->ng_id;
         //mail
         return response()->json(array('msg'=> 1), 200);

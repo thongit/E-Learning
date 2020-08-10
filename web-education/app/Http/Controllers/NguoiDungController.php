@@ -39,39 +39,43 @@ class NguoiDungController extends Controller
     }
     public function getDangKyGiangVien()
     {
-        if(auth()->user())
+        if(auth()->user()->loai_tk == 2)
         {
             return view('dang-ky-giang-vien');
         }
         else
         {
-            return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
+            return redirect()->back()->with('error', 'Bạn đã đăng ký rồi!');
         }
     }
     public function getThongKeKhoaHoc($idKhoaHoc)
     {
         if(auth()->user()->loai_tk == 2)
         {
-        $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',3)->count();
-        $khoaHoc = khoahoc::find($idKhoaHoc);
-        $danhthu=($tonghocvien*$khoaHoc->gia)*0.9;
-        $dshocvien=$khoaHoc->ctHoaDon->where('trang_thai',3);
-        if(count($dshocvien)==0)
-        {
-            return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu])->with('thongbao',0);
-        }
-        else
-        {
+            $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',3)->count();
+            $khoaHoc = khoahoc::find($idKhoaHoc);
+            if($khoaHoc->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
+            $danhthu=($tonghocvien*$khoaHoc->gia)*0.9;
+            $dshocvien=$khoaHoc->ctHoaDon->where('trang_thai',2);
+            if(count($dshocvien)==0)
+            {
+                return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu])->with('thongbao',0);
+            }
+            else
+            {
 
-        foreach ($dshocvien as $key => $ct) {
-            $ds[$key] = array(
-                '0' => $ct->hoaDon->nguoiDung->anh_dai_dien,
-                '1' => $ct->hoaDon->nguoiDung->ho_ten,
-                '2' => $ct->hoaDon->nguoiDung->email
-            ) ;
+            foreach ($dshocvien as $key => $ct) {
+                $ds[$key] = array(
+                    '0' => $ct->hoaDon->nguoiDung->anh_dai_dien,
+                    '1' => $ct->hoaDon->nguoiDung->ho_ten,
+                    '2' => $ct->hoaDon->nguoiDung->email
+                ) ;
+            }
+            return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu],['dsTenHocVien'=>$ds])->with('thongbao',1);;
         }
-        return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu],['dsTenHocVien'=>$ds])->with('thongbao',1);;
-    }
         }
         else
         {
@@ -125,6 +129,11 @@ class NguoiDungController extends Controller
     }
     public function postTroThanhToChuc(Request $request)
     {
+        $nguoidungs=nguoidung::find(auth()->user()->id);
+        if($nguoidungs->trang_thai==2)
+        {
+            return redirect()->back()->with('thongbao','Bạn đã đăng ký thành giảng viên rồi');
+        }
         $tochucs= new tochuc;
         $this->validate($request,
         [
@@ -141,7 +150,6 @@ class NguoiDungController extends Controller
             'TenNguoiLienHe.required'=>'Bạn chưa nhận tên người liên hệ',
             'Email.unique'=>'Email đã tồn tại'
         ]);
-        $nguoidungs=nguoidung::find(auth()->user()->id);
         $tochucs->ten_to_chuc=$request->TenToChuc;
         $tochucs->ma_so_thue=$request->MaSoThue;
         $tochucs->dia_chi=$request->DiaChi;
@@ -341,17 +349,16 @@ class NguoiDungController extends Controller
 
     public function xuLyQuenMatKhau(Request $request)
     {
-    $e=$request->email;
+        $e=$request->email;
         $nguoidungs = nguoidung::where('email','=',$request->email )->first();
         if ($nguoidungs == null || $nguoidungs->email != $request->email) {
             Session::flash('error', 'Email không tồn tại, vui lòng nhập lại!');
             return redirect('quen-mat-khau');
         }
         else{
-    Mail::to($e)->send(new DoiMatKhau($e));
-    session()->put('email_qmk', $e);
-    return redirect('quen-mat-khau')->with('thongbao','Đã gửi yêu cầu lấy lại mật khẩu, vui lòng kiểm tra email!');
-
+            Mail::to($e)->send(new DoiMatKhau($e));
+            session()->put('email_qmk', $e);
+            return redirect('quen-mat-khau')->with('thongbao','Đã gửi yêu cầu lấy lại mật khẩu, vui lòng kiểm tra email!');
         }
     }
 
@@ -417,15 +424,13 @@ class NguoiDungController extends Controller
     public function xuLyThemTaiKhoan(Request $request)
     {
         $nguoidung=nguoidung::find(auth()->user()->id);
-
-        $thenganhang= new thenganhang;
-        $thenganhang->nguoi_dung_id= $nguoidung->id;
+        $thenganhang= thenganhang::where('nguoi_dung_id','=',auth()->user()->id)->first();
         $thenganhang->so_tai_khoan= $request->so_tai_khoan;
         $thenganhang->ten_tren_the= $request->ten_tren_the;
         $thenganhang->ten_ngan_hang= $request->ten_ngan_hang;
         $thenganhang->chi_nhanh= $request->chi_nhanh;
         $thenganhang->save();
-        return redirect('thong-tin-ca-nhan')->with('thongbao','Thêm thành công');
+        return redirect('thong-tin-ca-nhan')->with('thongbao','Cập nhật thành công');
     }
 
     public function khoaHocCuaToi()

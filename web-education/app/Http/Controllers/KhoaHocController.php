@@ -39,7 +39,6 @@ class KhoaHocController extends Controller
         }
     }
 
-
     public function index()
     {
         $ketqua=DB::table('ct_hoa_don')->select('khoa_hoc_id',DB::raw('count(id) as total_sales'))->where('ct_hoa_don.trang_thai','=',2)->whereNull('ct_hoa_don.deleted_at')->groupBy('khoa_hoc_id')->orderBy('total_sales','desc')->paginate(6);
@@ -190,6 +189,10 @@ class KhoaHocController extends Controller
         {
             $chuongs= chuong::all();
             $khoahocs=khoahoc::find($idKhoahoc);
+            if($khoahocs->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             return view('tao-chuong-cho-khoa-hoc',['chuongs'=>$chuongs,'khoahocs'=>$khoahocs]);
         }
         else
@@ -203,6 +206,10 @@ class KhoaHocController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $khoahocs=khoahoc::find($idKhoahoc);
+            if($khoahocs->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $size = count($request->all())-1;
             for ($i=1; $i <= $size; $i++) {
             $chuongs= new chuong();
@@ -229,6 +236,10 @@ class KhoaHocController extends Controller
             $chuongs= chuong::where('khoa_hoc_id','=',$idKhoahoc)->get();
             $noidungs= noidung::all();
             $khoahocs=khoahoc::find($idKhoahoc);
+            if($khoahocs->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             if($khoahocs == null)
             {
                 abort(404);
@@ -268,6 +279,10 @@ class KhoaHocController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $khoahocs=khoahoc::find($idKhoahoc);
+            if($khoahocs->nguoi_dung_id != auth()->user()->id)
+            {
+                abort(401);
+            }
             $noidungs= new noidung;
             // if($request->hasFile('Video'))
             // {

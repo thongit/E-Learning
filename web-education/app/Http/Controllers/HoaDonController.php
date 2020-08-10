@@ -16,6 +16,10 @@ class HoaDonController extends Controller
      public function huyDonHang($id)
      {
         $donHang = hoadon::find($id);
+        if(auth()->user()->id != $donHang->nguoi_dung_id)
+        {
+            abort(401);
+        }
         $donHang->delete();
         return redirect('ds-don-hang')->with('thongbao','Xóa thành công');
      }
