@@ -102,10 +102,11 @@ class NguoiDungController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
         $cthoadons=cthoadon::find($id);
-        if($cthoadons->trang_thai==1)
+        $hoadon = hoadon::find($cthoadons->hoa_don_id);
+        if($hoadon->trang_thai==1)
         {
-            $cthoadons->trang_thai=2;
-            $cthoadons->save();
+            $hoadon->trang_thai=2;
+            $hoadon->save();
         }
         return redirect()->back()->with('message', 'Status changed!');
         }

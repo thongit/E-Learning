@@ -4,20 +4,58 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-    function laydl(page)
-    {
-        var url = $(location).attr('href');
-        var id = url.split('linh-vuc/')[1];
-        console.log(id);
+    $("#mucDo").change(function(){
+        timkiem();
+    });
+    $("#ngonNgu").change(function(){
+        timkiem();
+    });
+    $("#sapXep").change(function(){
+        timkiem();
+    });
+
+    function timkiem(){
+        var mucdo = $("#mucDo").val();
+        var ngonngu = $("#ngonNgu").val();
+        var sapxep = $("#sapXep").val();
+        var linhvuc = {{$linhVuc->id}};
+        var input = "";
         $.ajax({
-            url: '/linh-vuc-pagin?page='+page,
+            url:"{{ route('trang-chu.xu-ly-tim-kiem') }}",
             method:"GET",
             data:{
-                _token : '<?php echo csrf_token() ?>',
-                id : id
+                mucdo:mucdo,
+                ngonngu:ngonngu,
+                sapxep:sapxep,
+                linhvuc:linhvuc,
+                input:input,  
+                _token : '<?php echo csrf_token() ?>'
             },
             success:function(data){
-                console.log(data);
+                $(".dskh").html(data);
+            }
+        });
+    };
+
+    function laydl(page)
+    {
+        var mucdo = $("#mucDo").val();
+        var ngonngu = $("#ngonNgu").val();
+        var sapxep = $("#sapXep").val();
+        var linhvuc = {{$linhVuc->id}};
+        var input = "";
+        $.ajax({
+            url: '/tim-kiem-nc?page='+page,
+            method:"GET",
+            data:{
+                mucdo:mucdo,
+                ngonngu:ngonngu,
+                sapxep:sapxep,
+                linhvuc:linhvuc,
+                input:input,  
+                _token : '<?php echo csrf_token() ?>'
+            },
+            success:function(data){
                 $(".dskh").html(data);
             }
         });
@@ -46,13 +84,55 @@ $(document).ready(function(){
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h1>Khóa học</h1>
+                    <h1>{{$linhVuc->ten_linh_vuc}}</h1>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Breadcrumb -->
-
+    <div class="container">
+        <form id="search-form" class="new-added-form" action="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}" method="GET">
+            @csrf
+            <div class="panel-group" style="padding-top: 10px">
+                <div class="panel panel-primary">
+                <div class="panel-heading"><h4 style="color:white">Lọc</h4></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="form-control" id="mucDo" data-dependent="mucdo" name="chon">
+                                <option>Mức độ</option>
+                                <option>Sơ cấp</option>
+                                <option>Trung cấp</option>
+                                <option>Chuyên sâu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="form-control" id="ngonNgu" data-dependent="ngonNgu" name="ngonNgu">
+                                <option>Ngôn ngữ</option>
+                                <option> Tiếng Anh</option>
+                                <option>Tiếng Việt</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="form-control" id="sapXep" data-dependent="sapXep" name="sapXep">
+                                <option>Sắp xếp</option>
+                                <option value="1">Giá Giảm Dần</option>
+                                <option value="2">Giá Tăng Dần</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+                
+        </form>
+    </div>
     <!-- Start Popular Courses
     ============================================= -->
     <div class="popular-courses-area weekly-top-items default-padding bottom-less">
