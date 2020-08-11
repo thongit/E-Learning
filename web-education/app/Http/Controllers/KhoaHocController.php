@@ -90,12 +90,33 @@ class KhoaHocController extends Controller
         return view('thong-tin-giang-vien', compact('nguoidungs','khoahocs'));
     }
 
-    public function getGiangVien()
+    public function getGiangVien(Request $request)
     {
-        $giangviens= nguoidung::where('loai_tk',2)->get();
+        $giangviens= nguoidung::where('loai_tk',2)->paginate(6);
+        if($request->ajax())
+        {
+            $input = $request->ten;
+            $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
+            $giangviens = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->paginate(6);
+            return view('giangvien', compact('giangviens'));
+        }
         return view('giang-vien', compact('giangviens','giangviens'));
     }
 
+    public function getGiangVienPagin(Request $request)
+    {
+        if($request->ten == null)
+        {
+            $input = "";
+        }
+        else
+        {
+            $input = $request->ten;
+        }
+        $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
+        $giangviens = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->paginate(6);
+        return view('giangvien', compact('giangviens'))->render();
+    }
     /**
      * Show the form for creating a new resource.
      *

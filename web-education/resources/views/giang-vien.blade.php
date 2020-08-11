@@ -2,6 +2,51 @@
 <title>EDUQTTT - Giảng viên</title>
 @section('content')
 @include('header')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#ten").keyup(function(){
+        timkiem();
+    });
+
+    function timkiem(){
+        var ten = $("#ten").val();
+        $.ajax({
+            url:"/giang-vien",
+            method:"GET",
+            data:{
+                ten:ten,
+                _token : '<?php echo csrf_token() ?>'
+            },
+            success:function(data){
+                $(".dsgv").html(data);
+            }
+        });
+    };
+
+    function laydl(page)
+    {
+        var ten = $("#ten").val();
+        $.ajax({
+            url: '/giang-vien-pagin?page='+page,
+            method:"GET",
+            data:{
+                ten:ten,
+                _token : '<?php echo csrf_token() ?>'
+            },
+            success:function(data){
+                $(".dsgv").html(data);
+            }
+        });
+    }
+
+    $(document).on('click','.pagination a', function(e){
+        e.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        laydl(page);
+    });
+});
+</script>
     <!-- Start Breadcrumb
     ============================================= -->
     <div class="container" style="font-size: large;">
@@ -18,31 +63,26 @@
         </div>
     </div>
     <!-- End Breadcrumb -->
-
+    <div class="container">
+        <form id="search-form" class="new-added-form" action="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}" method="GET">
+            @csrf
+            <div class="panel-group" style="padding-top: 10px">
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>	
+                            <input id="ten" class="form-control" aria-label="Tìm kiếm" placeholder="Tìm kiếm">
+                        </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <!-- Start Advisor
     ============================================= -->
     <div class="advisor-area bg-gray default-padding bottom-less bg-cover">
-        <div class="container">
-            <div class="row">
-                <div class="advisor-items col-3 text-light text-center">
-
-                    <!-- Single item -->
-                    @foreach($giangviens as $gv)
-                    <div class="col-md-4 col-sm-6 single-item">
-                        <div class="item">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/'.$gv->anh_dai_dien) }}" alt="Thumb">
-                            </div>
-                            <div class="info">
-                                <h4><a href="{{ action('KhoaHocController@chiTietGiangVien' , $gv->id) }}">{{$gv->ho_ten}}</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                    <!-- End Single item -->
-
-                </div>
-            </div>
+        <div class="container dsgv">
+            @include('giangvien')
         </div>
     </div>
     <!-- End Advisor -->
