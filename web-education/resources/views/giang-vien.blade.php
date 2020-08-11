@@ -67,13 +67,13 @@ $(document).ready(function(){
         <form id="search-form" class="new-added-form" action="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}" method="GET">
             @csrf
             <div class="panel-group" style="padding-top: 10px">
-                    <div class="row">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </span>	
-                            <input id="ten" class="form-control" aria-label="Tìm kiếm" placeholder="Tìm kiếm">
-                        </div>
+                <div class="row">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </span>	
+                        <input id="ten" class="form-control" aria-label="Tìm kiếm" placeholder="Tìm kiếm">
+                    </div>
                 </div>
             </div>
         </form>
