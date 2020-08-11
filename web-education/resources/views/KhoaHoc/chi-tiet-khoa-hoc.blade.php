@@ -11,9 +11,31 @@
 <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
 <script>
     var DanhGia = {!! json_encode($ktdgkh) !!};
+    function laydl(page)
+    {
+        $.ajax({
+            url: '/lay-danh-gia?page='+page,
+            method:"GET",
+            data:{
+                idKH: {{$dsKhoaHoc->id}},
+                _token : '<?php echo csrf_token() ?>'
+            },
+            success:function(data){
+                $(".dsdgkh").html(data);
+            }
+        });
+    }
+
+    $(document).on('click','.pagination a', function(e){
+        e.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        laydl(page);
+    });
+
     $(document).ready(function(){
         if(DanhGia != null)
         {
@@ -342,37 +364,8 @@
                                             </div>
                                         </div>
                                     </div>
-                            @foreach($danhGia as $dg)
-                            <article class="row">
-                                <div class="col-md-2 col-sm-2 hidden-xs">
-                                    <figure class="thumbnail">
-                                        <img class="img-responsive" src="{{ asset('assets/images/'.$dg->nguoiDung->anh_dai_dien) }}" />
-
-
-                                    </figure>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10">
-                                    <div class="panel panel-default arrow left">
-                                        <div class="panel-body">
-                                            <h4>{{$dg->nguoiDung->ho_ten}}</h4>
-                                        <header class="text-left">
-                                            <div class="average-rating" style="color: #ffb606">
-                                                @for($i = 0; $i< $dg->so_sao; $i++)
-                                                <i class="fas fa-star"></i>
-                                                @endfor
-                                            </div>
-                                            <time class="comment-date">{{$dg->nguoiDung->created_at->diffForHumans()}}<i class="fa fa-clock-o"></i></time>
-                                        </header>
-                                        <div class="comment-post">
-                                            <label for="">{{$dg->noi_dung}}</label>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            @endforeach
-                            <div style="display: flex;justify-content: center;">
-                                <?php echo $danhGia->render(); ?>
+                            <div class="dsdgkh">
+                                @include('KhoaHoc.danhgia')
                             </div>
                         </div>
                                 <!-- End Single Tab -->

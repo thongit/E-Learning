@@ -192,6 +192,8 @@ Route::get('quen-mat-khau', function () {
     return view('quen-mat-khau');
 });
 
+Route::get('lay-danh-gia','KhoaHocController@layDanhGia')->name('lay-danh-gia');
+
 Route::name('trang-chu.')->group(function(){
     //trang chủ
     Route::get('/', 'KhoaHocController@index')->name('index');

@@ -1,6 +1,11 @@
 @extends('layout')
 <title>EDUQTTT - Danh sách khóa học</title>
 @section('content')
+@if (session('warning'))
+    <script>
+        swal.fire("{{ session('warning') }}","","warning")
+    </script>
+    @endif
 @include('header')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>

@@ -900,4 +900,9 @@ class KhoaHocController extends Controller
         return view('ds-bai-kiem-tra', compact('khoaHoc','idNguoiDung'));
     }
 
+    public function layDanhGia(Request $request)
+    {
+        $danhGia = danhgiakh::where('khoa_hoc_id','=',$request->idKH)->paginate(3);
+        return view('KhoaHoc.danhgia',compact('danhGia'))->render();
+    }
 }

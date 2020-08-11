@@ -20,6 +20,12 @@
     </script>
 @endif
 
+@if (session('warning'))
+    <script>
+        swal.fire("{{ session('warning') }}","","warning")
+    </script>
+@endif
+
 @include('header')
   <!-- Start Banner
     ============================================= -->
