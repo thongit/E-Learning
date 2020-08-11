@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use App\nguoidung;
 use App\khoahoc;
+use App\hoadon;
 use App\tochuc;
 use App\cthoadon;
 use App\thenganhang;

@@ -20,47 +20,127 @@
         <div class="container">
             <div class="row">
                 <div class="blog-items">
-
                     <div class="blog-content col-md-9">
-                     <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Ảnh khóa học</th>
-                                <th>Tên khóa học</th>
-                                <th>Tên học viên</th>
-                                <th>Địa chỉ</th>
-                                <th>Số điện thoại</th>
-                                <th>Tổng tiền</th>
-                                <th>Mã kích hoạt</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($cthoadons as $item)
-                            @if($item->khoaHoc->nguoi_dung_id==$giangviens->id)
-                        <tr>
-                            <td class="text-center"><img src="{{ asset('assets/images/'.$item->khoaHoc->hinh_anh) }}" class="thumbnail" width="60px" height="50px"></td>
-                            <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $item->khoaHoc->id) }}">{{$item->khoaHoc->ten_khoa_hoc}}</a></td>
-                            <td>{{$item->hoaDon->nguoiDung->ho_ten}}</td>
-                            <td>{{$item->hoaDon->nguoiDung->dia_chi}}</td>
-                            <td>{{$item->hoaDon->nguoiDung->sdt}}</td>
-                            <td>{{number_format($item->hoaDon->tong_tien)}}VND</td>
-                            <td>{{$item->ma_kich_hoat}}</td>
-                            <td>@if($item->trang_thai == 3)            
-                                <button type="submit" class="btn btn-success">Đã thanh toán</button> 
-                                @endif   
-                                @if($item->trang_thai == 1)                           
-                                <button type="submit" class="btn btn-danger" onclick="thongbaoxoa({{$item->id}})">Đang mua</button>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#a">Danh sách đơn hàng đang mua</a></li>
+                            <li><a data-toggle="tab" href="#b">Danh sách đơn hàng đang giao</a></li>
+                            <li><a data-toggle="tab" href="#c">Danh sách đơn hàng đã thanh toán</a></li>
+                          </ul>
+
+                          <div class="tab-content">
+                            <div id="a" class="tab-pane fade in active">
+                              <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh khóa học</th>
+                                        <th>Tên khóa học</th>
+                                        <th>Tên học viên</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Mã kích hoạt</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($cthoadons as $item)
+                                    @if($item->khoaHoc->nguoi_dung_id==$giangviens->id)
+                                    @if($item->hoaDon->trang_thai == 1)
+                                <tr>
+                                    <td class="text-center"><img src="{{ asset('assets/images/'.$item->khoaHoc->hinh_anh) }}" class="thumbnail" width="60px" height="50px"></td>
+                                    <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $item->khoaHoc->id) }}">{{$item->khoaHoc->ten_khoa_hoc}}</a></td>
+                                    <td>{{$item->hoaDon->nguoiDung->ho_ten}}</td>
+                                    <td>{{$item->hoaDon->nguoiDung->dia_chi}}</td>
+                                    <td>{{$item->hoaDon->nguoiDung->sdt}}</td>
+                                    <td>{{number_format($item->hoaDon->tong_tien)}}VND</td>
+                                    <td>{{$item->ma_kich_hoat}}</td>
+                                    <td>                              
+                                        <button type="submit" class="btn btn-danger" onclick="thongbaoxoa({{$item->id}})">Đang mua</button>
+                                    </td>
+                                </tr>
                                 @endif
-                                @if($item->trang_thai == 2)                           
-                                <button type="submit" class="btn btn-info">Đang giao</button>
                                 @endif
-                                 </td>
-                        </tr>
-                        @endif
-                        @endforeach
-                        </tbody>
-                    </table>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            </div>
+                            <div id="b" class="tab-pane fade">
+                              <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh khóa học</th>
+                                        <th>Tên khóa học</th>
+                                        <th>Tên học viên</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Mã kích hoạt</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($cthoadons as $item)
+                                    @if($item->khoaHoc->nguoi_dung_id==$giangviens->id)
+                                    @if($item->hoaDon->trang_thai == 2)
+                                <tr>
+                                    <td class="text-center"><img src="{{ asset('assets/images/'.$item->khoaHoc->hinh_anh) }}" class="thumbnail" width="60px" height="50px"></td>
+                                    <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $item->khoaHoc->id) }}">{{$item->khoaHoc->ten_khoa_hoc}}</a></td>
+                                    <td>{{$item->hoaDon->nguoiDung->ho_ten}}</td>
+                                    <td>{{$item->hoaDon->nguoiDung->dia_chi}}</td>
+                                    <td>{{$item->hoaDon->nguoiDung->sdt}}</td>
+                                    <td>{{number_format($item->hoaDon->tong_tien)}}VND</td>
+                                    <td>{{$item->ma_kich_hoat}}</td>
+                                    <td>@if($item->trang_thai == 3)            
+                                        <button type="submit" class="btn btn-success">Đã thanh toán</button> 
+                                        @endif                            
+                                        <button type="submit" class="btn btn-info">Đang giao</button>
+                                         </td>
+                                </tr>
+                                @endif
+                                @endif
+                                @endforeach
+                                </tbody>
+                            </table>
+                            </div>
+                            <div id="c" class="tab-pane fade">
+                              <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh khóa học</th>
+                                        <th>Tên khóa học</th>
+                                        <th>Tên học viên</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Mã kích hoạt</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($cthoadons as $item)
+                                    @if($item->khoaHoc->nguoi_dung_id==$giangviens->id)
+                                    @if($item->hoaDon->trang_thai == 3)
+                                <tr>
+                                    <td class="text-center"><img src="{{ asset('assets/images/'.$item->khoaHoc->hinh_anh) }}" class="thumbnail" width="60px" height="50px"></td>
+                                    <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $item->khoaHoc->id) }}">{{$item->khoaHoc->ten_khoa_hoc}}</a></td>
+                                    <td>{{$item->hoaDon->nguoiDung->ho_ten}}</td>
+                                    <td>{{$item->hoaDon->nguoiDung->dia_chi}}</td>
+                                    <td>{{$item->hoaDon->nguoiDung->sdt}}</td>
+                                    <td>{{number_format($item->hoaDon->tong_tien)}}VND</td>
+                                    <td>{{$item->ma_kich_hoat}}</td>
+                                    <td>           
+                                        <button type="submit" class="btn btn-success">Đã thanh toán</button>
+                                    </td>                           
+                                </tr>
+                                @endif
+                                @endif
+                                @endforeach
+                                </tbody>
+                            </table>
+                            </div>
+                          </div>
+
+                     
                     </div>
                     @include('panel')
                 </div>
