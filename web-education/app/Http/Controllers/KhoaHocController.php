@@ -896,8 +896,20 @@ class KhoaHocController extends Controller
     public function hienThiDanhSachBaiKTra($id)
     {
         $khoaHoc = khoahoc::find($id);
+        if($khoaHoc == null)
+        {
+            abort(404);
+        }
         $idNguoiDung=auth()->user()->id;
-        return view('ds-bai-kiem-tra', compact('khoaHoc','idNguoiDung'));
+        foreach($khoaHoc->ctHoaDon as $ct)
+        {
+            if($ct->hoaDon->nguoi_dung_id == $idNguoiDung && $ct->trang_thai == 2)
+            {
+                
+                return view('ds-bai-kiem-tra', compact('khoaHoc','idNguoiDung'));
+            }
+        }
+        return abort(401);
     }
 
     public function layDanhGia(Request $request)
