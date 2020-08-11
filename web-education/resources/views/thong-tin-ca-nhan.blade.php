@@ -98,7 +98,7 @@
                                 @if(Session::get('loai_tk')==2)
                                 <li>
                                     <a data-toggle="tab" href="#tab4" aria-expanded="false">
-                                       Thêm tài khoản ngân hàng
+                                       Tài khoản ngân hàng
                                     </a>
                                 </li>
                                 @endif
@@ -168,41 +168,41 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                 <form action="{{ route('xu-ly-them-tk')}}" id="login-form" method="POST" class="white-popup-block">
-                    @csrf
+                                                    @csrf
                                                         <div class="login-custom">
                                                             
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <div class="form-group">
-                                                                        <input class="form-control" id="so_tai_khoan" name="so_tai_khoan"placeholder="Số tài khoản*" type="number" required>
+                                                                        <input class="form-control" value="{{$nguoidungs->theNganHang[0]->so_tai_khoan}}" id="so_tai_khoan" name="so_tai_khoan"placeholder="Số tài khoản*" type="number" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <div class="form-group">
-                                                                    <input class="form-control" id="ten_tren_the" name="ten_tren_the" placeholder="Tên trên thẻ*" type="text" required>
+                                                                    <input class="form-control" id="ten_tren_the" value="{{$nguoidungs->theNganHang[0]->ten_tren_the}}" name="ten_tren_the" placeholder="Tên trên thẻ*" type="text" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <div class="form-group">
-                                                                    <input class="form-control" id="ten_ngan_hang" name="ten_ngan_hang" placeholder="Tên ngân hàng*" type="text" required>
+                                                                    <input class="form-control" id="ten_ngan_hang" value="{{$nguoidungs->theNganHang[0]->ten_ngan_hang}}" name="ten_ngan_hang" placeholder="Tên ngân hàng*" type="text" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <div class="form-group">
-                                                                    <input class="form-control" id="chi_nhanh" name="chi_nhanh" placeholder="Địa chỉ chi nhánh*" type="text" required>
+                                                                    <input class="form-control" id="chi_nhanh" value="{{$nguoidungs->theNganHang[0]->chi_nhanh}}" name="chi_nhanh" placeholder="Địa chỉ chi nhánh*" type="text" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="row">
                                                                     <button type="submit" id="xacnhan">
-                                                                        Lưu tài khoản
+                                                                        Cập nhật thông tin
                                                                     </button>
                                                                 </div>  
                                                             </div>
@@ -219,7 +219,7 @@
                                 <div id="tab3" class="tab-pane">
                                     <div class="info title">
                                          <form action="{{ route('xu-ly-sua')}}" id="register-form" method="POST" class="white-popup-block" enctype="multipart/form-data">
-                    @csrf
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     {{-- <div class="form-group">

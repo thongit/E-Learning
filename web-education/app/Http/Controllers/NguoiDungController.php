@@ -287,7 +287,7 @@ class NguoiDungController extends Controller
         if(auth()->user())
         {
             $nguoi_dung_ids=auth()->user()->id;
-            $nguoidungs=DB::table('nguoi_dung')->where('id','=', $nguoi_dung_ids)->first();
+            $nguoidungs = nguoidung::find($nguoi_dung_ids);
             return view('thong-tin-ca-nhan',compact('nguoidungs'));
         }
         else
