@@ -8,14 +8,13 @@
 <!-- <script src="{{ asset('assets/js/sweet-alerts.init.js') }}"></script> -->
 <link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
 <link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <title>EDUQTTT - Kiểm tra</title>
 <style>
 	.title-kh{
 		text-align: center;
     	color: #002147;
-    	font-family: 'Poppins', sans-serif;
+    	font-family: 'Dosis', sans-serif;
     	letter-spacing: 0;
 	}
 
@@ -256,6 +255,9 @@
 	.num-wrapper{
 		margin-top: 20px;
 	}
+	.lam-lai, .thoat{
+        width: 100%;
+    }
 </style>
 <link href=" {{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 <script src=" {{ asset ('assets/js/bootstrap.min.js') }}"></script>
@@ -297,6 +299,10 @@ $(document).ready(function(){
 		if(e.which == 13) {
 			$("#bat-dau").trigger("click");
 		}
+	});
+
+	$("#thoat").click(function(){
+		window.open("/khoa-hoc/"+{{$chuong->Chuong->khoaHoc->id}},"_self");
 	});
 
 	$(document).on("click",".q-num",function(){
@@ -437,6 +443,7 @@ $(document).ready(function(){
 			baiktid : BAIKTID.id
 			},
 			success:function(data) { 
+				$('.thoat').css("display","inline-block");
 				if(BAIKTID.hien_thi==1){
 					$(".with-ques").show();
 					for(i=0;i<QUESTIONS.length;i++){
@@ -550,11 +557,17 @@ $(document).ready(function(){
 			}
 		}
 		tick();
-	}
-}); 
-window.onbeforeunload = function(event){
-	return "All your answers will be reset. Are you sure to refresh the page ?";
-};
+	};
+
+	window.addEventListener("beforeunload", function (e) {
+		if(!SUBMITTED)
+		{
+			submitAnswers();
+		}
+		(e || window.event).returnValue = null;
+		return null;
+	});
+});
 </script>
 <div class="title-kh">
 	<h2>Khóa học: {{$chuong->Chuong->khoaHoc->ten_khoa_hoc}}</h2>
@@ -606,9 +619,13 @@ window.onbeforeunload = function(event){
 				<input type="button" id="lamLai" class="btn-primary btn-lg" value="Làm lại" />
 			</div>
 		</form>
+		
 		<div class="with-ques display-none">
 			<div class="half-width only-questions"></div>
-			<div class="half-width only-scores"></div>
+			<div class="half-width test-finished only-scores" style="margin:20px auto"></div>
 		</div>
+		<div style="text-align:center" class="thoat display-none">
+            <input type="button" id="thoat" class="btn-danger btn-lg" value="Thoát" />
+        </div>
 	</div>
 </div>

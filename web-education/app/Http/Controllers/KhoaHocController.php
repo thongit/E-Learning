@@ -39,17 +39,37 @@ class KhoaHocController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $ketqua=DB::table('ct_hoa_don')->select('khoa_hoc_id',DB::raw('count(id) as total_sales'))->where('ct_hoa_don.trang_thai','=',2)->whereNull('ct_hoa_don.deleted_at')->groupBy('khoa_hoc_id')->orderBy('total_sales','desc')->paginate(6);
+        $ketqua=DB::table('ct_hoa_don')->select('khoa_hoc_id',DB::raw('count(id) as total_sales'))->where('ct_hoa_don.trang_thai','=',2)->whereNull('ct_hoa_don.deleted_at')->groupBy('khoa_hoc_id')->orderBy('total_sales','desc')->get();
+        $list=null;
+        foreach($ketqua as $key => $kq)
+        {
+            $list[$key] = $kq->khoa_hoc_id;
+            if($key == 9)
+            {
+                break;
+            }
+        }
+        $dsLinhVuc = linhvuc::whereIn('id',[1,2,3,4,5,6])->get();
+        $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->whereIn('id',$list)->paginate(6);
+        if($request->ajax())
+        {
+            return view('KhoaHoc.khoahoc', compact('dsKhoaHoc'))->render();
+        }
+        return view('index', compact('dsKhoaHoc'));
+    }
+
+    public function indexPagin()
+    {
+        $ketqua=DB::table('ct_hoa_don')->select('khoa_hoc_id',DB::raw('count(id) as total_sales'))->where('ct_hoa_don.trang_thai','=',2)->whereNull('ct_hoa_don.deleted_at')->groupBy('khoa_hoc_id')->orderBy('total_sales','desc')->get();
         $list=null;
         foreach($ketqua as $key => $kq)
         {
             $list[$key] = $kq->khoa_hoc_id;
         }
-        $dsLinhVuc = linhvuc::whereIn('id',[1,2,3,4,5,6])->get();
         $dsKhoaHoc = khoahoc::where('trang_thai','=',3)->whereIn('id',$list)->paginate(6);
-        return view('index', compact('dsKhoaHoc'));
+        return view('KhoaHoc.khoahoc', compact('dsKhoaHoc'))->render();
     }
 
     public function getLinhVuc($id)
@@ -818,7 +838,7 @@ class KhoaHocController extends Controller
         {
             $id_nd = auth()->user()->id;
             $ktdgkh = danhgiakh::where([['khoa_hoc_id','=',$id],['nguoi_dung_id','=',$id_nd],])->first();
-            foreach($dsKhoaHoc->ctHoaDon as $ct)
+            foreach($dsKhoaHoc->ctHoaDon as $key => $ct)
             {
                 if($ct->hoaDon->nguoi_dung_id == $id_nd && $ct->trang_thai == 2)
                 {

@@ -112,6 +112,10 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
     {
         
         $cauhoi = $this->request->dscauhoi;
+        if ($cauhoi == null)
+        {
+            return redirect()->back()->with('error', 'Vui lòng nhập câu hỏi!');
+        }
         $dem = sizeof($cauhoi);
         for ($i = 0; $i< $dem; $i++)
         {
@@ -384,14 +388,20 @@ class ExportFileExcelController extends Controller implements FromCollection, Wi
         }
     }
 
-    public function luuBaiLam(Request $request) {
-        $ketquakt = new ketquakt();
+    public function luuBaiLam(Request $request) 
+    {
+        $khoaHoc = baikiemtra::find($request->baiktid);
+        if($khoaHoc->Chuong->khoaHoc->nguoi_dung_id == auth()->user()->id)
+        {
+            return response()->json(array('msg'=> 'Bạn đã hoàn thành bài kiểm tra!'), 200);
+        }
         $id_nd = session()->get('id_nd');
         $baikt = ketquakt::where([['nguoi_dung_id','=',$id_nd],['bai_kiem_tra_id','=',$request->baiktid],])->first();
         if($baikt != null)
         {
             $baikt->delete();
         }
+        $ketquakt = new ketquakt();
         $ketquakt->nguoi_dung_id = $id_nd;
         $ketquakt->bai_kiem_tra_id = $request->baiktid;
         $ketquakt->diem = $request->diem;

@@ -4,7 +4,17 @@
 </script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>EDUQTTT - Sửa bài kiểm tra</title>
+<link rel="shortcut icon" href=" {{ asset ('assets/img/favicon.png') }}" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <style>
+	.title-kh{
+		text-align: center;
+    	color: #002147;
+    	font-family: 'Dosis', sans-serif;
+    	letter-spacing: 0;
+		margin-bottom: -3%;
+	}
+
 	.instruction-section{
 		padding-left: 25%;
     	padding-right: 25%;
@@ -807,8 +817,11 @@ window.onbeforeunload = function(event){
 	return "All your answers will be reset. Are you sure to refresh the page ?";
 };
 </script>
+<div class="title-kh">
+	<h2>Khóa học: {{$khoaHoc->ten_khoa_hoc}}</h2>
+</div>
 <div class="dq-test-outer-wrapper">
-	<div class="dq-test-title">{{$khoaHoc->ten_khoa_hoc}}
+	<div class="dq-test-title">Chương: {{$baiKT->Chuong->ten_chuong}}
 	</div>
 	<div id="testContent">
         <form method="post" action="{{ route('sua-cau-hoi') }}" role="form" id="formCauHoi">
@@ -825,11 +838,11 @@ window.onbeforeunload = function(event){
 				<div class="thoi-gian-hien-thi">
 					<label for="birthdaytime"><h4><b>Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input value="{{ $baiKT->thoi_gian_mo }}" class="form-control" type="date" id="batDauKT" name="batDauKT">
+					<input value="{{ $baiKT->thoi_gian_mo }}" class="form-control" type="datetime-local" id="batDauKT" name="batDauKT">
 					<br/>
 					<label for="birthdaytime"><h4><b>Thời gian kết thúc bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input value="{{ $baiKT->thoi_gian_dong }}" class="form-control" type="date" id="ketThucKT" name="ketThucKT">
+					<input value="{{ $baiKT->thoi_gian_dong }}" class="form-control" type="datetime-local" id="ketThucKT" name="ketThucKT">
 				</div>
 				<br/>
 				<input type="radio" id="hienthi" name="hienThiKQ" value="HienThi">

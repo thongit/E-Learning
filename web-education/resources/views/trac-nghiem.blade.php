@@ -298,7 +298,7 @@ $(document).ready(function(){
 	});
 
     $("#thoat").click(function(){
-		window.open("/","_self");
+		window.open("/khoa-hoc/"+{{$chuong->Chuong->khoaHoc->id}},"_self");
 	});
 	
 	$("#regnNum,#password").keypress(function(e) {
@@ -614,12 +614,12 @@ window.onbeforeunload = function(event){
 				<input type="button" id="lamLai" class="btn-primary btn-lg" value="Làm lại" />
 			</div>
 		</form>
-        <div style="text-align:center" class="thoat display-none">
+        <div class="with-ques display-none">
+			<div class="half-width only-questions"></div>
+			<div class="half-width test-finished only-scores" style="margin:20px auto"></div>
+		</div>
+		<div style="text-align:center" class="thoat display-none">
             <input type="button" id="thoat" class="btn-danger btn-lg" value="Thoát" />
         </div>
-		<div class="with-ques display-none">
-			<div class="half-width only-questions"></div>
-			<div class="half-width only-scores"></div>
-		</div>
 	</div>
 </div>
