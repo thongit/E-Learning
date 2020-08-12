@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\cthoadon;
 use Illuminate\Http\Request;
 use App\hoadon;
 
@@ -20,7 +21,9 @@ class HoaDonController extends Controller
         {
             abort(401);
         }
+        $ctHoaDon = cthoadon::where('hoa_don_id', '=', $donHang->id)->delete();
         $donHang->delete();
+
         return redirect('ds-don-hang')->with('thongbao','Xóa thành công');
      }
 

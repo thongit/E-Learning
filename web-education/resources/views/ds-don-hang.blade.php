@@ -11,6 +11,11 @@
         swal.fire("{{ session('success') }}","","success")
     </script>
 @endif
+@if (session('error'))
+    <script>
+        swal.fire("{{ session('error') }}","","error")
+    </script>
+@endif
 @include('header')
 
     <!-- Start Breadcrumb
@@ -58,7 +63,6 @@
                                                         <th style="text-align: center;">Tên khóa học</th>
                                                         <th style="text-align: center;">Giá</th>
                                                         <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Hìnhảnh giảng viên</th>
                                                         <th style="text-align: center;">Trạng thái</th>
                                                     </tr>
                                                 </thead>
@@ -67,23 +71,22 @@
                                                 @foreach($dsHocVien->ctHoaDon as $dsKhoaHoc)
                                                    <tr>
                                                        <td>
-                                                        <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
+                                                        <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">
+                                                            <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
+                                                        </a>
                                                        </td>
                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
                                                        <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
-                                                       <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
-                                                       <td>
-                                                        <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb" width="100px" height="height=100px">
-                                                        </td>
+                                                       <td><a href="{{ action('KhoaHocController@chiTietGiangVien' , $dsKhoaHoc->khoaHoc->giangVien->id)}}">{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</a></td>
                                                         <td>
                                                             @if(($dsHocVien->trang_thai) == 1)
-                                                            Đang Mua
+                                                            <button type="button" class="btn btn-primary">Đang Mua</button>
                                                             @endif
                                                             @if(($dsHocVien->trang_thai) == 2)
-                                                            Đang Giao
+                                                            <button type="button" class="btn btn-info">Đang Giao</button>
                                                             @endif
                                                             @if(($dsHocVien->trang_thai) == 3)
-                                                            Đã Giao
+                                                            <button type="button" class="btn btn-success">Đã Giao</button>
                                                             @endif
 
                                                         </td>
@@ -109,7 +112,6 @@
                                                         <th style="text-align: center;">Tên khóa học</th>
                                                         <th style="text-align: center;">Giá</th>
                                                         <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Hìnhảnh giảng viên</th>
                                                         <th style="text-align: center;">Trạng thái</th>
                                                         <th class="text-center">Hủy đơn hàng</th>
                                                     </tr>
@@ -131,7 +133,7 @@
                                                          </td>
                                                          <td>
                                                              @if(($dsHocVien->trang_thai) == 1)
-                                                             Đang Mua
+                                                             <button type="button" class="btn btn-primary">Đang Mua</button>
                                                              @endif
                                                          </td>
                                                          <td class="text-center">
@@ -162,7 +164,6 @@
                                                         <th style="text-align: center;">Tên khóa học</th>
                                                         <th style="text-align: center;">Giá</th>
                                                         <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Hình ảnh giảng viên</th>
                                                         <th style="text-align: center;">Trạng thái</th>
 
                                                     </tr>
@@ -184,7 +185,7 @@
                                                          </td>
                                                          <td>
                                                              @if(($dsHocVien->trang_thai) == 2)
-                                                             Đang Giao
+                                                             <button type="button" class="btn btn-info">Đang Giao</button>
                                                              @endif
                                                          </td>
                                                     </tr>
@@ -210,7 +211,6 @@
                                                         <th style="text-align: center;">Tên khóa học</th>
                                                         <th style="text-align: center;">Giá</th>
                                                         <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Hìnhảnh giảng viên</th>
                                                         <th style="text-align: center;">Trạng thái</th>
                                                     </tr>
                                                 </thead>
@@ -231,7 +231,7 @@
                                                          </td>
                                                          <td>
                                                              @if(($dsHocVien->trang_thai) == 3)
-                                                             Đã Giao
+                                                             <button type="button" class="btn btn-success">Đã Giao</button>
                                                              @endif
                                                          </td>
                                                     </tr>
