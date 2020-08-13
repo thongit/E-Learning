@@ -1,0 +1,2 @@
+Vui lòng thanh toán phí sử dụng hệ thống EDUQTTT.
+Số tiền cần phải thanh toán là {{ Session::get('so_tien') }}  Vui lòng chuyển tiền vào số tài khoản 104617777777 ngân hàng VietinBank chi nhánh Tp.HCM với nội dung là "Thanh toán phí sử dụng eduqttt " + email tài khoản đăng nhập. Ví dụ: Thanh toán phí sử dụng hệ thống eduqttt, email: minhquith17b@gmail.com.

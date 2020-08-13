@@ -18,6 +18,7 @@ use Mail;
 use App\Mail\ThongBaoTroThanhGiangVien;
 use App\Mail\ThongBaoDuyetKhoaHoc;
 use App\Mail\ThongBaoKhongDuyetKhoaHoc;
+use App\Mail\NhacNhoThanhToan;
 
 class AdminController extends Controller
 {
@@ -439,9 +440,8 @@ class AdminController extends Controller
         if($giangVien != null && $giangVien->loai_tk == 2)
         {
             $sotien = number_format($giangVien->theNganHang[0]->tong_tien).' VNĐ';
-            //
-            //Gửi mail
-            //
+            session()->put('so_tien', $sotien);
+            Mail::to($giangVien->email)->send(new NhacNhoThanhToan($giangVien->email));
             return response()->json(array('msgnn'=> 1 ), 200);
         }
         else
