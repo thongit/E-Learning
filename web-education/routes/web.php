@@ -17,6 +17,14 @@ Route::middleware('auth')->group(function(){
 
     Route::get('admin/ds-giang-vien','AdminController@getGiangVien')->name('admin-ds-giang-vien');
 
+    Route::get('admin/ds-doanh-thu-gv','AdminController@dsDoanhThuGV')->name('ds-doanh-thu-gv');
+
+    Route::get('admin/ds-doanh-thu-gv-pagin','AdminController@dsDoanhThuGVPagin')->name('ds-doanh-thu-gv-pagin');
+
+    Route::get('thanh-toan-cho-gv','AdminController@thanhToanGV')->name('thanh-toan-cho-gv');
+
+    Route::get('nhac-nho-thanh-toan','AdminController@nhacNhoTT')->name('nhac-nho-thanh-toan');
+
     Route::get('admin/ds-admin','AdminController@getAdmin')->name('ds-admin');
 
     Route::get('admin/ds-khoa-hoc','AdminController@getKhoaHoc')->name('admin-ds-khoa-hoc');
@@ -134,10 +142,6 @@ Route::middleware('auth')->group(function(){
     Route::get('thanh-toan/{id}','CTHoaDonController@thanhToan')->name('thanh-toan');
 
     Route::post('xu-ly-thanh-toan','CTHoaDonController@create')->name('xl-thanh-toan');
-
-    Route::get('thanh-toan-gv','CTHoaDonController@thanhToanGV')->name('thanh-toan-gv');
-
-    Route::get('nhac-nho-thanh-toan','CTHoaDonController@nhacNhoThanhToan')->name('nhac-nho-thanh-toan');
 
     Route::get('return-vnpay','CTHoaDonController@return')->name('return-pay');
 

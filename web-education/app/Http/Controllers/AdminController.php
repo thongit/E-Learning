@@ -389,12 +389,66 @@ class AdminController extends Controller
         }
     }
     
-
-    public function index()
+    public function dsDoanhThuGV()
     {
-        //
+        if(auth()->user()->loai_tk != 3)
+        {
+            abort(401);
+        }
+        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(10);
+        return view('ds-doanh-thu-gv',compact('giangVien'));
     }
 
+    public function dsDoanhThuGVPagin()
+    {
+        if(auth()->user()->loai_tk != 3)
+        {
+            abort(401);
+        }
+        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(10);
+        return view('doanhthugv',compact('giangVien'))->render();
+    }
+
+    public function thanhToanGV(Request $request)
+    {
+        if(auth()->user()->loai_tk != 3)
+        {
+            abort(401);
+        }
+        $giangVien = nguoidung::find($request->idND);
+        if($giangVien != null && $giangVien->loai_tk == 2)
+        {
+            $thnh = thenganhang::where('nguoi_dung_id','=',$giangVien->id)->first();
+            $thnh->tong_tien = 0;
+            $thnh->save();
+            return response()->json(array('msg'=> 1), 200);
+        }
+        else
+        {
+            return response()->json(array('msg'=> 0), 200);
+        }
+    }
+
+    public function nhacNhoTT(Request $request)
+    {
+        if(auth()->user()->loai_tk != 3)
+        {
+            abort(401);
+        }
+        $giangVien = nguoidung::find($request->idND);
+        if($giangVien != null && $giangVien->loai_tk == 2)
+        {
+            $sotien = number_format($giangVien->theNganHang[0]->tong_tien).' VNĐ';
+            //
+            //Gửi mail
+            //
+            return response()->json(array('msgnn'=> 1 ), 200);
+        }
+        else
+        {
+            return response()->json(array('msgnn'=> 0), 200);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
