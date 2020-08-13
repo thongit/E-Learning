@@ -30,7 +30,7 @@ class KhoaHocController extends Controller
         if(auth()->user()->loai_tk == 2)
         {
             $nguoi_dung_ids=auth()->user()->id;
-            $khoahocs=DB::table('khoa_hoc')->where('nguoi_dung_id', $nguoi_dung_ids)->get();
+            $khoahocs=DB::table('khoa_hoc')->where('nguoi_dung_id', $nguoi_dung_ids)->paginate(6);
             return view('ds-khoa-hoc-da-tao',compact('khoahocs'));
         }
         else

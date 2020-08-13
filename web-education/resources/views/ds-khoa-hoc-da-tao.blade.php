@@ -242,7 +242,9 @@
                       </div>
 
 
-                            
+                      <div style="display: flex;justify-content: center;">
+                        <?php echo $khoahocs->render(); ?>
+                    </div>    
                     </div>
                    @include('panel')
                 </div>
