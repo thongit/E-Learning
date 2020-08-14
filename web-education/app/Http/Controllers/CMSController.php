@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\baikiemtra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\khoahoc;
@@ -36,6 +38,8 @@ class CMSController extends Controller
             foreach ($chuongs as $item) {
                 $noidungs=noidung::where('chuong_id',$item->id);
                 $noidungs->delete();
+                $baikiemtras=baikiemtra::where('chuong_id',$item->id);
+                $baikiemtras->delete();
             }
             $khoahocs->Chuong()->delete();
             $khoahocs->delete();
@@ -140,6 +144,8 @@ class CMSController extends Controller
             {
                 abort(401);
             }
+            $chuongs->baiKiemTra()->delete();
+            $chuongs->noiDung()->delete();
             $chuongs->delete();
             return redirect()->back()->with('thongbao','Xóa chương thành công');
         }
