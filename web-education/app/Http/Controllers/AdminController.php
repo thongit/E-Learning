@@ -90,7 +90,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get();
+            $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->paginate(10);
             return view('ds-hoc-vien-admin',compact('danhSachNguoiDung'));
         }
         else
@@ -103,7 +103,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $danhSachGiangVienCaNhan=DB::table('nguoi_dung')->where('loai_tk',1)->where('trang_thai',2)->get();
+            $danhSachGiangVienCaNhan=DB::table('nguoi_dung')->where('loai_tk',1)->where('trang_thai',2)->paginate(10);
             return view('ds-dang-ky-giang-vien-ca-nhan',compact('danhSachGiangVienCaNhan'));
         }
         else
@@ -145,7 +145,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-        $danhSachGiangVienToChuc=DB::table('to_chuc')->where('trang_thai',2)->get();
+        $danhSachGiangVienToChuc=DB::table('to_chuc')->where('trang_thai',2)->paginate(10);
             return view('ds-dang-ky-giang-vien-to-chuc',compact('danhSachGiangVienToChuc'));
         }
         else
@@ -215,7 +215,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get();
+            $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->paginate(10);
             return view('ds-giang-vien-admin',compact('danhSachGiangVien'));
         }
         else
@@ -241,7 +241,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $danhSachKhoaHoc=DB::table('khoa_hoc')->get();
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->paginate(10);
             return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
         }
         else
@@ -254,7 +254,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-        $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',2)->get();
+        $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',2)->paginate(10);
         return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
         }
         else
@@ -267,7 +267,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->loai_tk == 3)
         {
-            $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',3)->get();
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->where('trang_thai',3)->paginate(10);
             return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
         }
         else

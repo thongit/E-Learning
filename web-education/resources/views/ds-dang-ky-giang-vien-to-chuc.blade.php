@@ -49,6 +49,9 @@
                         </div>
                     </div>
                 </div>
+                <div style="display: flex;justify-content: center;">
+                    <?php echo $danhSachGiangVienToChuc->render(); ?>
+                </div>
                 <!-- Student Table Area End Here -->
                 <footer class="footer-wrap-layout1">
                     <div class="copyright">© Copyrights <a href="#">QTTT</a>

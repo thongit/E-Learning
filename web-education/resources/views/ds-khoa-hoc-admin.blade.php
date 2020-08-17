@@ -30,7 +30,7 @@
                             <tr>
                                 <td><img src="{{ asset('assets/images/'.$item->hinh_anh) }}" width="50px" height="50px"></td>
                                 <td><a href="{{route('lay-chuong',$item->id)}}">{{$item->ten_khoa_hoc}}</a></td>
-                                <td>{{$item->gia}}</td>
+                                <td>{{number_format($item->gia)}}</td>
                                 <td>{{$item->muc_do}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>@if($item->trang_thai == 3)
@@ -55,6 +55,9 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div style="display: flex;justify-content: center;">
+            <?php echo $danhSachKhoaHoc->render(); ?>
         </div>
         <!-- Fees Table Area End Here -->
         <footer class="footer-wrap-layout1">

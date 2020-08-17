@@ -13,25 +13,21 @@
         <div class="card height-auto">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table data-table text-nowrap">
+                    <table class="table text-nowrap">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>Tên chương</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($chuongs as $item)
                             <tr>
-                                <td></td>
                                 <td><a href="/admin/bai-giang/{{$item->id}}">{{$item->ten_chuong}}</a></td>
                             </tr>
                             @endforeach
 
                         </tbody>
                     </table>
-                </div>
-                <div>
                 </div>
             </div>
         </div>
