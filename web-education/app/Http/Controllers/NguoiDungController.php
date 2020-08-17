@@ -53,7 +53,7 @@ class NguoiDungController extends Controller
     {
         if(auth()->user()->loai_tk == 2)
         {
-            $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',3)->count();
+            $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',2)->count();
             $khoaHoc = khoahoc::find($idKhoaHoc);
             if($khoaHoc->nguoi_dung_id != auth()->user()->id)
             {
@@ -67,13 +67,14 @@ class NguoiDungController extends Controller
             }
             else
             {
-
+            $i = 0;
             foreach ($dshocvien as $key => $ct) {
-                $ds[$key] = array(
+                $ds[$i] = array(
                     '0' => $ct->hoaDon->nguoiDung->anh_dai_dien,
                     '1' => $ct->hoaDon->nguoiDung->ho_ten,
                     '2' => $ct->hoaDon->nguoiDung->email
                 ) ;
+                $i++;
             }
             return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu],['dsTenHocVien'=>$ds])->with('thongbao',1);;
         }
@@ -215,23 +216,12 @@ class NguoiDungController extends Controller
     
     $this->validate($request,
     [
-        'ho_ten'=>'required|min:3|',
-        'so_cmnd'=>'required|max:10|',
-        'so_dt'=>'required|max:10|',
-        'mat_khau'=>'required',
-        'mat_khau_nl'=>'required',
-        'mat_khau'=>'required|min:6|',
-        'mat_khau_nl'=>'required|same:mat_khau|',
+        
         'email'=>'required|email|unique:nguoi_dung,email'
 
     ],
     [
-        'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
-        'so_dt.max'=>'Số điện thoại không hợp lệ!',
-        'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
-        'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
-        'mat_khau_nl.same'=>'Mật khẩu nhập lại không khớp!',
-        'email.unique'=>'Email đã được đăng ký tài khoản!',
+        'email.unique'=>'Email đã được đăng ký tài khoản!'  
 
     ]);
     $trangthai=mt_rand(100000, 999999);
