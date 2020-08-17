@@ -76,9 +76,15 @@
                         <div class="col-4-xxxl col-xl-4 col-lg-4 col-12 form-group">
                             <label for="bdaymonth">Chọn Tháng Thống Kê:</label>
                         </div>
+                        @if($hienThiThang == null)
+                        <div class="col-4-xxxl col-xl-4 col-lg-4 col-12 form-group">
+                            <input type="month" id="bdaymonth" name="bdaymonth" value="{{$layNgayThang}}" required>
+                        </div>
+                        @else
                         <div class="col-4-xxxl col-xl-4 col-lg-4 col-12 form-group">
                             <input type="month" id="bdaymonth" name="bdaymonth" value="{{$hienThiThang}}" required>
                         </div>
+                        @endif
                         <div class="col-4-xxxl col-xl-4 col-lg-4 col-2 form-group">
                             <button type="submit" class="fw-btn-fill btn-gradient-yellow">Thống Kê</button>
                         </div>
