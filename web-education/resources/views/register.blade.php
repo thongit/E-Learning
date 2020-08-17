@@ -11,6 +11,40 @@
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
+<script>
+    function validateform() {
+        var password = document.form1.mat_khau.value;
+        var ho_ten = document.form1.ho_ten.value;
+        var mat_khau_nl = document.form1.mat_khau_nl.value;
+        var so_cmnd = document.form1.so_cmnd.value;
+        var so_dt = document.form1.so_dt.value;
+
+
+        if (ho_ten.length < 3) {
+            alert("Họ tên phải có ít nhất 3 ký tự!");
+            return false;
+        }
+        else if (isNaN(so_cmnd)) {
+            alert("Số CMND chỉ được nhập ký tự số!");
+            return false;
+        }
+      
+        else if (isNaN(so_dt)) {
+            alert("Số điện thoại chỉ được nhập ký tự số!");
+            return false;
+        }
+
+      else if (password.length < 6) {
+            alert("Mật khẩu phải có ít nhất 6 ký tự!");
+            return false;
+        }
+        else if (mat_khau_nl != password) {
+            alert("Mật khẩu nhập lại không trùng khớp!");
+            return false;
+        }
+        
+    }
+</script>
  <!-- Start Login
     // ============================================= -->
     @if (session('thongbao'))
@@ -32,7 +66,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <form action="{{ route('xu-ly-dang-ky')}}" id="register-form" method="POST" class="white-popup-block">
+                    <form name="form1" action="{{ route('xu-ly-dang-ky')}}" onsubmit = "return validateform()" id="register-form" method="POST" class="white-popup-block">
                     @csrf
                         <div class="login-custom">
                             <div class="heading">               
@@ -65,14 +99,14 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" id="so_cmnd" name="so_cmnd" placeholder="Số CMND*" type="number" maxlength="9" required>
+                                        <input class="form-control" id="so_cmnd" name="so_cmnd" placeholder="Số CMND*" type="text" maxlength="9" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" id="so_dt" name="so_dt" placeholder="Số điện thoại*" type="number"  maxlength="10" required>
+                                        <input class="form-control" id="so_dt" name="so_dt" placeholder="Số điện thoại*" type="text"  maxlength="10" required>
                                     </div>
                                 </div>
                             </div>
