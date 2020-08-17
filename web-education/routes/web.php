@@ -146,6 +146,8 @@ Route::middleware('auth')->group(function(){
 
     //Danh sách các đơn hàng
     Route::get('/ds-don-hang', 'NguoiDungController@quanLyDonHang')->name('ds-don-hang');
+    //Phân trang đơn hàng
+    Route::get('lay-don-hang', 'NguoiDungController@layDonHang')->name('lay-don-hang');
     //Xóa đơn hàng
     Route::get('don-hang/xoa/{idDonHang}', 'HoaDonController@huyDonHang')->name('huy-don-hang');
 

@@ -17,6 +17,55 @@
     </script>
 @endif
 @include('header')
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<link href="http://vjs.zencdn.net/5.7.1/video-js.css" rel="stylesheet">
+<link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
+<link href="{{ asset('assets/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+    .blog-area .pagination li a{
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-right: 1px;
+    }
+    </style>
+<script>
+$(document).ready(function(){
+
+    $(document).on('click','.pagination a', function(e){
+        e.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        layDonHang(page);
+    });
+
+    function layDonHang(page)
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/lay-don-hang?page='+page,
+            type:"GET",
+            success:function(data){
+                console.log(data);
+                $(".dsdh").html(data);
+            }
+        });
+    }
+
+
+});
+</script>
 
     <!-- Start Breadcrumb
     ============================================= -->
@@ -38,221 +87,13 @@
     <!-- Start Blog
     ============================================= -->
     <div class="blog-area single full-blog left-sidebar full-blog default-padding">
-        <div class="container">
-            <div class="row">
-                <div class="blog-items">
-
-                    <div class="blog-content col-md-12">
-                    <ul class="nav nav-pills">
-                        <li class="active"><a data-toggle="pill" href="#home1">Tất cả đơn hàng</a></li>
-                        <li><a data-toggle="pill" href="#menu1">Đơn hàng đang mua</a></li>
-                        <li><a data-toggle="pill" href="#menu2">Đơn hàng đang giao</a></li>
-                        <li><a data-toggle="pill" href="#menu3"> Đơn hàng đã giao</a></li>
-                      </ul><br>
-
-                      <div class="tab-content">
-                        <div id="home1" class="tab-pane fade in active">
-                          <div class="container-fluid adm-archivos">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <table class="table table-bordered table-hover vmiddle">
-                                                <thead>
-                                                    <tr style="text-align: center;">
-                                                        <th style="text-align: center;">Hình ảnh khóa học</th>
-                                                        <th style="text-align: center;">Tên khóa học</th>
-                                                        <th style="text-align: center;">Giá</th>
-                                                        <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Trạng thái</th>
-                                                    </tr>
-                                                </thead>
-                                               <tbody>
-                                                @foreach($hocVien->hoaDon as $dsHocVien)
-                                                @foreach($dsHocVien->ctHoaDon as $dsKhoaHoc)
-                                                   <tr>
-                                                       <td>
-                                                        <a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">
-                                                            <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
-                                                        </a>
-                                                       </td>
-                                                       <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
-                                                       <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
-                                                       <td><a href="{{ action('KhoaHocController@chiTietGiangVien' , $dsKhoaHoc->khoaHoc->giangVien->id)}}">{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</a></td>
-                                                        <td>
-                                                            @if(($dsHocVien->trang_thai) == 1)
-                                                            <button type="button" class="btn btn-primary">Đang Mua</button>
-                                                            @endif
-                                                            @if(($dsHocVien->trang_thai) == 2)
-                                                            <button type="button" class="btn btn-info">Đang Giao</button>
-                                                            @endif
-                                                            @if(($dsHocVien->trang_thai) == 3)
-                                                            <button type="button" class="btn btn-success">Đã Giao</button>
-                                                            @endif
-
-                                                        </td>
-                                                   </tr>
-                                                   @endforeach
-                                                   @endforeach
-                                               </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu1" class="tab-pane fade">
-                          <div class="container-fluid adm-archivos">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <table class="table table-bordered table-hover vmiddle">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align: center;">Hình ảnh khóa học</th>
-                                                        <th style="text-align: center;">Tên khóa học</th>
-                                                        <th style="text-align: center;">Giá</th>
-                                                        <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Trạng thái</th>
-                                                        <th class="text-center">Hủy đơn hàng</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                 @foreach($hocVien->hoaDon as $dsHocVien)
-                                                    @foreach($dsHocVien->ctHoaDon as $dsKhoaHoc)
-                                                    @if(($dsHocVien->trang_thai) == 1)
-                                                    <tr>
-                                                        <td>
-                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
-                                                        </td>
-                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
-                                                        <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
-                                                        <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
-                                                        <td>
-                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb" width="100px" height="height=100px">
-                                                         </td>
-                                                         <td>
-                                                             @if(($dsHocVien->trang_thai) == 1)
-                                                             <button type="button" class="btn btn-primary">Đang Mua</button>
-                                                             @endif
-                                                         </td>
-                                                         <td class="text-center">
-                                                            <a onclick="thongbaoxoa({{$dsHocVien->id}})"><span class="btn btn-danger">
-                                                                <i class="fas fa-trash-alt" style="font-size: 30px;padding: 10px;"></i>
-                                                            </span></a>
-                                                        </td>
-                                                    </tr>
-                                                    @endif
-                                                        @endforeach
-                                                        @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu2" class="tab-pane fade">
-                          <div class="container-fluid adm-archivos">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <table class="table table-bordered table-hover vmiddle">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align: center;">Hình ảnh khóa học</th>
-                                                        <th style="text-align: center;">Tên khóa học</th>
-                                                        <th style="text-align: center;">Giá</th>
-                                                        <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Trạng thái</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    @foreach($hocVien->hoaDon as $dsHocVien)
-                                                    @foreach($dsHocVien->ctHoaDon as $dsKhoaHoc)
-                                                    @if(($dsHocVien->trang_thai) == 2)
-                                                    <tr>
-                                                        <td>
-                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
-                                                        </td>
-                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
-                                                        <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
-                                                        <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
-                                                        <td>
-                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb" width="100px" height="height=100px">
-                                                         </td>
-                                                         <td>
-                                                             @if(($dsHocVien->trang_thai) == 2)
-                                                             <button type="button" class="btn btn-info">Đang Giao</button>
-                                                             @endif
-                                                         </td>
-                                                    </tr>
-                                                    @endif
-                                                        @endforeach
-                                                        @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu3" class="tab-pane fade">
-                          <div class="container-fluid adm-archivos">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <table class="table table-bordered table-hover vmiddle">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align: center;">Hình ảnh khóa học</th>
-                                                        <th style="text-align: center;">Tên khóa học</th>
-                                                        <th style="text-align: center;">Giá</th>
-                                                        <th style="text-align: center;">Tên giảng viên</th>
-                                                        <th style="text-align: center;">Trạng thái</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    @foreach($hocVien->hoaDon as $dsHocVien)
-                                                    @foreach($dsHocVien->ctHoaDon as $dsKhoaHoc)
-                                                    @if(($dsHocVien->trang_thai) == 3)
-                                                    <tr>
-                                                        <td>
-                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->hinh_anh) }}" alt="Thumb" width="100px" height="100px">
-                                                        </td>
-                                                        <td><a href="{{ action('KhoaHocController@hienThiChiTietKhoaHoc' , $dsKhoaHoc->khoaHoc->id) }}">{{$dsKhoaHoc->khoaHoc->ten_khoa_hoc}}</a></td>
-                                                        <td>{{ number_format($dsKhoaHoc->khoaHoc->gia)}} VNĐ</td>
-                                                        <td>{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</td>
-                                                        <td>
-                                                         <img src="{{ asset('assets/images/'.$dsKhoaHoc->khoaHoc->giangVien->anh_dai_dien) }}" alt="Thumb" width="100px" height="height=100px">
-                                                         </td>
-                                                         <td>
-                                                             @if(($dsHocVien->trang_thai) == 3)
-                                                             <button type="button" class="btn btn-success">Đã Giao</button>
-                                                             @endif
-                                                         </td>
-                                                    </tr>
-                                                    @endif
-                                                        @endforeach
-                                                        @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container dsdh">
+            @include('don-mua-hang')
         </div>
     </div>
     <!-- End Blog -->
 @endsection
+
 <script>
     function thongbaoxoa($id) {
         Swal.fire({

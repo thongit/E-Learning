@@ -925,7 +925,7 @@ class KhoaHocController extends Controller
         {
             if($ct->hoaDon->nguoi_dung_id == $idNguoiDung && $ct->trang_thai == 2)
             {
-                
+
                 return view('ds-bai-kiem-tra', compact('khoaHoc','idNguoiDung'));
             }
         }

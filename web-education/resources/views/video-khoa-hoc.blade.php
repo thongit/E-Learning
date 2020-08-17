@@ -107,7 +107,7 @@ $(document).ready(function(){
 				hoanThanh();
 			}
 		})
-		
+
 	});
 
     $("#binhluan").click(function (){
@@ -141,13 +141,13 @@ $(document).ready(function(){
     <!-- Start Breadcrumb
     ============================================= -->
     <!-- <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="{{ route('sua') }}">Thông tin cá nhân</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
+        <a href="{{ route('sua') }}">Thông tin cá nhân</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
     </div> -->
     <div class="container" style="font-size: large;">
-        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
-        <a href="/khoa-hoc/{{ $video->Chuong->khoa_hoc_id }}" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i> 
+        <a href="/">Trang chủ</a> &nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
+        <a href="{{ route('trang-chu.khoa-hoc') }}">Danh sách khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
+        <a href="/khoa-hoc/{{ $video->Chuong->khoa_hoc_id }}" >Chi tiết khóa học</a>&nbsp <i class="fa fa-caret-right" aria-hidden="true">&nbsp</i>
         <a href="">Bài: {{ $video->tieu_de }}</a>
     </div>
     <div class="breadcrumb-area shadow dark bg-fixed text-center text-light">
@@ -191,7 +191,7 @@ $(document).ready(function(){
 
                         </video>
                         <script src="http://vjs.zencdn.net/5.7.1/video.js"></script>
-                        
+
                     </div>
                     <div>
                         <h4><a>Bài @foreach($video->Chuong->noiDung as $key => $chuong) @if($chuong->id == $video->id) {{$key+1}} @endif @endforeach: {{$video->tieu_de}}</a></h4>
@@ -220,7 +220,7 @@ $(document).ready(function(){
                             <li class="list-group-item">
                                 <h4>Bài kiểm tra cuối chương: {{ $video->Chuong->baiKiemTra[0]->ten_bai_kt }}</h4>
                                 @if($kiemtra == null && $kiemtra1 == null)
-                                <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-info">Làm kiểm tra</a>                            
+                                <a href="{{ route('trac-nghiem-excel',$video->Chuong->baiKiemTra[0]->file_de_kt)}}" type="button" class="btn btn-info">Làm kiểm tra</a>
                                 @else
                                 <h4 style="color: green;">Kết quả kiểm tra của bạn: {{$kiemtra->diem}}</h4>
                                 @endif
@@ -268,7 +268,7 @@ $(document).ready(function(){
                     <br>
                     <a href="{{ route('video',$chuong->id)}}">
                         <div id="video-click">
-                            <div class="embed-responsive embed-responsive-16by9"> 
+                            <div class="embed-responsive embed-responsive-16by9">
                             <video id="my-video" class="video-js vjs-big-play-centered AdvancedExample__Video-sc-1x7qqz9-7 dVCxLk vjs-paused preview-player-dimensions vjs-workinghover vjs-v7 vjs-user-active vjs-mux vjs-fluid vjs-controls-disabled" crossorigin="anonymous" controls="" preload="auto" width="640" height="360" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
 
                                 <source src="{{ asset('assets/video/'.$chuong->video)}}" type='video/mp4'>

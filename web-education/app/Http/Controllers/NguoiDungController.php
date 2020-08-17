@@ -29,7 +29,7 @@ class NguoiDungController extends Controller
      * @return \Illuminate\Http\Response
      */
     // private $e;
-    
+
     public function dangNhap()
     {
         return view('login-2');
@@ -212,7 +212,7 @@ class NguoiDungController extends Controller
 
     public function xuLyDangKy(Request $request)
     {
-    
+
     $this->validate($request,
     [
         'ho_ten'=>'required|min:3|',
@@ -274,7 +274,7 @@ class NguoiDungController extends Controller
 
         else if($request->ma_xac_minh != $nguoidungs->trang_thai)
         {
-            
+
             return redirect('xac-minh-tai-khoan')->with('loi','Mã xác minh không đúng, Vui lòng nhập lại!');
         }
         // else if($dem==3)
@@ -496,9 +496,10 @@ class NguoiDungController extends Controller
         if(auth()->user())
         {
             $nguoi_dung_ids=auth()->user()->id;
-            $hocVien = nguoidung::find($nguoi_dung_ids);
+            // $hocVien = nguoidung::find($nguoi_dung_ids);
+            $donHang = hoadon::where('nguoi_dung_id','=',$nguoi_dung_ids)->orderBy('id','desc')->paginate(2);
             //dd($hocVien);
-            return view('ds-don-hang',compact('hocVien'));
+            return view('ds-don-hang',compact('donHang'))->render();
 
         }
         else
@@ -506,6 +507,16 @@ class NguoiDungController extends Controller
             return redirect('dang-nhap')->with('alerterror', 'Vui lòng đăng nhập!');
         }
         // return view('KhoaHoc.khoa-hoc-cua-toi');
+    }
+    public function layDonHang(Request $request)
+    {
+        if($request->ajax())
+        {
+            $nguoi_dung_ids=auth()->user()->id;
+            $donHang = hoadon::where('nguoi_dung_id', '=', $nguoi_dung_ids)->orderBy('id','desc')->paginate(2);
+            return view('don-mua-hang', compact('donHang'))->render();
+        }
+
     }
 
     /**
