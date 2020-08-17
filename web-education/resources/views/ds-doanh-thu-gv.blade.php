@@ -95,6 +95,26 @@
     };
     
     $(document).ready(function(){
+        
+        $("#ten").change(function(){
+            console.log(ten);
+            timkiem();
+        });
+
+        function timkiem(){
+            var ten = $("#ten").val();
+            $.ajax({
+                url:"/admin/ds-doanh-thu-gv",
+                method:"GET",
+                data:{
+                    ten:ten,
+                    _token : '<?php echo csrf_token() ?>'
+                },
+                success:function(data){
+                    $(".dtgv").html(data);
+                }
+            });
+        };
 
         $('#myModal').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('thongtin');
@@ -120,10 +140,12 @@
 
         function laydl(page)
         {
+            var ten = $("#ten").val();
             $.ajax({
                 url: '/admin/ds-doanh-thu-gv-pagin?page='+page,
                 method:"GET",
                 data:{
+                    ten:ten,
                     _token : '<?php echo csrf_token() ?>'
                 },
                 success:function(data){
@@ -143,17 +165,6 @@
 .dataTables_paginate {
     display: none;
 }
-.lam-gon-ten{
-  width: 206px;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  display: -webkit-box;
-}
-.lam-gon-ten:hover{
-    overflow: visible;
-}
 </style>
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
@@ -164,6 +175,12 @@
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </span>	
+        <input style="font-size: initial;" id="ten" class="form-control" aria-label="Tìm kiếm" placeholder="Tìm kiếm">
+    </div>
     <!-- Student Table Area Start Here -->
     <div class="card height-auto">
         <div class="card-body dtgv">
@@ -183,35 +200,35 @@
                 </div>
                 <div class="modal-body">
                     <table style="width:100%">
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Tên giảng viên:</th>
                             <td><span id="name"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Tên tổ chức:</th>
                             <td><span id="nametc"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Email:</th>
                             <td><span id="email"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">SĐT:</th>
                             <td><span id="sdt"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Địa chỉ:</th>
                             <td><span id="dchi"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Số TK:</th>
                             <td><span id="stk"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Tên trên thẻ:</th>
                             <td><span id="ttt"></span></td>
                         </tr>
-                        <tr>
+                        <tr style="border-bottom: solid 2px;">
                             <th style="width:30%">Ngân hàng:</th>
                             <td><span id="nh"></span></td>
                         </tr>

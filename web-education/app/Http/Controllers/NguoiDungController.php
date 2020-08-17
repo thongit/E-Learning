@@ -53,7 +53,7 @@ class NguoiDungController extends Controller
     {
         if(auth()->user()->loai_tk == 2)
         {
-            $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',3)->count();
+            $tonghocvien=DB::table('ct_hoa_don')->where('khoa_hoc_id',$idKhoaHoc)->where('trang_thai',2)->count();
             $khoaHoc = khoahoc::find($idKhoaHoc);
             if($khoaHoc->nguoi_dung_id != auth()->user()->id)
             {
@@ -67,13 +67,14 @@ class NguoiDungController extends Controller
             }
             else
             {
-
+            $i = 0;
             foreach ($dshocvien as $key => $ct) {
-                $ds[$key] = array(
+                $ds[$i] = array(
                     '0' => $ct->hoaDon->nguoiDung->anh_dai_dien,
                     '1' => $ct->hoaDon->nguoiDung->ho_ten,
                     '2' => $ct->hoaDon->nguoiDung->email
                 ) ;
+                $i++;
             }
             return view('thong-ke-khoa-hoc-giao-vien',['danhthu'=>$danhthu],['dsTenHocVien'=>$ds])->with('thongbao',1);;
         }

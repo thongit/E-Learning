@@ -934,7 +934,27 @@ class KhoaHocController extends Controller
 
     public function layDanhGia(Request $request)
     {
-        $danhGia = danhgiakh::where('khoa_hoc_id','=',$request->idKH)->paginate(3);
+        if($request->sosao == null || $request->sosao == "")
+        {
+            $danhGia = danhgiakh::where('khoa_hoc_id','=',$request->idKH)->paginate(3);
+        }
+        else
+        {
+            $danhGia = danhgiakh::where([['khoa_hoc_id','=',$request->idKH],['so_sao','=',$request->sosao],])->paginate(3);
+        }
         return view('KhoaHoc.danhgia',compact('danhGia'))->render();
+    }
+
+    public function locDanhGia(Request $request)
+    {
+        if($request->sosao == null || $request->sosao == "")
+        {
+            $danhGia = danhgiakh::where('khoa_hoc_id','=',$request->idKH)->paginate(3);
+        }
+        else
+        {
+            $danhGia = danhgiakh::where([['khoa_hoc_id','=',$request->idKH],['so_sao','=',$request->sosao],])->paginate(3);
+        }
+        return view('KhoaHoc.danhgia',compact('danhGia'));
     }
 }

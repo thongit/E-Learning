@@ -390,23 +390,36 @@ class AdminController extends Controller
         }
     }
     
-    public function dsDoanhThuGV()
+    public function dsDoanhThuGV(Request $request)
     {
         if(auth()->user()->loai_tk != 3)
         {
             abort(401);
         }
-        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(10);
+        if($request->ajax())
+        {
+            $input = $request->ten;
+            $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
+            $giangVien = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->paginate(5);
+            return view('doanhthugv',compact('giangVien'));
+        }
+        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(5);
         return view('ds-doanh-thu-gv',compact('giangVien'));
     }
 
-    public function dsDoanhThuGVPagin()
+    public function dsDoanhThuGVPagin(Request $request)
     {
         if(auth()->user()->loai_tk != 3)
         {
             abort(401);
         }
-        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(10);
+        $input = $request->ten;
+        if($request->ten == null)
+        {
+            $input = "";
+        }
+        $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
+        $giangVien = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->paginate(5);
         return view('doanhthugv',compact('giangVien'))->render();
     }
 
