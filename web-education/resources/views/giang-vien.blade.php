@@ -5,7 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-    $("#ten").keyup(function(){
+    $("#ten").change(function(){
         timkiem();
     });
 
@@ -64,7 +64,7 @@ $(document).ready(function(){
     </div>
     <!-- End Breadcrumb -->
     <div class="container">
-        <form id="search-form" class="new-added-form" action="{{ route('trang-chu.xu-ly-tim-kiem-nc') }}" method="GET">
+      
             @csrf
             <div class="panel-group" style="padding-top: 10px">
                 <div class="row">
@@ -76,7 +76,6 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div>
-        </form>
     </div>
     <!-- Start Advisor
     ============================================= -->

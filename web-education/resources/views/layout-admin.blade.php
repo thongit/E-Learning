@@ -34,6 +34,19 @@
     <script src="{{asset ('assets-admin/js/modernizr-3.6.0.min.js') }}"></script>
     {{--  font awesome  --}}
     <link href=" {{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <style>
+        .lam-gon-ten{
+        width: 256px;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        display: -webkit-box;
+        }
+        .lam-gon-ten:hover{
+            overflow: visible;
+        }
+    </style>
 </head>
 
 <body>
@@ -42,7 +55,7 @@
         <div class="navbar navbar-expand-md header-menu-one bg-light">
             <div class="nav-bar-header-one">
                 <div class="header-logo">
-                    <a href="">
+                    <a href="/admin/thong-ke">
                         <img src="{{asset ('assets-admin/img/logo.png') }}" alt="logo">
                     </a>
                 </div>
@@ -176,7 +189,9 @@
                                 </li>
                             </ul>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a href="/admin/ds-doanh-thu-gv" class="nav-link"><i class="flaticon-money"></i><span>Thanh toán giảng viên</span></a>
+                        </li>
                      <!--    <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Acconunt</span></a>
                             <ul class="nav sub-group-menu">

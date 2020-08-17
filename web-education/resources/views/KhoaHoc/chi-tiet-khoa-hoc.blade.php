@@ -15,12 +15,14 @@
 <link href=" {{ asset ('assets/style.css') }}" rel="stylesheet">
 <script>
     var DanhGia = {!! json_encode($ktdgkh) !!};
+    var luaChon = "";
     function laydl(page)
     {
         $.ajax({
             url: '/lay-danh-gia?page='+page,
             method:"GET",
             data:{
+                sosao: luaChon[0],
                 idKH: {{$dsKhoaHoc->id}},
                 _token : '<?php echo csrf_token() ?>'
             },
@@ -34,6 +36,30 @@
         e.preventDefault();
         var page = $(this).attr('href').split('page=')[1];
         laydl(page);
+    });
+
+    $(document).on('click','.loc-sao button', function(e){
+        e.preventDefault();
+        $('.loc-sao button').css("background","#F0F0F0");
+        $(this).css("background","#8CC4DA");
+        var lc = $(this).text();
+        luaChon = lc;
+        if(lc == "Tất cả")
+        {
+            luaChon = "";
+        }
+        $.ajax({
+            url: '/loc-danh-gia',
+            method:"GET",
+            data:{
+                sosao: luaChon[0],
+                idKH: {{$dsKhoaHoc->id}},
+                _token : '<?php echo csrf_token() ?>'
+            },
+            success:function(data){
+                $(".dsdgkh").html(data);
+            }
+        });
     });
 
     $(document).ready(function(){
@@ -362,6 +388,14 @@
                                                 </div>
                                                 <!-- End Progressbar -->
                                             </div>
+                                        </div>
+                                        <div class="loc-sao">
+                                            <button class="btn btn-sm" style="margin-right: 20px;margin-top: 20px;">1 <i class="fas fa-star" style="color: #ffb606"></i></button>
+                                            <button class="btn btn-sm" style="margin-right: 20px;margin-top: 20px;">2 <i class="fas fa-star" style="color: #ffb606"></i></button>
+                                            <button class="btn btn-sm" style="margin-right: 20px;margin-top: 20px;">3 <i class="fas fa-star" style="color: #ffb606"></i></button>
+                                            <button class="btn btn-sm" style="margin-right: 20px;margin-top: 20px;">4 <i class="fas fa-star" style="color: #ffb606"></i></button>
+                                            <button class="btn btn-sm" style="margin-right: 20px;margin-top: 20px;">5 <i class="fas fa-star" style="color: #ffb606"></i></button>
+                                            <button class="btn btn-sm" style="margin-right: 20px;margin-top: 20px;">Tất cả</button>
                                         </div>
                                     </div>
                             <div class="dsdgkh">
