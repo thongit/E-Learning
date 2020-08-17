@@ -216,23 +216,12 @@ class NguoiDungController extends Controller
     
     $this->validate($request,
     [
-        'ho_ten'=>'required|min:3|',
-        'so_cmnd'=>'required|max:10|',
-        'so_dt'=>'required|max:10|',
-        'mat_khau'=>'required',
-        'mat_khau_nl'=>'required',
-        'mat_khau'=>'required|min:6|',
-        'mat_khau_nl'=>'required|same:mat_khau|',
+        
         'email'=>'required|email|unique:nguoi_dung,email'
 
     ],
     [
-        'so_cmnd.max'=>'Số chứng minh không hợp lệ!',
-        'so_dt.max'=>'Số điện thoại không hợp lệ!',
-        'ho_ten.min'=>'Tên đăng nhập phải lớn hơn 3 kí tự!',
-        'mat_khau.min'=>'Mật khẩu phải có ít nhất 6 kí tự!',
-        'mat_khau_nl.same'=>'Mật khẩu nhập lại không khớp!',
-        'email.unique'=>'Email đã được đăng ký tài khoản!',
+        'email.unique'=>'Email đã được đăng ký tài khoản!'  
 
     ]);
     $trangthai=mt_rand(100000, 999999);
