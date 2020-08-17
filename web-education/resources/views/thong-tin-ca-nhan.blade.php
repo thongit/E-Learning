@@ -162,6 +162,7 @@
                                 <!-- End Single Tab -->
 
                                 <!-- Single Tab -->
+                                @if(Session::get('loai_tk')==2)
                                 <div id="tab4" class="tab-pane fade">
                                     <div class="login-area default-padding-mk">
                                         <div class="container">
@@ -213,6 +214,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <!-- End Single Tab -->
 
                                 <!-- Single Tab -->

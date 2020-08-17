@@ -242,7 +242,7 @@ class NguoiDungController extends Controller
     $nguoidung->loai_tk= '1';
     $nguoidung->cmnd= $request->so_cmnd;
     $nguoidung->sdt= $request->so_dt;
-    $nguoidung->anh_dai_dien= 'null';
+    $nguoidung->anh_dai_dien= 'anh-dai-dien.jpeg';
     $nguoidung->dia_chi= 'null';
     $nguoidung->gioi_thieu= 'null';
     $nguoidung->trang_thai= $trangthai;
