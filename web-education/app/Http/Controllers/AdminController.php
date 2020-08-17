@@ -37,10 +37,13 @@ class AdminController extends Controller
 
             //Hiển thị tháng năm
             $hienThiThang = $request->bdaymonth;
+            //lấy ngày tháng
+            $layNgayThang = date('Y-m');
+
 
             if($hienThiThang == null)
             {
-        
+
             //Thống kê học viên đăng kí trong tháng
             $slHocVienThang = nguoidung::whereMonth('created_at',Carbon::now())
                                         ->whereYear('created_at',Carbon::now())->where('loai_tk','=',1)->count();
@@ -50,7 +53,8 @@ class AdminController extends Controller
             ->whereYear('created_at',Carbon::now())->where('loai_tk','=',2)->count();
 
             //Thống kê doanh thu theo tháng admin
-            $doanhThuThangAd = hoadon::where('created_at','like', $request->bdaymonth.'%')->sum('tong_tien')*0.1;
+            $doanhThuThangAd = hoadon::whereMonth('created_at',Carbon::now())
+                                        ->whereYear('created_at',Carbon::now())->sum('tong_tien')*0.1;
 
             }
             else{
@@ -72,13 +76,8 @@ class AdminController extends Controller
             //Tổng số học viên
             $tongHocVien = nguoidung::where('loai_tk','=',1)->count();;
 
-            return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang', 'slGiangVienThang','tongHocVien','doanhThuThangAd','tongDoanhThuAd','hienThiThang'));
+            return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang', 'slGiangVienThang','tongHocVien','doanhThuThangAd','tongDoanhThuAd','hienThiThang','layNgayThang'));
 
-        
-            $danhSachKhoaHoc=khoahoc::count();
-            $danhSachNguoiDung=DB::table('nguoi_dung')->where('loai_tk', 1)->get()->count();
-            $danhSachGiangVien=DB::table('nguoi_dung')->where('loai_tk', 2)->get()->count();
-            return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien'));
         }
         else
         {
@@ -131,7 +130,7 @@ class AdminController extends Controller
             else
             {
                 $nguoidungs->save();
-                
+
             }
             return redirect()->back()->with('message', 'Status changed!');
         }
@@ -391,6 +390,7 @@ class AdminController extends Controller
     }
     
     public function dsDoanhThuGV(Request $request)
+
     {
         if(auth()->user()->loai_tk != 3)
         {
