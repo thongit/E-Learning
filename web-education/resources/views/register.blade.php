@@ -99,14 +99,14 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" id="so_cmnd" name="so_cmnd" placeholder="Số CMND*" type="text" maxlength="9" required>
+                                        <input class="form-control" id="so_cmnd" name="so_cmnd" placeholder="Số CMND*" type="text"  required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="form-group">
-                                        <input class="form-control" id="so_dt" name="so_dt" placeholder="Số điện thoại*" type="text"  maxlength="10" required>
+                                        <input class="form-control" id="so_dt" name="so_dt" placeholder="Số điện thoại*" type="text"   required>
                                     </div>
                                 </div>
                             </div>
