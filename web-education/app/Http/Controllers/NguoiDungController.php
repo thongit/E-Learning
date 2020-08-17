@@ -40,7 +40,7 @@ class NguoiDungController extends Controller
     }
     public function getDangKyGiangVien()
     {
-        if(auth()->user()->loai_tk == 2)
+        if(auth()->user()->loai_tk == 1)
         {
             return view('dang-ky-giang-vien');
         }
@@ -123,19 +123,19 @@ class NguoiDungController extends Controller
         $nguoidungs=nguoidung::find(auth()->user()->id);
         if($nguoidungs->trang_thai==2)
         {
-            return redirect()->back()->with('thongbao','Bạn đã đăng ký thành giảng viên rồi');
+            return redirect('/')->with('warning','Bạn đã đăng ký thành giảng viên rồi');
         }
         $nguoidungs->gioi_thieu=$request->KinhNghiem;
         $nguoidungs->trang_thai=2;
         $nguoidungs->update();
-        return redirect()->back()->with('thongbao','Đăng ký thành công,Đang chờ admin phê duyệt');
+        return redirect('/')->with('success','Đăng ký thành công,Đang chờ admin phê duyệt');
     }
     public function postTroThanhToChuc(Request $request)
     {
         $nguoidungs=nguoidung::find(auth()->user()->id);
         if($nguoidungs->trang_thai==2)
         {
-            return redirect()->back()->with('thongbao','Bạn đã đăng ký thành giảng viên rồi');
+            return redirect('/')->with('warning','Bạn đã đăng ký thành giảng viên rồi');
         }
         $tochucs= new tochuc;
         $this->validate($request,
