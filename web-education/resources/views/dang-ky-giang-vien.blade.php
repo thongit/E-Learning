@@ -49,13 +49,6 @@
                                     <option value="Chưa từng có hoạt động giảng dạy, chỉ hướng dẫn nhân viên, hoặc chỉ có kinh nghiệm trong nghề...">Chưa từng có hoạt động giảng dạy, chỉ hướng dẫn nhân viên, hoặc chỉ có kinh nghiệm trong nghề...</option>
                                   </select>
                                 </div>
-                                <div class="form-group">
-                                  <label for="">Bạn đã có kinh nghiệm tạo dựng video khóa học chưa?</label>
-                                  <select class="form-control">
-                                    <option value="">Rồi</option>
-                                    <option value="">Chưa</option>
-                                  </select>
-                                </div>
                                 <div class="col-md-12">
                                 <div class="row">
                                     <button type="submit">
