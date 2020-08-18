@@ -338,13 +338,13 @@ class KhoaHocController extends Controller
             [
                 'TieuDe'=>'required',
                 'TaiLieu'=>'mimes:doc,pdf,docx|max:10000',
-                'Video'=>'required|mimes:mpeg,3gp,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|nullable|max:100040'
+                'Video'=>'required|mimes:mpeg,3gp,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|nullable|max:1000000'
             ],
             [
                 'TieuDe.required'=>'Chưa nhập tên bài giảng',
                 'TaiLieu.mimes'=>'Đuôi file phải là doc,pdf,docx',
                 'TaiLieu.max'=>'Dung lượng tối đa 10M',
-                'Video.max'=>'Dung lượng tối đa 100M',
+                'Video.max'=>'Dung lượng tối đa 1000M',
                 'Video.required'=>'Bạn chưa upload video'
             ]);
 
