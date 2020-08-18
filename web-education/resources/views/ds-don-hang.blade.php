@@ -80,13 +80,13 @@
                                                        <td><a href="{{ action('KhoaHocController@chiTietGiangVien' , $dsKhoaHoc->khoaHoc->giangVien->id)}}">{{$dsKhoaHoc->khoaHoc->giangVien->ho_ten}}</a></td>
                                                         <td>
                                                             @if(($dsHocVien->trang_thai) == 1)
-                                                            <button type="button" class="btn btn-primary">Đang Mua</button>
+                                                            <button type="button" class="btn btn-primary" style="margin:15px">Đang Mua</button>
                                                             @endif
                                                             @if(($dsHocVien->trang_thai) == 2)
-                                                            <button type="button" class="btn btn-info">Đang Giao</button>
+                                                            <button type="button" class="btn btn-info" style="margin:15px" >Đang Giao</button>
                                                             @endif
                                                             @if(($dsHocVien->trang_thai) == 3)
-                                                            <button type="button" class="btn btn-success">Đã Giao</button>
+                                                            <button type="button" class="btn btn-success" style="margin:15px">Đã Giao</button>
                                                             @endif
 
                                                         </td>
@@ -133,7 +133,7 @@
                                                          </td>
                                                          <td>
                                                              @if(($dsHocVien->trang_thai) == 1)
-                                                             <button type="button" class="btn btn-primary">Đang Mua</button>
+                                                             <button type="button" class="btn btn-primary" style="margin:15px">Đang Mua</button>
                                                              @endif
                                                          </td>
                                                          <td class="text-center">
@@ -185,7 +185,7 @@
                                                          </td>
                                                          <td>
                                                              @if(($dsHocVien->trang_thai) == 2)
-                                                             <button type="button" class="btn btn-info">Đang Giao</button>
+                                                             <button type="button" class="btn btn-info" style="margin:15px">Đang Giao</button>
                                                              @endif
                                                          </td>
                                                     </tr>
@@ -231,7 +231,7 @@
                                                          </td>
                                                          <td>
                                                              @if(($dsHocVien->trang_thai) == 3)
-                                                             <button type="button" class="btn btn-success">Đã Giao</button>
+                                                             <button type="button" class="btn btn-success" style="margin:15px">Đã Giao</button>
                                                              @endif
                                                          </td>
                                                     </tr>
