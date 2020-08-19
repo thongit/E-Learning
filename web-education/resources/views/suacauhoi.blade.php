@@ -838,11 +838,19 @@ window.onbeforeunload = function(event){
 				<div class="thoi-gian-hien-thi">
 					<label for="birthdaytime"><h4><b>Thời gian bắt đầu bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input value="{{ $baiKT->thoi_gian_mo }}" class="form-control" type="datetime-local" id="batDauKT" name="batDauKT">
+					@if($baiKT->thoi_gian_mo != null)
+					<input value="{{ date('Y-m-d\TH:i', strtotime($baiKT->thoi_gian_mo)) }}" class="form-control" type="datetime-local" id="batDauKT" name="batDauKT">
+					@else
+					<input class="form-control" type="datetime-local" id="batDauKT" name="batDauKT">
+					@endif
 					<br/>
 					<label for="birthdaytime"><h4><b>Thời gian kết thúc bài kiểm tra (bỏ trống nếu không sử dụng)</b></h4></label>
 					<br/>
-					<input value="{{ $baiKT->thoi_gian_dong }}" class="form-control" type="datetime-local" id="ketThucKT" name="ketThucKT">
+					@if( $baiKT->thoi_gian_dong != null )
+					<input value="{{ date('Y-m-d\TH:i', strtotime($baiKT->thoi_gian_dong)) }}" class="form-control" type="datetime-local" id="ketThucKT" name="ketThucKT">
+					@else
+					<input class="form-control" type="datetime-local" id="ketThucKT" name="ketThucKT">
+					@endif
 				</div>
 				<br/>
 				<input type="radio" id="hienthi" name="hienThiKQ" value="HienThi">
