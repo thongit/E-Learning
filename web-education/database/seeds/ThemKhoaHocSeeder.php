@@ -576,5 +576,158 @@ Phù hợp với
 Sinh viên đã từng học qua ngôn ngữ lập trình C# và SQL Server.
 Sinh viên CNTT đang muốn học thiết kế website doanh nghiệp trên nền tảng ASP.NET WebForm.','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Các bước để thiết kế Website động với ASP.NET WebForm và SQL Server']
         );
+        $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Làm chủ Excel 2010 trong 4 giờ','gia'=>'199000    
+    ','nguoi_dung_id'=>'9','linh_vuc_id'=>'3','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'Cập nhật phiên bản mới: "Làm chủ Excel 2010 trong 4 giờ"
+    với nhiều bài giảng và bài tập mới được đầu tư công phu về nội dung và hình thức.','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Làm chủ Excel trong 4 giờ" giúp bạn tự tin sử dụng Excel và tăng gấp đôi hiệu suất công việc']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Guitar đệm hát trong 30 ngày','gia'=>'199000    
+    ','nguoi_dung_id'=>'10','linh_vuc_id'=>'4','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Khóa học gồm :
+    - 6 học phần
+    - 77 bài giảng được hướng dẫn cụ thể từ giảng viên
+    - 5 cấp độ từ cơ bản đến nâng cao
+    - Hệ thống tài liệu chi tiết cho từng học phần.
+    
+    Lợi ích từ khoá học
+    Nắm vững nhạc lý: Cách đọc tọa độ, bấm hợp âm, tiết tấu; Cách rải âm và quạt chả.
+    Thành thạo các điệu cơ bản: Surf nhanh - chậm, Disco, Blue, Ballad, Báo, Fox, Valse, Bolero, Slow Rock,...
+    Thành thạo cách dò các nhịp, điệu của một bài hát, bắt nhịp và chọn điệu, bắt tông cho ca sĩ, đánh intro và outro, search hợp âm chuẩn,...
+    Biết cách chọn đàn sao cho phù hợp với mục đích, túi tiền và phong cách nhưng vẫn phải đảm bảo những yêu tố thiết yếu.
+    Phù hợp với
+    Yêu thích âm nhạc và có cảm hứng đặc biệt với những cây đàn Guitar.
+    Muốn học Guitar đệm hát nhưng chưa biết bắt đầu từ đâu
+    Muốn học Guitar nhưng bị giới hạn về thời gian và tài chính
+    Học đệm hát để chơi các bài hát mà mình yêu thích"
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Trọn bộ 77 bài giảng chi tiết và tài liệu phong phú cùng Guitarist Hiển Râu']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Yoga trẻ hóa - Làm đẹp cho khuôn mặt','gia'=>'199000    
+    ','nguoi_dung_id'=>'11','linh_vuc_id'=>'5','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Khóa học gồm:
+    - 9 học phần với 26 bài giảng.
+    Nội dung khóa học cung cấp:
+    - Kỹ thuật thở đúng trong Yoga.
+    - Các bài tập cho cột sống dẻo dai và khỏe mạnh.
+    - Kỹ thuật Yoga tăng cường sức khỏe, hiệu quả và an toàn.
+    - Các bài tập Yoga linh hoạt các khớp, uyển chuyển toàn thân và trẻ hóa cơ thể.
+    - Các động tác Yoga tái tạo tế bào, gia tăng sức đề kháng, chống lão hóa.
+    - Yoga 5 ngày: Trị liệu làm đẹp và giảm eo thần kì.
+    
+    
+    Lợi ích từ khoá học
+    Giảm căng thẳng, tăng tính linh hoạt và cải thiện vòng eo.
+    Cải thiện vóc dáng, làn da, giảm đau xương khớp, ổn định đường huyết, lấy lại cảm giác thăng bằng.
+    Xương chắc khỏe, vẻ ngoài hoàn hảo.
+    Giảm nguy cơ bệnh tim mạch.
+    Phù hợp với
+    Bạn muốn học yoga mà không biết bắt đầu từ đâu?
+    Bạn căng thẳng vì áp lực công việc, gia đình?
+    Bạn gặp vấn đề về xương khớp, cân nặng, vòng eo,...
+    Bạn thường xuyên mất ngủ, mệt mỏi, lão hóa nhanh..."    
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'YOGA trẻ hóa - Làm đẹp cho khuôn mặt']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Tất tần tật về Photoshop Lightroom','gia'=>'199000    
+    ','nguoi_dung_id'=>'11','linh_vuc_id'=>'6','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Các kiến thức cơ bản về ảnh, cân bằng trắng, hệ màu HSL,
+    xử lý nhiễu, xử lý nét, xử lý mụn, xử lý ánh sáng, xử lý tông màu, xử lý ""xóa rác"" xử lý bộ lọc, thay đổi lại cấu trúc ảnh sau khi chụp, xử lý viền ảnh, xử lý các hiệu ứng lỗi khi chụp ảnh, xử lý ảnh panorama.
+    - Cung cấp kiến thức về cách chỉnh sửa ảnh, cách chuẩn hóa một ảnh, cách chỉnh sửa ảnh giống như dân chuyên nghiệp với phần mềm Adobe LightRoom.
+    - Qui trình sử dụng Lightroom dàn trang để tạo ra một quyển album ảnh thế nào
+    - Sau khi học xong bạn sẽ có một niềm tin vững chắc về những gì có thể làm trên Photoshop lightroom để tự  tin chụp ảnh trong bất cứ điều kiện nào, tự tin sáng tạo ra các bức ảnh đẹp, tư tin rằng khi ảnh chụp xong sẽ xử lý lại theo đúng ý mình được.
+    
+    Lợi ích từ khoá học
+    Sau khi hoàn thiện khóa học, bạn tự tin chụp những bức ảnh trong mọi điều kiện mà không phải lo về vấn đề ảnh có xử lý được không, có chỉnh được màu cho cái này không ..
+    Tự tạo album ảnh cưới chuyên nghiệp như studio với các tính năng mạnh mẽ của Lightroom.
+    Hiểu bản chất các tính năng của ảnh, đọc được biểu đồ ảnh, cần sửa ở đâu, sửa thế nào Tự tin nhận làm các công việc liên quan đến cân chỉnh ảnh.
+    Tự quản lý thư viện ảnh hàng nghìn ảnh, không lo lắng bị mất thông tin ảnh, tìm một bức ảnh trong nháy mắt cực kì dễ dàng với Lightroom - tính năng chỉ khi nào bạn sử dụng bạn mới biết nó tiện lợi đến mức nào.
+    Tự làm album cho bản thân, cho gia đình, người thân bằng một vài lần click với tính năng đặc biệt của Lightroom.
+    Tự upload gallery ảnh trực tuyến cho công việc, hoặc nhu cầu cá nhân trong vài thao tác cơ bản.
+    Phù hợp với
+    Những người đi học, người đi làm, ít có thời gian chỉnh sửa ảnh, mà vẫn muốn có những bức ảnh chỉnh sửa sáng tạo theo ý muốn.Lightroom chính là phần mềm như thế.
+    Những người làm trong ngành ảnh, muốn công nghiệp hóa qui trình xử lý ảnh, với các tính năng hỗ trợ in ấn, làm album ảnh cưới của Lightroom.
+    Những người chưa biết gì về xử lý ảnh, ngại việc xử lý bằng photoshop với quá nhiều công cụ và thao tác.
+    Những người đã có kiến thức về xử lý ảnh trên photoshop, nhưng muốn tìm hiểu thêm các tính năng đặc trưng của Lightroom, muốn trả lời câu hỏi vì sao mọi người đều chuyển sang dùng lightroom cho việc xử lý ảnh.
+    Những người thích tìm hiểu phần mềm, muốn hiểu vì sao lightroom vượt trội hơn so với các phần mềm khác như instagram, picasa, camera360.
+    Những bạn trẻ muốn tự tin chụp những bức ảnh trong mọi điều kiện mà không phải lo về vấn đề ảnh có xử lý được không, có chỉnh được màu cho cái này không .."
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Những bạn trẻ muốn tự tin chụp những bức ảnh']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Các kỹ thuật thuyết trình chuyên nghiệp','gia'=>'199000    
+    ','nguoi_dung_id'=>'11','linh_vuc_id'=>'7','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Lời nói không xương nhưng nó đủ cứng để
+    phá vỡ những trái tim, ghim vào tâm trí người nghe như những con dao sắc bén.
+    
+    Tại sao nhiều người có cách nói chuyện trước đám đông lại tự tin và rất cuốn hút, trong khi bạn chưa bao giờ hài lòng với bài thuyết trình của mình, dù bạn đã chuẩn bị rất kỹ?
+    
+    Kỹ năng thuyết trình kém sẽ khiến bạn mất đi nhiều cơ hội nghề nghiệp, đánh rơi cơ hội thăng tiến, không thể hiện được năng lực và ý tưởng của mình trước những người khác. Trong khi đó, đây là kỹ năng bạn hoàn toàn có thể rèn luyện được.
+    
+    Dù là nói chuyện trước công chúng, phát biểu trước đồng nghiệp trong buổi họp, đọc diễn văn trước đông đảo khách hàng hay đơn giản chỉ là trình bày một bài báo cáo trong đại hội, chia sẻ kiến thức trong bài trình bày trên lớp,... tất cả đều cần đến: Kỹ năng thuyết trình trước đám đông.
+    
+    Khoá học Kỹ năng thuyết trình không chỉ là kỹ năng thuyết trình, mà còn là kỹ năng thuyết trình chuyên nghiệp! Chúng tôi không hướng dẫn bạn cách hô hào mà là những cách nói chuyện thuyết phục tạo ấn tượng sâu sắc trong lòng khán giả, thể hiện một phong cách chuyên nghiệp.
+    
+    Tại đây, bạn sẽ được hướng dẫn các kỹ năng như: cách xuất hiện ấn tượng, cách ứng xử thông minh trên sân khấu, cách thuyết trình ứng biến, cách sử dụng hình thể, cách hâm nóng bầu không khí - tạo hiệu ứng đám đông, làm sao để tự tin trước đám đông, cách làm slide thuyết trình powerpoint và cả các cách xử lý các tình huống sự cố.
+    
+     
+    
+    Lợi ích từ khoá học
+    Nắm các kỹ thuật diễn đạt bằng hình thể & sắc thái giọng nói.
+    Biết cách khắc phục ""căn bệnh bí từ"".
+    Nắm căn bản kỹ thuật phát âm, sử dụng giọng nói.
+    Biết thuyết trình thông minh với powerpoint.
+    Biết phát biểu ứng biến không có sự chuẩn bị.
+    Biết thể hiện thành công bài thuyết trình thuyết phục ngắn.
+    Vượt qua hồi hộp & nâng cao tự tin khi đứng trước công chúng.
+    Nắm các kỹ thuật xuất hiện ấn tượng trên sân khấu.
+    Biết các phương pháp kích thích bầu không khí trầm lắng.
+    Phù hợp với
+    Khóa học này dành cho những đối tượng hay nói trước đông người như:
+    Học sinh, sinh viên khi thuyết trình trên lớp.
+    Người đi làm, nhân viên văn phòng thuyết trình trước đồng nghiệp, trước cấp trên.
+    Các cấp quản lý như trưởng phòng, giám đốc phát biểu trong cuộc họp, hội nghị.
+    Nhân viên thuyết trình sản phẩm với khách hàng, đại diện nhãn hàng phát biểu trong sự kiện marketing."
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Các kỹ thuật thuyết trình chuyên nghiệp']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Kiếm tiền trên Youtube dễ dàng','gia'=>'199000    
+    ','nguoi_dung_id'=>'11','linh_vuc_id'=>'8','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Nếu bạn đang ở đây và tìm hiểu về khoá học
+    này thì chắc chắn một điều rằng bạn đang muốn biết cách kiếm tiền trên Youtube hoặc ít nhất bạn cũng quan tâm, tìm hiểu về khóa học kiếm tiền trên Youtube, và muốn tạo ra cho mình một nguồn thu nhập cao hơn và ổn định hơn, thì bạn sẽ đạt được điều những mong muốn của bạn một cách nhanh chóng với khoá học ""Kiếm tiền từ Youtube"". Khóa học này chính là bước đi đầu tiên cho việc xây dựng hệ thống kiếm tiền triệu đô một cách hoàn toàn tự động. Với 32 bài giảng bao gồm cả lý thuyết lẫn hướng dẫn thực hành chi tiết, bạn sẽ không cảm thấy tốn thời gian khi tham gia khoá học này cùng chúng tôi."
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Kiếm tiền trên Youtube không khó như bạn nghĩ']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Kỹ xảo làm phim: Nghệ thuật kể chuyện cơ bản','gia'=>'199000    
+    ','nguoi_dung_id'=>'11','linh_vuc_id'=>'9','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Điều gì khiến cho một câu chuyện trở thành một câu chuyện hay?
+    Điều gì khiến cho một người trở thành một chuyên gia kể chuyện? Kể chuyện là một điều tất cả chúng ta làm một cách tự nhiên, bắt đầu từ khi còn nhỏ, nhưng có một sự khác biệt giữa kể chuyện hay và kể chuyện tuyệt vời.Trong bài học này bạn sẽ nghe thấy từ các giám đốc Pixar và Các nghệ sỹ kể về cách họ bắt đầu và những câu chuyện nào truyền cảm hứng cho họ, và bạn sẽ bắt đầu suy nghĩ về những dạng câu chuyện mà bạn muốn kể.
+    
+    
+    - Nhân vật là trung tâm của mọi bộ phim mà Pixar sản xuất; Họ là những cá nhân mà chúng ta dõi theo cuộc hành trình trong mỗi câu chuyện. Nhưng làm thế nào để Pixar đến với những nhân vật này, làm cho họ nhiều hơn, không chỉ đơn thuần là những ý tưởng chung, và thực sự mang họ đến đời thực? Trong bài học này bạn sẽ khám phá cách mà các chuyên gia phát triển nhân vật thúc đẩy quá trình kể chuyện ở Pixar và bạn sẽ bắt đầu suy nghĩ về việc tạo ra các nhân vật cho những câu chuyện của riêng bạn.
+    
+    
+    - Mỗi câu chuyện được kể đều có nền tảng, hoặc cấu trúc. Ví dụ, một trong những cấu trúc câu chuyện cơ bản nhất là """"nó bắt đầu, một cái gì đó xảy ra, và nó kết thúc"""". Nhưng cấu trúc câu chuyện có thể phức tạp, và nếu được sử dụng tốt bạn thậm chí không nhận thức được nó. Trong bài học này, bạn sẽ học được cách Pixar xây dựng bộ phim của họ, và bạn sẽ bắt đầu đặt nền móng cho những câu chuyện của riêng bạn
+    
+    Lợi ích từ khoá học
+    Khám phá các yếu tố kể chuyện kích thích sự mong đợi của người đọc, sự hồi hộp và thu hút, mời người đọc vào thế giới câu chuyện.
+    Hiểu được các kỹ thuật và các yếu tố được sử dụng cho thế giới câu chuyện, cho dù thế giới là hiện tại, lịch sử, huyền bí, khoa học viễn tưởng, tưởng tượng đô thị hay huyền diệu.
+    Khám phá lý do tại sao không có quy tắc tuyệt đối cho sự khởi đầu rực rỡ.
+    Tạo sự khởi đầu câu chuyện mạnh mẽ hơn để gợi lên sự tò mò và thu hút khán giả của bạn.
+    Phù hợp với
+    Dành cho những người mong muốn độc giả yêu thích câu chuyện của họ nhưng lại gặp khó khăn trong việc tạo ra một khởi đầu hấp dẫn người đọc và người nghe
+    Dành cho bất cứ ai hứng thú với việc thảo luận và phân tích những câu chuyện mà họ đọc hay nghe được"
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Khóa học bằng tiếng Anh']
+            );
+            $khoahoc = khoahoc::create(
+                ['ten_khoa_hoc'=>'Tự chăm sóc da tại nhà hiệu quả không kém đi spa','gia'=>'199000    
+    ','nguoi_dung_id'=>'11','linh_vuc_id'=>'10','trang_thai'=>'1','hinh_anh'=>'https://bom.to/flhu18','mo_ta_chi_tiet'=>'"Khóa học cung cấp những thông tin cơ bản nhất về nội dung,
+    thời lượng học, cách thức áp dụng trong thực tế. Chia sẻ của bản thân giảng viên về những trải nghiệm đúc rút được từ thực tế cuộc sống. Ý nghĩa và tầm quan trọng của việc học & áp dụng những kỹ năng cũng như kiến thức trong khóa học đối với mục tiêu cá nhân của học viên.
+    
+    Lợi ích từ khoá học
+    Sau khi kết thúc khóa học bạn biết chăm sóc da đúng cách, tiết kiệm đáng kể một khoản tiền cho công cuộc làm đẹp cho dù bạn đến Spa hay tự mình chăm sóc
+    Bạn có thể kiếm được tiền từ việc chăm sóc da cho những người xung quanh, người thân, bạn bè v.v
+    Ngay sau khi học xong người học có thể áp dụng để tạo thêm nguồn thu nhập, các mẹ thêm tiền bỉm sữa cho con.
+    Sau khi kết thúc khóa học các chị em phụ nữ biết cách chăm sóc sắc đẹp chủ động cho dù bạn tự chăm sóc tại nhà hay chăm sóc ở Spa thì bạn cũng đều giảm được chi phí đáng kể cho công cuộc làm đẹp mà vẫn hiệu quả .
+    Phù hợp với
+    Phù hợp nhất với các chị em phụ nữ không có thời gian đi Spa.
+    Học sinh, sinh viên mong muốn trang bị thêm kiến thức về làm đẹp
+    Phù hợp với nữ 15 - 50 tuổi
+    Phụ nữ bất kỳ ngành nghề nào cũng đều nên học"
+    ','ngon_ngu'=>'Tiếng Việt','muc_do'=>'Sơ cấp','mo_ta_ngan'=>'Chăm sóc da tại nhà']
+            );
     }
 }

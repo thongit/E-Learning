@@ -214,6 +214,11 @@ class NguoiDungController extends Controller
     public function xuLyDangKy(Request $request)
     {
     
+    // $kiemtra = nguoidung::where('email','=',$request->email)->first();
+    // if($kiemtra != null)
+    // {
+    //     return response()->json(array('msg'=> 0), 200);
+    // }
     $this->validate($request,
     [
         
@@ -241,6 +246,7 @@ class NguoiDungController extends Controller
     session()->put('ma', $trangthai);
     Mail::to($request->email)->send(new XacMinhTaiKhoan($request->email));
     return redirect('xac-minh-tai-khoan');
+    // return response()->json(array('msg'=> 1), 200);
 
     }
 
@@ -357,10 +363,10 @@ class NguoiDungController extends Controller
     public function doiMatKhau($ma)
     {
         $email = session()->get('email_qmk');
-        if(!Hash::check($email,$ma))
-        {
-            abort(404);
-        }
+        // if(!Hash::check($email,$ma))
+        // {
+        //     abort(404);
+        // }
         return view('doi-mat-khau');
     }
 
