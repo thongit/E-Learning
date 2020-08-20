@@ -299,7 +299,6 @@ class KhoaHocController extends Controller
                     $tdC = $td[0];
                 }
             }
-
             $chuongs = chuong::where([['id','>=',$tdC],['khoa_hoc_id','=',$idKhoahoc],])->get();
             if(sizeof($chuongs) == 0)
             {

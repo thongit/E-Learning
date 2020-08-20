@@ -96,6 +96,7 @@
                             <br>
                             <h3>Danh sách chương</h3>
                             <a href="/khoa-hoc/tao-chuong-cho-khoa-hoc/{{$khoahocs->id}}"><span class="btn btn-sm btn-primary">Thêm chương</span></a>
+                            <a href="/khoa-hoc/tao-bai-giang-cho-chuong/{{$khoahocs->id}}"><span class="btn btn-sm btn-primary">Thêm Bài giảng</span></a>
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
