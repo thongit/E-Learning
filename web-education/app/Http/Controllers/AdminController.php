@@ -428,10 +428,10 @@ class AdminController extends Controller
         {
             $input = $request->ten;
             $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
-            $giangVien = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->paginate(5);
+            $giangVien = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->orWhere([['email', 'like', '%'.$input.'%'],['loai_tk','=',2],])->paginate(10);
             return view('doanhthugv',compact('giangVien'));
         }
-        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(5);
+        $giangVien = nguoidung::where('loai_tk','=',2)->paginate(10);
         return view('ds-doanh-thu-gv',compact('giangVien'));
     }
 
@@ -447,7 +447,7 @@ class AdminController extends Controller
             $input = "";
         }
         $tochuc = tochuc::where('ten_to_chuc', 'like', '%'.$input.'%')->get('nguoi_dung_id');
-        $giangVien = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->paginate(5);
+        $giangVien = nguoidung::where([['ho_ten', 'like', '%'.$input.'%'],['loai_tk','=',2],])->orWhereIn('id',$tochuc)->orWhere([['email', 'like', '%'.$input.'%'],['loai_tk','=',2],])->paginate(10);
         return view('doanhthugv',compact('giangVien'))->render();
     }
 

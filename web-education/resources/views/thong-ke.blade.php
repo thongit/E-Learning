@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Số lượng giảng đăng kí trong tháng</div>
+                                        <div class="item-title">Số lượng giảng viên đăng kí trong tháng</div>
                                         <div class="item-number"><span class="counter" data-num="{{$slGiangVienThang}}">{{$slGiangVienThang}}</span></div>
                                     </div>
                                 </div>
