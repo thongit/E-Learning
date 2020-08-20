@@ -30,7 +30,7 @@
                                 <tr>
                                     @foreach($danhSachNguoiDung as $item)
                                         <td class="text-center"><img src="{{ asset('assets/images/'.$item->anh_dai_dien) }}" width="50px" height="50px"></td>
-                                        <td>{{$item->ho_ten}}</td>
+                                        <td><a href="{{route('admin-ds-khoa-hoc-hoc-vien',$item->id)}}">{{$item->ho_ten}}</td>
                                         <td>{{$item->email}}</td>
                                         <td>{{$item->cmnd}}</td>
                                         <td>{{$item->sdt}}</td>

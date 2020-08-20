@@ -22,7 +22,7 @@
                                         <th>CMND</th>
                                         <th>Số điện thoại</th>
                                         <th>Địa chỉ</th>
-                                        <th>Ngày lập</th>
+                                        <th>Giới thiệu</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -35,7 +35,7 @@
                                         <td>{{$item->cmnd}}</td>
                                         <td>{{$item->sdt}}</td>
                                         <td>{{$item->dia_chi}}</td>
-                                        <td>{{$item->created_at}}</td>
+                                        <td>{{$item->gioi_thieu}}</td>
                                     </tr>
                                     @endforeach
                                     </tbody>

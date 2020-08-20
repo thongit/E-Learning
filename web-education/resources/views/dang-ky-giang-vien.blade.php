@@ -38,7 +38,7 @@
                                 <option value="to_chuc">Tổ chức</option>
                             </select>
                             <div id="ca-nhan">
-                            <form action="{{route('thanh-giang-vien')}}" method="POST" class="white-popup-block" enctype="multipart/form-data">
+                            <form action="{{route('thanh-giang-vien')}}" method="POST" class="white-popup-block" enctype="multipart/form-data" style="padding-bottom: 100px;">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                   <label for="Kinh nghiêm giảng dạy">Kinh nghiêm giảng dạy</label>
