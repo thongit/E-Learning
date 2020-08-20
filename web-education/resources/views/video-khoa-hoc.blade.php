@@ -264,23 +264,25 @@ $(document).ready(function(){
                 </div>
                 <div class="col-md-4 container" style="border-left: 1px solid #e7e7e7;">
                 @foreach($video->Chuong->noiDung as $key => $chuong)
-                <div class="col-md-12" style="border-bottom: 1px solid #e7e7e7;">
-                    <br>
-                    <a href="{{ route('video',$chuong->id)}}">
-                        <div id="video-click">
-                            <div class="embed-responsive embed-responsive-16by9"> 
-                            <video id="my-video" class="video-js vjs-big-play-centered AdvancedExample__Video-sc-1x7qqz9-7 dVCxLk vjs-paused preview-player-dimensions vjs-workinghover vjs-v7 vjs-user-active vjs-mux vjs-fluid vjs-controls-disabled" crossorigin="anonymous" controls="" preload="auto" width="640" height="360" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                    @if($chuong->id != $video->id)
+                    <div class="col-md-12" style="border-bottom: 1px solid #e7e7e7;">
+                        <br>
+                        <a href="{{ route('video',$chuong->id)}}">
+                            <div id="video-click">
+                                <div class="embed-responsive embed-responsive-16by9"> 
+                                <video id="my-video" class="video-js vjs-big-play-centered AdvancedExample__Video-sc-1x7qqz9-7 dVCxLk vjs-paused preview-player-dimensions vjs-workinghover vjs-v7 vjs-user-active vjs-mux vjs-fluid vjs-controls-disabled" crossorigin="anonymous" controls="" preload="auto" width="640" height="360" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
 
-                                <source src="{{ asset('assets/video/'.$chuong->video)}}" type='video/mp4'>
+                                    <source src="{{ asset('assets/video/'.$chuong->video)}}" type='video/mp4'>
 
-                                <p class="vjs-no-js">Bạn phải bật javascript để xem video này, và nâng cấp trình duyệt <a href="http://videojs.com/html5-video-support/" target="_blank">hỗ trợ HTML5 video</a></p>
+                                    <p class="vjs-no-js">Bạn phải bật javascript để xem video này, và nâng cấp trình duyệt <a href="http://videojs.com/html5-video-support/" target="_blank">hỗ trợ HTML5 video</a></p>
 
-                            </video>
+                                </video>
+                                </div>
+                                <h4 for=""><a href="{{ route('video',$chuong->id)}}">Bài {{$loop->index +1}}: {{$chuong->tieu_de}}</a></h4>
                             </div>
-                            <h4 for=""><a href="{{ route('video',$chuong->id)}}">Bài {{$loop->index +1}}: {{$chuong->tieu_de}}</a></h4>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                    @endif
                 @endforeach
                 </div>
             </div>
