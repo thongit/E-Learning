@@ -42,7 +42,7 @@ class KhoaHocController extends Controller
     public function index(Request $request)
     {
         $ketqua=DB::table('ct_hoa_don')->select('khoa_hoc_id',DB::raw('count(id) as total_sales'))->where('ct_hoa_don.trang_thai','=',2)->whereNull('ct_hoa_don.deleted_at')->groupBy('khoa_hoc_id')->orderBy('total_sales','desc')->get();
-        $list=null;
+        $list[0]=null;
         foreach($ketqua as $key => $kq)
         {
             $list[$key] = $kq->khoa_hoc_id;
