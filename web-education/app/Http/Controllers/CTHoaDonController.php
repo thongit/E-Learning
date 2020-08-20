@@ -152,6 +152,10 @@ class CTHoaDonController extends Controller
         {
             abort(404);
         }
+        if($khoaHoc->nguoi_dung_id == auth()->user()->id)
+        {
+            return redirect('/khoa-hoc/'.$khoaHoc->id)->with('damua' ,'Bạn là giảng viên của khóa học này!');
+        }
         foreach($khoaHoc->ctHoaDon as $dshv)
         {
             if($dshv->hoaDon->nguoiDung->id == auth()->user()->id && ($dshv->hoaDon->trang_thai == 3 || $dshv->trang_thai == 2))

@@ -323,18 +323,24 @@ $(document).ready(function(){
 			$(".question-section,.question-navigation").css("display","inline-block");
             SOCAU = QUESTIONS.length;
 			THEMDAPAN = new Array(SOCAU);
-			console.log(QUESTIONS);
 			for (var i = 0; i < SOCAU; i++) {
                 for(var j = 4; j < 8; j++)
                 {
-                    if(QUESTIONS[i][j] == null || QUESTIONS[i][j] == '')
+					if(QUESTIONS[i][j] != 0)
 					{
-						THEMDAPAN[i] = (j-4);
-						break;
+						
+						if(QUESTIONS[i][j] == null || QUESTIONS[i][j] == '')
+						{
+							THEMDAPAN[i] = (j-4);
+							break;
+						}
+					}
+					if(QUESTIONS[i][7] != null && QUESTIONS[i][7] != '')
+					{
+						THEMDAPAN[i] = 4;
 					}
                 }
 			}
-			console.log(THEMDAPAN);
 			for(var i=0;i<SOCAU;i++){
 				$(".question-navigation .num-wrapper").append("<div class='inline-block q-num' index="+i+">"+(i+1)+"</div>");
 			}
@@ -363,7 +369,7 @@ $(document).ready(function(){
 				$(".dap-an-f").html('<input type="text" id="dapAnF1" name="dapAnF1" class="form-control m-input" placeholder="Nhập Đáp Án F" autocomplete="off" value="'+QUESTIONS[0][7]+'">');
 			}
 			
-			if((QUESTIONS[index][1])!= null)
+			if((QUESTIONS[0][1])!= null)
 			{
 				$('#dapAnDung1').val(QUESTIONS[0][1]);
 			}
@@ -448,7 +454,7 @@ $(document).ready(function(){
 		if(THEMDAPAN[(CURRENT_QUES-1)] >= 4)
 		{
 			DAPANF = document.getElementById("dapAnF"+CURRENT_QUES).value;
-			if(DAPAND == "")
+			if(DAPANF == "")
 			{
 				THEMDAPAN[(CURRENT_QUES-1)] = 3;
 			}
@@ -601,7 +607,7 @@ $(document).ready(function(){
 		}
 		if(THEMDAPAN[index] >= 2)
 		{
-			if((QUESTIONS[index][5])!= "")
+			if((QUESTIONS[index][5])!= "" || (QUESTIONS[index][5])== "0")
 			{
 				$(".dap-an-dung").html('<label for="sel1">Đáp án đúng</label> <select class="form-control" id="dapAnDung'+ (index+1) +'" name="dapAnDung1"> <option>A</option> <option>B</option> <option>C</option> <option>D</option></select>');
 				$(".dap-an-d").html('<input type="text" id="dapAnD'+ (index+1) +'" name="dapAnD'+ (index+1) +'" class="form-control m-input" placeholder="Nhập Đáp Án D" autocomplete="off" value="'+QUESTIONS[index][5]+'">');
@@ -775,6 +781,7 @@ $(document).ready(function(){
 			DAPANE,
 			DAPANF
 		);
+		
 		for(var j =0; j<SOCAU; j++)
 		{
 			for (var l = 0; l < 8; l++)
@@ -785,6 +792,10 @@ $(document).ready(function(){
 					$(".list-cau-hoi").html('');
 					e.preventDefault();
 					break;
+				}
+				if(l >= 4 && QUESTIONS[j][l] == null)
+				{
+					QUESTIONS[j][l] = '';
 				}
 				$(".list-cau-hoi").append('<input type="hidden" id="dscauhoi" name="dscauhoi['+j+']['+l+']" value="'+ QUESTIONS[j][l] +'">');
 			}
