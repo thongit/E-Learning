@@ -80,7 +80,7 @@
 
                                                         <td>
                                                         @if($k->trang_thai == 3)            
-                                                        <p class="btn btn-success" onclick="update({{$k->id}})">Đã duyệt</p> 
+                                                        <p class="btn btn-success">Đã duyệt</p> 
                                                         @endif 
 
                                                         @if($k->trang_thai == 2)                     
