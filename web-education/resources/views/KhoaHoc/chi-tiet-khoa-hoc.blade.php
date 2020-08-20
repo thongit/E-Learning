@@ -274,7 +274,7 @@
                                                                             </p>
                                                                             <h5>
                                                                                 <a class="lam-gon-ten" style="display: contents;" href="{{ route('video',$dsBai->id)}}">{{ $dsBai->tieu_de }}</a>
-                                                                                @if($kiemtra==1 && (($td[0] > $dsBai->Chuong->id) || ($td[0] = $dsBai->Chuong->id && $td[1] >= $dsBai->id )))
+                                                                                @if($kiemtra==1 && (($td[0] > $dsBai->Chuong->id) || ($td[0] == $dsBai->Chuong->id && $td[1] >= $dsBai->id )))
                                                                                 &nbsp&nbsp&nbsp
                                                                                 <a class="btn btn-success">Đã học!</a>
                                                                                 @endif

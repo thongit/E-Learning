@@ -540,15 +540,24 @@ class KhoaHocController extends Controller
                 }
                 else
                 {
-                    foreach($video->Chuong->khoaHoc->dsChuongBai as $key => $bai)
+                    $soC = 0;
+                    foreach($video->Chuong->khoaHoc->Chuong as $chuong1)
                     {
-                        if($bai->chuong_id < $td[0] ||  ($bai->chuong_id == $td[0] && $bai->id <= $td[1]))
+                        foreach($chuong1->noiDung as $key => $bai)
                         {
-                            $dem++;
+                            $soC++;
+                            if($bai->chuong_id < $td[0] ||  ($bai->chuong_id == $td[0] && $bai->id <= $td[1]))
+                            {
+                                $dem++;
+                            }
+                            else if($video->id == $bai->id && $soC == $dem + 1)
+                            {
+                                $tienDo = 2;
+                                break;
+                            }
                         }
-                        else if($video->id == $bai->id && $key == $dem)
+                        if($soC == ($dem+1))
                         {
-                            $tienDo = 2;
                             break;
                         }
                     }
