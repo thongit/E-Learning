@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function(){
 
     Route::get('admin/ds-khoa-hoc','AdminController@getKhoaHoc')->name('admin-ds-khoa-hoc');
 
+    Route::get('admin/khoa-hoc-giang-vien/{id}','AdminController@getKhoaHocGiangVien')->name('admin-ds-khoa-hoc-giang-vien');
+
     Route::get('admin/ds-khoa-hoc-chua-duyet','AdminController@getKhoaHocChuaDuyet')->name('admin-ds-khoa-hoc-chua-duyet');
 
     Route::get('admin/ds-khoa-hoc-da-duyet','AdminController@getKhoaHocDaDuyet')->name('admin-ds-khoa-hoc-da-duyet');

@@ -249,6 +249,20 @@ class AdminController extends Controller
         }
     }
 
+    public function getKhoaHocGiangVien($id)
+    {
+        if(auth()->user()->loai_tk == 3)
+        {
+            $idGiangVien=nguoidung::find($id);
+            $danhSachKhoaHoc=DB::table('khoa_hoc')->where('nguoi_dung_id',$id)->paginate(10);
+            return view('ds-khoa-hoc-admin',compact('danhSachKhoaHoc'));
+        }
+        else
+        {
+            abort(401);
+        }
+    }
+
     public function getKhoaHocChuaDuyet()
     {
         if(auth()->user()->loai_tk == 3)
