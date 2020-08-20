@@ -57,7 +57,7 @@
                             <tr>
                                 <td>{{$i +1}}</td>
                                 <td> {{$dsBaiKT[$i]->Chuong->ten_chuong}} </td>
-                                <td>{{$dsBaiKT[$i]->ten_bai_kt}}</td>
+                                <td><a href="{{ route('trac-nghiem-excel',$dsBaiKT[$i]->file_de_kt)}}">{{$dsBaiKT[$i]->ten_bai_kt}}</a></td>
                                 <td>
                                     <button onclick="xoa({{$dsBaiKT[$i]->id}})" type="button" class="btn btn-danger btn-sm">Xóa</button>
                                 </td>
