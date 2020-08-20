@@ -24,6 +24,20 @@
 </style>
 <script>
 $(document).ready(function(){
+    $('#noi_dung').keypress(function(event) {
+        if (event.keyCode == 13 || event.which == 13) {
+            event.preventDefault();
+            if(document.getElementById("noi_dung").value == '')
+            {
+                swal.fire("Bạn chưa nhập nội dung bình luận","" , "error")
+            }
+            else
+            {
+                binhLuan(document.getElementById("noi_dung").value);
+            }  
+        }
+    });
+
     function hoanThanh(){
         $.ajaxSetup({
 			headers: {
@@ -248,8 +262,6 @@ $(document).ready(function(){
                         @endif
                     </ul>
                     </div>
-                    <form action="{{ route('xu-ly-binh-luan')}}" role="form" id="login-form" method="POST" class="white-popup-block">
-                        {!! csrf_field() !!}
                         <div class="form-group">
                         <label for="usr">Bình luận</label>
                         <input type="text" class="form-control" id="noi_dung" name="noi_dung" required>
@@ -257,7 +269,6 @@ $(document).ready(function(){
                             Bình luận
                         </button>
                         </div>
-                    </form>
                     <div class="dsbl">
                         @include('binh-luan')
                     </div>

@@ -389,7 +389,6 @@ class NguoiDungController extends Controller
      ->where('id', $nguoidung->id)
      ->update(['mat_khau' =>bcrypt($request->mat_khau)]);
      return redirect('dang-nhap')->with('thongbao','Cập nhật thành công');
-
     }
 
     public function xuLyDoiMatKhauTrangCaNhan(Request $request)

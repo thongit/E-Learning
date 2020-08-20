@@ -46,7 +46,7 @@ class AdminController extends Controller
 
             //Thống kê học viên đăng kí trong tháng
             $slHocVienThang = nguoidung::whereMonth('created_at',Carbon::now())
-                                        ->whereYear('created_at',Carbon::now())->where('loai_tk','=',1)->count();
+                                        ->whereYear('created_at',Carbon::now())->whereIn('loai_tk',[1,2])->count();
 
             //Thống kê giảng viên đăng kí trong tháng
             $slGiangVienThang = nguoidung::whereMonth('created_at',Carbon::now())
@@ -59,7 +59,7 @@ class AdminController extends Controller
             }
             else{
             //Thống kê học viên đăng kí trong tháng
-            $slHocVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',1]])->count();
+            $slHocVienThang = nguoidung::where('created_at','like', $request->bdaymonth.'%')->whereIn('loai_tk',[1,2])->count();
 
             //Thống kê giảng viên đăng kí trong tháng
             $slGiangVienThang = nguoidung::where([['created_at','like', $request->bdaymonth.'%'],['loai_tk','=',2]])->count();
@@ -74,7 +74,7 @@ class AdminController extends Controller
             $tongDoanhThuAd = hoadon::sum('tong_tien')*0.1;
 
             //Tổng số học viên
-            $tongHocVien = nguoidung::where('loai_tk','=',1)->count();;
+            $tongHocVien = nguoidung::whereIn('loai_tk',[1,2])->count();;
 
             return view('thong-ke',compact('danhSachKhoaHoc','danhSachNguoiDung','danhSachGiangVien','slHocVienThang', 'slGiangVienThang','tongHocVien','doanhThuThangAd','tongDoanhThuAd','hienThiThang','layNgayThang'));
 
